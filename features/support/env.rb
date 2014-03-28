@@ -9,6 +9,7 @@ require File.dirname(__FILE__) + '/../../lib/cuke_modeler'
 
 Before do
   @default_file_directory = "#{File.dirname(__FILE__)}/../temp_files"
+  @spec_directory = "#{File.dirname(__FILE__)}/../../spec"
 
   FileUtils.mkdir(@default_file_directory)
 end
