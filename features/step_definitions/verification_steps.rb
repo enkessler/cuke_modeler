@@ -48,6 +48,18 @@ Then(/^the "([^"]*)" of feature file "([^"]*)" is "([^"]*)"$/) do |property, par
   @feature_file_models[partial_file_path].send(property).should == value.sub('path_to', @default_file_directory)
 end
 
+Then(/^feature file "([^"]*)" contains the feature "([^"]*)"$/) do |partial_file_path, feature_name|
+  @feature_file_models[partial_file_path].feature.name.should == feature_name
+end
+
+When(/^feature file "([^"]*)" contains no feature$/) do |partial_file_path|
+  @feature_file_models[partial_file_path].feature.should be_nil
+end
+
+Then(/^the "([^"]*)" of feature "([^"]*)" is "([^"]*)"$/) do |property, feature_name, value|
+  @feature_models[feature_name].send(property).should == value
+end
+
 Then(/^all of them can be contained inside of another model$/) do
   @available_models.each do |model|
     raise("Expected #{model} to define :parent_element") unless model.method_defined?(:parent_element)

@@ -26,3 +26,24 @@ When(/^the file "([^"]*)" is modeled$/) do |partial_file_path|
 
   @feature_file_models[partial_file_path] = CukeModeler::FeatureFile.new(file_path)
 end
+
+Given(/^a feature file element based on "([^"]*)"$/) do |partial_file_path|
+  file_path = "#{@default_file_directory}/#{partial_file_path}"
+  FileUtils.touch(file_path)
+
+  @element = CukeModeler::FeatureFile.new(file_path)
+  @element_class = @element.class
+end
+
+Given(/^the following feature "([^"]*)":$/) do |feature_name, source_text|
+  @feature_source ||= {}
+
+  @feature_source[feature_name] = source_text
+end
+
+When(/^the feature "([^"]*)" is modeled$/) do |feature_name|
+  @feature_models ||= {}
+
+  source = @feature_source[feature_name]
+  @feature_models[feature_name] = CukeModeler::Feature.new(source)
+end
