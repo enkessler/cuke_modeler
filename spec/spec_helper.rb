@@ -10,6 +10,9 @@ require "#{File.dirname(__FILE__)}/unit/nested_element_unit_specs"
 require "#{File.dirname(__FILE__)}/unit/containing_element_unit_specs"
 require "#{File.dirname(__FILE__)}/unit/modeled_element_unit_specs"
 require "#{File.dirname(__FILE__)}/unit/named_element_unit_specs"
+require "#{File.dirname(__FILE__)}/unit/described_element_unit_specs"
+require "#{File.dirname(__FILE__)}/unit/sourced_element_unit_specs"
+require "#{File.dirname(__FILE__)}/unit/tagged_element_unit_specs"
 
 
 RSpec.configure do |config|

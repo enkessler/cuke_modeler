@@ -15,5 +15,9 @@ module CukeModeler
       @name = parsed_element['name']
     end
 
+    def name_output_string
+      name.empty? ? '' : " #{name}"
+    end
+
   end
 end
