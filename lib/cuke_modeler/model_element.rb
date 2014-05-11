@@ -14,7 +14,7 @@ module CukeModeler
     end
 
     def to_s
-      ''
+      super
     end
 
     def contains
