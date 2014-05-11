@@ -71,7 +71,7 @@ describe 'FeatureFile, Unit' do
     describe 'feature file output edge cases' do
 
       it 'can output an empty feature file' do
-        expect { @feature_file.to_s }.to_not raise_error
+        expect { clazz.new }.to_not raise_error
       end
 
     end

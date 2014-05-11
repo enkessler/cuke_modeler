@@ -55,7 +55,7 @@ describe 'Feature, Unit' do
       @feature.tests.should == :some_other_tests
     end
 
-    it 'contains background a and tests' do
+    it 'contains a background and tests' do
       tests = [:test_1, :test_2]
       background = :a_background
       everything = [background] + tests

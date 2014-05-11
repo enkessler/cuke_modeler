@@ -13,7 +13,7 @@ describe 'Directory, Integration' do
       file.puts('Feature: Test feature')
     }
 
-    directory = CukeModeler::Directory.new(@default_file_directory)
+    directory = clazz.new(@default_file_directory)
     nested_directory = directory.directories.first
     file = directory.feature_files.first
 
@@ -27,21 +27,21 @@ describe 'Directory, Integration' do
       nested_directory = "#{@default_file_directory}/nested_directory"
       FileUtils.mkdir(nested_directory)
 
-      @directory = CukeModeler::Directory.new(@default_file_directory)
+      @directory = clazz.new(@default_file_directory)
       @nested_directory = @directory.directories.first
     end
 
 
     it 'can get its directory' do
-      directory = @nested_directory.get_ancestor(:directory)
+      ancestor = @nested_directory.get_ancestor(:directory)
 
-      directory.should equal @directory
+      ancestor.should equal @directory
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      example = @directory.get_ancestor(:directory)
+      ancestor = clazz.new.get_ancestor(:directory)
 
-      example.should be_nil
+      ancestor.should be_nil
     end
 
   end

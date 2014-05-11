@@ -92,7 +92,7 @@ describe 'Directory, Unit' do
     describe 'directory output edge cases' do
 
       it 'can output an empty directory' do
-        expect { @directory.to_s }.to_not raise_error
+        expect { clazz.new }.to_not raise_error
       end
 
     end
