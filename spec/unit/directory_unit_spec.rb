@@ -33,12 +33,6 @@ describe 'Directory, Unit' do
       @directory.path.should == ''
     end
 
-    it 'cannot model a non-existent directory' do
-      path = "#{@default_file_directory}/missing_directory"
-
-      expect { CukeModeler::Directory.new(path) }.to raise_error(ArgumentError)
-    end
-
     it 'has a name' do
       @directory.should respond_to(:name)
     end

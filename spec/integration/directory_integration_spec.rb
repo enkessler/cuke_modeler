@@ -4,6 +4,15 @@ SimpleCov.command_name('Directory') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Directory, Integration' do
 
+  clazz = CukeModeler::Directory
+
+
+  it 'cannot model a non-existent directory' do
+    path = "#{@default_file_directory}/missing_directory"
+
+    expect { clazz.new(path) }.to raise_error(ArgumentError)
+  end
+
   it 'properly sets its child elements' do
     nested_directory = "#{@default_file_directory}/nested_directory"
     file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
