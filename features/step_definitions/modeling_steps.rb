@@ -42,6 +42,12 @@ Given(/^the following feature "([^"]*)":$/) do |feature_name, source_text|
   @feature_source[feature_name] = source_text
 end
 
+Given(/^the following feature:$/) do |source_text|
+  @feature_source ||= []
+
+  @feature_source << source_text
+end
+
 When(/^the feature "([^"]*)" is modeled$/) do |feature_name|
   @feature_models ||= {}
 
@@ -49,7 +55,20 @@ When(/^the feature "([^"]*)" is modeled$/) do |feature_name|
   @feature_models[feature_name] = CukeModeler::Feature.new(source)
 end
 
+When(/^the backgrounds are modeled$/) do
+  @background_models ||= []
+
+  @feature_source.each do |source|
+    @background_models << CukeModeler::Feature.new(source).background
+  end
+end
+
 Given(/^a feature element based on the following gherkin:$/) do |source_text|
   @element = CukeModeler::Feature.new(source_text)
+  @element_class = @element.class
+end
+
+Given(/^a background element based on the following gherkin:$/) do |source_text|
+  @element = CukeModeler::Background.new(source_text)
   @element_class = @element.class
 end

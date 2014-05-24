@@ -50,12 +50,28 @@ Then(/^the source line of feature "([^"]*)" is "([^"]*)"$/) do |feature_name, li
   @feature_models[feature_name].source_line.should == line.to_i
 end
 
+Then(/^the source line of the first background is "([^"]*)"$/) do |line|
+  @background_models.first.source_line.should == line.to_i
+end
+
+Then(/^the source line of the second background is "([^"]*)"$/) do |line|
+  @background_models[1].source_line.should == line.to_i
+end
+
 Then(/^the feature "([^"]*)" has the following description:$/) do |feature_name, text|
   @feature_models[feature_name].description.should == text
 end
 
+Then(/^the first background has the following description:$/) do |text|
+  @background_models.first.description.should == text
+end
+
 When(/^the feature "([^"]*)" has no description$/) do |feature_name|
   @feature_models[feature_name].description.should == ''
+end
+
+Then(/^the second background has no description$/) do
+  @background_models[1].description.should be_empty
 end
 
 Then(/^the background of feature "([^"]*)" is "([^"]*)"$/) do |feature_name, background_name|
@@ -102,8 +118,12 @@ Then(/^the feature tag name is "([^"]*)"$/) do |name|
   @feature_file_models[@default_file_name].feature.tags.first.name.should == name
 end
 
-Then(/^the background name is "([^"]*)"$/) do |name|
-  @feature_file_models[@default_file_name].feature.background.name.should == name
+Then(/^the first background's name is "([^"]*)"$/) do |name|
+  @background_models.first.name.should == name
+end
+
+Then(/^the second background has no name$/) do
+  @background_models[1].name.should be_empty
 end
 
 Then(/^the first scenario's name is "([^"]*)"$/) do |name|
@@ -122,9 +142,20 @@ Then(/^the second outline has no name$/) do
   @feature_file_models[@default_file_name].feature.outlines[1].name.should == ''
 end
 
+Then(/^the first background has the following steps:$/) do |steps|
+  attached_steps = @background_models.first.steps.collect { |step| step.base }
+
+  attached_steps.should =~ steps.raw.flatten
+end
+
+And(/^the second background has no steps$/) do
+  @background_models[1].steps.should be_empty
+end
+
 Then(/^all of them can be contained inside of another model$/) do
   @available_models.each do |model|
     raise("Expected #{model} to define :parent_element") unless model.method_defined?(:parent_element)
+    raise("Expected #{model} to define :parent_element") unless model.method_defined?(:get_ancestor)
   end
 end
 
@@ -150,4 +181,20 @@ Then(/^the following text is provided:$/) do |expected_text|
   expected_text.sub!('path_to', @default_file_directory)
 
   @output.should == expected_text
+end
+
+Then(/^the first steps's text is "([^"]*)"$/) do |text|
+  @feature_file_models[@default_file_name].feature.background.steps.first.base.should == text
+end
+
+Then(/^the second steps's text is "([^"]*)"$/) do |text|
+  @feature_file_models[@default_file_name].feature.background.steps[1].base.should == text
+end
+
+Then(/^the third steps's text is "([^"]*)"$/) do |text|
+  @feature_file_models[@default_file_name].feature.background.steps[2].base.should == text
+end
+
+Then(/^the fourth steps's text is "([^"]*)"$/) do |text|
+  @feature_file_models[@default_file_name].feature.background.steps[3].base.should == text
 end

@@ -21,5 +21,13 @@ module CukeModeler
       []
     end
 
+
+    private
+
+
+    def process_source(source)
+      source.is_a?(String) ? parse_model(source) : source
+    end
+
   end
 end

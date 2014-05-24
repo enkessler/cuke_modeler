@@ -13,7 +13,8 @@ module CukeModeler
     def get_ancestor(ancestor_type)
       ancestor = self.parent_element
       target_type = {:directory => Directory,
-                     :feature_file => FeatureFile
+                     :feature_file => FeatureFile,
+                     :feature => Feature
       }[ancestor_type]
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_type.nil?

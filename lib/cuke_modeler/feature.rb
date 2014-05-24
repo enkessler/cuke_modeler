@@ -63,11 +63,7 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      source.is_a?(String) ? parse_feature(source) : source
-    end
-
-    def parse_feature(source_text)
+    def parse_model(source_text)
       parsed_file = Parsing::parse_text(source_text)
 
       parsed_file.first
