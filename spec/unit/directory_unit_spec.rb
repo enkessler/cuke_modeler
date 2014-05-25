@@ -85,8 +85,12 @@ describe 'Directory, Unit' do
 
     describe 'directory output edge cases' do
 
+      before(:each) do
+        @directory = clazz.new
+      end
+
       it 'can output an empty directory' do
-        expect { clazz.new }.to_not raise_error
+        expect { @directory.to_s }.to_not raise_error
       end
 
     end

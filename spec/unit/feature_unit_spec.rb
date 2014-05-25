@@ -103,8 +103,12 @@ describe 'Feature, Unit' do
 
     describe 'feature output edge cases' do
 
+      before(:each) do
+        @feature = clazz.new
+      end
+
       it 'can output an empty feature' do
-        expect { clazz.new.to_s }.to_not raise_error
+        expect { @feature.to_s }.to_not raise_error
       end
 
       it 'can output a feature that has only a name' do

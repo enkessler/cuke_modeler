@@ -80,6 +80,10 @@ describe 'Feature, Integration' do
 
   describe 'feature output edge cases' do
 
+    before(:each) do
+      @feature = clazz.new
+    end
+
     it 'can output a feature that has only a tags' do
       @feature.tags = [CukeModeler::Tag.new]
 

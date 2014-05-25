@@ -70,8 +70,12 @@ describe 'FeatureFile, Unit' do
 
     describe 'feature file output edge cases' do
 
+      before(:each) do
+        @feature_file = clazz.new
+      end
+
       it 'can output an empty feature file' do
-        expect { clazz.new }.to_not raise_error
+        expect { @feature_file.to_s }.to_not raise_error
       end
 
     end
