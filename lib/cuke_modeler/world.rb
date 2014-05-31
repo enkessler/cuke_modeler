@@ -80,55 +80,6 @@ module CukeModeler
         @defined_expressions = []
       end
 
-      # Returns all tags found in the passed container.
-      def tags_in(container)
-        Array.new.tap { |accumulated_tags| collect_all_in(:tags, container, accumulated_tags) }
-      end
-
-      # Returns all tag elements found in the passed container.
-      def tag_elements_in(container)
-        Array.new.tap { |accumulated_tag_elements| collect_all_in(:tag_elements, container, accumulated_tag_elements) }
-      end
-
-      # Returns all directories found in the passed container.
-      def directories_in(container)
-        Array.new.tap { |accumulated_directories| collect_all_in(:directories, container, accumulated_directories) }
-      end
-
-      # Returns all feature files found in the passed container.
-      def feature_files_in(container)
-        Array.new.tap { |accumulated_files| collect_all_in(:feature_files, container, accumulated_files) }
-      end
-
-      # Returns all features found in the passed container.
-      def features_in(container)
-        Array.new.tap { |accumulated_features| collect_all_in(:features, container, accumulated_features) }
-      end
-
-      # Returns all tests found in the passed container.
-      def tests_in(container)
-        Array.new.tap { |accumulated_tests| collect_all_in(:tests, container, accumulated_tests) }
-      end
-
-      # Returns all steps found in the passed container.
-      def steps_in(container)
-        Array.new.tap { |accumulated_steps| collect_all_in(:steps, container, accumulated_steps) }
-      end
-
-      # Returns all undefined steps found in the passed container.
-      def undefined_steps_in(container)
-        all_steps = steps_in(container)
-
-        all_steps.select { |step| !World.loaded_step_patterns.any? { |pattern| step.base =~ Regexp.new(pattern) } }
-      end
-
-      # Returns all defined steps found in the passed container.
-      def defined_steps_in(container)
-        all_steps = steps_in(container)
-
-        all_steps.select { |step| World.loaded_step_patterns.any? { |pattern| step.base =~ Regexp.new(pattern) } }
-      end
-
 
       private
 
@@ -155,17 +106,6 @@ module CukeModeler
         line = line.slice(1..(line.length - 2))
 
         Regexp.new(line)
-      end
-
-      # Recursively gathers all things of the given type found in the passed container.
-      def collect_all_in(type_of_thing, container, accumulated_things)
-        accumulated_things.concat container.send(type_of_thing) if container.respond_to?(type_of_thing)
-
-        if container.respond_to?(:contains)
-          container.contains.each do |child_container|
-            collect_all_in(type_of_thing, child_container, accumulated_things)
-          end
-        end
       end
 
     end
