@@ -59,10 +59,10 @@ entire test suite.
 
 ### Other gems that are (or soon will be) powered by cuke_modeler
 
-https://github.com/enkessler/cucumber_analytics
-https://github.com/enkessler/cql
-https://github.com/enkessler/cuketagger
-https://github.com/enkessler/cuke_cataloger
+  * https://github.com/enkessler/cucumber_analytics
+  * https://github.com/enkessler/cql
+  * https://github.com/enkessler/cuketagger
+  * https://github.com/enkessler/cuke_cataloger
 
 ## Contributing
 
