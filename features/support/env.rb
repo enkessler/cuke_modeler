@@ -3,12 +3,19 @@ unless RUBY_VERSION.to_s < '1.9.0'
   SimpleCov.command_name('cucumber_tests')
 end
 
+require 'test/unit/assertions'
+include Test::Unit::Assertions
 
 require File.dirname(__FILE__) + '/../../lib/cuke_modeler'
 
 
 Before do
   @default_file_directory = "#{File.dirname(__FILE__)}/../temp_files"
+  @default_feature_file_name = 'test_feature.feature'
+  @default_step_file_name = 'test_steps.rb'
+  @test_file_directory = "#{File.dirname(__FILE__)}/../test_files"
+  @test_step_file_location = "#{@default_file_directory}/#{@default_step_file_name}"
+  @spec_directory = "#{File.dirname(__FILE__)}/../../spec"
 
   FileUtils.mkdir(@default_file_directory)
 end
@@ -16,3 +23,5 @@ end
 After do
   FileUtils.remove_dir(@default_file_directory, true)
 end
+
+
