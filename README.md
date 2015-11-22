@@ -62,7 +62,7 @@ entire test suite.
   * https://github.com/enkessler/cql
   * https://github.com/enkessler/cuketagger
   * https://github.com/enkessler/cuke_cataloger
-  * https://github.com/enkessler/cuke_slicer
+  * https://github.com/grange-insurance/cuke_slicer
 
 ## Contributing
 
