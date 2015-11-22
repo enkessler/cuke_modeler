@@ -67,6 +67,8 @@ module CukeModeler
     # Returns true if the two steps have the same text, minus any keywords
     # and arguments, and false otherwise.
     def ==(other_step)
+      return false unless other_step.respond_to?(:step_text)
+
       left_step = step_text(:with_keywords => false, :with_arguments => false)
       right_step = other_step.step_text(:with_keywords => false, :with_arguments => false)
 

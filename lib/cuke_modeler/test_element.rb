@@ -23,6 +23,8 @@ module CukeModeler
 
     # Returns true if the two elements have equivalent steps and false otherwise.
     def ==(other_element)
+      return false unless other_element.respond_to?(:steps)
+
       steps == other_element.steps
     end
 

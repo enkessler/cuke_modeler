@@ -256,4 +256,13 @@ describe 'Step, Unit' do
     end
 
   end
+
+  it 'can gracefully be compared to other types of objects' do
+    # Some common types of object
+    [1, 'foo', :bar, [], {}].each do |thing|
+      expect { @step == thing }.to_not raise_error
+      expect(@step == thing).to be false
+    end
+  end
+
 end

@@ -37,4 +37,12 @@ describe 'TestElement, Unit' do
     (element_1 == element_3).should be_false
   end
 
+  it 'can gracefully be compared to other types of objects' do
+    # Some common types of object
+    [1, 'foo', :bar, [], {}].each do |thing|
+      expect { @element == thing }.to_not raise_error
+      expect(@element == thing).to be false
+    end
+  end
+
 end
