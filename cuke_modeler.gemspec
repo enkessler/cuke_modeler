@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 2.14.0'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'racatt', '>= 0.0.3', '< 1.0.0'
+  spec.add_development_dependency 'coveralls'
 end
