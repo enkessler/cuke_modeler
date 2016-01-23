@@ -11,4 +11,6 @@ if RUBY_VERSION =~ /^1\.8/
   gem 'rest-client', '<1.7.0'
 elsif RUBY_VERSION =~ /^1\./
   gem 'cucumber', '<2.0.0'
+elsif RUBY_VERSION =~ /^2\.[23456789]/
+  gem 'test-unit'
 end
