@@ -72,14 +72,3 @@ Feature: Step elements can be modeled.
 
   Scenario: Convenient output of a step
     Then the step has convenient output
-
-  @redundant
-  Scenario Outline: Step models pass all other specifications
-  Exact specifications detailing the API for step models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications |
-    | step_unit_spec.rb         |
-    | step_integration_spec.rb  |

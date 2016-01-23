@@ -50,14 +50,3 @@ Feature: Doc string elements can be modeled.
 
   Scenario: Convenient output of an a doc string
     Then the doc string has convenient output
-
-  @redundant
-  Scenario Outline: Doc string models pass all other specifications
-  Exact specifications detailing the API for doc string models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications      |
-    | doc_string_unit_spec.rb        |
-    | doc_string_integration_spec.rb |

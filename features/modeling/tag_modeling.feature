@@ -45,14 +45,3 @@ Feature: Tag elements can be modeled.
 
   Scenario: Convenient output of a tag
     Then the tag has convenient output
-
-  @redundant
-  Scenario Outline: Tag models pass all other specifications
-  Exact specifications detailing the API for tag models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications |
-    | tag_unit_spec.rb          |
-    | tag_integration_spec.rb   |

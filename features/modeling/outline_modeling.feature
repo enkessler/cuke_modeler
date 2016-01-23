@@ -87,14 +87,3 @@ Feature: Outline elements can be modeled.
 
   Scenario: Convenient output of an an outline
     Then the outline has convenient output
-
-  @redundant
-  Scenario Outline: Outline models pass all other specifications
-  Exact specifications detailing the API for outline models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications   |
-    | outline_unit_spec.rb        |
-    | outline_integration_spec.rb |

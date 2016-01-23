@@ -51,14 +51,3 @@ Feature: Feature files can be modeled.
 
   Scenario: Convenient output of a feature file
     Then the feature file has convenient output
-
-  @redundant
-  Scenario Outline: Feature file models pass all other specifications
-  Exact specifications detailing the API for .feature file models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications        |
-    | feature_file_unit_spec.rb        |
-    | feature_file_integration_spec.rb |

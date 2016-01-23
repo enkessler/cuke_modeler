@@ -151,14 +151,3 @@ Feature: Features can be modeled.
 
   Scenario: Convenient output of a feature
     Then the feature has convenient output
-
-  @redundant
-  Scenario Outline: Feature models pass all other specifications
-  Exact specifications detailing the API for feature models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications   |
-    | feature_unit_spec.rb        |
-    | feature_integration_spec.rb |

@@ -98,14 +98,3 @@ Feature: Example elements can be modeled.
 
   Scenario: Convenient output of an example block
     Then the example block has convenient output
-
-  @redundant
-  Scenario Outline: Example models pass all other specifications
-  Exact specifications detailing the API for example block models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications   |
-    | example_unit_spec.rb        |
-    | example_integration_spec.rb |

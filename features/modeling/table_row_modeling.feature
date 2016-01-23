@@ -54,14 +54,3 @@ Feature: Table Row elements can be modeled.
 
   Scenario: Convenient output of a table row
     Then the table row has convenient output
-
-  @redundant
-  Scenario Outline: Table row models pass all other specifications
-  Exact specifications detailing the API for table table row models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications     |
-    | table_row_unit_spec.rb        |
-    | table_row_integration_spec.rb |

@@ -65,13 +65,3 @@ Feature: Row elements can be modeled.
 
   Scenario: Convenient output of a row
     Then the row has convenient output
-
-  @redundant
-  Scenario Outline: Row models pass all other specifications
-  Exact specifications detailing the API for Row models.
-    Given that there are "<additional specifications>" detailing models
-    When the corresponding specifications are run
-    Then all of those specifications are met
-  Examples:
-    | additional specifications |
-    | row_unit_spec.rb          |
