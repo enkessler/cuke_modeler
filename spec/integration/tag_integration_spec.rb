@@ -15,7 +15,8 @@ describe 'Tag, Integration' do
                 '',
                 '  @example_tag',
                 '  Examples: Test example',
-                '    | a param |']
+                '    | a param |',
+                '    | a value |']
       source = source.join("\n")
 
       file_path = "#{@default_file_directory}/tag_test_file.feature"

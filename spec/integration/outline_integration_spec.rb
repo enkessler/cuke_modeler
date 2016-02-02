@@ -9,7 +9,8 @@ describe 'Outline, Integration' do
               '  Scenario Outline:',
               '    * a step',
               '  Examples:',
-              '    | param |']
+              '    | param |',
+              '    | value |']
     source = source.join("\n")
 
     outline = CukeModeler::Outline.new(source)
@@ -31,7 +32,8 @@ describe 'Outline, Integration' do
                 '  Scenario Outline: Test test',
                 '    * a step',
                 '  Examples: Test example',
-                '    | a param |']
+                '    | a param |',
+                '    | a value |']
       source = source.join("\n")
 
       file_path = "#{@default_file_directory}/outline_test_file.feature"

@@ -28,7 +28,8 @@ describe 'Example, Integration' do
                 '  Scenario Outline: Test test',
                 '    * a step',
                 '  Examples: Test example',
-                '    | a param |']
+                '    | a param |',
+                '    | a value |']
       source = source.join("\n")
 
       file_path = "#{@default_file_directory}/example_test_file.feature"
