@@ -18,7 +18,10 @@ describe 'Outline, Unit' do
 
 
   it 'can be parsed from stand alone text' do
-    source = 'Scenario Outline: test outline'
+    source = "Scenario Outline: test outline
+              Examples:
+                |param|
+                |value|"
 
     expect { @element = clazz.new(source) }.to_not raise_error
 
