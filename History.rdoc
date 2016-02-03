@@ -1,7 +1,13 @@
+=== Version 0.1.0 / 2016-02-02
+
+* Support for version 3.0 of the 'gherkin' gem added.
+
+
 === Version 0.0.2 / 2015-11-22
 
 * Bug fix - Fixed a bug that was causing object comparison using #== to not work when comparing some models to other
             types of objects.
+
 
 === Version 0.0.1 / 2014-06-02
 
