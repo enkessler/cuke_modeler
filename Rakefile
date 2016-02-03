@@ -1,38 +1,37 @@
 require "bundler/gem_tasks"
-require 'cucumber/rake/task'
-require 'rspec/core/rake_task'
+require 'coveralls/rake/task'
+
+require 'racatt'
 
 
-def set_cucumber_options(options)
-  ENV['CUCUMBER_OPTS'] = options
+namespace 'cuke_modeler' do
+
+  task :clear_coverage do
+    code_coverage_directory = "#{File.dirname(__FILE__)}/coverage"
+
+    FileUtils.remove_dir(code_coverage_directory, true)
+  end
+
+
+  Racatt.create_tasks
+
+  # Redefining the task from 'racatt' in order to clear the code coverage results
+  task :test_everything => :clear_coverage
+
+
+  # The task that CI will use
+  Coveralls::RakeTask.new
+  task :ci_build => [:smart_test, 'coveralls:push']
+
+  desc 'Test gem based on Ruby/dependency versions'
+  task :smart_test do |t, args|
+    rspec_args = ''
+    cucumber_args = Gem.loaded_specs['gherkin'].version.version[/^3/] ? '-t ~@gherkin' : '-t ~@gherkin3'
+
+    Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)
+  end
+
 end
 
-def combine_options(set_1, set_2)
-  set_2 ? "#{set_1} #{set_2}" : set_1
-end
 
-
-task :clear_coverage do
-  code_coverage_directory = "#{File.dirname(__FILE__)}/coverage"
-
-  FileUtils.remove_dir(code_coverage_directory, true)
-end
-
-desc 'Run all Cucumber tests for the gem'
-task :tests, [:options] do |t, args|
-  set_cucumber_options(combine_options("-t ~@wip -t ~@off -f progress", args[:options]))
-end
-Cucumber::Rake::Task.new(:tests)
-
-desc 'Run all RSpec tests for the gem'
-RSpec::Core::RakeTask.new(:specs) do |t|
-  t.rspec_opts = "-t ~wip -t ~off"
-end
-
-desc 'Run All The Things'
-task :everything => :clear_coverage do
-  Rake::Task[:specs].invoke
-  Rake::Task[:tests].invoke('-t ~@redundant')
-end
-
-task :default => :everything
+task :default => 'cuke_modeler:smart_test'

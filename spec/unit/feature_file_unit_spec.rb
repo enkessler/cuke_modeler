@@ -24,7 +24,7 @@ describe 'FeatureFile, Unit' do
 
   it 'knows the name of the file that it is modeling' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
-    File.open(path, "w") {}
+    File.open(path, "w") { |file| file.puts "Feature:" }
 
     feature = CukeModeler::FeatureFile.new(path)
 
@@ -33,7 +33,7 @@ describe 'FeatureFile, Unit' do
 
   it 'knows the path of the file that it is modeling' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
-    File.open(path, "w") {}
+    File.open(path, "w") { |file| file.puts "Feature:" }
 
     directory = CukeModeler::FeatureFile.new(path)
 

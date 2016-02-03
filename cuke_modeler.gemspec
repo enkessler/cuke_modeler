@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency('gherkin')
+  spec.add_runtime_dependency 'gherkin', '< 4.0'
   spec.add_runtime_dependency('json', '~> 1.0')
   spec.add_runtime_dependency('multi_json', '~> 1.0')
 
@@ -26,4 +26,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'cucumber'
   spec.add_development_dependency 'rspec', '~> 2.14.0'
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'racatt', '~> 1.0'
+  spec.add_development_dependency 'coveralls'
 end

@@ -18,7 +18,8 @@ describe 'Example, Unit' do
 
   it 'can be parsed from stand alone text' do
     source = ['Examples: test example',
-              '|param| ']
+              '|param| ',
+              '|value|']
 
     source = source.join("\n")
 

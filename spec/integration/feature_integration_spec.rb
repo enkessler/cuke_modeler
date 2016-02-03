@@ -15,7 +15,10 @@ describe 'Feature, Integration' do
               'Feature: Test feature',
               '  Background: Test background',
               '  Scenario: Test scenario',
-              '  Scenario Outline: Test outline']
+              '  Scenario Outline: Test outline',
+              '  Examples: Test Examples',
+              '    | param |',
+              '    | value |']
     source = source.join("\n")
 
 
@@ -34,7 +37,7 @@ describe 'Feature, Integration' do
 
   it 'can distinguish scenarios from outlines - #scenarios, #outlines' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
-    outlines = [CukeModeler::Outline.new('Scenario Outline: 1'), CukeModeler::Outline.new('Scenario Outline: 2')]
+    outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
 
     @feature.tests = scenarios + outlines
 
@@ -44,7 +47,7 @@ describe 'Feature, Integration' do
 
   it 'knows how many scenarios it has - #scenario_count' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
-    outlines = [CukeModeler::Outline.new('Scenario Outline: 1')]
+    outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|")]
 
     @feature.tests = []
     @feature.scenario_count.should == 0
@@ -55,7 +58,7 @@ describe 'Feature, Integration' do
 
   it 'knows how many outlines it has - #outline_count' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1')]
-    outlines = [CukeModeler::Outline.new('Scenario Outline: 1'), CukeModeler::Outline.new('Scenario Outline: 2')]
+    outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
 
     @feature.tests = []
     @feature.outline_count.should == 0
