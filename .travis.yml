@@ -10,6 +10,12 @@ gemfile:
   - gemfiles/gherkin.gemfile
   - gemfiles/gherkin3.gemfile
 
+
+matrix:
+  exclude:
+  - rvm: 2.0.0
+    gemfile: Gemfile
+
 # todo - Remove this once TravisCI fixes their bundler issue (https://github.com/alphagov/govuk_template/pull/186)
 before_install:
   - gem install bundler -v 1.9.10
