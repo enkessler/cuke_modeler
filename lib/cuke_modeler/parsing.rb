@@ -1,4 +1,9 @@
-require 'gherkin'
+# The 'gherkin' gem loads differently depending across versions. Try the old one first and then the new one
+begin
+  require 'gherkin'
+rescue LoadError => e
+  require 'gherkin/parser'
+end
 
 # Parsing will be with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated
 if Gem.loaded_specs['gherkin'].version.version[/^3/]
