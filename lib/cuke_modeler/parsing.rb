@@ -1,3 +1,5 @@
+require 'gherkin'
+
 # Parsing will be with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated
 if Gem.loaded_specs['gherkin'].version.version[/^3/]
 
