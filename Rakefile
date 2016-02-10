@@ -27,6 +27,7 @@ namespace 'cuke_modeler' do
   task :smart_test do |t, args|
     rspec_args = ''
     cucumber_args = Gem.loaded_specs['gherkin'].version.version[/^3/] ? '-t ~@gherkin' : '-t ~@gherkin3'
+    cucumber_args += ' -f progress'
 
     Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)
   end
