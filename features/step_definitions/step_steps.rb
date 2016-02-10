@@ -108,7 +108,11 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? step(?: "([^"]*)")? c
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].raw_element
 
-  raw_element.has_key?('keyword').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:keyword).should be_true
+  else
+    raw_element.has_key?('keyword').should be_true
+  end
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)")? table row(?: "([^"]*)")? is found to have the following properties:$/ do |file, test, step, row, properties|
@@ -135,7 +139,11 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements[row - 1].raw_element
 
-  raw_element.has_key?('cells').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:cells).should be_true
+  else
+    raw_element.has_key?('cells').should be_true
+  end
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)")? table row(?: "([^"]*)")? cells are as follows:$/ do |file, test, step, row, cells|

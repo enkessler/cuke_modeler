@@ -47,7 +47,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text)
 
-      parsed_file.first['elements'].first['steps'].first['rows'].first
+      parsed_file.first['elements'].first['steps'].first['rows']['rows'].first
     end
 
     def build_row(parsed_row)

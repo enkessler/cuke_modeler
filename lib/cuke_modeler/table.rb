@@ -63,11 +63,11 @@ module CukeModeler
     end
 
     def populate_contents(table)
-      @contents = table.collect { |row| row['cells'] }
+      @contents = table['rows'].collect { |row| row['cells'] }
     end
 
     def populate_row_elements(table)
-      table.each do |row|
+      table['rows'].each do |row|
         @row_elements << build_child_element(TableRow, row)
       end
     end

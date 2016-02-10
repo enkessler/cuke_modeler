@@ -14,6 +14,12 @@ require "#{File.dirname(__FILE__)}/unit/sourced_element_unit_specs"
 require "#{File.dirname(__FILE__)}/unit/raw_element_unit_specs"
 
 RSpec.configure do |config|
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    config.filter_run_excluding :gherkin2 => true
+  else
+    config.filter_run_excluding :gherkin3 => true
+  end
+
   config.before(:all) do
     @default_file_directory = "#{File.dirname(__FILE__)}/temp_files"
     @default_feature_file_name = 'test_feature.feature'

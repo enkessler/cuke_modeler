@@ -1,19 +1,31 @@
 Then /^the feature tag correctly stores its underlying implementation$/ do
   raw_element = @parsed_files.first.feature.tag_elements.first.raw_element
 
-  raw_element.has_key?('name').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:name).should be_true
+  else
+    raw_element.has_key?('name').should be_true
+  end
 end
 
 When(/^the test tag correctly stores its underlying implementation$/) do
   raw_element = @parsed_files.first.feature.tests.first.tag_elements.first.raw_element
 
-  raw_element.has_key?('name').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:name).should be_true
+  else
+    raw_element.has_key?('name').should be_true
+  end
 end
 
 When(/^the example tag correctly stores its underlying implementation$/) do
   raw_element = @parsed_files.first.feature.tests.first.examples.first.tag_elements.first.raw_element
 
-  raw_element.has_key?('name').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:name).should be_true
+  else
+    raw_element.has_key?('name').should be_true
+  end
 end
 
 Then(/^the feature tag name is "([^"]*)"$/) do |tag_name|

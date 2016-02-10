@@ -36,6 +36,7 @@ else
   require 'gherkin'
   require 'json'
   require 'multi_json'
+  require 'cuke_modeler/adapters/gherkin_2_adapter'
 
 
   module CukeModeler
@@ -57,7 +58,11 @@ else
           parser.parse(source_text, 'fake_file.txt', 0)
           formatter.done
 
-          MultiJson.load(io.string)
+
+          parsed_result = MultiJson.load(io.string)
+          adapted_result = CukeModeler::Gherkin2Adapter.new.adapt(parsed_result)
+
+          adapted_result
         end
 
       end

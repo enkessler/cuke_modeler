@@ -77,7 +77,11 @@ Then /^(?:the )?feature(?: "([^"]*)")? correctly stores its underlying implement
 
   raw_element = @parsed_files[file - 1].feature.raw_element
 
-  raw_element.has_key?('elements').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:scenarioDefinitions).should be_true
+  else
+    raw_element.has_key?('elements').should be_true
+  end
 end
 
 Then(/^the feature has convenient output$/) do
