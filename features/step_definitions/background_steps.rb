@@ -66,7 +66,11 @@ Then(/^the(?: feature "([^"]*)")? background correctly stores its underlying imp
   raw_element = @parsed_files[file - 1].feature.background.raw_element
 
   expected = 'Background'
-  actual = raw_element['keyword']
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    actual = raw_element[:keyword]
+  else
+    actual = raw_element['keyword']
+  end
 
   assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
 end

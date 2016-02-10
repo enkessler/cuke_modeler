@@ -47,7 +47,11 @@ Then(/^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?(?:step(?: "([^"
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.raw_element
 
-  raw_element.has_key?('content_type').should be_true
+  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+    raw_element.has_key?(:contentType).should be_true
+  else
+    raw_element.has_key?('content_type').should be_true
+  end
 end
 
 Then(/^the doc string has convenient output$/) do
