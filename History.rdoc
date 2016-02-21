@@ -3,7 +3,7 @@
 * Better error feedback when parsing errors are encountered.
 
 
-=== Version 0.1.0 / 2016-02-02
+=== Version 0.1.0 / 2016-02-10
 
 * Support for version 3.0 of the 'gherkin' gem added.
 
