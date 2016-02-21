@@ -16,7 +16,7 @@ describe 'FeatureFile, Unit' do
     @feature_file = clazz.new
   end
 
-  it 'cannot model a non-existent directory' do
+  it 'cannot model a non-existent file' do
     path = "#{@default_file_directory}/missing_file.txt"
 
     expect { CukeModeler::FeatureFile.new(path) }.to raise_error(ArgumentError)
