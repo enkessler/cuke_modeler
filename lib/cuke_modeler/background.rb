@@ -7,7 +7,7 @@ module CukeModeler
     # Creates a new Background object and, if *source* is provided, populates
     # the object.
     def initialize(source = nil)
-      parsed_background = process_source(source)
+      parsed_background = process_source(source, 'cuke_modeler_stand_alone_background.feature')
 
       super(parsed_background)
 

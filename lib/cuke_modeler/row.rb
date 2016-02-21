@@ -45,7 +45,7 @@ module CukeModeler
       base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\nExamples: fake examples\n#{source_text}\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_row.feature')
 
       parsed_file.first['elements'].first['examples'].first['rows'].last
     end

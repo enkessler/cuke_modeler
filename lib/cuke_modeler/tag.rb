@@ -43,7 +43,7 @@ module CukeModeler
       base_file_string = "\nFeature: Fake feature to parse"
       source_text = source_text + base_file_string
 
-      parsed_file = Parsing::parse_text(source_text)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_tag.feature')
 
       parsed_file.first['tags'].first
     end

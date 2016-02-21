@@ -26,6 +26,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    FileUtils.remove_dir(@default_file_directory, true) if File.exists?(@default_file_directory)
+
     FileUtils.mkdir(@default_file_directory)
   end
 

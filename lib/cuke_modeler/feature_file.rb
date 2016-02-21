@@ -64,7 +64,7 @@ module CukeModeler
     def parse_file(file_to_parse)
       source_text = IO.read(file_to_parse)
 
-      Parsing::parse_text(source_text)
+      Parsing::parse_text(source_text, file_to_parse)
     end
 
     def build_file(parsed_file)

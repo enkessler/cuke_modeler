@@ -102,7 +102,7 @@ module CukeModeler
     end
 
     def parse_feature(source_text)
-      parsed_file = Parsing::parse_text(source_text)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file.first
     end
