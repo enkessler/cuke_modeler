@@ -35,9 +35,9 @@ describe 'FeatureFile, Unit' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
     File.open(path, "w") { |file| file.puts "Feature:" }
 
-    directory = CukeModeler::FeatureFile.new(path)
+    file = CukeModeler::FeatureFile.new(path)
 
-    directory.path.should == path
+    file.path.should == path
   end
 
   it 'has features - #features' do
