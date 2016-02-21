@@ -17,10 +17,15 @@ if Gem.loaded_specs['gherkin'].version.version[/^3/]
     module Parsing
       class << self
 
-        def parse_text(source_text)
+        def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
           raise(ArgumentError, "Cannot parse #{source_text.class} objects. Strings only.") unless source_text.is_a?(String)
 
-          parsed_result = Gherkin::Parser.new.parse(source_text)
+          begin
+            parsed_result = Gherkin::Parser.new.parse(source_text)
+          rescue => e
+            raise(ArgumentError, "Error encountered while parsing '#{filename}'\n#{e.class} - #{e.message}")
+          end
+
           adapted_result = CukeModeler::Gherkin3Adapter.new.adapt(parsed_result)
 
           adapted_result
@@ -49,13 +54,19 @@ else
 
         # Parses the Cucumber feature given in *source_text* and returns an array
         # containing the hash representation of its logical structure.
-        def parse_text(source_text)
+        def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
           raise(ArgumentError, "Cannot parse #{source_text.class} objects. Strings only.") unless source_text.is_a?(String)
 
           io = StringIO.new
           formatter = Gherkin::Formatter::JSONFormatter.new(io)
           parser = Gherkin::Parser::Parser.new(formatter)
-          parser.parse(source_text, 'fake_file.txt', 0)
+
+          begin
+            parser.parse(source_text, filename, 0)
+          rescue => e
+            raise(ArgumentError, "Error encountered while parsing '#{filename}'\n#{e.class} - #{e.message}")
+          end
+
           formatter.done
 
 

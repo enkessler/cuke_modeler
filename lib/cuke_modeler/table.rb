@@ -51,7 +51,7 @@ module CukeModeler
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_table.feature')
 
       parsed_file.first['elements'].first['steps'].first['rows']
     end

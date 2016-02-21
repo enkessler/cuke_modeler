@@ -10,7 +10,7 @@ module CukeModeler
     # Creates a new Scenario object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_scenario = process_source(source)
+      parsed_scenario = process_source(source, 'cuke_modeler_stand_alone_scenario.feature')
 
       super(parsed_scenario)
 

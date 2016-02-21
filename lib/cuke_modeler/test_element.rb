@@ -37,20 +37,20 @@ module CukeModeler
     private
 
 
-    def process_source(source)
+    def process_source(source, file_name = nil)
       case
         when source.is_a?(String)
-          parse_test_element(source)
+          parse_test_element(source, file_name)
         else
           source
       end
     end
 
-    def parse_test_element(source_text)
+    def parse_test_element(source_text, file_name = nil)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text)
+      parsed_file = Parsing::parse_text(source_text, file_name)
 
       parsed_file.first['elements'].first
     end

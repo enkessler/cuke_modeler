@@ -14,7 +14,7 @@ module CukeModeler
     # Creates a new Outline object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_outline = process_source(source)
+      parsed_outline = process_source(source, 'cuke_modeler_stand_alone_outline.feature')
 
       super(parsed_outline)
 
