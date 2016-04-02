@@ -1,4 +1,4 @@
-=== Version 0.1.0 / 2016-02-21
+=== Version 0.2.0 / 2016-02-21
 
 * Better error feedback when parsing errors are encountered.
 
