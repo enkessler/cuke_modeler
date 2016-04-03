@@ -4,13 +4,13 @@ SimpleCov.command_name('TestElement') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'TestElement, Unit' do
 
-  clazz = CukeModeler::TestElement
+  let(:clazz) { CukeModeler::TestElement }
 
-  it_should_behave_like 'a test element', clazz
-  it_should_behave_like 'a feature element', clazz
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
-  it_should_behave_like 'a bare bones element', clazz
+  it_should_behave_like 'a test element'
+  it_should_behave_like 'a feature element'
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a prepopulated element'
+  it_should_behave_like 'a bare bones element'
 
 
   before(:each) do

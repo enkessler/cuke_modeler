@@ -4,13 +4,13 @@ SimpleCov.command_name('TableRow') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'TableRow, Unit' do
 
-  clazz = CukeModeler::TableRow
+  let(:clazz) { CukeModeler::TableRow }
 
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a bare bones element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
-  it_should_behave_like 'a sourced element', clazz
-  it_should_behave_like 'a raw element', clazz
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a bare bones element'
+  it_should_behave_like 'a prepopulated element'
+  it_should_behave_like 'a sourced element'
+  it_should_behave_like 'a raw element'
 
   it 'can be parsed from stand alone text' do
     source = '| a | row |'

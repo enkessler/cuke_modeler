@@ -4,12 +4,12 @@ SimpleCov.command_name('DocString') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'DocString, Unit' do
 
-  clazz = CukeModeler::DocString
+  let(:clazz) { CukeModeler::DocString }
 
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a bare bones element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
-  it_should_behave_like 'a raw element', clazz
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a bare bones element'
+  it_should_behave_like 'a prepopulated element'
+  it_should_behave_like 'a raw element'
 
   it 'can be parsed from stand alone text' do
     source = "\"\"\"\nsome doc string\n\"\"\""

@@ -4,12 +4,12 @@ SimpleCov.command_name('FeatureFile') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'FeatureFile, Unit' do
 
-  clazz = CukeModeler::FeatureFile
+  let(:clazz) { CukeModeler::FeatureFile }
 
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a containing element', clazz
-  it_should_behave_like 'a bare bones element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a containing element'
+  it_should_behave_like 'a bare bones element'
+  it_should_behave_like 'a prepopulated element'
 
 
   before(:each) do

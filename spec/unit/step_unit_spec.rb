@@ -4,13 +4,13 @@ SimpleCov.command_name('Step') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Step, Unit' do
 
-  clazz = CukeModeler::Step
+  let(:clazz) { CukeModeler::Step }
 
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a bare bones element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
-  it_should_behave_like 'a sourced element', clazz
-  it_should_behave_like 'a raw element', clazz
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a bare bones element'
+  it_should_behave_like 'a prepopulated element'
+  it_should_behave_like 'a sourced element'
+  it_should_behave_like 'a raw element'
 
   before(:each) do
     @step = clazz.new

@@ -4,16 +4,16 @@ SimpleCov.command_name('Background') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Background, Unit' do
 
-  clazz = CukeModeler::Background
+  let(:clazz) { CukeModeler::Background }
 
-  it_should_behave_like 'a feature element', clazz
-  it_should_behave_like 'a nested element', clazz
-  it_should_behave_like 'a containing element', clazz
-  it_should_behave_like 'a bare bones element', clazz
-  it_should_behave_like 'a prepopulated element', clazz
-  it_should_behave_like 'a test element', clazz
-  it_should_behave_like 'a sourced element', clazz
-  it_should_behave_like 'a raw element', clazz
+  it_should_behave_like 'a feature element'
+  it_should_behave_like 'a nested element'
+  it_should_behave_like 'a containing element'
+  it_should_behave_like 'a bare bones element'
+  it_should_behave_like 'a prepopulated element'
+  it_should_behave_like 'a test element'
+  it_should_behave_like 'a sourced element'
+  it_should_behave_like 'a raw element'
 
   it 'can be parsed from stand alone text' do
     source = 'Background: test background'

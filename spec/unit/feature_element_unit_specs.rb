@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-shared_examples_for 'a feature element' do |clazz|
+shared_examples_for 'a feature element' do
+
+  # clazz must be defined by the calling file
 
   before(:each) do
     @element = clazz.new
