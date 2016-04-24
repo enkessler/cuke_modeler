@@ -99,7 +99,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? correctly stores its 
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     expected = ['Scenario', 'Scenario Outline']
     actual = raw_element[:keyword]
   else

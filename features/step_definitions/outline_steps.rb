@@ -193,7 +193,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
   row ||= 1
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].row_elements[row - 1].raw_element
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:cells).should be_true
   else
     raw_element.has_key?('cells').should be_true
@@ -206,7 +206,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
   example ||= 1
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].raw_element
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:tableHeader).should be_true
   else
     raw_element.has_key?('rows').should be_true
