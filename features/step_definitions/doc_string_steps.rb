@@ -47,7 +47,7 @@ Then(/^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?(?:step(?: "([^"
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:contentType).should be_true
   else
     raw_element.has_key?('content_type').should be_true

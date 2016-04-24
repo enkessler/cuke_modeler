@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-shared_examples_for 'a nested element' do |clazz|
+shared_examples_for 'a nested element' do
+
+  # clazz must be defined by the calling file
 
   before(:each) do
     @nested_element = clazz.new

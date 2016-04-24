@@ -42,7 +42,7 @@ describe 'Parsing, Unit' do
       end
 
       # Monkey patch Gherkin to throw the error that we need for testing
-      if Gem.loaded_specs['gherkin'].version.version[/^3/]
+      if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
         old_method = Gherkin::Parser.instance_method(:parse)
 
         module Gherkin
@@ -69,7 +69,7 @@ describe 'Parsing, Unit' do
       expect { nodule.parse_text('bad file') }.to raise_error(/CukeModeler::TestError.*something went wrong/)
     ensure
       # Making sure that our changes don't escape a test and ruin the rest of the suite
-      if Gem.loaded_specs['gherkin'].version.version[/^3/]
+      if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
         Gherkin::Parser.send(:define_method, :parse, old_method)
       else
         Gherkin::Parser::Parser.send(:define_method, :parse, old_method)

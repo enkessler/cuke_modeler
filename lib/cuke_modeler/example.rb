@@ -123,7 +123,7 @@ module CukeModeler
     end
 
     def populate_example_parameters
-      @parameters = @row_elements.first.cells
+      @parameters = @row_elements.first.cells unless @row_elements.empty?
     end
 
     def populate_example_rows

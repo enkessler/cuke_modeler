@@ -77,10 +77,13 @@ Then /^(?:the )?feature(?: "([^"]*)")? correctly stores its underlying implement
 
   raw_element = @parsed_files[file - 1].feature.raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
-    raw_element.has_key?(:scenarioDefinitions).should be_true
-  else
-    raw_element.has_key?('elements').should be_true
+  case
+    when Gem.loaded_specs['gherkin'].version.version[/^4/]
+      expect(raw_element).to have_key(:children)
+    when Gem.loaded_specs['gherkin'].version.version[/^3/]
+      expect(raw_element).to have_key(:scenarioDefinitions)
+    else
+      expect(raw_element).to have_key('elements')
   end
 end
 
