@@ -29,6 +29,14 @@ describe 'Example, Unit' do
     @element.name.should == 'test example'
   end
 
+  # todo - add more tests like this to the 'barebones' test set
+  it 'can be instantiated with the minimum viable Gherkin' do
+    source = ['Examples:']
+    source = source.join("\n")
+
+    expect { @element = clazz.new(source) }.to_not raise_error
+  end
+
   it 'provides a descriptive filename when being parsed from stand alone text' do
     source = 'bad example text'
 
