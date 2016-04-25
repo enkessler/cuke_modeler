@@ -17,7 +17,7 @@ describe 'FeatureFile, Integration' do
     file = clazz.new(file_path)
     feature = file.feature
 
-    feature.parent_element.should equal file
+    expect(feature.parent_element).to equal(file)
   end
 
   context 'getting stuff' do
@@ -34,13 +34,13 @@ describe 'FeatureFile, Integration' do
     it 'can get its directory' do
       gotten_directory = feature_file.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      expect(gotten_directory).to equal(directory)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
       gotten_example = feature_file.get_ancestor(:example)
 
-      gotten_example.should be_nil
+      expect(gotten_example).to be_nil
     end
 
   end

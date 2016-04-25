@@ -15,7 +15,7 @@ describe 'Background, Integration' do
     background = clazz.new(source)
     step = background.steps.first
 
-    step.parent_element.should equal background
+    expect(step.parent_element).to equal(background)
   end
 
   context 'getting stuff' do
@@ -38,25 +38,25 @@ describe 'Background, Integration' do
     it 'can get its directory' do
       gotten_directory = background.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      expect(gotten_directory).to equal(directory)
     end
 
     it 'can get its feature file' do
       gotten_feature_file = background.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      expect(gotten_feature_file).to equal(directory.feature_files.first)
     end
 
     it 'can get its feature' do
       gotten_feature = background.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      expect(gotten_feature).to equal(directory.feature_files.first.features.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
       gotten_example = background.get_ancestor(:example)
 
-      gotten_example.should be_nil
+      expect(gotten_example).to be_nil
     end
 
   end

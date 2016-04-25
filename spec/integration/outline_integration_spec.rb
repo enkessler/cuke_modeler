@@ -21,9 +21,9 @@ describe 'Outline, Integration' do
     step = outline.steps.first
     tag = outline.tag_elements.first
 
-    example.parent_element.should equal outline
-    step.parent_element.should equal outline
-    tag.parent_element.should equal outline
+    expect(example.parent_element).to equal(outline)
+    expect(step.parent_element).to equal(outline)
+    expect(tag.parent_element).to equal(outline)
   end
 
 
@@ -50,25 +50,25 @@ describe 'Outline, Integration' do
     it 'can get its directory' do
       gotten_directory = outline.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      expect(gotten_directory).to equal(directory)
     end
 
     it 'can get its feature file' do
       gotten_feature_file = outline.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      expect(gotten_feature_file).to equal(directory.feature_files.first)
     end
 
     it 'can get its feature' do
       gotten_feature = outline.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      expect(gotten_feature).to equal(directory.feature_files.first.features.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
       gotten_test = outline.get_ancestor(:test)
 
-      gotten_test.should be_nil
+      expect(gotten_test).to be_nil
     end
 
     context 'outline output edge cases' do

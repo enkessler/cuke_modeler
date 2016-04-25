@@ -32,37 +32,37 @@ describe 'DocString, Integration' do
     it 'can get its directory' do
       gotten_directory = doc_string.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      expect(gotten_directory).to equal(directory)
     end
 
     it 'can get its feature file' do
       gotten_feature_file = doc_string.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      expect(gotten_feature_file).to equal(directory.feature_files.first)
     end
 
     it 'can get its feature' do
       gotten_feature = doc_string.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      expect(gotten_feature).to equal(directory.feature_files.first.features.first)
     end
 
     it 'can get its test' do
       gotten_test = doc_string.get_ancestor(:test)
 
-      gotten_test.should equal directory.feature_files.first.features.first.tests.first
+      expect(gotten_test).to equal(directory.feature_files.first.features.first.tests.first)
     end
 
     it 'can get its step' do
       gotten_step = doc_string.get_ancestor(:step)
 
-      gotten_step.should equal directory.feature_files.first.features.first.tests.first.steps.first
+      expect(gotten_step).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
       gotten_example = doc_string.get_ancestor(:example)
 
-      gotten_example.should be_nil
+      expect(gotten_example).to be_nil
     end
 
   end

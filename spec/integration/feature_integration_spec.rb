@@ -27,10 +27,10 @@ describe 'Feature, Integration' do
     tag = feature.tag_elements[0]
 
 
-    outline.parent_element.should equal feature
-    scenario.parent_element.should equal feature
-    background.parent_element.should equal feature
-    tag.parent_element.should equal feature
+    expect(outline.parent_element).to equal(feature)
+    expect(scenario.parent_element).to equal(feature)
+    expect(background.parent_element).to equal(feature)
+    expect(tag.parent_element).to equal(feature)
   end
 
   it 'can distinguish scenarios from outlines - #scenarios, #outlines' do
@@ -39,8 +39,8 @@ describe 'Feature, Integration' do
 
     feature.tests = scenarios + outlines
 
-    feature.scenarios.should =~ scenarios
-    feature.outlines.should =~ outlines
+    expect(feature.scenarios).to match_array(scenarios)
+    expect(feature.outlines).to match_array(outlines)
   end
 
   it 'knows how many scenarios it has - #scenario_count' do
@@ -48,10 +48,10 @@ describe 'Feature, Integration' do
     outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|")]
 
     feature.tests = []
-    feature.scenario_count.should == 0
+    expect(feature.scenario_count).to eq(0)
 
     feature.tests = scenarios + outlines
-    feature.scenario_count.should == 2
+    expect(feature.scenario_count).to eq(2)
   end
 
   it 'knows how many outlines it has - #outline_count' do
@@ -59,10 +59,10 @@ describe 'Feature, Integration' do
     outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
 
     feature.tests = []
-    feature.outline_count.should == 0
+    expect(feature.outline_count).to eq(0)
 
     feature.tests = scenarios + outlines
-    feature.outline_count.should == 2
+    expect(feature.outline_count).to eq(2)
   end
 
   it 'knows how many test cases it has - #test_case_count' do
@@ -83,8 +83,8 @@ describe 'Feature, Integration' do
     feature_2 = clazz.new(source_2)
 
 
-    feature_1.test_case_count.should == 0
-    feature_2.test_case_count.should == 3
+    expect(feature_1.test_case_count).to eq(0)
+    expect(feature_2.test_case_count).to eq(3)
   end
 
 
@@ -105,19 +105,19 @@ describe 'Feature, Integration' do
     it 'can get its directory' do
       gotten_directory = feature.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      expect(gotten_directory).to equal(directory)
     end
 
     it 'can get its feature file' do
       gotten_feature_file = feature.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      expect(gotten_feature_file).to equal(directory.feature_files.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
       gotten_test = feature.get_ancestor(:test)
 
-      gotten_test.should be_nil
+      expect(gotten_test).to be_nil
     end
 
   end
