@@ -11,9 +11,6 @@ describe 'FeatureElement, Unit' do
   it_should_behave_like 'a prepopulated element'
   it_should_behave_like 'a bare bones element'
 
-
-  before(:each) do
-    @element = clazz.new
-  end
+  let(:element) { clazz.new }
 
 end

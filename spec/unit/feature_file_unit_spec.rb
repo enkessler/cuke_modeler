@@ -12,14 +12,13 @@ describe 'FeatureFile, Unit' do
   it_should_behave_like 'a prepopulated element'
 
 
-  before(:each) do
-    @feature_file = clazz.new
-  end
+  let(:feature_file) { clazz.new }
+
 
   it 'cannot model a non-existent file' do
     path = "#{@default_file_directory}/missing_file.txt"
 
-    expect { CukeModeler::FeatureFile.new(path) }.to raise_error(ArgumentError)
+    expect { clazz.new(path) }.to raise_error(ArgumentError)
   end
 
   it 'provides its own filename when being parsed' do
@@ -33,7 +32,7 @@ describe 'FeatureFile, Unit' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
     File.open(path, "w") { |file| file.puts "Feature:" }
 
-    feature = CukeModeler::FeatureFile.new(path)
+    feature = clazz.new(path)
 
     feature.name.should == @default_feature_file_name
   end
@@ -42,58 +41,58 @@ describe 'FeatureFile, Unit' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
     File.open(path, "w") { |file| file.puts "Feature:" }
 
-    file = CukeModeler::FeatureFile.new(path)
+    file = clazz.new(path)
 
     file.path.should == path
   end
 
   it 'has features - #features' do
-    @feature_file.should respond_to(:features)
+    feature_file.should respond_to(:features)
   end
 
   it 'can get and set its features - #features, #features=' do
-    @feature_file.features = :some_features
-    @feature_file.features.should == :some_features
-    @feature_file.features = :some_other_features
-    @feature_file.features.should == :some_other_features
+    feature_file.features = :some_features
+    feature_file.features.should == :some_features
+    feature_file.features = :some_other_features
+    feature_file.features.should == :some_other_features
   end
 
   it 'knows how many features it has - #feature_count' do
-    @feature_file.features = [:a_feature]
-    @feature_file.feature_count.should == 1
-    @feature_file.features = []
-    @feature_file.feature_count.should == 0
+    feature_file.features = [:a_feature]
+    feature_file.feature_count.should == 1
+    feature_file.features = []
+    feature_file.feature_count.should == 0
   end
 
   it 'starts with no features' do
-    @feature_file.features.should == []
+    feature_file.features.should == []
   end
 
   it 'contains features' do
     features = [:a_feature]
     everything = features
 
-    @feature_file.features = features
+    feature_file.features = features
 
-    @feature_file.contains.should =~ everything
+    feature_file.contains.should =~ everything
   end
 
   it 'can easily access its sole feature' do
-    @feature_file.features = []
-    @feature_file.feature.should be_nil
+    feature_file.features = []
+    feature_file.feature.should be_nil
 
-    @feature_file.features = [:a_feature]
-    @feature_file.feature.should == :a_feature
+    feature_file.features = [:a_feature]
+    feature_file.feature.should == :a_feature
   end
 
   context 'feature file output edge cases' do
 
     it 'is a String' do
-      @feature_file.to_s.should be_a(String)
+      feature_file.to_s.should be_a(String)
     end
 
     it 'can output an empty feature file' do
-      expect { @feature_file.to_s }.to_not raise_error
+      expect { feature_file.to_s }.to_not raise_error
     end
 
   end

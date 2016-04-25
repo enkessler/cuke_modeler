@@ -60,24 +60,22 @@ describe 'Outline, Unit' do
   end
 
 
-  before(:each) do
-    @outline = clazz.new
-  end
+  let(:outline) { clazz.new }
 
 
   it 'has examples - #examples' do
-    @outline.should respond_to(:examples)
+    outline.should respond_to(:examples)
   end
 
   it 'can get and set its examples - #examples, #examples=' do
-    @outline.examples = :some_examples
-    @outline.examples.should == :some_examples
-    @outline.examples = :some_other_examples
-    @outline.examples.should == :some_other_examples
+    outline.examples = :some_examples
+    outline.examples.should == :some_examples
+    outline.examples = :some_other_examples
+    outline.examples.should == :some_other_examples
   end
 
   it 'starts with no examples' do
-    @outline.examples.should == []
+    outline.examples.should == []
   end
 
   it 'contains steps and examples' do
@@ -85,38 +83,38 @@ describe 'Outline, Unit' do
     examples = [:example_1, :example_2, :example_3]
     everything = steps + examples
 
-    @outline.steps = steps
-    @outline.examples = examples
+    outline.steps = steps
+    outline.examples = examples
 
-    @outline.contains.should =~ everything
+    outline.contains.should =~ everything
   end
 
   context 'outline output edge cases' do
 
     it 'is a String' do
-      @outline.to_s.should be_a(String)
+      outline.to_s.should be_a(String)
     end
 
     it 'can output an empty outline' do
-      expect { @outline.to_s }.to_not raise_error
+      expect { outline.to_s }.to_not raise_error
     end
 
     it 'can output an outline that has only a name' do
-      @outline.name = 'a name'
+      outline.name = 'a name'
 
-      expect { @outline.to_s }.to_not raise_error
+      expect { outline.to_s }.to_not raise_error
     end
 
     it 'can output an outline that has only a description' do
-      @outline.description_text = 'a description'
+      outline.description_text = 'a description'
 
-      expect { @outline.to_s }.to_not raise_error
+      expect { outline.to_s }.to_not raise_error
     end
 
     it 'can output an outline that has only a tags' do
-      @outline.tags = ['a tag']
+      outline.tags = ['a tag']
 
-      expect { @outline.to_s }.to_not raise_error
+      expect { outline.to_s }.to_not raise_error
     end
 
   end

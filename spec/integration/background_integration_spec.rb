@@ -4,12 +4,15 @@ SimpleCov.command_name('Background') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Background, Integration' do
 
+  let(:clazz) { CukeModeler::Background }
+
+
   it 'properly sets its child elements' do
     source = ['  Background: Test background',
               '    * a step']
     source = source.join("\n")
 
-    background = CukeModeler::Background.new(source)
+    background = clazz.new(source)
     step = background.steps.first
 
     step.parent_element.should equal background
@@ -26,34 +29,34 @@ describe 'Background, Integration' do
 
       file_path = "#{@default_file_directory}/background_test_file.feature"
       File.open(file_path, 'w') { |file| file.write(source) }
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @background = @directory.feature_files.first.features.first.background
     end
+
+    let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+    let(:background) { directory.feature_files.first.features.first.background }
 
 
     it 'can get its directory' do
-      directory = @background.get_ancestor(:directory)
+      gotten_directory = background.get_ancestor(:directory)
 
-      directory.should equal @directory
+      gotten_directory.should equal directory
     end
 
     it 'can get its feature file' do
-      feature_file = @background.get_ancestor(:feature_file)
+      gotten_feature_file = background.get_ancestor(:feature_file)
 
-      feature_file.should equal @directory.feature_files.first
+      gotten_feature_file.should equal directory.feature_files.first
     end
 
     it 'can get its feature' do
-      feature = @background.get_ancestor(:feature)
+      gotten_feature = background.get_ancestor(:feature)
 
-      feature.should equal @directory.feature_files.first.features.first
+      gotten_feature.should equal directory.feature_files.first.features.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      example = @background.get_ancestor(:example)
+      gotten_example = background.get_ancestor(:example)
 
-      example.should be_nil
+      gotten_example.should be_nil
     end
 
   end
@@ -61,7 +64,7 @@ describe 'Background, Integration' do
   context 'background output edge cases' do
 
     it 'can output a background that has only steps' do
-      background = CukeModeler::Background.new
+      background = clazz.new
       background.steps = [CukeModeler::Step.new]
 
       expect { background.to_s }.to_not raise_error

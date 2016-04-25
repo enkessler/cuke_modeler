@@ -52,33 +52,32 @@ describe 'TableRow, Unit' do
   end
 
 
-  before(:each) do
-    @row = clazz.new
-  end
+  let(:row) { clazz.new }
+
 
   it 'has cells' do
-    @row.should respond_to(:cells)
+    row.should respond_to(:cells)
   end
 
   it 'can get and set its cells' do
-    @row.cells = :some_cells
-    @row.cells.should == :some_cells
-    @row.cells = :some_other_cells
-    @row.cells.should == :some_other_cells
+    row.cells = :some_cells
+    row.cells.should == :some_cells
+    row.cells = :some_other_cells
+    row.cells.should == :some_other_cells
   end
 
   it 'starts with no cells' do
-    @row.cells.should == []
+    row.cells.should == []
   end
 
   context 'table row output edge cases' do
 
     it 'is a String' do
-      @row.to_s.should be_a(String)
+      row.to_s.should be_a(String)
     end
 
     it 'can output an empty table row' do
-      expect { @row.to_s }.to_not raise_error
+      expect { row.to_s }.to_not raise_error
     end
 
   end

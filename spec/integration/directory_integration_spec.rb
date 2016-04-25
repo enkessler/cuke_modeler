@@ -4,6 +4,8 @@ SimpleCov.command_name('Directory') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Directory, Integration' do
 
+  let(:clazz) { CukeModeler::Directory }
+
   it 'properly sets its child elements' do
     nested_directory = "#{@default_file_directory}/nested_directory"
     file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
@@ -13,7 +15,7 @@ describe 'Directory, Integration' do
       file.puts('Feature: Test feature')
     }
 
-    directory = CukeModeler::Directory.new(@default_file_directory)
+    directory = clazz.new(@default_file_directory)
     nested_directory = directory.directories.first
     file = directory.feature_files.first
 
@@ -24,24 +26,23 @@ describe 'Directory, Integration' do
   context 'getting stuff' do
 
     before(:each) do
-      nested_directory = "#{@default_file_directory}/nested_directory"
-      FileUtils.mkdir(nested_directory)
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @nested_directory = @directory.directories.first
+      FileUtils.mkdir("#{@default_file_directory}/nested_directory")
     end
+
+    let(:directory) { clazz.new(@default_file_directory) }
+    let(:nested_directory) { directory.directories.first }
 
 
     it 'can get its directory' do
-      directory = @nested_directory.get_ancestor(:directory)
+      gotten_directory = nested_directory.get_ancestor(:directory)
 
-      directory.should equal @directory
+      gotten_directory.should equal directory
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      example = @nested_directory.get_ancestor(:example)
+      gotten_example = nested_directory.get_ancestor(:example)
 
-      example.should be_nil
+      gotten_example.should be_nil
     end
 
   end

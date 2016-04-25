@@ -56,45 +56,44 @@ describe 'Scenario, Unit' do
   end
 
 
-  before(:each) do
-    @scenario = clazz.new
-  end
+  let(:scenario) { clazz.new }
+
 
   it 'contains only steps' do
     steps = [:step_1, :step_2]
     everything = steps
 
-    @scenario.steps = steps
+    scenario.steps = steps
 
-    @scenario.contains.should =~ everything
+    scenario.contains.should =~ everything
   end
 
   context 'scenario output edge cases' do
 
     it 'is a String' do
-      @scenario.to_s.should be_a(String)
+      scenario.to_s.should be_a(String)
     end
 
     it 'can output an empty scenario' do
-      expect { @scenario.to_s }.to_not raise_error
+      expect { scenario.to_s }.to_not raise_error
     end
 
     it 'can output a scenario that has only a name' do
-      @scenario.name = 'a name'
+      scenario.name = 'a name'
 
-      expect { @scenario.to_s }.to_not raise_error
+      expect { scenario.to_s }.to_not raise_error
     end
 
     it 'can output a scenario that has only a description' do
-      @scenario.description_text = 'a description'
+      scenario.description_text = 'a description'
 
-      expect { @scenario.to_s }.to_not raise_error
+      expect { scenario.to_s }.to_not raise_error
     end
 
     it 'can output a scenario that has only a tags' do
-      @scenario.tags = ['a tag']
+      scenario.tags = ['a tag']
 
-      expect { @scenario.to_s }.to_not raise_error
+      expect { scenario.to_s }.to_not raise_error
     end
 
   end

@@ -4,66 +4,69 @@ SimpleCov.command_name('World') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'World, Unit' do
 
+  let(:nodule) { CukeModeler::World }
+  let(:world) { nodule }
+
+
   before(:each) do
-    @world = CukeModeler::World
-    @world.loaded_step_patterns.clear
-    @world.delimiter = nil
+    world.loaded_step_patterns.clear
+    world.delimiter = nil
   end
 
   it 'has left and right delimiters used for step argument parsing - #left_delimiter, #right_delimiter' do
-    @world.should respond_to(:left_delimiter)
-    @world.should respond_to(:right_delimiter)
+    world.should respond_to(:left_delimiter)
+    world.should respond_to(:right_delimiter)
   end
 
   it 'can get and set the delimiters used for step argument parsing' do
-    @world.left_delimiter = '"'
-    @world.right_delimiter = '"'
-    @world.left_delimiter.should == '"'
-    @world.right_delimiter.should == '"'
+    world.left_delimiter = '"'
+    world.right_delimiter = '"'
+    world.left_delimiter.should == '"'
+    world.right_delimiter.should == '"'
 
-    @world.left_delimiter = '!'
-    @world.right_delimiter = '!'
-    @world.left_delimiter.should == '!'
-    @world.right_delimiter.should == '!'
+    world.left_delimiter = '!'
+    world.right_delimiter = '!'
+    world.left_delimiter.should == '!'
+    world.right_delimiter.should == '!'
   end
 
   it 'can have different left and right delimiters' do
-    @world.left_delimiter = '"'
-    @world.right_delimiter = '*'
+    world.left_delimiter = '"'
+    world.right_delimiter = '*'
 
-    (@world.left_delimiter != @world.right_delimiter).should be_true
+    (world.left_delimiter != world.right_delimiter).should be_true
   end
 
   it 'can set both of its delimiters at once - #delimiter=' do
-    @world.delimiter = '*'
+    world.delimiter = '*'
 
-    @world.left_delimiter.should == '*'
-    @world.right_delimiter.should == '*'
+    world.left_delimiter.should == '*'
+    world.right_delimiter.should == '*'
   end
 
   it 'starts with no delimiters' do
-    @world.left_delimiter.should == nil
-    @world.right_delimiter.should == nil
+    world.left_delimiter.should == nil
+    world.right_delimiter.should == nil
   end
 
   context 'step patterns' do
 
     it 'can load step patterns - #load_step_pattern' do
-      @world.should respond_to(:load_step_pattern)
+      world.should respond_to(:load_step_pattern)
     end
 
     it 'starts with no patterns loaded' do
-      @world.loaded_step_patterns.should == []
+      world.loaded_step_patterns.should == []
     end
 
     it 'keeps track of loaded step patterns - #loaded_step_patterns' do
       patterns = [/a pattern/, /another pattern/]
 
       patterns.each do |pattern|
-        @world.load_step_pattern(pattern)
+        world.load_step_pattern(pattern)
       end
 
-      @world.loaded_step_patterns.should =~ patterns
+      world.loaded_step_patterns.should =~ patterns
     end
 
     it 'can load step definition files - #load_step_file' do
@@ -76,9 +79,9 @@ describe 'World, Unit' do
         end
       }
 
-      @world.load_step_file(file_path)
+      world.load_step_file(file_path)
 
-      @world.loaded_step_patterns.should =~ patterns
+      world.loaded_step_patterns.should =~ patterns
     end
 
     it 'can handle different step keywords - #load_step_file' do
@@ -93,9 +96,9 @@ describe 'World, Unit' do
         file.puts "But #{patterns[4].inspect} do end"
       }
 
-      @world.load_step_file(file_path)
+      world.load_step_file(file_path)
 
-      @world.loaded_step_patterns.should =~ patterns
+      world.loaded_step_patterns.should =~ patterns
     end
 
     it 'can handle a variety of declaration structures - #load_step_file' do
@@ -108,21 +111,21 @@ describe 'World, Unit' do
         file.puts "Given   #{patterns[2].inspect}   do end"
       }
 
-      @world.load_step_file(file_path)
+      world.load_step_file(file_path)
 
-      @world.loaded_step_patterns.should =~ patterns
+      world.loaded_step_patterns.should =~ patterns
     end
 
     it 'can clear its loaded step patterns - #clear_step_patterns' do
       patterns = [/a pattern/, /another pattern/]
 
       patterns.each do |pattern|
-        @world.load_step_pattern(pattern)
+        world.load_step_pattern(pattern)
       end
 
-      @world.loaded_step_patterns.should =~ patterns
-      @world.clear_step_patterns
-      @world.loaded_step_patterns.should == []
+      world.loaded_step_patterns.should =~ patterns
+      world.clear_step_patterns
+      world.loaded_step_patterns.should == []
     end
 
   end

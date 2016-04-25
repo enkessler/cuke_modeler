@@ -52,47 +52,46 @@ describe 'Table, Unit' do
   end
 
 
-  before(:each) do
-    @table = clazz.new
-  end
+  let(:table) { clazz.new }
+
 
   # todo - remove once #contents is no longer supported
   it 'has contents - #contents' do
-    @table.should respond_to(:contents)
+    table.should respond_to(:contents)
   end
 
   # todo - remove once #contents is no longer supported
   it 'can get and set its contents - #contents, #contents=' do
-    @table.contents = :some_contents
-    @table.contents.should == :some_contents
-    @table.contents = :some_other_contents
-    @table.contents.should == :some_other_contents
+    table.contents = :some_contents
+    table.contents.should == :some_contents
+    table.contents = :some_other_contents
+    table.contents.should == :some_other_contents
   end
 
   # todo - remove once #contents is no longer supported
   it 'starts with no contents' do
-    @table.contents.should == []
+    table.contents.should == []
   end
 
   it 'has row elements' do
-    @table.should respond_to(:row_elements)
+    table.should respond_to(:row_elements)
   end
 
   it 'can get and set its row elements' do
-    @table.row_elements = :some_row_elements
-    @table.row_elements.should == :some_row_elements
-    @table.row_elements = :some_other_row_elements
-    @table.row_elements.should == :some_other_row_elements
+    table.row_elements = :some_row_elements
+    table.row_elements.should == :some_row_elements
+    table.row_elements = :some_other_row_elements
+    table.row_elements.should == :some_other_row_elements
   end
 
   it 'starts with no row elements' do
-    @table.row_elements.should == []
+    table.row_elements.should == []
   end
 
   # todo - remove once #contents is no longer supported
   it 'stores its contents as a nested array of strings' do
     source = "| cell 1 | cell 2 |\n| cell 3 | cell 4 |"
-    table = CukeModeler::Table.new(source)
+    table = clazz.new(source)
 
     contents = table.contents
 
@@ -107,18 +106,18 @@ describe 'Table, Unit' do
   context 'table output edge cases' do
 
     it 'is a String' do
-      @table.to_s.should be_a(String)
+      table.to_s.should be_a(String)
     end
 
     it 'can output an empty table' do
-      expect { @table.to_s }.to_not raise_error
+      expect { table.to_s }.to_not raise_error
     end
 
     # todo - remove once #contents is no longer supported
     it 'can output a table that only has contents' do
-      @table.contents = ['some contents']
+      table.contents = ['some contents']
 
-      expect { @table.to_s }.to_not raise_error
+      expect { table.to_s }.to_not raise_error
     end
 
   end

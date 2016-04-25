@@ -13,15 +13,14 @@ describe 'TestElement, Unit' do
   it_should_behave_like 'a bare bones element'
 
 
-  before(:each) do
-    @element = clazz.new
-  end
+  let(:element) { clazz.new }
+
 
   it 'contains only steps - #contains' do
     steps = [:step_1, :step_2, :step_3]
-    @element.steps = steps
+    element.steps = steps
 
-    @element.contains.should =~ steps
+    element.contains.should =~ steps
   end
 
   it 'can determine its equality with another TestElement - #==' do
@@ -40,8 +39,8 @@ describe 'TestElement, Unit' do
   it 'can gracefully be compared to other types of objects' do
     # Some common types of object
     [1, 'foo', :bar, [], {}].each do |thing|
-      expect { @element == thing }.to_not raise_error
-      expect(@element == thing).to be false
+      expect { element == thing }.to_not raise_error
+      expect(element == thing).to be false
     end
   end
 

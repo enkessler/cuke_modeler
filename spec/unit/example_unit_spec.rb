@@ -87,47 +87,45 @@ describe 'Example, Unit' do
   end
 
 
-  before(:each) do
-    @example = clazz.new
-  end
+  let(:example) { clazz.new }
 
 
   it 'has parameters - #parameters' do
-    @example.should respond_to(:parameters)
+    example.should respond_to(:parameters)
   end
 
   it 'can get and set its parameters - #parameters, #parameters=' do
-    @example.parameters = :some_parameters
-    @example.parameters.should == :some_parameters
-    @example.parameters = :some_other_parameters
-    @example.parameters.should == :some_other_parameters
+    example.parameters = :some_parameters
+    example.parameters.should == :some_parameters
+    example.parameters = :some_other_parameters
+    example.parameters.should == :some_other_parameters
   end
 
   it 'starts with no parameters' do
-    @example.parameters.should == []
+    example.parameters.should == []
   end
 
   it 'has rows - #rows' do
-    @example.should respond_to(:rows)
+    example.should respond_to(:rows)
   end
 
   #todo - remove once Hash rows are no longer supported
   it 'can get and set its rows - #rows, #rows=' do
-    @example.rows = :some_rows
-    @example.rows.should == :some_rows
-    @example.rows = :some_other_rows
-    @example.rows.should == :some_other_rows
+    example.rows = :some_rows
+    example.rows.should == :some_rows
+    example.rows = :some_other_rows
+    example.rows.should == :some_other_rows
   end
 
   #todo - remove once Hash rows are no longer supported
   it 'starts with no rows' do
-    @example.rows.should == []
+    example.rows.should == []
   end
 
   #todo - remove once Hash rows are no longer supported
   it 'stores its rows as an nested array of hashes' do
     source = "Examples:\n|param1|param2|\n|value1|value2|"
-    example = CukeModeler::Example.new(source)
+    example = clazz.new(source)
 
     rows = example.rows
 
@@ -138,7 +136,7 @@ describe 'Example, Unit' do
 
   it 'does not include the parameter row as a row' do
     source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
-    example = CukeModeler::Example.new(source)
+    example = clazz.new(source)
 
     rows = example.rows
 
@@ -146,18 +144,18 @@ describe 'Example, Unit' do
   end
 
   it 'has row elements - #row_elements' do
-    @example.should respond_to(:row_elements)
+    example.should respond_to(:row_elements)
   end
 
   it 'can get and set its row elements - #row_elements, #row_elements=' do
-    @example.row_elements = :some_row_elements
-    @example.row_elements.should == :some_row_elements
-    @example.row_elements = :some_other_row_elements
-    @example.row_elements.should == :some_other_row_elements
+    example.row_elements = :some_row_elements
+    example.row_elements.should == :some_row_elements
+    example.row_elements = :some_other_row_elements
+    example.row_elements.should == :some_other_row_elements
   end
 
   it 'starts with no row elements' do
-    @example.row_elements.should == []
+    example.row_elements.should == []
   end
 
   context '#add_row' do
@@ -168,7 +166,7 @@ describe 'Example, Unit' do
 
     it 'can add a new row as a hash' do
       source = "Examples:\n|param1|param2|\n|value1|value2|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       new_row = {'param1' => 'value3', 'param2' => 'value4'}
       example.add_row(new_row)
@@ -180,7 +178,7 @@ describe 'Example, Unit' do
 
     it 'can add a new row as an array' do
       source = "Examples:\n|param1|param2|\n|value1|value2|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       new_row = ['value3', 'value4']
       example.add_row(new_row)
@@ -191,14 +189,14 @@ describe 'Example, Unit' do
     end
 
     it 'can only use a Hash or an Array to add a new row' do
-      expect { @example.add_row({}) }.to_not raise_error
-      expect { @example.add_row([]) }.to_not raise_error
-      expect { @example.add_row(:a_row) }.to raise_error(ArgumentError)
+      expect { example.add_row({}) }.to_not raise_error
+      expect { example.add_row([]) }.to_not raise_error
+      expect { example.add_row(:a_row) }.to raise_error(ArgumentError)
     end
 
     it 'trims whitespace from added rows' do
       source = "Examples:\n|param1|param2|\n|value1|value2|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       hash_row = {'param1' => 'value3  ', 'param2' => '  value4'}
       array_row = ['value5', ' value6 ']
@@ -219,7 +217,7 @@ describe 'Example, Unit' do
 
     it 'can remove an existing row as a hash' do
       source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       old_row = {'param1' => 'value3', 'param2' => 'value4'}
       example.remove_row(old_row)
@@ -231,7 +229,7 @@ describe 'Example, Unit' do
 
     it 'can remove an existing row as an array' do
       source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       old_row = ['value3', 'value4']
       example.remove_row(old_row)
@@ -242,14 +240,14 @@ describe 'Example, Unit' do
     end
 
     it 'can only use a Hash or an Array to remove an existing row' do
-      expect { @example.remove_row({}) }.to_not raise_error
-      expect { @example.remove_row([]) }.to_not raise_error
-      expect { @example.remove_row(:a_row) }.to raise_error(ArgumentError)
+      expect { example.remove_row({}) }.to_not raise_error
+      expect { example.remove_row([]) }.to_not raise_error
+      expect { example.remove_row(:a_row) }.to raise_error(ArgumentError)
     end
 
     it 'trims whitespace from removed rows' do
       source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|\n|value5|value6|"
-      example = CukeModeler::Example.new(source)
+      example = clazz.new(source)
 
       hash_row = {'param1' => 'value3  ', 'param2' => '  value4'}
       array_row = ['value5', ' value6 ']
@@ -265,43 +263,43 @@ describe 'Example, Unit' do
   context 'example output edge cases' do
 
     it 'is a String' do
-      @example.to_s.should be_a(String)
+      example.to_s.should be_a(String)
     end
 
     it 'can output an empty example' do
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
     it 'can output an example that has only a name' do
-      @example.name = 'a name'
+      example.name = 'a name'
 
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
     it 'can output an example that has only a description' do
-      @example.description_text = 'a description'
+      example.description_text = 'a description'
 
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
     it 'can output an example that has only a tags' do
-      @example.tags = ['a tag']
+      example.tags = ['a tag']
 
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
     #todo - remove once Hash rows are no longer supported
     it 'can output an example that only has parameters' do
-      @example.parameters = ['param1']
+      example.parameters = ['param1']
 
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
     #todo - remove once Hash rows are no longer supported
     it 'can output an example that only has rows' do
-      @example.rows = [{:param1 => 'row1'}]
+      example.rows = [{:param1 => 'row1'}]
 
-      expect { @example.to_s }.to_not raise_error
+      expect { example.to_s }.to_not raise_error
     end
 
   end

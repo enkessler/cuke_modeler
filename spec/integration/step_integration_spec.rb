@@ -4,6 +4,9 @@ SimpleCov.command_name('Step') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Step, Integration' do
 
+  let(:clazz) { CukeModeler::Step }
+
+
   it 'properly sets its child elements' do
     source_1 = ['* a step',
                 '"""',
@@ -12,8 +15,8 @@ describe 'Step, Integration' do
     source_2 = ['* a step',
                 '| a block|']
 
-    step_1 = CukeModeler::Step.new(source_1.join("\n"))
-    step_2 = CukeModeler::Step.new(source_2.join("\n"))
+    step_1 = clazz.new(source_1.join("\n"))
+    step_2 = clazz.new(source_2.join("\n"))
 
 
     doc_string = step_1.block
@@ -28,7 +31,7 @@ describe 'Step, Integration' do
     world.left_delimiter = '"'
     world.right_delimiter = '"'
 
-    step = CukeModeler::Step.new
+    step = clazz.new
     step.right_delimiter = nil
     step.left_delimiter = nil
 
@@ -43,7 +46,7 @@ describe 'Step, Integration' do
     world.left_delimiter = '"'
     world.right_delimiter = '"'
 
-    step = CukeModeler::Step.new(source)
+    step = clazz.new(source)
 
     step.arguments.should == ['parameter 2']
   end
@@ -54,7 +57,7 @@ describe 'Step, Integration' do
     world.right_delimiter = nil
 
     source = 'Given a test step with *parameter 1* and "parameter 2" and *parameter 3*'
-    step = CukeModeler::Step.new(source)
+    step = clazz.new(source)
 
     step.scan_arguments
 
@@ -66,9 +69,9 @@ describe 'Step, Integration' do
     source_2 = "Given a test step with *parameter 3* and *parameter 4*\n|another block|"
     source_3 = 'Given a different *parameterized* step'
 
-    step_1 = CukeModeler::Step.new(source_1)
-    step_2 = CukeModeler::Step.new(source_2)
-    step_3 = CukeModeler::Step.new(source_3)
+    step_1 = clazz.new(source_1)
+    step_2 = clazz.new(source_2)
+    step_3 = clazz.new(source_3)
 
     step_1.delimiter = '*'
     step_2.delimiter = '*'
@@ -81,15 +84,13 @@ describe 'Step, Integration' do
 
   context '#step_text ' do
 
-    before(:each) do
-      source = "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|"
-      @step = CukeModeler::Step.new(source)
-    end
+    let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
+    let(:step) { clazz.new(source) }
 
 
     it 'returns the step\'s entire text by default' do
       source = "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|"
-      step_with_block = CukeModeler::Step.new(source)
+      step_with_block = clazz.new(source)
 
       expected_output = ['Given a test step with -parameter 1- ^and@ *parameter 2!!',
                          '|a block|']
@@ -97,7 +98,7 @@ describe 'Step, Integration' do
       step_with_block.step_text.should == expected_output
 
       source = 'Given a test step with -parameter 1- ^and@ *parameter 2!!'
-      step_without_block = CukeModeler::Step.new(source)
+      step_without_block = clazz.new(source)
 
       expected_output = ['Given a test step with -parameter 1- ^and@ *parameter 2!!']
 
@@ -108,7 +109,7 @@ describe 'Step, Integration' do
       expected_output = ['a test step with -parameter 1- ^and@ *parameter 2!!',
                          '|a block|']
 
-      @step.step_text(:with_keywords => false).should == expected_output
+      step.step_text(:with_keywords => false).should == expected_output
     end
 
   end
@@ -124,60 +125,59 @@ describe 'Step, Integration' do
 
       file_path = "#{@default_file_directory}/step_test_file.feature"
       File.open(file_path, 'w') { |file| file.write(source) }
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @step = @directory.feature_files.first.features.first.tests.first.steps.first
     end
+
+    let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+    let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
 
 
     it 'can get its directory' do
-      directory = @step.get_ancestor(:directory)
+      gotten_directory = step.get_ancestor(:directory)
 
-      directory.should equal @directory
+      gotten_directory.should equal directory
     end
 
     it 'can get its feature file' do
-      feature_file = @step.get_ancestor(:feature_file)
+      gotten_feature_file = step.get_ancestor(:feature_file)
 
-      feature_file.should equal @directory.feature_files.first
+      gotten_feature_file.should equal directory.feature_files.first
     end
 
     it 'can get its feature' do
-      feature = @step.get_ancestor(:feature)
+      gotten_feature = step.get_ancestor(:feature)
 
-      feature.should equal @directory.feature_files.first.features.first
+      gotten_feature.should equal directory.feature_files.first.features.first
     end
 
     it 'can get its test' do
-      test = @step.get_ancestor(:test)
+      gotten_test = step.get_ancestor(:test)
 
-      test.should equal @directory.feature_files.first.features.first.tests.first
+      gotten_test.should equal directory.feature_files.first.features.first.tests.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      example = @step.get_ancestor(:example)
+      gotten_example = step.get_ancestor(:example)
 
-      example.should be_nil
+      gotten_example.should be_nil
     end
 
   end
 
   context 'step output edge cases' do
 
-    before(:each) do
-      @step = CukeModeler::Step.new
-    end
+    let(:step) { clazz.new }
+
 
     it 'can output a step that has only a table' do
-      @step.block = CukeModeler::Table.new
+      step.block = CukeModeler::Table.new
 
-      expect { @step.to_s }.to_not raise_error
+      expect { step.to_s }.to_not raise_error
     end
 
     it 'can output a step that has only a doc string' do
-      @step.block = CukeModeler::DocString.new
+      step.block = CukeModeler::DocString.new
 
-      expect { @step.to_s }.to_not raise_error
+      expect { step.to_s }.to_not raise_error
     end
 
   end

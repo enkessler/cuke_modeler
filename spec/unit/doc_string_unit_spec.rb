@@ -53,54 +53,53 @@ describe 'DocString, Unit' do
   end
 
 
-  before(:each) do
-    @doc_string = clazz.new
-  end
+  let(:doc_string) { clazz.new }
+
 
   it 'has a content type - #content_type' do
-    @doc_string.should respond_to(:content_type)
+    doc_string.should respond_to(:content_type)
   end
 
   it 'can get and set its content type - #content_type, #content_type=' do
-    @doc_string.content_type = :some_content_type
-    @doc_string.content_type.should == :some_content_type
-    @doc_string.content_type = :some_other_content_type
-    @doc_string.content_type.should == :some_other_content_type
+    doc_string.content_type = :some_content_type
+    doc_string.content_type.should == :some_content_type
+    doc_string.content_type = :some_other_content_type
+    doc_string.content_type.should == :some_other_content_type
   end
 
   it 'starts with no content type' do
-    @doc_string.content_type.should == nil
+    doc_string.content_type.should == nil
   end
 
   it 'has contents' do
     #todo Remove once Array contents is no longer supported
-    @doc_string.should respond_to(:contents)
-    @doc_string.should respond_to(:contents_text)
+    doc_string.should respond_to(:contents)
+    doc_string.should respond_to(:contents_text)
   end
 
   it 'can get and set its contents' do
     #todo Remove once Array contents is no longer supported
-    @doc_string.contents = :some_contents
-    @doc_string.contents.should == :some_contents
-    @doc_string.contents = :some_other_contents
-    @doc_string.contents.should == :some_other_contents
+    doc_string.contents = :some_contents
+    doc_string.contents.should == :some_contents
+    doc_string.contents = :some_other_contents
+    doc_string.contents.should == :some_other_contents
 
-    @doc_string.contents_text = :some_contents
-    @doc_string.contents_text.should == :some_contents
-    @doc_string.contents_text = :some_other_contents
-    @doc_string.contents_text.should == :some_other_contents
+    doc_string.contents_text = :some_contents
+    doc_string.contents_text.should == :some_contents
+    doc_string.contents_text = :some_other_contents
+    doc_string.contents_text.should == :some_other_contents
   end
 
   it 'starts with no contents' do
     #todo Remove once Array contents is no longer supported
-    @doc_string.contents.should == []
-    @doc_string.contents_text.should == ''
+    doc_string.contents.should == []
+    doc_string.contents_text.should == ''
   end
 
   #todo Remove once Array contents is no longer supported
   it 'stores its contents as an array of strings - deprecated' do
     source = "\"\"\"\nsome text\nsome more text\n\"\"\""
-    doc_string = CukeModeler::DocString.new(source)
+    doc_string = clazz.new(source)
 
     contents = doc_string.contents
 
@@ -122,17 +121,17 @@ describe 'DocString, Unit' do
   context 'doc string output edge cases' do
 
     it 'is a String' do
-      @doc_string.to_s.should be_a(String)
+      doc_string.to_s.should be_a(String)
     end
 
     it 'can output an empty doc string' do
-      expect { @doc_string.to_s }.to_not raise_error
+      expect { doc_string.to_s }.to_not raise_error
     end
 
     it 'can output a doc string that has only a content type' do
-      @doc_string.content_type = 'some type'
+      doc_string.content_type = 'some type'
 
-      expect { @doc_string.to_s }.to_not raise_error
+      expect { doc_string.to_s }.to_not raise_error
     end
 
   end

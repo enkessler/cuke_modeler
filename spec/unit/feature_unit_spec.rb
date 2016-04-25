@@ -15,9 +15,8 @@ describe 'Feature, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
-  before(:each) do
-    @feature = clazz.new
-  end
+  let(:feature) { clazz.new }
+
 
   it 'can be parsed from stand alone text' do
     source = 'Feature: test feature'
@@ -67,39 +66,39 @@ describe 'Feature, Unit' do
   end
 
   it 'has a background - #background' do
-    @feature.should respond_to(:background)
+    feature.should respond_to(:background)
   end
 
   it 'can get and set its background - #background, #background=' do
-    @feature.background = :some_background
-    @feature.background.should == :some_background
-    @feature.background = :some_other_background
-    @feature.background.should == :some_other_background
+    feature.background = :some_background
+    feature.background.should == :some_background
+    feature.background = :some_other_background
+    feature.background.should == :some_other_background
   end
 
   it 'knows whether or not it presently has a background - has_background?' do
-    @feature.background = :a_background
-    @feature.has_background?.should be_true
-    @feature.background = nil
-    @feature.has_background?.should be_false
+    feature.background = :a_background
+    feature.has_background?.should be_true
+    feature.background = nil
+    feature.has_background?.should be_false
   end
 
   it 'has tests - #tests' do
-    @feature.should respond_to(:tests)
+    feature.should respond_to(:tests)
   end
 
   it 'can get and set its tests - #tests, #tests=' do
-    @feature.tests = :some_tests
-    @feature.tests.should == :some_tests
-    @feature.tests = :some_other_tests
-    @feature.tests.should == :some_other_tests
+    feature.tests = :some_tests
+    feature.tests.should == :some_tests
+    feature.tests = :some_other_tests
+    feature.tests.should == :some_other_tests
   end
 
   it 'knows how many tests it has - #test_count' do
-    @feature.tests = []
-    @feature.test_count.should == 0
-    @feature.tests = [:test_1, :test_2]
-    @feature.test_count.should == 2
+    feature.tests = []
+    feature.test_count.should == 0
+    feature.tests = [:test_1, :test_2]
+    feature.test_count.should == 2
   end
 
   it 'contains backgrounds and tests' do
@@ -107,10 +106,10 @@ describe 'Feature, Unit' do
     background = :a_background
     everything = [background] + tests
 
-    @feature.background = background
-    @feature.tests = tests
+    feature.background = background
+    feature.tests = tests
 
-    @feature.contains.should =~ everything
+    feature.contains.should =~ everything
   end
 
   it 'contains a background only if one is present' do
@@ -118,46 +117,46 @@ describe 'Feature, Unit' do
     background = nil
     everything = tests
 
-    @feature.background = background
-    @feature.tests = tests
+    feature.background = background
+    feature.tests = tests
 
-    @feature.contains.should =~ everything
+    feature.contains.should =~ everything
   end
 
   it 'starts with no background' do
-    @feature.background.should == nil
+    feature.background.should == nil
   end
 
   it 'starts with no tests' do
-    @feature.tests.should == []
+    feature.tests.should == []
   end
 
   context 'feature output edge cases' do
 
     it 'is a String' do
-      @feature.to_s.should be_a(String)
+      feature.to_s.should be_a(String)
     end
 
     it 'can output an empty feature' do
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only a name' do
-      @feature.name = 'a name'
+      feature.name = 'a name'
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only a description' do
-      @feature.description_text = 'a description'
+      feature.description_text = 'a description'
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only a tags' do
-      @feature.tags = ['a tag']
+      feature.tags = ['a tag']
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
   end

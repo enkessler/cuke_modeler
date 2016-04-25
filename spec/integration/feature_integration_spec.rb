@@ -4,11 +4,9 @@ SimpleCov.command_name('Feature') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Feature, Integration' do
 
-  clazz = CukeModeler::Feature
+  let(:clazz) { CukeModeler::Feature }
+  let(:feature) { clazz.new }
 
-  before(:each) do
-    @feature = clazz.new
-  end
 
   it 'properly sets its child elements' do
     source = ['@a_tag',
@@ -22,7 +20,7 @@ describe 'Feature, Integration' do
     source = source.join("\n")
 
 
-    feature = CukeModeler::Feature.new(source)
+    feature = clazz.new(source)
     background = feature.background
     scenario = feature.tests[0]
     outline = feature.tests[1]
@@ -39,32 +37,32 @@ describe 'Feature, Integration' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
     outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
 
-    @feature.tests = scenarios + outlines
+    feature.tests = scenarios + outlines
 
-    @feature.scenarios.should =~ scenarios
-    @feature.outlines.should =~ outlines
+    feature.scenarios.should =~ scenarios
+    feature.outlines.should =~ outlines
   end
 
   it 'knows how many scenarios it has - #scenario_count' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
     outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|")]
 
-    @feature.tests = []
-    @feature.scenario_count.should == 0
+    feature.tests = []
+    feature.scenario_count.should == 0
 
-    @feature.tests = scenarios + outlines
-    @feature.scenario_count.should == 2
+    feature.tests = scenarios + outlines
+    feature.scenario_count.should == 2
   end
 
   it 'knows how many outlines it has - #outline_count' do
     scenarios = [CukeModeler::Scenario.new('Scenario: 1')]
     outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
 
-    @feature.tests = []
-    @feature.outline_count.should == 0
+    feature.tests = []
+    feature.outline_count.should == 0
 
-    @feature.tests = scenarios + outlines
-    @feature.outline_count.should == 2
+    feature.tests = scenarios + outlines
+    feature.outline_count.should == 2
   end
 
   it 'knows how many test cases it has - #test_case_count' do
@@ -81,8 +79,8 @@ describe 'Feature, Integration' do
                 '    |value_2|']
     source_2 = source_2.join("\n")
 
-    feature_1 = CukeModeler::Feature.new(source_1)
-    feature_2 = CukeModeler::Feature.new(source_2)
+    feature_1 = clazz.new(source_1)
+    feature_2 = clazz.new(source_2)
 
 
     feature_1.test_case_count.should == 0
@@ -98,28 +96,28 @@ describe 'Feature, Integration' do
 
       file_path = "#{@default_file_directory}/feature_test_file.feature"
       File.open(file_path, 'w') { |file| file.write(source) }
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @feature = @directory.feature_files.first.features.first
     end
+
+    let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+    let(:feature) { directory.feature_files.first.features.first }
 
 
     it 'can get its directory' do
-      directory = @feature.get_ancestor(:directory)
+      gotten_directory = feature.get_ancestor(:directory)
 
-      directory.should equal @directory
+      gotten_directory.should equal directory
     end
 
     it 'can get its feature file' do
-      feature_file = @feature.get_ancestor(:feature_file)
+      gotten_feature_file = feature.get_ancestor(:feature_file)
 
-      feature_file.should equal @directory.feature_files.first
+      gotten_feature_file.should equal directory.feature_files.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      test = @feature.get_ancestor(:test)
+      gotten_test = feature.get_ancestor(:test)
 
-      test.should be_nil
+      gotten_test.should be_nil
     end
 
   end
@@ -127,27 +125,27 @@ describe 'Feature, Integration' do
   context 'feature output edge cases' do
 
     it 'can output a feature that has only a tag elements' do
-      @feature.tag_elements = [CukeModeler::Tag.new]
+      feature.tag_elements = [CukeModeler::Tag.new]
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only a background' do
-      @feature.background = [CukeModeler::Background.new]
+      feature.background = [CukeModeler::Background.new]
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only scenarios' do
-      @feature.tests = [CukeModeler::Scenario.new]
+      feature.tests = [CukeModeler::Scenario.new]
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
     it 'can output a feature that has only outlines' do
-      @feature.tests = [CukeModeler::Outline.new]
+      feature.tests = [CukeModeler::Outline.new]
 
-      expect { @feature.to_s }.to_not raise_error
+      expect { feature.to_s }.to_not raise_error
     end
 
   end
