@@ -1,17 +1,18 @@
 require 'simplecov' unless RUBY_VERSION.to_s < '1.9.0'
 
 
-require "#{File.dirname(__FILE__)}/../lib/cuke_modeler"
+require_relative '../lib/cuke_modeler'
 
-require "#{File.dirname(__FILE__)}/unit/feature_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/nested_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/tagged_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/containing_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/bare_bones_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/test_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/prepopulated_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/sourced_element_unit_specs"
-require "#{File.dirname(__FILE__)}/unit/raw_element_unit_specs"
+require_relative 'unit/feature_element_unit_specs'
+require_relative 'unit/nested_element_unit_specs'
+require_relative 'unit/tagged_element_unit_specs'
+require_relative 'unit/containing_element_unit_specs'
+require_relative 'unit/bare_bones_unit_specs'
+require_relative 'unit/test_element_unit_specs'
+require_relative 'unit/prepopulated_unit_specs'
+require_relative 'unit/sourced_element_unit_specs'
+require_relative 'unit/raw_element_unit_specs'
+
 
 RSpec.configure do |config|
   case
