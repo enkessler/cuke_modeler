@@ -7,7 +7,7 @@ describe 'Tag, Integration' do
   let(:clazz) { CukeModeler::Tag }
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['@feature_tag',

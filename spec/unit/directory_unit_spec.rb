@@ -86,7 +86,7 @@ describe 'Directory, Unit' do
     directory.contains.should =~ everything
   end
 
-  context 'directory output edge cases' do
+  describe 'directory output edge cases' do
 
     it 'is a String' do
       directory.to_s.should be_a(String)

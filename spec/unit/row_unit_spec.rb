@@ -70,7 +70,7 @@ describe 'Row, Unit' do
     row.cells.should == []
   end
 
-  context 'row output edge cases' do
+  describe 'row output edge cases' do
 
     it 'is a String' do
       row.to_s.should be_a(String)

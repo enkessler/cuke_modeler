@@ -23,7 +23,7 @@ describe 'Directory, Integration' do
     expect(file.parent_element).to equal(directory)
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       FileUtils.mkdir("#{@default_file_directory}/nested_directory")

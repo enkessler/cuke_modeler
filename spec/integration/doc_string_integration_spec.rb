@@ -7,7 +7,7 @@ describe 'DocString, Integration' do
   let(:clazz) { CukeModeler::DocString }
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',

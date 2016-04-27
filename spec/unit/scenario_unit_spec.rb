@@ -68,7 +68,7 @@ describe 'Scenario, Unit' do
     scenario.contains.should =~ everything
   end
 
-  context 'scenario output edge cases' do
+  describe 'scenario output edge cases' do
 
     it 'is a String' do
       scenario.to_s.should be_a(String)

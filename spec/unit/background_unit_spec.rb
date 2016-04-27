@@ -55,7 +55,7 @@ describe 'Background, Unit' do
   end
 
 
-  context 'background output edge cases' do
+  describe 'background output edge cases' do
 
     let(:background) { clazz.new }
 

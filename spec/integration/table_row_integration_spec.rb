@@ -7,7 +7,7 @@ describe 'TableRow, Integration' do
   let(:clazz) { CukeModeler::TableRow }
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',

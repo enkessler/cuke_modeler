@@ -20,7 +20,7 @@ describe 'Table, Integration' do
     row_2.parent_element.should equal table
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -76,7 +76,7 @@ describe 'Table, Integration' do
 
   end
 
-  context 'table output edge cases' do
+  describe 'table output edge cases' do
     # todo - remove once #contents is no longer supported
     it 'can output a table that only has row elements' do
       table = clazz.new

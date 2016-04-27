@@ -22,7 +22,7 @@ describe 'Scenario, Integration' do
   end
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -63,7 +63,7 @@ describe 'Scenario, Integration' do
       gotten_test.should be_nil
     end
 
-    context 'scenario output edge cases' do
+    describe 'scenario output edge cases' do
 
       it 'can output a scenario that has only a tag elements' do
         scenario.tag_elements = [CukeModeler::Tag.new]

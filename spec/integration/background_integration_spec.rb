@@ -18,7 +18,7 @@ describe 'Background, Integration' do
     expect(step.parent_element).to equal(background)
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -61,7 +61,7 @@ describe 'Background, Integration' do
 
   end
 
-  context 'background output edge cases' do
+  describe 'background output edge cases' do
 
     it 'can output a background that has only steps' do
       background = clazz.new

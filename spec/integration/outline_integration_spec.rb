@@ -27,7 +27,7 @@ describe 'Outline, Integration' do
   end
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -71,7 +71,7 @@ describe 'Outline, Integration' do
       expect(gotten_test).to be_nil
     end
 
-    context 'outline output edge cases' do
+    describe 'outline output edge cases' do
 
       it 'can output an outline that has only a tag elements' do
         outline.tag_elements = [CukeModeler::Tag.new]

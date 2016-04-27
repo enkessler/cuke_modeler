@@ -158,7 +158,7 @@ describe 'Example, Unit' do
     example.row_elements.should == []
   end
 
-  context '#add_row' do
+  describe '#add_row' do
 
     it 'can add a new example row' do
       clazz.new.should respond_to(:add_row)
@@ -209,7 +209,7 @@ describe 'Example, Unit' do
     end
   end
 
-  context '#remove_row' do
+  describe '#remove_row' do
 
     it 'can remove an existing example row' do
       clazz.new.should respond_to(:remove_row)
@@ -260,7 +260,7 @@ describe 'Example, Unit' do
     end
   end
 
-  context 'example output edge cases' do
+  describe 'example output edge cases' do
 
     it 'is a String' do
       example.to_s.should be_a(String)

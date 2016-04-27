@@ -131,7 +131,7 @@ describe 'Feature, Unit' do
     feature.tests.should == []
   end
 
-  context 'feature output edge cases' do
+  describe 'feature output edge cases' do
 
     it 'is a String' do
       feature.to_s.should be_a(String)

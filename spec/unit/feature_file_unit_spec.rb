@@ -85,7 +85,7 @@ describe 'FeatureFile, Unit' do
     feature_file.feature.should == :a_feature
   end
 
-  context 'feature file output edge cases' do
+  describe 'feature file output edge cases' do
 
     it 'is a String' do
       feature_file.to_s.should be_a(String)

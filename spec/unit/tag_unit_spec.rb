@@ -65,7 +65,7 @@ describe 'Tag, Unit' do
     element.name.should == :some_other_name
   end
 
-  context 'tag output edge cases' do
+  describe 'tag output edge cases' do
 
     it 'is a String' do
       element.to_s.should be_a(String)

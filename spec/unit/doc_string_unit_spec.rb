@@ -118,7 +118,7 @@ describe 'DocString, Unit' do
     contents.is_a?(String).should be_true
   end
 
-  context 'doc string output edge cases' do
+  describe 'doc string output edge cases' do
 
     it 'is a String' do
       doc_string.to_s.should be_a(String)

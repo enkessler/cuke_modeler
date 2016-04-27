@@ -103,7 +103,7 @@ describe 'Table, Unit' do
     end
   end
 
-  context 'table output edge cases' do
+  describe 'table output edge cases' do
 
     it 'is a String' do
       table.to_s.should be_a(String)

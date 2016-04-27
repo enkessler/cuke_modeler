@@ -82,7 +82,7 @@ describe 'Step, Integration' do
     (step_1 == step_3).should be_false
   end
 
-  context '#step_text ' do
+  describe '#step_text ' do
 
     let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
     let(:step) { clazz.new(source) }
@@ -114,7 +114,7 @@ describe 'Step, Integration' do
 
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -163,7 +163,7 @@ describe 'Step, Integration' do
 
   end
 
-  context 'step output edge cases' do
+  describe 'step output edge cases' do
 
     let(:step) { clazz.new }
 

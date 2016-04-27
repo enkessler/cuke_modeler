@@ -49,7 +49,7 @@ describe 'World, Unit' do
     world.right_delimiter.should == nil
   end
 
-  context 'step patterns' do
+  describe 'step patterns' do
 
     it 'can load step patterns - #load_step_pattern' do
       world.should respond_to(:load_step_pattern)

@@ -88,7 +88,7 @@ describe 'Feature, Integration' do
   end
 
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature']
@@ -122,7 +122,7 @@ describe 'Feature, Integration' do
 
   end
 
-  context 'feature output edge cases' do
+  describe 'feature output edge cases' do
 
     it 'can output a feature that has only a tag elements' do
       feature.tag_elements = [CukeModeler::Tag.new]

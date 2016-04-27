@@ -111,7 +111,7 @@ describe 'Step, Unit' do
     step.right_delimiter.should == :new_delimiter
   end
 
-  context '#scan_arguments' do
+  describe '#scan_arguments' do
 
     it 'can explicitly scan for arguments' do
       step.should respond_to(:scan_arguments)
@@ -217,7 +217,7 @@ describe 'Step, Unit' do
   end
 
 
-  context '#step_text' do
+  describe '#step_text' do
 
     let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
     let(:delimiter) { '-' }
@@ -264,7 +264,7 @@ describe 'Step, Unit' do
 
   end
 
-  context 'step output edge cases' do
+  describe 'step output edge cases' do
 
     it 'is a String' do
       step.to_s.should be_a(String)

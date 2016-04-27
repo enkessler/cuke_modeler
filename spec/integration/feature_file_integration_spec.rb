@@ -20,7 +20,7 @@ describe 'FeatureFile, Integration' do
     expect(feature.parent_element).to equal(file)
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       file_path = "#{@default_file_directory}/feature_file_test_file.feature"

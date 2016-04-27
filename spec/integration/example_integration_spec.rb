@@ -23,7 +23,7 @@ describe 'Example, Integration' do
     expect(tag.parent_element).to equal(example)
   end
 
-  context 'getting stuff' do
+  describe 'getting stuff' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -75,7 +75,7 @@ describe 'Example, Integration' do
 
   end
 
-  context 'example output edge cases' do
+  describe 'example output edge cases' do
 
     let(:example) { clazz.new }
 

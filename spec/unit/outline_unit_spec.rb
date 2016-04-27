@@ -89,7 +89,7 @@ describe 'Outline, Unit' do
     outline.contains.should =~ everything
   end
 
-  context 'outline output edge cases' do
+  describe 'outline output edge cases' do
 
     it 'is a String' do
       outline.to_s.should be_a(String)
