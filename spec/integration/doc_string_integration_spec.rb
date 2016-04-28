@@ -7,7 +7,7 @@ describe 'DocString, Integration' do
   let(:clazz) { CukeModeler::DocString }
 
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -30,39 +30,39 @@ describe 'DocString, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = doc_string.get_ancestor(:directory)
+      ancestor = doc_string.get_ancestor(:directory)
 
-      expect(gotten_directory).to equal(directory)
+      expect(ancestor).to equal(directory)
     end
 
     it 'can get its feature file' do
-      gotten_feature_file = doc_string.get_ancestor(:feature_file)
+      ancestor = doc_string.get_ancestor(:feature_file)
 
-      expect(gotten_feature_file).to equal(directory.feature_files.first)
+      expect(ancestor).to equal(directory.feature_files.first)
     end
 
     it 'can get its feature' do
-      gotten_feature = doc_string.get_ancestor(:feature)
+      ancestor = doc_string.get_ancestor(:feature)
 
-      expect(gotten_feature).to equal(directory.feature_files.first.features.first)
+      expect(ancestor).to equal(directory.feature_files.first.features.first)
     end
 
     it 'can get its test' do
-      gotten_test = doc_string.get_ancestor(:test)
+      ancestor = doc_string.get_ancestor(:test)
 
-      expect(gotten_test).to equal(directory.feature_files.first.features.first.tests.first)
+      expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
     end
 
     it 'can get its step' do
-      gotten_step = doc_string.get_ancestor(:step)
+      ancestor = doc_string.get_ancestor(:step)
 
-      expect(gotten_step).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
+      expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = doc_string.get_ancestor(:example)
+      ancestor = doc_string.get_ancestor(:example)
 
-      expect(gotten_example).to be_nil
+      expect(ancestor).to be_nil
     end
 
   end

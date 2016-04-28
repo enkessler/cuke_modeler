@@ -20,7 +20,7 @@ describe 'Table, Integration' do
     row_2.parent_element.should equal table
   end
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -39,39 +39,39 @@ describe 'Table, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = table.get_ancestor(:directory)
+      ancestor = table.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      ancestor.should equal directory
     end
 
     it 'can get its feature file' do
-      gotten_feature_file = table.get_ancestor(:feature_file)
+      ancestor = table.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      ancestor.should equal directory.feature_files.first
     end
 
     it 'can get its feature' do
-      gotten_feature = table.get_ancestor(:feature)
+      ancestor = table.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      ancestor.should equal directory.feature_files.first.features.first
     end
 
     it 'can get its test' do
-      gotten_test = table.get_ancestor(:test)
+      ancestor = table.get_ancestor(:test)
 
-      gotten_test.should equal directory.feature_files.first.features.first.tests.first
+      ancestor.should equal directory.feature_files.first.features.first.tests.first
     end
 
     it 'can get its step' do
-      gotten_step = table.get_ancestor(:step)
+      ancestor = table.get_ancestor(:step)
 
-      gotten_step.should equal directory.feature_files.first.features.first.tests.first.steps.first
+      ancestor.should equal directory.feature_files.first.features.first.tests.first.steps.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = table.get_ancestor(:example)
+      ancestor = table.get_ancestor(:example)
 
-      gotten_example.should be_nil
+      ancestor.should be_nil
     end
 
   end

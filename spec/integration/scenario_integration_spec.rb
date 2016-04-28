@@ -22,7 +22,7 @@ describe 'Scenario, Integration' do
   end
 
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -40,27 +40,27 @@ describe 'Scenario, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = scenario.get_ancestor(:directory)
+      ancestor = scenario.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      ancestor.should equal directory
     end
 
     it 'can get its feature file' do
-      gotten_feature_file = scenario.get_ancestor(:feature_file)
+      ancestor = scenario.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      ancestor.should equal directory.feature_files.first
     end
 
     it 'can get its feature' do
-      gotten_feature = scenario.get_ancestor(:feature)
+      ancestor = scenario.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      ancestor.should equal directory.feature_files.first.features.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_test = scenario.get_ancestor(:test)
+      ancestor = scenario.get_ancestor(:test)
 
-      gotten_test.should be_nil
+      ancestor.should be_nil
     end
 
     describe 'scenario output edge cases' do

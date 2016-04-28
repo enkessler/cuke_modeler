@@ -23,7 +23,7 @@ describe 'Example, Integration' do
     expect(tag.parent_element).to equal(example)
   end
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -44,33 +44,33 @@ describe 'Example, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = example.get_ancestor(:directory)
+      ancestor = example.get_ancestor(:directory)
 
-      expect(gotten_directory).to equal(directory)
+      expect(ancestor).to equal(directory)
     end
 
     it 'can get its feature file' do
-      gotten_feature_file = example.get_ancestor(:feature_file)
+      ancestor = example.get_ancestor(:feature_file)
 
-      expect(gotten_feature_file).to equal(directory.feature_files.first)
+      expect(ancestor).to equal(directory.feature_files.first)
     end
 
     it 'can get its feature' do
-      gotten_feature = example.get_ancestor(:feature)
+      ancestor = example.get_ancestor(:feature)
 
-      expect(gotten_feature).to equal(directory.feature_files.first.features.first)
+      expect(ancestor).to equal(directory.feature_files.first.features.first)
     end
 
     it 'can get its test' do
-      gotten_test = example.get_ancestor(:test)
+      ancestor = example.get_ancestor(:test)
 
-      expect(gotten_test).to equal(directory.feature_files.first.features.first.tests.first)
+      expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = example.get_ancestor(:example)
+      ancestor = example.get_ancestor(:example)
 
-      expect(gotten_example).to be_nil
+      expect(ancestor).to be_nil
     end
 
   end

@@ -23,7 +23,7 @@ describe 'Directory, Integration' do
     expect(file.parent_element).to equal(directory)
   end
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       FileUtils.mkdir("#{@default_file_directory}/nested_directory")
@@ -34,15 +34,15 @@ describe 'Directory, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = nested_directory.get_ancestor(:directory)
+      ancestor = nested_directory.get_ancestor(:directory)
 
-      expect(gotten_directory).to equal(directory)
+      expect(ancestor).to equal(directory)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = nested_directory.get_ancestor(:example)
+      ancestor = nested_directory.get_ancestor(:example)
 
-      expect(gotten_example).to be_nil
+      expect(ancestor).to be_nil
     end
 
   end

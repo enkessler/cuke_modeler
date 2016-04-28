@@ -114,7 +114,7 @@ describe 'Step, Integration' do
 
   end
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       source = ['Feature: Test feature',
@@ -132,33 +132,33 @@ describe 'Step, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = step.get_ancestor(:directory)
+      ancestor = step.get_ancestor(:directory)
 
-      gotten_directory.should equal directory
+      ancestor.should equal directory
     end
 
     it 'can get its feature file' do
-      gotten_feature_file = step.get_ancestor(:feature_file)
+      ancestor = step.get_ancestor(:feature_file)
 
-      gotten_feature_file.should equal directory.feature_files.first
+      ancestor.should equal directory.feature_files.first
     end
 
     it 'can get its feature' do
-      gotten_feature = step.get_ancestor(:feature)
+      ancestor = step.get_ancestor(:feature)
 
-      gotten_feature.should equal directory.feature_files.first.features.first
+      ancestor.should equal directory.feature_files.first.features.first
     end
 
     it 'can get its test' do
-      gotten_test = step.get_ancestor(:test)
+      ancestor = step.get_ancestor(:test)
 
-      gotten_test.should equal directory.feature_files.first.features.first.tests.first
+      ancestor.should equal directory.feature_files.first.features.first.tests.first
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = step.get_ancestor(:example)
+      ancestor = step.get_ancestor(:example)
 
-      gotten_example.should be_nil
+      ancestor.should be_nil
     end
 
   end

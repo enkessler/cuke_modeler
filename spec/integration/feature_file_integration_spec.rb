@@ -20,7 +20,7 @@ describe 'FeatureFile, Integration' do
     expect(feature.parent_element).to equal(file)
   end
 
-  describe 'getting stuff' do
+  describe 'getting ancestors' do
 
     before(:each) do
       file_path = "#{@default_file_directory}/feature_file_test_file.feature"
@@ -32,15 +32,15 @@ describe 'FeatureFile, Integration' do
 
 
     it 'can get its directory' do
-      gotten_directory = feature_file.get_ancestor(:directory)
+      ancestor = feature_file.get_ancestor(:directory)
 
-      expect(gotten_directory).to equal(directory)
+      expect(ancestor).to equal(directory)
     end
 
     it 'returns nil if it does not have the requested type of ancestor' do
-      gotten_example = feature_file.get_ancestor(:example)
+      ancestor = feature_file.get_ancestor(:example)
 
-      expect(gotten_example).to be_nil
+      expect(ancestor).to be_nil
     end
 
   end
