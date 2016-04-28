@@ -23,6 +23,12 @@ describe 'Directory, Integration' do
     expect(file.parent_element).to equal(directory)
   end
 
+  it 'cannot model a non-existent directory' do
+    path = "#{@default_file_directory}/missing_directory"
+
+    expect { clazz.new(path) }.to raise_error(ArgumentError)
+  end
+
   describe 'getting ancestors' do
 
     before(:each) do

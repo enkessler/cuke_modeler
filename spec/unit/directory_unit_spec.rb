@@ -14,12 +14,6 @@ describe 'Directory, Unit' do
   let(:directory) { clazz.new }
 
 
-  it 'cannot model a non-existent directory' do
-    path = "#{@default_file_directory}/missing_directory"
-
-    expect { clazz.new(path) }.to raise_error(ArgumentError)
-  end
-
   it 'knows the name of the directory that it is modeling' do
     path = "#{@default_file_directory}"
 
