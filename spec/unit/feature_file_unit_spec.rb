@@ -15,12 +15,6 @@ describe 'FeatureFile, Unit' do
   let(:feature_file) { clazz.new }
 
 
-  it 'cannot model a non-existent file' do
-    path = "#{@default_file_directory}/missing_file.txt"
-
-    expect { clazz.new(path) }.to raise_error(ArgumentError)
-  end
-
   it 'provides its own filename when being parsed' do
     path = "#{@default_file_directory}/#{@default_feature_file_name}"
     File.open(path, "w") { |file| file.puts 'bad feature text' }

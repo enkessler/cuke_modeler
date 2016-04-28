@@ -7,6 +7,12 @@ describe 'FeatureFile, Integration' do
   let(:clazz) { CukeModeler::FeatureFile }
 
 
+  it 'cannot model a non-existent feature file' do
+    path = "#{@default_file_directory}/missing_file.txt"
+
+    expect { clazz.new(path) }.to raise_error(ArgumentError)
+  end
+
   it 'properly sets its child elements' do
     file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
 
