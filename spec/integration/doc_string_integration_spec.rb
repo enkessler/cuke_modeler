@@ -7,63 +7,68 @@ describe 'DocString, Integration' do
   let(:clazz) { CukeModeler::DocString }
 
 
-  describe 'getting ancestors' do
+  describe 'unique behavior' do
 
-    before(:each) do
-      source = ['Feature: Test feature',
-                '',
-                '  Scenario: Test test',
-                '    * a big step:',
-                '  """',
-                '  a',
-                '  doc',
-                '  string',
-                '  """']
-      source = source.join("\n")
+    describe 'getting ancestors' do
 
-      file_path = "#{@default_file_directory}/doc_string_test_file.feature"
-      File.open(file_path, 'w') { |file| file.write(source) }
-    end
+      before(:each) do
+        source = ['Feature: Test feature',
+                  '',
+                  '  Scenario: Test test',
+                  '    * a big step:',
+                  '  """',
+                  '  a',
+                  '  doc',
+                  '  string',
+                  '  """']
+        source = source.join("\n")
 
-    let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-    let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+        file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+        File.open(file_path, 'w') { |file| file.write(source) }
+      end
+
+      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+      let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
 
 
-    it 'can get its directory' do
-      ancestor = doc_string.get_ancestor(:directory)
+      it 'can get its directory' do
+        ancestor = doc_string.get_ancestor(:directory)
 
-      expect(ancestor).to equal(directory)
-    end
+        expect(ancestor).to equal(directory)
+      end
 
-    it 'can get its feature file' do
-      ancestor = doc_string.get_ancestor(:feature_file)
+      it 'can get its feature file' do
+        ancestor = doc_string.get_ancestor(:feature_file)
 
-      expect(ancestor).to equal(directory.feature_files.first)
-    end
+        expect(ancestor).to equal(directory.feature_files.first)
+      end
 
-    it 'can get its feature' do
-      ancestor = doc_string.get_ancestor(:feature)
+      it 'can get its feature' do
+        ancestor = doc_string.get_ancestor(:feature)
 
-      expect(ancestor).to equal(directory.feature_files.first.features.first)
-    end
+        expect(ancestor).to equal(directory.feature_files.first.features.first)
+      end
 
-    it 'can get its test' do
-      ancestor = doc_string.get_ancestor(:test)
+      it 'can get its test' do
+        ancestor = doc_string.get_ancestor(:test)
 
-      expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
-    end
+        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+      end
 
-    it 'can get its step' do
-      ancestor = doc_string.get_ancestor(:step)
+      it 'can get its step' do
+        ancestor = doc_string.get_ancestor(:step)
 
-      expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
-    end
+        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
+      end
 
-    it 'returns nil if it does not have the requested type of ancestor' do
-      ancestor = doc_string.get_ancestor(:example)
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = doc_string.get_ancestor(:example)
 
-      expect(ancestor).to be_nil
+        expect(ancestor).to be_nil
+      end
+
     end
 
   end
+
 end

@@ -8,8 +8,12 @@ describe 'Sourceable, Unit' do
   let(:element) { Object.new.extend(nodule) }
 
 
-  it 'has a source line - #source_line' do
-    element.should respond_to(:source_line)
+  describe 'unique behavior' do
+
+    it 'has a source line - #source_line' do
+      element.should respond_to(:source_line)
+    end
+
   end
 
 end

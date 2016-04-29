@@ -7,71 +7,75 @@ describe 'Background, Integration' do
   let(:clazz) { CukeModeler::Background }
 
 
-  it 'properly sets its child elements' do
-    source = ['  Background: Test background',
-              '    * a step']
-    source = source.join("\n")
+  describe 'unique behavior' do
 
-    background = clazz.new(source)
-    step = background.steps.first
-
-    expect(step.parent_element).to equal(background)
-  end
-
-  describe 'getting ancestors' do
-
-    before(:each) do
-      source = ['Feature: Test feature',
-                '',
-                '  Background: Test background',
-                '    * a step:']
+    it 'properly sets its child elements' do
+      source = ['  Background: Test background',
+                '    * a step']
       source = source.join("\n")
 
-      file_path = "#{@default_file_directory}/background_test_file.feature"
-      File.open(file_path, 'w') { |file| file.write(source) }
+      background = clazz.new(source)
+      step = background.steps.first
+
+      expect(step.parent_element).to equal(background)
     end
 
-    let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-    let(:background) { directory.feature_files.first.features.first.background }
+    describe 'getting ancestors' do
+
+      before(:each) do
+        source = ['Feature: Test feature',
+                  '',
+                  '  Background: Test background',
+                  '    * a step:']
+        source = source.join("\n")
+
+        file_path = "#{@default_file_directory}/background_test_file.feature"
+        File.open(file_path, 'w') { |file| file.write(source) }
+      end
+
+      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+      let(:background) { directory.feature_files.first.features.first.background }
 
 
-    it 'can get its directory' do
-      ancestor = background.get_ancestor(:directory)
+      it 'can get its directory' do
+        ancestor = background.get_ancestor(:directory)
 
-      expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory)
+      end
+
+      it 'can get its feature file' do
+        ancestor = background.get_ancestor(:feature_file)
+
+        expect(ancestor).to equal(directory.feature_files.first)
+      end
+
+      it 'can get its feature' do
+        ancestor = background.get_ancestor(:feature)
+
+        expect(ancestor).to equal(directory.feature_files.first.features.first)
+      end
+
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = background.get_ancestor(:example)
+
+        expect(ancestor).to be_nil
+      end
+
     end
 
-    it 'can get its feature file' do
-      ancestor = background.get_ancestor(:feature_file)
+    describe 'background output edge cases' do
 
-      expect(ancestor).to equal(directory.feature_files.first)
-    end
+      context 'a new background object' do
 
-    it 'can get its feature' do
-      ancestor = background.get_ancestor(:feature)
-
-      expect(ancestor).to equal(directory.feature_files.first.features.first)
-    end
-
-    it 'returns nil if it does not have the requested type of ancestor' do
-      ancestor = background.get_ancestor(:example)
-
-      expect(ancestor).to be_nil
-    end
-
-  end
-
-  describe 'background output edge cases' do
-
-    context 'a new background object' do
-
-      let(:background) { clazz.new }
+        let(:background) { clazz.new }
 
 
-      it 'can output a background that has only steps' do
-        background.steps = [CukeModeler::Step.new]
+        it 'can output a background that has only steps' do
+          background.steps = [CukeModeler::Step.new]
 
-        expect { background.to_s }.to_not raise_error
+          expect { background.to_s }.to_not raise_error
+        end
+
       end
 
     end
