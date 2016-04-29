@@ -73,25 +73,33 @@ describe 'Outline, Integration' do
 
     describe 'outline output edge cases' do
 
-      it 'can output an outline that has only a tag elements' do
-        outline.tag_elements = [CukeModeler::Tag.new]
+      context 'a new outline object' do
 
-        expect { outline.to_s }.to_not raise_error
-      end
+        let(:outline) { clazz.new }
 
-      it 'can output an outline that has only steps' do
-        outline.steps = [CukeModeler::Step.new]
 
-        expect { outline.to_s }.to_not raise_error
-      end
+        it 'can output an outline that has only tag elements' do
+          outline.tag_elements = [CukeModeler::Tag.new]
 
-      it 'can output an outline that has only examples' do
-        outline.examples = [CukeModeler::Example.new]
+          expect { outline.to_s }.to_not raise_error
+        end
 
-        expect { outline.to_s }.to_not raise_error
+        it 'can output an outline that has only steps' do
+          outline.steps = [CukeModeler::Step.new]
+
+          expect { outline.to_s }.to_not raise_error
+        end
+
+        it 'can output an outline that has only examples' do
+          outline.examples = [CukeModeler::Example.new]
+
+          expect { outline.to_s }.to_not raise_error
+        end
+
       end
 
     end
 
   end
+
 end

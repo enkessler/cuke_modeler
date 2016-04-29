@@ -77,21 +77,26 @@ describe 'Example, Integration' do
 
   describe 'example output edge cases' do
 
-    let(:example) { clazz.new }
+    context 'a new example object' do
+
+      let(:example) { clazz.new }
 
 
-    it 'can output an example that has only a tag elements' do
-      example.tag_elements = [CukeModeler::Tag.new]
+      it 'can output an example that has only tag elements' do
+        example.tag_elements = [CukeModeler::Tag.new]
 
-      expect { example.to_s }.to_not raise_error
-    end
+        expect { example.to_s }.to_not raise_error
+      end
 
-    #todo - remove once Hash rows are no longer supported
-    it 'can output an example that has only row elements' do
-      example.row_elements = [CukeModeler::Row.new]
+      #todo - remove once Hash rows are no longer supported
+      it 'can output an example that has only row elements' do
+        example.row_elements = [CukeModeler::Row.new]
 
-      expect { example.to_s }.to_not raise_error
+        expect { example.to_s }.to_not raise_error
+      end
+
     end
 
   end
+
 end

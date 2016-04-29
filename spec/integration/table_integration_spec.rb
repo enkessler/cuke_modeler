@@ -77,13 +77,21 @@ describe 'Table, Integration' do
   end
 
   describe 'table output edge cases' do
-    # todo - remove once #contents is no longer supported
-    it 'can output a table that only has row elements' do
-      table = clazz.new
-      table.row_elements = [CukeModeler::TableRow.new]
 
-      expect { table.to_s }.to_not raise_error
+    context 'a new table object' do
+
+      let(:table) { clazz.new }
+
+
+      # todo - remove once #contents is no longer supported
+      it 'can output a table that only has row elements' do
+        table.row_elements = [CukeModeler::TableRow.new]
+
+        expect { table.to_s }.to_not raise_error
+      end
+
     end
 
   end
+
 end

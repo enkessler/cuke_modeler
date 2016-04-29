@@ -124,28 +124,35 @@ describe 'Feature, Integration' do
 
   describe 'feature output edge cases' do
 
-    it 'can output a feature that has only a tag elements' do
-      feature.tag_elements = [CukeModeler::Tag.new]
+    context 'a new feature object' do
 
-      expect { feature.to_s }.to_not raise_error
-    end
+      let(:feature) { clazz.new }
 
-    it 'can output a feature that has only a background' do
-      feature.background = [CukeModeler::Background.new]
 
-      expect { feature.to_s }.to_not raise_error
-    end
+      it 'can output a feature that has only tag elements' do
+        feature.tag_elements = [CukeModeler::Tag.new]
 
-    it 'can output a feature that has only scenarios' do
-      feature.tests = [CukeModeler::Scenario.new]
+        expect { feature.to_s }.to_not raise_error
+      end
 
-      expect { feature.to_s }.to_not raise_error
-    end
+      it 'can output a feature that has only a background' do
+        feature.background = [CukeModeler::Background.new]
 
-    it 'can output a feature that has only outlines' do
-      feature.tests = [CukeModeler::Outline.new]
+        expect { feature.to_s }.to_not raise_error
+      end
 
-      expect { feature.to_s }.to_not raise_error
+      it 'can output a feature that has only scenarios' do
+        feature.tests = [CukeModeler::Scenario.new]
+
+        expect { feature.to_s }.to_not raise_error
+      end
+
+      it 'can output a feature that has only outlines' do
+        feature.tests = [CukeModeler::Outline.new]
+
+        expect { feature.to_s }.to_not raise_error
+      end
+
     end
 
   end

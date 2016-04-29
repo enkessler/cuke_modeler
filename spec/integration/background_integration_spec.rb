@@ -63,11 +63,17 @@ describe 'Background, Integration' do
 
   describe 'background output edge cases' do
 
-    it 'can output a background that has only steps' do
-      background = clazz.new
-      background.steps = [CukeModeler::Step.new]
+    context 'a new background object' do
 
-      expect { background.to_s }.to_not raise_error
+      let(:background) { clazz.new }
+
+
+      it 'can output a background that has only steps' do
+        background.steps = [CukeModeler::Step.new]
+
+        expect { background.to_s }.to_not raise_error
+      end
+
     end
 
   end

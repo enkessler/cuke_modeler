@@ -65,19 +65,27 @@ describe 'Scenario, Integration' do
 
     describe 'scenario output edge cases' do
 
-      it 'can output a scenario that has only a tag elements' do
-        scenario.tag_elements = [CukeModeler::Tag.new]
+      context 'a new scenario object' do
 
-        expect { scenario.to_s }.to_not raise_error
-      end
+        let(:scenario) { clazz.new }
 
-      it 'can output a scenario that has only steps' do
-        scenario.steps = [CukeModeler::Step.new]
 
-        expect { scenario.to_s }.to_not raise_error
+        it 'can output a scenario that has only tag elements' do
+          scenario.tag_elements = [CukeModeler::Tag.new]
+
+          expect { scenario.to_s }.to_not raise_error
+        end
+
+        it 'can output a scenario that has only steps' do
+          scenario.steps = [CukeModeler::Step.new]
+
+          expect { scenario.to_s }.to_not raise_error
+        end
+
       end
 
     end
 
   end
+
 end

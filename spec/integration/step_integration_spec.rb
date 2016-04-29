@@ -165,20 +165,25 @@ describe 'Step, Integration' do
 
   describe 'step output edge cases' do
 
-    let(:step) { clazz.new }
+    context 'a new step object' do
+
+      let(:step) { clazz.new }
 
 
-    it 'can output a step that has only a table' do
-      step.block = CukeModeler::Table.new
+      it 'can output a step that has only a table' do
+        step.block = CukeModeler::Table.new
 
-      expect { step.to_s }.to_not raise_error
-    end
+        expect { step.to_s }.to_not raise_error
+      end
 
-    it 'can output a step that has only a doc string' do
-      step.block = CukeModeler::DocString.new
+      it 'can output a step that has only a doc string' do
+        step.block = CukeModeler::DocString.new
 
-      expect { step.to_s }.to_not raise_error
+        expect { step.to_s }.to_not raise_error
+      end
+
     end
 
   end
+
 end
