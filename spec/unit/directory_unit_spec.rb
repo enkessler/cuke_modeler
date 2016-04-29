@@ -86,8 +86,16 @@ describe 'Directory, Unit' do
       directory.to_s.should be_a(String)
     end
 
-    it 'can output an empty directory' do
-      expect { directory.to_s }.to_not raise_error
+
+    context 'a new directory object' do
+
+      let(:directory) { clazz.new }
+
+
+      it 'can output an empty directory' do
+        expect { directory.to_s }.to_not raise_error
+      end
+
     end
 
   end

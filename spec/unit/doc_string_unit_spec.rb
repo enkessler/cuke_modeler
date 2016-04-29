@@ -11,6 +11,9 @@ describe 'DocString, Unit' do
   it_should_behave_like 'a prepopulated element'
   it_should_behave_like 'a raw element'
 
+  let(:doc_string) { clazz.new }
+
+
   it 'can be parsed from stand alone text' do
     source = "\"\"\"\nsome doc string\n\"\"\""
 
@@ -51,10 +54,6 @@ describe 'DocString, Unit' do
     expect(raw_data.keys).to match_array(['value', 'content_type', 'line'])
     expect(raw_data['value']).to eq('some doc string')
   end
-
-
-  let(:doc_string) { clazz.new }
-
 
   it 'has a content type - #content_type' do
     doc_string.should respond_to(:content_type)
@@ -124,14 +123,22 @@ describe 'DocString, Unit' do
       doc_string.to_s.should be_a(String)
     end
 
-    it 'can output an empty doc string' do
-      expect { doc_string.to_s }.to_not raise_error
-    end
 
-    it 'can output a doc string that has only a content type' do
-      doc_string.content_type = 'some type'
+    context 'a new doc string object' do
 
-      expect { doc_string.to_s }.to_not raise_error
+      let(:doc_string) { clazz.new }
+
+
+      it 'can output an empty doc string' do
+        expect { doc_string.to_s }.to_not raise_error
+      end
+
+      it 'can output a doc string that has only a content type' do
+        doc_string.content_type = 'some type'
+
+        expect { doc_string.to_s }.to_not raise_error
+      end
+
     end
 
   end

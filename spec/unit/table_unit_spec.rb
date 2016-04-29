@@ -11,6 +11,9 @@ describe 'Table, Unit' do
   it_should_behave_like 'a prepopulated element'
   it_should_behave_like 'a raw element'
 
+  let(:table) { clazz.new }
+
+
   it 'can be parsed from stand alone text' do
     source = '| a table |'
 
@@ -50,10 +53,6 @@ describe 'Table, Unit' do
 
     expect(raw_data).to match_array([{"cells" => ["a table"], "line" => 4}])
   end
-
-
-  let(:table) { clazz.new }
-
 
   # todo - remove once #contents is no longer supported
   it 'has contents - #contents' do
@@ -109,15 +108,23 @@ describe 'Table, Unit' do
       table.to_s.should be_a(String)
     end
 
-    it 'can output an empty table' do
-      expect { table.to_s }.to_not raise_error
-    end
 
-    # todo - remove once #contents is no longer supported
-    it 'can output a table that only has contents' do
-      table.contents = ['some contents']
+    context 'a new table object' do
 
-      expect { table.to_s }.to_not raise_error
+      let(:table) { clazz.new }
+
+
+      it 'can output an empty table' do
+        expect { table.to_s }.to_not raise_error
+      end
+
+      # todo - remove once #contents is no longer supported
+      it 'can output a table that only has contents' do
+        table.contents = ['some contents']
+
+        expect { table.to_s }.to_not raise_error
+      end
+
     end
 
   end

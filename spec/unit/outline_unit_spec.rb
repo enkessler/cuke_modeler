@@ -16,6 +16,8 @@ describe 'Outline, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
+  let(:outline) { clazz.new }
+
 
   it 'can be parsed from stand alone text' do
     source = "Scenario Outline: test outline
@@ -59,10 +61,6 @@ describe 'Outline, Unit' do
     expect(raw_data['keyword']).to eq('Scenario Outline')
   end
 
-
-  let(:outline) { clazz.new }
-
-
   it 'has examples - #examples' do
     outline.should respond_to(:examples)
   end
@@ -95,26 +93,34 @@ describe 'Outline, Unit' do
       outline.to_s.should be_a(String)
     end
 
-    it 'can output an empty outline' do
-      expect { outline.to_s }.to_not raise_error
-    end
 
-    it 'can output an outline that has only a name' do
-      outline.name = 'a name'
+    context 'a new outline object' do
 
-      expect { outline.to_s }.to_not raise_error
-    end
+      let(:outline) { clazz.new }
 
-    it 'can output an outline that has only a description' do
-      outline.description_text = 'a description'
 
-      expect { outline.to_s }.to_not raise_error
-    end
+      it 'can output an empty outline' do
+        expect { outline.to_s }.to_not raise_error
+      end
 
-    it 'can output an outline that has only a tags' do
-      outline.tags = ['a tag']
+      it 'can output an outline that has only a name' do
+        outline.name = 'a name'
 
-      expect { outline.to_s }.to_not raise_error
+        expect { outline.to_s }.to_not raise_error
+      end
+
+      it 'can output an outline that has only a description' do
+        outline.description_text = 'a description'
+
+        expect { outline.to_s }.to_not raise_error
+      end
+
+      it 'can output an outline that has only tags' do
+        outline.tags = ['a tag']
+
+        expect { outline.to_s }.to_not raise_error
+      end
+
     end
 
   end

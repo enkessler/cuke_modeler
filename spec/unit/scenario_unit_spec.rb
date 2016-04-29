@@ -16,6 +16,9 @@ describe 'Scenario, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
+  let(:scenario) { clazz.new }
+
+
   it 'can be parsed from stand alone text' do
     source = 'Scenario: test scenario'
 
@@ -55,10 +58,6 @@ describe 'Scenario, Unit' do
     expect(raw_data['keyword']).to eq('Scenario')
   end
 
-
-  let(:scenario) { clazz.new }
-
-
   it 'contains only steps' do
     steps = [:step_1, :step_2]
     everything = steps
@@ -74,26 +73,34 @@ describe 'Scenario, Unit' do
       scenario.to_s.should be_a(String)
     end
 
-    it 'can output an empty scenario' do
-      expect { scenario.to_s }.to_not raise_error
-    end
 
-    it 'can output a scenario that has only a name' do
-      scenario.name = 'a name'
+    context 'a new scenario object' do
 
-      expect { scenario.to_s }.to_not raise_error
-    end
+      let(:scenario) { clazz.new }
 
-    it 'can output a scenario that has only a description' do
-      scenario.description_text = 'a description'
 
-      expect { scenario.to_s }.to_not raise_error
-    end
+      it 'can output an empty scenario' do
+        expect { scenario.to_s }.to_not raise_error
+      end
 
-    it 'can output a scenario that has only a tags' do
-      scenario.tags = ['a tag']
+      it 'can output a scenario that has only a name' do
+        scenario.name = 'a name'
 
-      expect { scenario.to_s }.to_not raise_error
+        expect { scenario.to_s }.to_not raise_error
+      end
+
+      it 'can output a scenario that has only a description' do
+        scenario.description_text = 'a description'
+
+        expect { scenario.to_s }.to_not raise_error
+      end
+
+      it 'can output a scenario that has only tags' do
+        scenario.tags = ['a tag']
+
+        expect { scenario.to_s }.to_not raise_error
+      end
+
     end
 
   end

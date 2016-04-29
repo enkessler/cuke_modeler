@@ -15,6 +15,9 @@ describe 'Background, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
+  let(:background) { clazz.new }
+
+
   it 'can be parsed from stand alone text' do
     source = 'Background: test background'
 
@@ -57,27 +60,32 @@ describe 'Background, Unit' do
 
   describe 'background output edge cases' do
 
-    let(:background) { clazz.new }
-
-
     it 'is a String' do
       background.to_s.should be_a(String)
     end
 
-    it 'can output an empty background' do
-      expect { background.to_s }.to_not raise_error
-    end
 
-    it 'can output a background that has only a name' do
-      background.name = 'a name'
+    context 'a new background object' do
 
-      expect { background.to_s }.to_not raise_error
-    end
+      let(:background) { clazz.new }
 
-    it 'can output a background that has only a description' do
-      background.description_text = 'a description'
 
-      expect { background.to_s }.to_not raise_error
+      it 'can output an empty background' do
+        expect { background.to_s }.to_not raise_error
+      end
+
+      it 'can output a background that has only a name' do
+        background.name = 'a name'
+
+        expect { background.to_s }.to_not raise_error
+      end
+
+      it 'can output a background that has only a description' do
+        background.description_text = 'a description'
+
+        expect { background.to_s }.to_not raise_error
+      end
+
     end
 
   end

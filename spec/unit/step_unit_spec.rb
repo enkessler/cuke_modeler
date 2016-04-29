@@ -270,20 +270,28 @@ describe 'Step, Unit' do
       step.to_s.should be_a(String)
     end
 
-    it 'can output an empty step' do
-      expect { step.to_s }.to_not raise_error
-    end
 
-    it 'can output a step that has only a keyword' do
-      step.keyword = '*'
+    context 'a new step object' do
 
-      expect { step.to_s }.to_not raise_error
-    end
+      let(:step) { clazz.new }
 
-    it 'can output a step that has only a base' do
-      step.base = 'step base'
 
-      expect { step.to_s }.to_not raise_error
+      it 'can output an empty step' do
+        expect { step.to_s }.to_not raise_error
+      end
+
+      it 'can output a step that has only a keyword' do
+        step.keyword = '*'
+
+        expect { step.to_s }.to_not raise_error
+      end
+
+      it 'can output a step that has only a base' do
+        step.base = 'step base'
+
+        expect { step.to_s }.to_not raise_error
+      end
+
     end
 
   end
@@ -297,3 +305,4 @@ describe 'Step, Unit' do
   end
 
 end
+

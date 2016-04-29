@@ -12,6 +12,9 @@ describe 'TableRow, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
+  let(:row) { clazz.new }
+
+
   it 'can be parsed from stand alone text' do
     source = '| a | row |'
 
@@ -51,10 +54,6 @@ describe 'TableRow, Unit' do
     expect(raw_data['cells']).to eq(['a', 'row'])
   end
 
-
-  let(:row) { clazz.new }
-
-
   it 'has cells' do
     row.should respond_to(:cells)
   end
@@ -76,8 +75,16 @@ describe 'TableRow, Unit' do
       row.to_s.should be_a(String)
     end
 
-    it 'can output an empty table row' do
-      expect { row.to_s }.to_not raise_error
+
+    context 'a new row object' do
+
+      let(:row) { clazz.new }
+
+
+      it 'can output an empty table row' do
+        expect { row.to_s }.to_not raise_error
+      end
+
     end
 
   end

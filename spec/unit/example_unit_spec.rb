@@ -15,6 +15,8 @@ describe 'Example, Unit' do
   it_should_behave_like 'a containing element'
   it_should_behave_like 'a raw element'
 
+  let(:example) { clazz.new }
+
 
   it 'can be parsed from stand alone text' do
     source = ['Examples: test example',
@@ -85,10 +87,6 @@ describe 'Example, Unit' do
     expect(raw_data.keys).to match_array(['keyword', 'name', 'line', 'description', 'id', 'rows'])
     expect(raw_data['keyword']).to eq('Examples')
   end
-
-
-  let(:example) { clazz.new }
-
 
   it 'has parameters - #parameters' do
     example.should respond_to(:parameters)
@@ -266,40 +264,47 @@ describe 'Example, Unit' do
       example.to_s.should be_a(String)
     end
 
-    it 'can output an empty example' do
-      expect { example.to_s }.to_not raise_error
-    end
+    context 'a new example object' do
 
-    it 'can output an example that has only a name' do
-      example.name = 'a name'
+      let(:example) { clazz.new }
 
-      expect { example.to_s }.to_not raise_error
-    end
 
-    it 'can output an example that has only a description' do
-      example.description_text = 'a description'
+      it 'can output an empty example' do
+        expect { example.to_s }.to_not raise_error
+      end
 
-      expect { example.to_s }.to_not raise_error
-    end
+      it 'can output an example that has only a name' do
+        example.name = 'a name'
 
-    it 'can output an example that has only a tags' do
-      example.tags = ['a tag']
+        expect { example.to_s }.to_not raise_error
+      end
 
-      expect { example.to_s }.to_not raise_error
-    end
+      it 'can output an example that has only a description' do
+        example.description_text = 'a description'
 
-    #todo - remove once Hash rows are no longer supported
-    it 'can output an example that only has parameters' do
-      example.parameters = ['param1']
+        expect { example.to_s }.to_not raise_error
+      end
 
-      expect { example.to_s }.to_not raise_error
-    end
+      it 'can output an example that has only tags' do
+        example.tags = ['a tag']
 
-    #todo - remove once Hash rows are no longer supported
-    it 'can output an example that only has rows' do
-      example.rows = [{:param1 => 'row1'}]
+        expect { example.to_s }.to_not raise_error
+      end
 
-      expect { example.to_s }.to_not raise_error
+      #todo - remove once Hash rows are no longer supported
+      it 'can output an example that only has parameters' do
+        example.parameters = ['param1']
+
+        expect { example.to_s }.to_not raise_error
+      end
+
+      #todo - remove once Hash rows are no longer supported
+      it 'can output an example that only has rows' do
+        example.rows = [{:param1 => 'row1'}]
+
+        expect { example.to_s }.to_not raise_error
+      end
+
     end
 
   end

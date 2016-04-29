@@ -12,6 +12,8 @@ describe 'Tag, Unit' do
   it_should_behave_like 'a sourced element'
   it_should_behave_like 'a raw element'
 
+  let(:element) { clazz.new }
+
 
   it 'can be parsed from stand alone text' do
     source = '@a_tag'
@@ -50,10 +52,6 @@ describe 'Tag, Unit' do
     expect(raw_data['name']).to eq('@a_tag')
   end
 
-
-  let(:element) { clazz.new }
-
-
   it 'has a name' do
     element.should respond_to(:name)
   end
@@ -71,8 +69,16 @@ describe 'Tag, Unit' do
       element.to_s.should be_a(String)
     end
 
-    it 'can output an empty tag' do
-      expect { element.to_s }.to_not raise_error
+
+    context 'a new tag object' do
+
+      let(:tag) { clazz.new }
+
+
+      it 'can output an empty tag' do
+        expect { tag.to_s }.to_not raise_error
+      end
+
     end
 
   end

@@ -11,7 +11,6 @@ describe 'FeatureFile, Unit' do
   it_should_behave_like 'a bare bones element'
   it_should_behave_like 'a prepopulated element'
 
-
   let(:feature_file) { clazz.new }
 
 
@@ -85,8 +84,16 @@ describe 'FeatureFile, Unit' do
       feature_file.to_s.should be_a(String)
     end
 
-    it 'can output an empty feature file' do
-      expect { feature_file.to_s }.to_not raise_error
+
+    context 'a new feature file object' do
+
+      let(:feature_file) { clazz.new }
+
+
+      it 'can output an empty feature file' do
+        expect { feature_file.to_s }.to_not raise_error
+      end
+
     end
 
   end
