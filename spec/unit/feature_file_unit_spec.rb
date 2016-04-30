@@ -45,11 +45,11 @@ describe 'FeatureFile, Unit' do
       file.path.should == path
     end
 
-    it 'has features - #features' do
+    it 'has features' do
       feature_file.should respond_to(:features)
     end
 
-    it 'can get and set its features - #features, #features=' do
+    it 'can change its features' do
       expect(feature_file).to respond_to(:features=)
 
       feature_file.features = :some_features
@@ -58,7 +58,7 @@ describe 'FeatureFile, Unit' do
       feature_file.features.should == :some_other_features
     end
 
-    it 'knows how many features it has - #feature_count' do
+    it 'knows how many features it has' do
       feature_file.features = [:a_feature]
       feature_file.feature_count.should == 1
       feature_file.features = []

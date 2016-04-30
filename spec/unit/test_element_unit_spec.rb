@@ -21,14 +21,14 @@ describe 'TestElement, Unit' do
 
   describe 'unique behavior' do
 
-    it 'contains only steps - #contains' do
+    it 'contains only steps' do
       steps = [:step_1, :step_2, :step_3]
       element.steps = steps
 
       element.contains.should =~ steps
     end
 
-    it 'can determine its equality with another TestElement - #==' do
+    it 'can determine its equality with another TestElement' do
       element_1 = clazz.new
       element_2 = clazz.new
       element_3 = clazz.new

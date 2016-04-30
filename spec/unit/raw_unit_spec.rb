@@ -10,11 +10,11 @@ describe 'Raw, Unit' do
 
   describe 'unique behavior' do
 
-    it 'has a raw element - #raw_element' do
+    it 'has a raw element' do
       element.should respond_to(:raw_element)
     end
 
-    it 'can get and set its raw element - #raw_element, #raw_element=' do
+    it 'can change its raw element' do
       expect(element).to respond_to(:raw_element=)
 
       element.raw_element = :some_raw_element

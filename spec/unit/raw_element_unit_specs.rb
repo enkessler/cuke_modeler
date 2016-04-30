@@ -7,11 +7,11 @@ shared_examples_for 'a raw element' do
   let(:element) { clazz.new }
 
 
-  it 'has an underlying implementation representation - #raw_element' do
+  it 'has an underlying implementation representation' do
     element.should respond_to(:raw_element)
   end
 
-  it 'can get and set its underlying implementation representation - #raw_element, #raw_element=' do
+  it 'can change its underlying implementation representation' do
     expect(element).to respond_to(:raw_element=)
 
     element.raw_element = :some_raw_element

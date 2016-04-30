@@ -93,11 +93,11 @@ describe 'Example, Unit' do
       expect(raw_data['keyword']).to eq('Examples')
     end
 
-    it 'has parameters - #parameters' do
+    it 'has parameters' do
       example.should respond_to(:parameters)
     end
 
-    it 'can get and set its parameters - #parameters, #parameters=' do
+    it 'can change its parameters' do
       expect(example).to respond_to(:parameters=)
 
       example.parameters = :some_parameters
@@ -110,12 +110,12 @@ describe 'Example, Unit' do
       example.parameters.should == []
     end
 
-    it 'has rows - #rows' do
+    it 'has rows' do
       example.should respond_to(:rows)
     end
 
     #todo - remove once Hash rows are no longer supported
-    it 'can get and set its rows - #rows, #rows=' do
+    it 'can change its rows' do
       expect(example).to respond_to(:rows=)
 
       example.rows = :some_rows
@@ -150,11 +150,11 @@ describe 'Example, Unit' do
       rows.should == [{'param1' => 'value1', 'param2' => 'value2'}, {'param1' => 'value3', 'param2' => 'value4'}]
     end
 
-    it 'has row elements - #row_elements' do
+    it 'has row elements' do
       example.should respond_to(:row_elements)
     end
 
-    it 'can get and set its row elements - #row_elements, #row_elements=' do
+    it 'can change its row elements' do
       expect(example).to respond_to(:row_elements=)
 
       example.row_elements = :some_row_elements

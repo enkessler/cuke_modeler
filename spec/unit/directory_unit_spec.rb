@@ -36,11 +36,11 @@ describe 'Directory, Unit' do
       directory.path.should == path
     end
 
-    it 'has feature files - #feature_files' do
+    it 'has feature files' do
       directory.should respond_to(:feature_files)
     end
 
-    it 'can get and set its feature files - #feature_files, #feature_files=' do
+    it 'can change its feature files' do
       expect(directory).to respond_to(:feature_files=)
 
       directory.feature_files = :some_feature_files
@@ -49,17 +49,17 @@ describe 'Directory, Unit' do
       directory.feature_files.should == :some_other_feature_files
     end
 
-    it 'knows how many feature files it has - #feature_file_count' do
+    it 'knows how many feature files it has' do
       directory.feature_files = [:file_1, :file_2, :file_3]
 
       directory.feature_file_count.should == 3
     end
 
-    it 'has directories - #directories' do
+    it 'has directories' do
       directory.should respond_to(:directories)
     end
 
-    it 'can get and set its directories - #directories, #directories=' do
+    it 'can change its directories' do
       expect(directory).to respond_to(:directories=)
 
       directory.directories = :some_directories
@@ -68,7 +68,7 @@ describe 'Directory, Unit' do
       directory.directories.should == :some_other_directories
     end
 
-    it 'knows how many directories it has - #directory_count' do
+    it 'knows how many directories it has' do
       directory.directories = [:directory_1, :directory_2, :directory_3]
 
       directory.directory_count.should == 3

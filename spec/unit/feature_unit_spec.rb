@@ -71,11 +71,11 @@ describe 'Feature, Unit' do
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
     end
 
-    it 'has a background - #background' do
+    it 'has a background' do
       feature.should respond_to(:background)
     end
 
-    it 'can get and set its background - #background, #background=' do
+    it 'can change its background' do
       expect(feature).to respond_to(:background=)
 
       feature.background = :some_background
@@ -91,11 +91,11 @@ describe 'Feature, Unit' do
       feature.has_background?.should be_false
     end
 
-    it 'has tests - #tests' do
+    it 'has tests' do
       feature.should respond_to(:tests)
     end
 
-    it 'can get and set its tests - #tests, #tests=' do
+    it 'can change its tests' do
       expect(feature).to respond_to(:tests=)
 
       feature.tests = :some_tests
@@ -104,7 +104,7 @@ describe 'Feature, Unit' do
       feature.tests.should == :some_other_tests
     end
 
-    it 'knows how many tests it has - #test_count' do
+    it 'knows how many tests it has' do
       feature.tests = []
       feature.test_count.should == 0
       feature.tests = [:test_1, :test_2]

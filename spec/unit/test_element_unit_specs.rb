@@ -7,11 +7,11 @@ shared_examples_for 'a test element' do
   let(:element) { clazz.new }
 
 
-  it 'has steps - #steps' do
+  it 'has steps' do
     element.should respond_to(:steps)
   end
 
-  it 'can get and set its steps - #steps, #steps=' do
+  it 'can change its steps' do
     expect(element).to respond_to(:steps=)
 
     element.steps = :some_steps
@@ -24,7 +24,7 @@ shared_examples_for 'a test element' do
     element.steps.should == []
   end
 
-  it 'contains steps - #contains' do
+  it 'contains steps' do
     steps = [:step_1, :step_2, :step_3]
     element.steps = steps
 

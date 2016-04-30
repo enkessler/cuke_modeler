@@ -7,11 +7,11 @@ shared_examples_for 'a nested element' do
   let(:nested_element) { clazz.new }
 
 
-  it 'has a parent element - #parent_element' do
+  it 'has a parent element' do
     nested_element.should respond_to(:parent_element)
   end
 
-  it 'can get and set its parent element - #parent_element, #parent_element=' do
+  it 'can change its parent element' do
     expect(nested_element).to respond_to(:parent_element=)
 
     nested_element.parent_element = :some_parent_element

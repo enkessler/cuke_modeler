@@ -7,7 +7,7 @@ shared_examples_for 'a sourced element' do
   let(:element) { clazz.new }
 
 
-  it 'has a source line - #source_line' do
+  it 'has a source line' do
     element.should respond_to(:source_line)
   end
 

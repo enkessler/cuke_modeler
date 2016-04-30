@@ -26,7 +26,7 @@ describe 'Taggable, Unit' do
       element.should respond_to(:tag_elements)
     end
 
-    it 'can get and set its tags' do
+    it 'can change its tags' do
       expect(element).to respond_to(:tags=)
       expect(element).to respond_to(:tag_elements=)
 

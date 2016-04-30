@@ -60,11 +60,11 @@ describe 'DocString, Unit' do
       expect(raw_data['value']).to eq('some doc string')
     end
 
-    it 'has a content type - #content_type' do
+    it 'has a content type' do
       doc_string.should respond_to(:content_type)
     end
 
-    it 'can get and set its content type - #content_type, #content_type=' do
+    it 'can change its content type' do
       expect(doc_string).to respond_to(:content_type=)
 
       doc_string.content_type = :some_content_type

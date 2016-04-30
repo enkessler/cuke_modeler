@@ -7,11 +7,11 @@ shared_examples_for 'a containing element' do
   let(:element) { clazz.new }
 
 
-  it 'has children - #contains' do
+  it 'has children' do
     element.should respond_to(:contains)
   end
 
-  it 'returns a collection of children - #contains' do
+  it 'returns a collection of children' do
     element.contains.is_a?(Array).should be_true
   end
 

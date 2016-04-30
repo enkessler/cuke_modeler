@@ -61,12 +61,12 @@ describe 'Table, Unit' do
     end
 
     # todo - remove once #contents is no longer supported
-    it 'has contents - #contents' do
+    it 'has contents' do
       table.should respond_to(:contents)
     end
 
     # todo - remove once #contents is no longer supported
-    it 'can get and set its contents - #contents, #contents=' do
+    it 'can change its contents' do
       expect(table).to respond_to(:contents=)
 
       table.contents = :some_contents

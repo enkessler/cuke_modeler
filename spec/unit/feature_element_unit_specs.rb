@@ -7,11 +7,11 @@ shared_examples_for 'a feature element' do
   let(:element) { clazz.new }
 
 
-  it 'has a name - #name' do
+  it 'has a name' do
     element.should respond_to(:name)
   end
 
-  it 'can get and set its name - #name, #name=' do
+  it 'can change its name' do
     expect(element).to respond_to(:name=)
 
     element.name = :some_name

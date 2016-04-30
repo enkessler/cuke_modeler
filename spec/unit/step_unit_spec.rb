@@ -21,11 +21,11 @@ describe 'Step, Unit' do
 
   describe 'unique behavior' do
 
-    it 'has arguments - #arguments' do
+    it 'has arguments' do
       step.should respond_to(:arguments)
     end
 
-    it 'can get and set its arguments - #arguments, #arguments=' do
+    it 'can change its arguments' do
       expect(step).to respond_to(:arguments=)
 
       step.arguments = :some_arguments
@@ -38,11 +38,11 @@ describe 'Step, Unit' do
       step.arguments.should == []
     end
 
-    it 'has a base - #base' do
+    it 'has a base' do
       step.should respond_to(:base)
     end
 
-    it 'can get and set its base - #base, #base=' do
+    it 'can change its base' do
       expect(step).to respond_to(:base=)
 
       step.base = :some_base
@@ -55,11 +55,11 @@ describe 'Step, Unit' do
       step.base.should == nil
     end
 
-    it 'has a block - #block' do
+    it 'has a block' do
       step.should respond_to(:block)
     end
 
-    it 'can get and set its block - #block, #block=' do
+    it 'can change its block' do
       expect(step).to respond_to(:block=)
 
       step.block = :some_block
@@ -72,11 +72,11 @@ describe 'Step, Unit' do
       step.block.should == nil
     end
 
-    it 'has a keyword - #keyword' do
+    it 'has a keyword' do
       step.should respond_to(:keyword)
     end
 
-    it 'can get and set its keyword - #keyword, #keyword=' do
+    it 'can change its keyword' do
       expect(step).to respond_to(:keyword=)
 
       step.keyword = :some_keyword
@@ -89,11 +89,11 @@ describe 'Step, Unit' do
       step.keyword.should == nil
     end
 
-    it 'has a left delimiter - #left_delimiter' do
+    it 'has a left delimiter' do
       step.should respond_to(:left_delimiter)
     end
 
-    it 'can get and set its left delimiter - #left_delimiter, #left_delimiter=' do
+    it 'can change its left delimiter' do
       expect(step).to respond_to(:left_delimiter=)
 
       step.left_delimiter = :some_left_delimiter
@@ -106,11 +106,11 @@ describe 'Step, Unit' do
       step.left_delimiter.should == nil
     end
 
-    it 'has a right delimiter - #right_delimiter' do
+    it 'has a right delimiter' do
       step.should respond_to(:right_delimiter)
     end
 
-    it 'can get and set its right delimiter - #right_delimiter, #right_delimiter=' do
+    it 'can change its right delimiter' do
       expect(step).to respond_to(:right_delimiter=)
 
       step.right_delimiter = :some_right_delimiter
@@ -123,7 +123,7 @@ describe 'Step, Unit' do
       step.right_delimiter.should == nil
     end
 
-    it 'can set both of its delimiters at once - #delimiter=' do
+    it 'can set both of its delimiters at once' do
       step.delimiter = :new_delimiter
       step.left_delimiter.should == :new_delimiter
       step.right_delimiter.should == :new_delimiter

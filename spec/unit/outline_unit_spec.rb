@@ -67,11 +67,11 @@ describe 'Outline, Unit' do
       expect(raw_data['keyword']).to eq('Scenario Outline')
     end
 
-    it 'has examples - #examples' do
+    it 'has examples' do
       outline.should respond_to(:examples)
     end
 
-    it 'can get and set its examples - #examples, #examples=' do
+    it 'can change its examples' do
       expect(outline).to respond_to(:examples=)
 
       outline.examples = :some_examples

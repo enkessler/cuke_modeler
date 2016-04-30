@@ -9,7 +9,7 @@ describe 'Parsing, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can parse text - #parse_text' do
+    it 'can parse text' do
       nodule.should respond_to(:parse_text)
     end
 

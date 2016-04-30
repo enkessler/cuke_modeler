@@ -15,7 +15,7 @@ describe 'World, Unit' do
       world.delimiter = nil
     end
 
-    it 'has left and right delimiters used for step argument parsing - #left_delimiter, #right_delimiter' do
+    it 'has left and right delimiters used for step argument parsing' do
       world.should respond_to(:left_delimiter)
       world.should respond_to(:right_delimiter)
     end
@@ -42,7 +42,7 @@ describe 'World, Unit' do
       (world.left_delimiter != world.right_delimiter).should be_true
     end
 
-    it 'can set both of its delimiters at once - #delimiter=' do
+    it 'can set both of its delimiters at once' do
       world.delimiter = '*'
 
       world.left_delimiter.should == '*'
@@ -56,7 +56,7 @@ describe 'World, Unit' do
 
     describe 'step patterns' do
 
-      it 'can load step patterns - #load_step_pattern' do
+      it 'can load step patterns' do
         world.should respond_to(:load_step_pattern)
       end
 
@@ -64,7 +64,7 @@ describe 'World, Unit' do
         world.loaded_step_patterns.should == []
       end
 
-      it 'keeps track of loaded step patterns - #loaded_step_patterns' do
+      it 'keeps track of loaded step patterns' do
         patterns = [/a pattern/, /another pattern/]
 
         patterns.each do |pattern|
@@ -74,7 +74,7 @@ describe 'World, Unit' do
         world.loaded_step_patterns.should =~ patterns
       end
 
-      it 'can load step definition files - #load_step_file' do
+      it 'can load step definition files' do
         file_path = "#{@default_file_directory}/step_file.rb"
         patterns = [/a pattern/, /another pattern/]
 
@@ -89,7 +89,7 @@ describe 'World, Unit' do
         world.loaded_step_patterns.should =~ patterns
       end
 
-      it 'can handle different step keywords - #load_step_file' do
+      it 'can handle different step keywords' do
         file_path = "#{@default_file_directory}/step_file.rb"
         patterns = [/given pattern/, /when pattern/, /then pattern/, /and pattern/, /but pattern/]
 
@@ -106,7 +106,7 @@ describe 'World, Unit' do
         world.loaded_step_patterns.should =~ patterns
       end
 
-      it 'can handle a variety of declaration structures - #load_step_file' do
+      it 'can handle a variety of declaration structures' do
         file_path = "#{@default_file_directory}/step_file.rb"
         patterns = [/parentheses pattern/, /no parentheses pattern/, /excess whitespace pattern/]
 
@@ -121,7 +121,7 @@ describe 'World, Unit' do
         world.loaded_step_patterns.should =~ patterns
       end
 
-      it 'can clear its loaded step patterns - #clear_step_patterns' do
+      it 'can clear its loaded step patterns' do
         patterns = [/a pattern/, /another pattern/]
 
         patterns.each do |pattern|

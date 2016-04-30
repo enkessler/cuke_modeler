@@ -60,11 +60,11 @@ describe 'Row, Unit' do
       expect(raw_data['cells']).to eq(['a', 'row'])
     end
 
-    it 'has cells - #cells' do
+    it 'has cells' do
       row.should respond_to(:cells)
     end
 
-    it 'can get and set its cells - #cells, #cells=' do
+    it 'can change its cells' do
       expect(row).to respond_to(:cells=)
 
       row.cells = :some_cells
