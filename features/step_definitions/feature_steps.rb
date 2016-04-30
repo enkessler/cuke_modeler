@@ -6,7 +6,7 @@ Then /^(?:the )?feature(?: "([^"]*)")? is found to have the following properties
     expected = expected_value
     actual = @parsed_files[file - 1].feature.send(property.to_sym).to_s
 
-    assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
+    assert(actual == expected, "Expected #{property} to be: #{expected}\n but was: #{actual}")
   end
 end
 
