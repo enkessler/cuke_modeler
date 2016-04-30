@@ -46,8 +46,8 @@ describe 'Feature, Integration' do
     end
 
     it 'knows how many scenarios it has - #scenario_count' do
-      scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
-      outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|")]
+      scenarios = [CukeModeler::Scenario.new, CukeModeler::Scenario.new]
+      outlines = [CukeModeler::Outline.new]
 
       feature.tests = []
       expect(feature.scenario_count).to eq(0)
@@ -57,8 +57,8 @@ describe 'Feature, Integration' do
     end
 
     it 'knows how many outlines it has - #outline_count' do
-      scenarios = [CukeModeler::Scenario.new('Scenario: 1')]
-      outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
+      scenarios = [CukeModeler::Scenario.new]
+      outlines = [CukeModeler::Outline.new, CukeModeler::Outline.new]
 
       feature.tests = []
       expect(feature.outline_count).to eq(0)
