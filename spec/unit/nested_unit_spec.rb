@@ -15,6 +15,8 @@ describe 'Nested, Unit' do
     end
 
     it 'can get and set its parent element - #parent_element, #parent_element=' do
+      expect(nested_element).to respond_to(:parent_element=)
+
       nested_element.parent_element = :some_parent_element
       nested_element.parent_element.should == :some_parent_element
       nested_element.parent_element = :some_other_parent_element

@@ -98,6 +98,8 @@ describe 'Example, Unit' do
     end
 
     it 'can get and set its parameters - #parameters, #parameters=' do
+      expect(example).to respond_to(:parameters=)
+
       example.parameters = :some_parameters
       example.parameters.should == :some_parameters
       example.parameters = :some_other_parameters
@@ -114,6 +116,8 @@ describe 'Example, Unit' do
 
     #todo - remove once Hash rows are no longer supported
     it 'can get and set its rows - #rows, #rows=' do
+      expect(example).to respond_to(:rows=)
+
       example.rows = :some_rows
       example.rows.should == :some_rows
       example.rows = :some_other_rows
@@ -151,6 +155,8 @@ describe 'Example, Unit' do
     end
 
     it 'can get and set its row elements - #row_elements, #row_elements=' do
+      expect(example).to respond_to(:row_elements=)
+
       example.row_elements = :some_row_elements
       example.row_elements.should == :some_row_elements
       example.row_elements = :some_other_row_elements

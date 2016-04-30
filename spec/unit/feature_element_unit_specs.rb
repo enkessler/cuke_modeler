@@ -12,6 +12,8 @@ shared_examples_for 'a feature element' do
   end
 
   it 'can get and set its name - #name, #name=' do
+    expect(element).to respond_to(:name=)
+
     element.name = :some_name
     element.name.should == :some_name
     element.name = :some_other_name
@@ -24,6 +26,9 @@ shared_examples_for 'a feature element' do
   end
 
   it 'can get and set its description' do
+    expect(element).to respond_to(:description=)
+    expect(element).to respond_to(:description_text=)
+
     element.description = :some_description
     element.description.should == :some_description
     element.description = :some_other_description

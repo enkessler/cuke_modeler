@@ -21,6 +21,9 @@ describe 'World, Unit' do
     end
 
     it 'can get and set the delimiters used for step argument parsing' do
+      expect(world).to respond_to(:left_delimiter=)
+      expect(world).to respond_to(:right_delimiter=)
+
       world.left_delimiter = '"'
       world.right_delimiter = '"'
       world.left_delimiter.should == '"'

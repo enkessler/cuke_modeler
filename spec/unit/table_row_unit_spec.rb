@@ -65,6 +65,8 @@ describe 'TableRow, Unit' do
     end
 
     it 'can get and set its cells' do
+      expect(row).to respond_to(:cells=)
+
       row.cells = :some_cells
       row.cells.should == :some_cells
       row.cells = :some_other_cells

@@ -41,6 +41,8 @@ describe 'Directory, Unit' do
     end
 
     it 'can get and set its feature files - #feature_files, #feature_files=' do
+      expect(directory).to respond_to(:feature_files=)
+
       directory.feature_files = :some_feature_files
       directory.feature_files.should == :some_feature_files
       directory.feature_files = :some_other_feature_files
@@ -58,6 +60,8 @@ describe 'Directory, Unit' do
     end
 
     it 'can get and set its directories - #directories, #directories=' do
+      expect(directory).to respond_to(:directories=)
+
       directory.directories = :some_directories
       directory.directories.should == :some_directories
       directory.directories = :some_other_directories

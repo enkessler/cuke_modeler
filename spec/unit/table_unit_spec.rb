@@ -67,6 +67,8 @@ describe 'Table, Unit' do
 
     # todo - remove once #contents is no longer supported
     it 'can get and set its contents - #contents, #contents=' do
+      expect(table).to respond_to(:contents=)
+
       table.contents = :some_contents
       table.contents.should == :some_contents
       table.contents = :some_other_contents
@@ -83,6 +85,8 @@ describe 'Table, Unit' do
     end
 
     it 'can get and set its row elements' do
+      expect(table).to respond_to(:row_elements=)
+
       table.row_elements = :some_row_elements
       table.row_elements.should == :some_row_elements
       table.row_elements = :some_other_row_elements

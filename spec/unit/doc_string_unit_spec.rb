@@ -65,6 +65,8 @@ describe 'DocString, Unit' do
     end
 
     it 'can get and set its content type - #content_type, #content_type=' do
+      expect(doc_string).to respond_to(:content_type=)
+
       doc_string.content_type = :some_content_type
       doc_string.content_type.should == :some_content_type
       doc_string.content_type = :some_other_content_type
@@ -82,6 +84,9 @@ describe 'DocString, Unit' do
     end
 
     it 'can get and set its contents' do
+      expect(doc_string).to respond_to(:contents=)
+      expect(doc_string).to respond_to(:contents_text=)
+
       #todo Remove once Array contents is no longer supported
       doc_string.contents = :some_contents
       doc_string.contents.should == :some_contents

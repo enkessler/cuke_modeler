@@ -26,6 +26,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its arguments - #arguments, #arguments=' do
+      expect(step).to respond_to(:arguments=)
+
       step.arguments = :some_arguments
       step.arguments.should == :some_arguments
       step.arguments = :some_other_arguments
@@ -41,6 +43,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its base - #base, #base=' do
+      expect(step).to respond_to(:base=)
+
       step.base = :some_base
       step.base.should == :some_base
       step.base = :some_other_base
@@ -56,6 +60,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its block - #block, #block=' do
+      expect(step).to respond_to(:block=)
+
       step.block = :some_block
       step.block.should == :some_block
       step.block = :some_other_block
@@ -71,6 +77,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its keyword - #keyword, #keyword=' do
+      expect(step).to respond_to(:keyword=)
+
       step.keyword = :some_keyword
       step.keyword.should == :some_keyword
       step.keyword = :some_other_keyword
@@ -86,6 +94,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its left delimiter - #left_delimiter, #left_delimiter=' do
+      expect(step).to respond_to(:left_delimiter=)
+
       step.left_delimiter = :some_left_delimiter
       step.left_delimiter.should == :some_left_delimiter
       step.left_delimiter = :some_other_left_delimiter
@@ -101,6 +111,8 @@ describe 'Step, Unit' do
     end
 
     it 'can get and set its right delimiter - #right_delimiter, #right_delimiter=' do
+      expect(step).to respond_to(:right_delimiter=)
+
       step.right_delimiter = :some_right_delimiter
       step.right_delimiter.should == :some_right_delimiter
       step.right_delimiter = :some_other_right_delimiter

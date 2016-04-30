@@ -63,6 +63,8 @@ describe 'Tag, Unit' do
     end
 
     it 'can get and set its name' do
+      expect(element).to respond_to(:name=)
+
       element.name = :some_name
       element.name.should == :some_name
       element.name = :some_other_name

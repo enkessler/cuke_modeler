@@ -72,6 +72,8 @@ describe 'Outline, Unit' do
     end
 
     it 'can get and set its examples - #examples, #examples=' do
+      expect(outline).to respond_to(:examples=)
+
       outline.examples = :some_examples
       outline.examples.should == :some_examples
       outline.examples = :some_other_examples

@@ -76,6 +76,8 @@ describe 'Feature, Unit' do
     end
 
     it 'can get and set its background - #background, #background=' do
+      expect(feature).to respond_to(:background=)
+
       feature.background = :some_background
       feature.background.should == :some_background
       feature.background = :some_other_background
@@ -94,6 +96,8 @@ describe 'Feature, Unit' do
     end
 
     it 'can get and set its tests - #tests, #tests=' do
+      expect(feature).to respond_to(:tests=)
+
       feature.tests = :some_tests
       feature.tests.should == :some_tests
       feature.tests = :some_other_tests

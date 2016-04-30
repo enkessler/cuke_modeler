@@ -12,6 +12,8 @@ shared_examples_for 'a test element' do
   end
 
   it 'can get and set its steps - #steps, #steps=' do
+    expect(element).to respond_to(:steps=)
+
     element.steps = :some_steps
     element.steps.should == :some_steps
     element.steps = :some_other_steps

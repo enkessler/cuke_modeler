@@ -12,6 +12,8 @@ shared_examples_for 'a raw element' do
   end
 
   it 'can get and set its underlying implementation representation - #raw_element, #raw_element=' do
+    expect(element).to respond_to(:raw_element=)
+
     element.raw_element = :some_raw_element
     element.raw_element.should == :some_raw_element
     element.raw_element = :some_other_raw_element

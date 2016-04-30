@@ -50,6 +50,8 @@ describe 'FeatureFile, Unit' do
     end
 
     it 'can get and set its features - #features, #features=' do
+      expect(feature_file).to respond_to(:features=)
+
       feature_file.features = :some_features
       feature_file.features.should == :some_features
       feature_file.features = :some_other_features
