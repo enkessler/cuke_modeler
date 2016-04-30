@@ -35,9 +35,9 @@ describe 'Feature, Integration' do
       expect(tag.parent_element).to equal(feature)
     end
 
-    it 'can distinguish scenarios from outlines - #scenarios, #outlines' do
-      scenarios = [CukeModeler::Scenario.new('Scenario: 1'), CukeModeler::Scenario.new('Scenario: 2')]
-      outlines = [CukeModeler::Outline.new("Scenario Outline: 1\nExamples:\n|param|\n|value|"), CukeModeler::Outline.new("Scenario Outline: 2\nExamples:\n|param|\n|value|")]
+    it 'can selectively access its scenarios and outlines' do
+      scenarios = [CukeModeler::Scenario.new, CukeModeler::Scenario.new]
+      outlines = [CukeModeler::Outline.new, CukeModeler::Outline.new]
 
       feature.tests = scenarios + outlines
 

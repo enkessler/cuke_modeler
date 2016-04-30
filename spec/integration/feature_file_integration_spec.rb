@@ -31,8 +31,7 @@ describe 'FeatureFile, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        file_path = "#{@default_file_directory}/feature_file_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write('Feature: Test feature') }
+        FileUtils.touch("#{@default_file_directory}/#{@default_feature_file_name}")
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
