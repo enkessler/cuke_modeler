@@ -84,7 +84,7 @@ describe 'Step, Integration' do
       (step_1 == step_3).should be_false
     end
 
-    describe '#step_text ' do
+    describe '#step_text' do
 
       let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
       let(:step) { clazz.new(source) }
