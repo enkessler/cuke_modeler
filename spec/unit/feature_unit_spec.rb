@@ -111,6 +111,21 @@ describe 'Feature, Unit' do
       feature.test_count.should == 2
     end
 
+    it 'can selectively access its scenarios' do
+      expect(feature).to respond_to(:scenarios)
+    end
+
+    it 'can selectively access its outlines' do
+      expect(feature).to respond_to(:outlines)
+    end
+
+    it 'finds no scenarios or outlines when it has no tests' do
+      feature.tests = []
+
+      expect(feature.scenarios).to be_empty
+      expect(feature.outlines).to be_empty
+    end
+
     it 'contains backgrounds and tests' do
       tests = [:test_1, :test_2]
       background = :a_background
