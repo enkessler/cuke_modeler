@@ -31,7 +31,7 @@ module CukeModeler
 
     # Returns the name of the directory.
     def name
-      File.basename(@directory.gsub('\\', '/'))
+      File.basename(@directory.gsub('\\', '/')) if @directory
     end
 
     # Returns the path of the directory.

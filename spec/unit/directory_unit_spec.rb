@@ -20,12 +20,20 @@ describe 'Directory, Unit' do
 
   describe 'unique behavior' do
 
+    it 'has a name' do
+      expect(directory).to respond_to(:name)
+    end
+
     it 'knows the name of the directory that it is modeling' do
       path = "#{@default_file_directory}"
 
       directory = clazz.new(path)
 
       directory.name.should == 'temp_files'
+    end
+
+    it 'has a path' do
+      expect(directory).to respond_to(:path)
     end
 
     it 'knows the path of the directory that it is modeling' do
@@ -74,9 +82,21 @@ describe 'Directory, Unit' do
       directory.directory_count.should == 3
     end
 
-    it 'starts with no feature files or directories' do
-      directory.feature_files.should == []
-      directory.directories.should == []
+    describe 'abstract instantiation' do
+
+      it 'starts with no path' do
+        expect(directory.path).to be nil
+      end
+
+      it 'starts with no name' do
+        expect(directory.name).to be nil
+      end
+
+      it 'starts with no feature files or directories' do
+        directory.feature_files.should == []
+        directory.directories.should == []
+      end
+
     end
 
     it 'contains feature files and directories' do
