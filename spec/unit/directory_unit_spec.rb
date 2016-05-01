@@ -24,16 +24,23 @@ describe 'Directory, Unit' do
       expect(directory).to respond_to(:name)
     end
 
-    it 'knows the name of the directory that it is modeling' do
-      path = "#{@default_file_directory}"
+    it 'derives its directory name from its path' do
+      directory.path = 'path/to/foo'
 
-      directory = clazz.new(path)
-
-      directory.name.should == 'temp_files'
+      expect(directory.name).to eq('foo')
     end
 
     it 'has a path' do
       expect(directory).to respond_to(:path)
+    end
+
+    it 'can change its path' do
+      expect(directory).to respond_to(:path=)
+
+      directory.path = :some_path
+      directory.path.should == :some_path
+      directory.path = :some_other_path
+      directory.path.should == :some_other_path
     end
 
     it 'knows the path of the directory that it is modeling' do
