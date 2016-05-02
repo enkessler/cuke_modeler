@@ -4,65 +4,73 @@ SimpleCov.command_name('TableRow') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'TableRow, Integration' do
 
-  context 'getting stuff' do
-
-    before(:each) do
-      source = ['Feature: Test feature',
-                '',
-                '  Scenario: Test test',
-                '    * a step:',
-                '      | a | table |']
-      source = source.join("\n")
-
-      file_path = "#{@default_file_directory}/table_row_test_file.feature"
-      File.open(file_path, 'w') { |file| file.write(source) }
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @table_row = @directory.feature_files.first.features.first.tests.first.steps.first.block.row_elements.first
-    end
+  let(:clazz) { CukeModeler::TableRow }
 
 
-    it 'can get its directory' do
-      directory = @table_row.get_ancestor(:directory)
+  describe 'unique behavior' do
 
-      directory.should equal @directory
-    end
+    describe 'getting ancestors' do
 
-    it 'can get its feature file' do
-      feature_file = @table_row.get_ancestor(:feature_file)
+      before(:each) do
+        source = ['Feature: Test feature',
+                  '',
+                  '  Scenario: Test test',
+                  '    * a step:',
+                  '      | a | table |']
+        source = source.join("\n")
 
-      feature_file.should equal @directory.feature_files.first
-    end
+        file_path = "#{@default_file_directory}/table_row_test_file.feature"
+        File.open(file_path, 'w') { |file| file.write(source) }
+      end
 
-    it 'can get its feature' do
-      feature = @table_row.get_ancestor(:feature)
+      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+      let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.row_elements.first }
 
-      feature.should equal @directory.feature_files.first.features.first
-    end
 
-    it 'can get its test' do
-      test = @table_row.get_ancestor(:test)
+      it 'can get its directory' do
+        ancestor = table_row.get_ancestor(:directory)
 
-      test.should equal @directory.feature_files.first.features.first.tests.first
-    end
+        ancestor.should equal directory
+      end
 
-    it 'can get its step' do
-      step = @table_row.get_ancestor(:step)
+      it 'can get its feature file' do
+        ancestor = table_row.get_ancestor(:feature_file)
 
-      step.should equal @directory.feature_files.first.features.first.tests.first.steps.first
-    end
+        ancestor.should equal directory.feature_files.first
+      end
 
-    it 'can get its table' do
-      table = @table_row.get_ancestor(:table)
+      it 'can get its feature' do
+        ancestor = table_row.get_ancestor(:feature)
 
-      table.should equal @directory.feature_files.first.features.first.tests.first.steps.first.block
-    end
+        ancestor.should equal directory.feature_files.first.features.first
+      end
 
-    it 'returns nil if it does not have the requested type of ancestor' do
-      example = @table_row.get_ancestor(:example)
+      it 'can get its test' do
+        ancestor = table_row.get_ancestor(:test)
 
-      example.should be_nil
+        ancestor.should equal directory.feature_files.first.features.first.tests.first
+      end
+
+      it 'can get its step' do
+        ancestor = table_row.get_ancestor(:step)
+
+        ancestor.should equal directory.feature_files.first.features.first.tests.first.steps.first
+      end
+
+      it 'can get its table' do
+        ancestor = table_row.get_ancestor(:table)
+
+        ancestor.should equal directory.feature_files.first.features.first.tests.first.steps.first.block
+      end
+
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = table_row.get_ancestor(:example)
+
+        ancestor.should be_nil
+      end
+
     end
 
   end
+
 end

@@ -6,7 +6,7 @@ Then /^(?:the )?feature(?: "([^"]*)")? is found to have the following properties
     expected = expected_value
     actual = @parsed_files[file - 1].feature.send(property.to_sym).to_s
 
-    assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
+    assert(actual == expected, "Expected #{property} to be: #{expected}\n but was: #{actual}")
   end
 end
 
@@ -77,10 +77,13 @@ Then /^(?:the )?feature(?: "([^"]*)")? correctly stores its underlying implement
 
   raw_element = @parsed_files[file - 1].feature.raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
-    raw_element.has_key?(:scenarioDefinitions).should be_true
-  else
-    raw_element.has_key?('elements').should be_true
+  case
+    when Gem.loaded_specs['gherkin'].version.version[/^4/]
+      expect(raw_element).to have_key(:children)
+    when Gem.loaded_specs['gherkin'].version.version[/^3/]
+      expect(raw_element).to have_key(:scenarioDefinitions)
+    else
+      expect(raw_element).to have_key('elements')
   end
 end
 

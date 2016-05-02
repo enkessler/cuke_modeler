@@ -15,7 +15,7 @@ elsif RUBY_VERSION =~ /^1\./
 end
 
 if RUBY_VERSION =~ /^2\./
-  gem 'gherkin', '>= 3.0.0'
+  gem 'gherkin', '~> 4.0'
 end
 
 if RUBY_VERSION =~ /^2\.[23456789]/

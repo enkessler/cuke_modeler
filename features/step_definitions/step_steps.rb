@@ -108,7 +108,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? step(?: "([^"]*)")? c
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:keyword).should be_true
   else
     raw_element.has_key?('keyword').should be_true
@@ -139,7 +139,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements[row - 1].raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:cells).should be_true
   else
     raw_element.has_key?('cells').should be_true

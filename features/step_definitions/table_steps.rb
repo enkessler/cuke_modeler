@@ -17,7 +17,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?(?:step(?: "([^"
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     expect(raw_element).to have_key(:rows)
   else
     raw_element.is_a?(Array).should be_true

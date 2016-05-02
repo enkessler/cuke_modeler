@@ -5,7 +5,11 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? is found to have the 
   properties = properties.rows_hash
 
   properties.each do |property, value|
-    assert value == @parsed_files[file - 1].feature.tests[test - 1].send(property.to_sym).to_s
+
+    actual = @parsed_files[file - 1].feature.tests[test - 1].send(property.to_sym).to_s
+    expected = value
+
+    assert(actual == expected, "Expected #{property} to be: #{expected}\n but was: #{actual}")
   end
 end
 
@@ -38,7 +42,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? steps are as follows:
     end
   end
 
-  assert actual_steps.flatten == steps
+  expect(actual_steps.flatten).to eq(steps)
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? is found to have the following tags:$/ do |file, test, expected_tags|
@@ -99,7 +103,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? correctly stores its 
 
   raw_element = @parsed_files[file - 1].feature.tests[test - 1].raw_element
 
-  if Gem.loaded_specs['gherkin'].version.version[/^3/]
+  if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     expected = ['Scenario', 'Scenario Outline']
     actual = raw_element[:keyword]
   else

@@ -4,45 +4,58 @@ SimpleCov.command_name('Directory') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Directory, Integration' do
 
-  it 'properly sets its child elements' do
-    nested_directory = "#{@default_file_directory}/nested_directory"
-    file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
+  let(:clazz) { CukeModeler::Directory }
 
-    FileUtils.mkdir(nested_directory)
-    File.open(file_path, "w") { |file|
-      file.puts('Feature: Test feature')
-    }
 
-    directory = CukeModeler::Directory.new(@default_file_directory)
-    nested_directory = directory.directories.first
-    file = directory.feature_files.first
+  describe 'unique behavior' do
 
-    nested_directory.parent_element.should equal directory
-    file.parent_element.should equal directory
-  end
-
-  context 'getting stuff' do
-
-    before(:each) do
+    it 'properly sets its child elements' do
       nested_directory = "#{@default_file_directory}/nested_directory"
+      file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
+
       FileUtils.mkdir(nested_directory)
+      File.open(file_path, "w") { |file|
+        file.puts('Feature: Test feature')
+      }
 
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @nested_directory = @directory.directories.first
+      directory = clazz.new(@default_file_directory)
+      nested_directory = directory.directories.first
+      file = directory.feature_files.first
+
+      expect(nested_directory.parent_element).to equal(directory)
+      expect(file.parent_element).to equal(directory)
     end
 
+    it 'cannot model a non-existent directory' do
+      path = "#{@default_file_directory}/missing_directory"
 
-    it 'can get its directory' do
-      directory = @nested_directory.get_ancestor(:directory)
-
-      directory.should equal @directory
+      expect { clazz.new(path) }.to raise_error(ArgumentError)
     end
 
-    it 'returns nil if it does not have the requested type of ancestor' do
-      example = @nested_directory.get_ancestor(:example)
+    describe 'getting ancestors' do
 
-      example.should be_nil
+      before(:each) do
+        FileUtils.mkdir("#{@default_file_directory}/nested_directory")
+      end
+
+      let(:directory) { clazz.new(@default_file_directory) }
+      let(:nested_directory) { directory.directories.first }
+
+
+      it 'can get its directory' do
+        ancestor = nested_directory.get_ancestor(:directory)
+
+        expect(ancestor).to equal(directory)
+      end
+
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = nested_directory.get_ancestor(:example)
+
+        expect(ancestor).to be_nil
+      end
+
     end
 
   end
+
 end

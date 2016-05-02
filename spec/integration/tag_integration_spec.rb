@@ -4,65 +4,73 @@ SimpleCov.command_name('Tag') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Tag, Integration' do
 
-  context 'getting stuff' do
-
-    before(:each) do
-      source = ['@feature_tag',
-                'Feature: Test feature',
-                '',
-                '  Scenario Outline: Test test',
-                '    * a step',
-                '',
-                '  @example_tag',
-                '  Examples: Test example',
-                '    | a param |',
-                '    | a value |']
-      source = source.join("\n")
-
-      file_path = "#{@default_file_directory}/tag_test_file.feature"
-      File.open(file_path, 'w') { |file| file.write(source) }
-
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @tag = @directory.feature_files.first.features.first.tests.first.examples.first.tag_elements.first
-      @high_level_tag = @directory.feature_files.first.features.first.tag_elements.first
-    end
+  let(:clazz) { CukeModeler::Tag }
 
 
-    it 'can get its directory' do
-      directory = @tag.get_ancestor(:directory)
+  describe 'unique behavior' do
 
-      directory.should equal @directory
-    end
+    describe 'getting ancestors' do
 
-    it 'can get its feature file' do
-      feature_file = @tag.get_ancestor(:feature_file)
+      before(:each) do
+        source = ['@feature_tag',
+                  'Feature: Test feature',
+                  '',
+                  '  Scenario Outline: Test test',
+                  '    * a step',
+                  '',
+                  '  @example_tag',
+                  '  Examples: Test example',
+                  '    | a param |',
+                  '    | a value |']
+        source = source.join("\n")
 
-      feature_file.should equal @directory.feature_files.first
-    end
+        file_path = "#{@default_file_directory}/tag_test_file.feature"
+        File.open(file_path, 'w') { |file| file.write(source) }
+      end
 
-    it 'can get its feature' do
-      feature = @tag.get_ancestor(:feature)
+      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+      let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tag_elements.first }
+      let(:high_level_tag) { directory.feature_files.first.features.first.tag_elements.first }
 
-      feature.should equal @directory.feature_files.first.features.first
-    end
 
-    it 'can get its test' do
-      test = @tag.get_ancestor(:test)
+      it 'can get its directory' do
+        ancestor = tag.get_ancestor(:directory)
 
-      test.should equal @directory.feature_files.first.features.first.tests.first
-    end
+        ancestor.should equal directory
+      end
 
-    it 'can get its example' do
-      example = @tag.get_ancestor(:example)
+      it 'can get its feature file' do
+        ancestor = tag.get_ancestor(:feature_file)
 
-      example.should equal @directory.feature_files.first.features.first.tests.first.examples.first
-    end
+        ancestor.should equal directory.feature_files.first
+      end
 
-    it 'returns nil if it does not have the requested type of ancestor' do
-      example = @high_level_tag.get_ancestor(:example)
+      it 'can get its feature' do
+        ancestor = tag.get_ancestor(:feature)
 
-      example.should be_nil
+        ancestor.should equal directory.feature_files.first.features.first
+      end
+
+      it 'can get its test' do
+        ancestor = tag.get_ancestor(:test)
+
+        ancestor.should equal directory.feature_files.first.features.first.tests.first
+      end
+
+      it 'can get its example' do
+        ancestor = tag.get_ancestor(:example)
+
+        ancestor.should equal directory.feature_files.first.features.first.tests.first.examples.first
+      end
+
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = high_level_tag.get_ancestor(:example)
+
+        ancestor.should be_nil
+      end
+
     end
 
   end
+
 end

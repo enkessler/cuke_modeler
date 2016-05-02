@@ -14,12 +14,14 @@ module CukeModeler
     # The Directory objects contained by the Directory
     attr_accessor :directories
 
+    # The file path of the Directory
+    attr_accessor :path
+
 
     # Creates a new Directory object and, if *directory_parsed* is provided,
     # populates the object.
     def initialize(directory_parsed = nil)
-      @directory = directory_parsed
-
+      @path = directory_parsed
       @feature_files = []
       @directories = []
 
@@ -31,12 +33,7 @@ module CukeModeler
 
     # Returns the name of the directory.
     def name
-      File.basename(@directory.gsub('\\', '/'))
-    end
-
-    # Returns the path of the directory.
-    def path
-      @directory
+      File.basename(@path.gsub('\\', '/')) if @path
     end
 
     # Returns the number of sub-directories contained in the directory.
@@ -65,12 +62,12 @@ module CukeModeler
 
 
     def build_directory
-      entries = Dir.entries(@directory)
+      entries = Dir.entries(@path)
       entries.delete '.'
       entries.delete '..'
 
       entries.each do |entry|
-        entry = "#{@directory}/#{entry}"
+        entry = "#{@path}/#{entry}"
 
         case
           when File.directory?(entry)
