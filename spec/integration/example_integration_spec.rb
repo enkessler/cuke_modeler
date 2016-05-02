@@ -4,92 +4,103 @@ SimpleCov.command_name('Example') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Example, Integration' do
 
-  it 'properly sets its child elements' do
-    source = ['@a_tag',
-              'Examples:',
-              '  | param   |',
-              '  | value 1 |']
-    source = source.join("\n")
+  let(:clazz) { CukeModeler::Example }
 
-    example = CukeModeler::Example.new(source)
-    rows = example.row_elements
-    tag = example.tag_elements.first
 
-    rows[0].parent_element.should equal example
-    rows[1].parent_element.should equal example
-    tag.parent_element.should equal example
-  end
+  describe 'unique behavior' do
 
-  context 'getting stuff' do
-
-    before(:each) do
-      source = ['Feature: Test feature',
-                '',
-                '  Scenario Outline: Test test',
-                '    * a step',
-                '  Examples: Test example',
-                '    | a param |',
-                '    | a value |']
+    it 'properly sets its child elements' do
+      source = ['@a_tag',
+                'Examples:',
+                '  | param   |',
+                '  | value 1 |']
       source = source.join("\n")
 
-      file_path = "#{@default_file_directory}/example_test_file.feature"
-      File.open(file_path, 'w') { |file| file.write(source) }
+      example = clazz.new(source)
+      rows = example.row_elements
+      tag = example.tag_elements.first
 
-      @directory = CukeModeler::Directory.new(@default_file_directory)
-      @example = @directory.feature_files.first.features.first.tests.first.examples.first
+      expect(rows[0].parent_element).to equal(example)
+      expect(rows[1].parent_element).to equal(example)
+      expect(tag.parent_element).to equal(example)
     end
 
+    describe 'getting ancestors' do
 
-    it 'can get its directory' do
-      directory = @example.get_ancestor(:directory)
+      before(:each) do
+        source = ['Feature: Test feature',
+                  '',
+                  '  Scenario Outline: Test test',
+                  '    * a step',
+                  '  Examples: Test example',
+                  '    | a param |',
+                  '    | a value |']
+        source = source.join("\n")
 
-      directory.should equal @directory
+        file_path = "#{@default_file_directory}/example_test_file.feature"
+        File.open(file_path, 'w') { |file| file.write(source) }
+      end
+
+      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+      let(:example) { directory.feature_files.first.features.first.tests.first.examples.first }
+
+
+      it 'can get its directory' do
+        ancestor = example.get_ancestor(:directory)
+
+        expect(ancestor).to equal(directory)
+      end
+
+      it 'can get its feature file' do
+        ancestor = example.get_ancestor(:feature_file)
+
+        expect(ancestor).to equal(directory.feature_files.first)
+      end
+
+      it 'can get its feature' do
+        ancestor = example.get_ancestor(:feature)
+
+        expect(ancestor).to equal(directory.feature_files.first.features.first)
+      end
+
+      it 'can get its test' do
+        ancestor = example.get_ancestor(:test)
+
+        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+      end
+
+      it 'returns nil if it does not have the requested type of ancestor' do
+        ancestor = example.get_ancestor(:example)
+
+        expect(ancestor).to be_nil
+      end
+
     end
 
-    it 'can get its feature file' do
-      feature_file = @example.get_ancestor(:feature_file)
+    describe 'example output edge cases' do
 
-      feature_file.should equal @directory.feature_files.first
-    end
+      context 'a new example object' do
 
-    it 'can get its feature' do
-      feature = @example.get_ancestor(:feature)
+        let(:example) { clazz.new }
 
-      feature.should equal @directory.feature_files.first.features.first
-    end
 
-    it 'can get its test' do
-      test = @example.get_ancestor(:test)
+        it 'can output an example that has only tag elements' do
+          example.tag_elements = [CukeModeler::Tag.new]
 
-      test.should equal @directory.feature_files.first.features.first.tests.first
-    end
+          expect { example.to_s }.to_not raise_error
+        end
 
-    it 'returns nil if it does not have the requested type of ancestor' do
-      example = @example.get_ancestor(:example)
+        #todo - remove once Hash rows are no longer supported
+        it 'can output an example that has only row elements' do
+          example.row_elements = [CukeModeler::Row.new]
 
-      example.should be_nil
+          expect { example.to_s }.to_not raise_error
+        end
+
+      end
+
     end
 
   end
 
-  context 'example output edge cases' do
-
-    before(:each) do
-      @example = CukeModeler::Example.new
-    end
-
-    it 'can output an example that has only a tag elements' do
-      @example.tag_elements = [CukeModeler::Tag.new]
-
-      expect { @example.to_s }.to_not raise_error
-    end
-
-    #todo - remove once Hash rows are no longer supported
-    it 'can output an example that has only row elements' do
-      @example.row_elements = [CukeModeler::Row.new]
-
-      expect { @example.to_s }.to_not raise_error
-    end
-
-  end
 end

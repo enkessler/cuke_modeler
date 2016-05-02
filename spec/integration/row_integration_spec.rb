@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-SimpleCov.command_name('Tag') unless RUBY_VERSION.to_s < '1.9.0'
+SimpleCov.command_name('Row') unless RUBY_VERSION.to_s < '1.9.0'
 
-describe 'Tag, Integration' do
+describe 'Row, Integration' do
 
-  let(:clazz) { CukeModeler::Tag }
+  let(:clazz) { CukeModeler::Row }
 
 
   describe 'unique behavior' do
@@ -12,59 +12,55 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['@feature_tag',
-                  'Feature: Test feature',
+        source = ['Feature: Test feature',
                   '',
                   '  Scenario Outline: Test test',
                   '    * a step',
-                  '',
-                  '  @example_tag',
                   '  Examples: Test example',
                   '    | a param |',
                   '    | a value |']
         source = source.join("\n")
 
-        file_path = "#{@default_file_directory}/tag_test_file.feature"
+        file_path = "#{@default_file_directory}/row_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tag_elements.first }
-      let(:high_level_tag) { directory.feature_files.first.features.first.tag_elements.first }
+      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.row_elements.first }
 
 
       it 'can get its directory' do
-        ancestor = tag.get_ancestor(:directory)
+        ancestor = row.get_ancestor(:directory)
 
         ancestor.should equal directory
       end
 
       it 'can get its feature file' do
-        ancestor = tag.get_ancestor(:feature_file)
+        ancestor = row.get_ancestor(:feature_file)
 
         ancestor.should equal directory.feature_files.first
       end
 
       it 'can get its feature' do
-        ancestor = tag.get_ancestor(:feature)
+        ancestor = row.get_ancestor(:feature)
 
         ancestor.should equal directory.feature_files.first.features.first
       end
 
       it 'can get its test' do
-        ancestor = tag.get_ancestor(:test)
+        ancestor = row.get_ancestor(:test)
 
         ancestor.should equal directory.feature_files.first.features.first.tests.first
       end
 
       it 'can get its example' do
-        ancestor = tag.get_ancestor(:example)
+        ancestor = row.get_ancestor(:example)
 
         ancestor.should equal directory.feature_files.first.features.first.tests.first.examples.first
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = high_level_tag.get_ancestor(:example)
+        ancestor = row.get_ancestor(:table)
 
         ancestor.should be_nil
       end

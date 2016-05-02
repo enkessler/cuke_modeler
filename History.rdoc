@@ -1,3 +1,11 @@
+=== Version 0.4.0 / 2016-05-01
+
+* The path of a Directory object is now a changeable attribute instead of only being populated if the instance was
+  given a diretory to model.
+* Bug fix - Fixed a bug that occurred if a Directory object was asked for its #name when it was created 'empty'
+            instead of modeling an existing directory.
+
+
 === Version 0.3.0 / 2016-04-24
 
 * Support for version 4.x of the 'gherkin' gem added.
