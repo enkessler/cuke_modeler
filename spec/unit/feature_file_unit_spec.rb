@@ -75,7 +75,7 @@ describe 'FeatureFile, Unit' do
 
       feature_file.features = features
 
-      feature_file.contains.should =~ everything
+      feature_file.children.should =~ everything
     end
 
     it 'can easily access its sole feature' do

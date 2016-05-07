@@ -75,7 +75,7 @@ module CukeModeler
     end
 
     # Returns the immediate child elements of the element.
-    def contains
+    def children
       @row_elements
     end
 

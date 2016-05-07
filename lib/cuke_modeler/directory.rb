@@ -48,7 +48,7 @@ module CukeModeler
 
     # Returns the immediate child elements of the directory (i.e. its Directory
     # and FeatureFile objects).
-    def contains
+    def children
       @feature_files + @directories
     end
 

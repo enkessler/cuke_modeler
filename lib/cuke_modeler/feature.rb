@@ -70,7 +70,7 @@ module CukeModeler
 
     # Returns the immediate child elements of the feature (i.e. its Background,
     # Scenario, and Outline objects.
-    def contains
+    def children
       @background ? [@background] + @tests : @tests
     end
 

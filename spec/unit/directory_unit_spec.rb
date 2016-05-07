@@ -114,7 +114,7 @@ describe 'Directory, Unit' do
       directory.directories = directories
       directory.feature_files = files
 
-      directory.contains.should =~ everything
+      directory.children.should =~ everything
     end
 
     describe 'directory output edge cases' do

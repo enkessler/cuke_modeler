@@ -70,7 +70,7 @@ describe 'Scenario, Unit' do
 
       scenario.steps = steps
 
-      scenario.contains.should =~ everything
+      scenario.children.should =~ everything
     end
 
     describe 'scenario output edge cases' do

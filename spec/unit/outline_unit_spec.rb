@@ -92,7 +92,7 @@ describe 'Outline, Unit' do
       outline.steps = steps
       outline.examples = examples
 
-      outline.contains.should =~ everything
+      outline.children.should =~ everything
     end
 
     describe 'outline output edge cases' do

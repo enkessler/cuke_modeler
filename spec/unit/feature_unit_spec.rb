@@ -134,7 +134,7 @@ describe 'Feature, Unit' do
       feature.background = background
       feature.tests = tests
 
-      feature.contains.should =~ everything
+      feature.children.should =~ everything
     end
 
     it 'contains a background only if one is present' do
@@ -145,7 +145,7 @@ describe 'Feature, Unit' do
       feature.background = background
       feature.tests = tests
 
-      feature.contains.should =~ everything
+      feature.children.should =~ everything
     end
 
     it 'starts with no background' do

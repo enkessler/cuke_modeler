@@ -8,11 +8,11 @@ shared_examples_for 'a containing element' do
 
 
   it 'has children' do
-    element.should respond_to(:contains)
+    element.should respond_to(:children)
   end
 
   it 'returns a collection of children' do
-    element.contains.is_a?(Array).should be_true
+    element.children.is_a?(Array).should be_true
   end
 
 end

@@ -38,7 +38,7 @@ module CukeModeler
     end
 
     # Returns the immediate child elements of the file(i.e. its Feature object).
-    def contains
+    def children
       @features
     end
 

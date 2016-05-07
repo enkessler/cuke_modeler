@@ -27,7 +27,7 @@ module CukeModeler
 
     # Returns the immediate child elements of the outline (i.e. its Example
     # objects.
-    def contains
+    def children
       @examples + @steps
     end
 
