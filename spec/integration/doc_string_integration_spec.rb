@@ -49,10 +49,94 @@ describe 'DocString, Integration' do
         expect(ancestor).to equal(directory.feature_files.first.features.first)
       end
 
-      it 'can get its test' do
-        ancestor = doc_string.get_ancestor(:test)
+      context 'a doc string that is part of a scenario' do
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        before(:each) do
+          source = 'Feature: Test feature
+                    
+                      Scenario: Test test
+                        * a big step:
+                          """
+                          a
+                          doc
+                          string
+                          """'
+
+          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+
+
+        it 'can get its scenario' do
+          ancestor = doc_string.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
+      end
+
+      context 'a doc string that is part of an outline' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+                    
+                      Scenario Outline: Test outline
+                        * a big step:
+                          """
+                          a
+                          doc
+                          string
+                          """
+                      Examples:
+                        | param |
+                        | value |'
+
+          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+
+
+        it 'can get its outline' do
+          ancestor = doc_string.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
+      end
+
+      context 'a doc string that is part of a background' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+                    
+                      Background: Test background
+                        * a big step:
+                          """
+                          a
+                          doc
+                          string
+                          """'
+
+          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:doc_string) { directory.feature_files.first.features.first.background.steps.first.block }
+
+
+        it 'can get its background' do
+          ancestor = doc_string.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.background)
+        end
+
       end
 
       it 'can get its step' do

@@ -2,8 +2,14 @@ module CukeModeler
 
   # A class modeling a Cucumber Scenario Outline.
 
-  class Outline < TestElement
+  class Outline < ModelElement
 
+    include Raw
+    include Named
+    include Described
+    include Stepped
+    include Sourceable
+    include Containing
     include Taggable
 
 
@@ -18,11 +24,23 @@ module CukeModeler
 
       super(parsed_outline)
 
+
+      @name = ''
+      @description = ''
+      @description_text = []
+      @steps = []
       @tags = []
       @tag_elements = []
       @examples = []
 
       build_outline(parsed_outline) if parsed_outline
+    end
+
+    # Returns true if the two elements have equivalent steps and false otherwise.
+    def ==(other_element)
+      return false unless other_element.respond_to?(:steps)
+
+      steps == other_element.steps
     end
 
     # Returns the immediate child elements of the outline (i.e. its Example
@@ -49,7 +67,21 @@ module CukeModeler
     private
 
 
+    def parse_model(source_text, file_name)
+      base_file_string = "Feature: Fake feature to parse\n"
+      source_text = base_file_string + source_text
+
+      parsed_file = Parsing::parse_text(source_text, file_name)
+
+      parsed_file.first['elements'].first
+    end
+
     def build_outline(parsed_outline)
+      populate_raw_element(parsed_outline)
+      populate_element_source_line(parsed_outline)
+      populate_name(parsed_outline)
+      populate_description(parsed_outline)
+      populate_steps(parsed_outline)
       populate_element_tags(parsed_outline)
       populate_outline_examples(parsed_outline['examples']) if parsed_outline['examples']
     end

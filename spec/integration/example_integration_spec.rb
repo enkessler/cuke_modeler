@@ -63,10 +63,31 @@ describe 'Example, Integration' do
         expect(ancestor).to equal(directory.feature_files.first.features.first)
       end
 
-      it 'can get its test' do
-        ancestor = example.get_ancestor(:test)
+      context 'an example that is part of an outline' do
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        before(:each) do
+          source = 'Feature: Test feature
+                      
+                      Scenario Outline: Test outline
+                        * a step
+                      Examples:
+                        | param |
+                        | value |'
+
+          file_path = "#{@default_file_directory}/step_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:example) { directory.feature_files.first.features.first.tests.first.examples.first }
+
+
+        it 'can get its outline' do
+          ancestor = example.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

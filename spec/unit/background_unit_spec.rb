@@ -10,12 +10,14 @@ describe 'Background, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a feature element'
+    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a named element'
+    it_should_behave_like 'a described element'
+    it_should_behave_like 'a stepped element'
     it_should_behave_like 'a nested element'
     it_should_behave_like 'a containing element'
     it_should_behave_like 'a bare bones element'
     it_should_behave_like 'a prepopulated element'
-    it_should_behave_like 'a test element'
     it_should_behave_like 'a sourced element'
     it_should_behave_like 'a raw element'
 
@@ -61,6 +63,15 @@ describe 'Background, Unit' do
 
       expect(raw_data.keys).to match_array(['keyword', 'name', 'line', 'description', 'type'])
       expect(raw_data['keyword']).to eq('Background')
+    end
+
+    it 'contains steps' do
+      steps = [:step_1, :step_2]
+      everything = steps
+
+      background.steps = steps
+
+      expect(background.children).to match_array(everything)
     end
 
 

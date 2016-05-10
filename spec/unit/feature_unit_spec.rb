@@ -10,7 +10,9 @@ describe 'Feature, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a feature element'
+    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a named element'
+    it_should_behave_like 'a described element'
     it_should_behave_like 'a nested element'
     it_should_behave_like 'a containing element'
     it_should_behave_like 'a tagged element'

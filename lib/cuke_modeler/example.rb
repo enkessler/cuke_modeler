@@ -2,10 +2,14 @@ module CukeModeler
 
   # A class modeling a Cucumber Examples table.
 
-  class Example < FeatureElement
+  class Example < ModelElement
 
-    include Taggable
+    include Raw
+    include Named
+    include Described
+    include Sourceable
     include Containing
+    include Taggable
 
 
     # The argument rows in the example table
@@ -27,10 +31,13 @@ module CukeModeler
     # Creates a new Example object and, if *source* is provided,
     # populates the object.
     def initialize(source = nil)
-      parsed_example = process_source(source)
+      parsed_example = process_source(source, 'cuke_modeler_stand_alone_example.feature')
 
       super(parsed_example)
 
+      @name = ''
+      @description = ''
+      @description_text = []
       @tags = []
       @tag_elements = []
       @rows = []
@@ -97,25 +104,20 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_example(source)
-        else
-          source
-      end
-    end
-
-    def parse_example(source_text)
+    def parse_model(source_text, file_name)
       base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
+      parsed_file = Parsing::parse_text(source_text, file_name)
 
       parsed_file.first['elements'].first['examples'].first
     end
 
     def build_example(parsed_example)
+      populate_raw_element(parsed_example)
+      populate_element_source_line(parsed_example)
+      populate_name(parsed_example)
+      populate_description(parsed_example)
       populate_element_tags(parsed_example)
       populate_example_row_elements(parsed_example)
       populate_example_parameters

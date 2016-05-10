@@ -2,26 +2,33 @@ module CukeModeler
 
   # A class modeling a Cucumber Feature.
 
-  class Feature < FeatureElement
+  class Feature < ModelElement
 
+    include Raw
+    include Named
+    include Described
     include Taggable
+    include Sourceable
     include Containing
 
 
     # The Background object contained by the Feature
     attr_accessor :background
 
-    # The TestElement objects contained by the Feature
+    # The Scenario and Outline objects contained by the Feature
     attr_accessor :tests
 
 
     # Creates a new Feature object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_feature = process_source(source)
+      parsed_feature = process_source(source, 'cuke_modeler_stand_alone_feature.feature')
 
       super(parsed_feature)
 
+      @name = ''
+      @description = ''
+      @description_text = []
       @tags = []
       @tag_elements = []
       @tests = []
@@ -74,7 +81,6 @@ module CukeModeler
       @background ? [@background] + @tests : @tests
     end
 
-
     # Returns gherkin representation of the feature.
     def to_s
       text = ''
@@ -92,27 +98,22 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_feature(source)
-        else
-          source
-      end
-    end
-
-    def parse_feature(source_text)
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
+    def parse_model(source_text, file_name)
+      parsed_file = Parsing::parse_text(source_text, file_name)
 
       parsed_file.first
     end
 
     def build_feature(parsed_feature)
+      populate_raw_element(parsed_feature)
+      populate_element_source_line(parsed_feature)
+      populate_name(parsed_feature)
+      populate_description(parsed_feature)
       populate_element_tags(parsed_feature)
-      populate_feature_elements(parsed_feature)
+      populate_children(parsed_feature)
     end
 
-    def populate_feature_elements(parsed_feature)
+    def populate_children(parsed_feature)
       elements = parsed_feature['elements']
 
       if elements
