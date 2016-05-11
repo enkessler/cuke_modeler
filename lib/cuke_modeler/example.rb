@@ -49,7 +49,10 @@ module CukeModeler
           @rows << Hash[@parameters.zip(row.collect { |value| value.to_s.strip })]
           @row_elements << Row.new("|#{row.join('|')}|")
         when row.is_a?(Hash)
-          @parameters = row.keys if @parameters.empty?
+          if @parameters.empty?
+            @parameters = row.keys
+            @row_elements << Row.new("|#{row.keys.join('|')}|")
+          end
           @rows << row.each_value { |value| value.to_s.strip }
           @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
         else
