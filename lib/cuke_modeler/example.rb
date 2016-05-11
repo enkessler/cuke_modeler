@@ -53,8 +53,9 @@ module CukeModeler
             @parameters = row.keys
             @row_elements << Row.new("|#{row.keys.join('|')}|")
           end
-          @rows << row.each_value { |value| value.to_s.strip }
-          @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
+          sanitized_row = row.inject({}) { |h, (k, v)| h[k] = v.to_s.strip; h }
+          @rows << sanitized_row
+          @row_elements << Row.new("|#{ordered_row_values(sanitized_row).join('|')}|")
         else
           raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
       end
