@@ -46,11 +46,16 @@ module CukeModeler
     def add_row(row)
       case
         when row.is_a?(Array)
-          @rows << Hash[@parameters.zip(row.collect { |value| value.strip })]
+          @rows << Hash[@parameters.zip(row.collect { |value| value.to_s.strip })]
           @row_elements << Row.new("|#{row.join('|')}|")
         when row.is_a?(Hash)
-          @rows << row.each_value { |value| value.strip! }
-          @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
+          if @parameters.empty?
+            @parameters = row.keys
+            @row_elements << Row.new("|#{row.keys.join('|')}|")
+          end
+          sanitized_row = row.inject({}) { |h, (k, v)| h[k] = v.to_s.strip; h }
+          @rows << sanitized_row
+          @row_elements << Row.new("|#{ordered_row_values(sanitized_row).join('|')}|")
         else
           raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
       end
@@ -173,7 +178,7 @@ module CukeModeler
     end
 
     def string_for(cells, index)
-      cells[index] ? cells[index].ljust(determine_buffer_size(index)) : ''
+      cells[index] ? cells[index].to_s.ljust(determine_buffer_size(index)) : ''
     end
 
     def ordered_row_values(row_hash)
