@@ -7,6 +7,12 @@ describe 'FeatureFile, Integration' do
   let(:clazz) { CukeModeler::FeatureFile }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     it 'cannot model a non-existent feature file' do

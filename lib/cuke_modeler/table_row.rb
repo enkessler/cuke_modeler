@@ -2,11 +2,10 @@ module CukeModeler
 
   # A class modeling a step table row.
 
-  class TableRow
+  class TableRow < ModelElement
 
     include Sourceable
     include Raw
-    include Nested
 
 
     # The cells that make up the row

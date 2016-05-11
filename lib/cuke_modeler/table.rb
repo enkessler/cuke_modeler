@@ -2,11 +2,10 @@ module CukeModeler
 
   # A class modeling the table of a Step.
 
-  class Table
+  class Table < ModelElement
 
     include Containing
     include Raw
-    include Nested
 
 
     # The contents of the table

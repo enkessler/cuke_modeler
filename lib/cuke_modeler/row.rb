@@ -2,11 +2,10 @@ module CukeModeler
 
   # A class modeling a Cucumber Examples table row.
 
-  class Row
+  class Row < ModelElement
 
     include Sourceable
     include Raw
-    include Nested
 
 
     # The cells that make up the row

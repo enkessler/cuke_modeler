@@ -2,10 +2,9 @@ module CukeModeler
 
   # A class modeling the Doc String of a Step.
 
-  class DocString
+  class DocString < ModelElement
 
     include Raw
-    include Nested
 
 
     # The content type associated with the doc string

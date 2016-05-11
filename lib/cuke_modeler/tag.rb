@@ -2,11 +2,10 @@ module CukeModeler
 
   # A class modeling a Tag.
 
-  class Tag
+  class Tag < ModelElement
 
     include Raw
     include Sourceable
-    include Nested
 
 
     # The name of the Tag

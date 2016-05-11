@@ -2,10 +2,9 @@ module CukeModeler
 
   # A class modeling a directory containing .feature files.
 
-  class Directory
+  class Directory < ModelElement
 
     include Containing
-    include Nested
 
 
     # The FeatureFile objects contained by the Directory

@@ -7,6 +7,12 @@ describe 'Table, Integration' do
   let(:clazz) { CukeModeler::Table }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     it 'properly sets its child elements' do

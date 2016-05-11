@@ -7,6 +7,12 @@ describe 'TableRow, Integration' do
   let(:clazz) { CukeModeler::TableRow }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     describe 'getting ancestors' do
