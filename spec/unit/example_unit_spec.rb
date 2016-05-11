@@ -185,6 +185,14 @@ describe 'Example, Unit' do
         example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2'], ['value3', 'value4']]
       end
 
+      it 'can add a new row as from a non-braindead hash' do
+        source = "Examples:\n|param1|param2|\n|value1|value2|"
+        example = clazz.new(source)
+
+        new_row = {:param1 => 'value3', :param2 => 4}
+        expect(example.add_row(new_row)).to_not raise_error
+      end
+
       it 'can add a new row as an array' do
         source = "Examples:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
