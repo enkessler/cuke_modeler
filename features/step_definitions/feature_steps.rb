@@ -11,11 +11,9 @@ Then /^(?:the )?feature(?: "([^"]*)")? is found to have the following properties
 end
 
 Then /^(?:the )?feature "([^"]*)" has the following description:$/ do |file, text|
-  new_description = @parsed_files[file - 1].feature.description_text
-  old_description = @parsed_files[file - 1].feature.description
+  description = @parsed_files[file - 1].feature.description
 
-  new_description.should == text
-  old_description.should == remove_whitespace(text)
+  expect(description).to eq(text)
 end
 
 Then /^feature "([^"]*)" is found to have the following tags:$/ do |file, expected_tags|
@@ -26,8 +24,7 @@ Then /^feature "([^"]*)" is found to have the following tags:$/ do |file, expect
 end
 
 Then /^feature "([^"]*)" has no description$/ do |file|
-  @parsed_files[file - 1].feature.description_text.should == ''
-  @parsed_files[file - 1].feature.description.should == []
+  expect(@parsed_files[file - 1].feature.description).to eq('')
 end
 
 Then /^feature "([^"]*)" has no tags$/ do |file|
@@ -93,11 +90,4 @@ end
 
 Given(/^a feature element based on the following gherkin:$/) do |feature_text|
   @element = CukeModeler::Feature.new(feature_text)
-end
-
-def remove_whitespace(text)
-  stripped_text = text.split("\n").collect { |line| line.strip }
-  stripped_text.delete('')
-
-  stripped_text
 end

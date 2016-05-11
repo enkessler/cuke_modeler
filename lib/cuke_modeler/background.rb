@@ -21,7 +21,6 @@ module CukeModeler
 
       @name = ''
       @description = ''
-      @description_text = []
       @steps = []
 
       build_background(parsed_background) if parsed_background
@@ -36,8 +35,8 @@ module CukeModeler
       text = ''
 
       text << "Background:#{name_output_string}"
-      text << "\n" + description_output_string unless description_text.empty?
-      text << "\n" unless steps.empty? || description_text.empty?
+      text << "\n" + description_output_string unless description.empty?
+      text << "\n" unless steps.empty? || description.empty?
       text << "\n" + steps_output_string unless steps.empty?
 
       text

@@ -120,7 +120,7 @@ describe 'Outline, Unit' do
         end
 
         it 'can output an outline that has only a description' do
-          outline.description_text = 'a description'
+          outline.description = 'a description'
 
           expect { outline.to_s }.to_not raise_error
         end

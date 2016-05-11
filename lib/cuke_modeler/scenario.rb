@@ -22,7 +22,6 @@ module CukeModeler
 
       @name = ''
       @description = ''
-      @description_text = []
       @steps = []
       @tags = []
       @tag_elements = []
@@ -47,8 +46,8 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Scenario:#{name_output_string}"
-      text << "\n" + description_output_string unless description_text.empty?
-      text << "\n" unless steps.empty? || description_text.empty?
+      text << "\n" + description_output_string unless description.empty?
+      text << "\n" unless steps.empty? || description.empty?
       text << "\n" + steps_output_string unless steps.empty?
 
       text

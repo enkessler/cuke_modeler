@@ -98,7 +98,7 @@ describe 'Background, Unit' do
         end
 
         it 'can output a background that has only a description' do
-          background.description_text = 'a description'
+          background.description = 'a description'
 
           expect { background.to_s }.to_not raise_error
         end

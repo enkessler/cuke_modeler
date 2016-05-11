@@ -41,11 +41,9 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
   test ||= 1
   example ||= 1
 
-  new_description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description_text
-  old_description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description
+  description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description
 
-  new_description.should == text
-  old_description.should == remove_whitespace(text)
+  expect(description).to eq(text)
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^"]*)")? has no description$/ do |file, test, example|
@@ -53,11 +51,9 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
   test ||= 1
   example ||= 1
 
-  new_description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description_text
-  old_description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description
+  description = @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].description
 
-  new_description.should == ''
-  old_description.should == []
+  expect(description).to eq('')
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^"]*)")? is found to have the following tags:$/ do |file, test, example, expected_tags|

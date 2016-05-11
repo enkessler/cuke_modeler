@@ -13,13 +13,9 @@ end
 Then /^the(?: feature "([^"]*)")? background has the following description:/ do |file, text|
   file ||= 1
 
-  expected = text
+  description = @parsed_files[file - 1].feature.background.description
 
-  new_description = @parsed_files[file - 1].feature.background.description_text
-  old_description = @parsed_files[file - 1].feature.background.description
-
-  new_description.should == expected
-  old_description.should == remove_whitespace(expected)
+  expect(description).to eq(text)
 end
 
 Then /^the(?: feature "([^"]*)")? background's steps are as follows:$/ do |file, steps|

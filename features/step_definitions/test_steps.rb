@@ -17,11 +17,9 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? has the following des
   file ||= 1
   test ||= 1
 
-  new_description = @parsed_files[file - 1].feature.tests[test - 1].description_text
-  old_description = @parsed_files[file - 1].feature.tests[test - 1].description
+  description = @parsed_files[file - 1].feature.tests[test - 1].description
 
-  new_description.should == text
-  old_description.should == remove_whitespace(text)
+  expect(description).to eq(text)
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? steps are as follows:$/ do |file, test, steps|

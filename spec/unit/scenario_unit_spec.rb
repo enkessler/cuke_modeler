@@ -98,7 +98,7 @@ describe 'Scenario, Unit' do
         end
 
         it 'can output a scenario that has only a description' do
-          scenario.description_text = 'a description'
+          scenario.description = 'a description'
 
           expect { scenario.to_s }.to_not raise_error
         end

@@ -293,7 +293,7 @@ describe 'Example, Unit' do
         end
 
         it 'can output an example that has only a description' do
-          example.description_text = 'a description'
+          example.description = 'a description'
 
           expect { example.to_s }.to_not raise_error
         end

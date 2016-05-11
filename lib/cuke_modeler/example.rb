@@ -37,7 +37,6 @@ module CukeModeler
 
       @name = ''
       @description = ''
-      @description_text = []
       @tags = []
       @tag_elements = []
       @rows = []
@@ -92,8 +91,8 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Examples:#{name_output_string}"
-      text << "\n" + description_output_string unless description_text.empty?
-      text << "\n" unless description_text.empty?
+      text << "\n" + description_output_string unless description.empty?
+      text << "\n" unless description.empty?
       text << "\n" + parameters_output_string
       text << "\n" + rows_output_string unless rows.empty?
 
