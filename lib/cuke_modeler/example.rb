@@ -44,18 +44,24 @@ module CukeModeler
     # parameters and their corresponding values or as an Array of values which
     # will be assigned in order.
     def add_row(row)
+      raise('Cannot add a row. No parameters have been set.') if @parameters.empty?
+
+      # A quick 'deep clone' so that the input isn't modified
+      row = Marshal::load(Marshal.dump(row))
+
       case
         when row.is_a?(Array)
-          @rows << Hash[@parameters.zip(row.collect { |value| value.to_s.strip })]
+          # 'stringify' input
+          row.collect! { |value| value.to_s }
+
+          @rows << Hash[@parameters.zip(row.collect { |value| value.strip })]
           @row_elements << Row.new("|#{row.join('|')}|")
         when row.is_a?(Hash)
-          if @parameters.empty?
-            @parameters = row.keys
-            @row_elements << Row.new("|#{row.keys.join('|')}|")
-          end
-          sanitized_row = row.inject({}) { |h, (k, v)| h[k] = v.to_s.strip; h }
-          @rows << sanitized_row
-          @row_elements << Row.new("|#{ordered_row_values(sanitized_row).join('|')}|")
+          # 'stringify' input
+          row = row.inject({}) { |hash, (key, value)| hash[key.to_s] = value.to_s; hash }
+
+          @rows << row.each_value { |value| value.strip! }
+          @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
         else
           raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
       end
@@ -178,7 +184,7 @@ module CukeModeler
     end
 
     def string_for(cells, index)
-      cells[index] ? cells[index].to_s.ljust(determine_buffer_size(index)) : ''
+      cells[index] ? cells[index].ljust(determine_buffer_size(index)) : ''
     end
 
     def ordered_row_values(row_hash)
