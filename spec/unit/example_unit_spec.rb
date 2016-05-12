@@ -173,7 +173,7 @@ describe 'Example, Unit' do
         clazz.new.should respond_to(:add_row)
       end
 
-      it 'can add a new row as a hash' do
+      it 'can add a new row as a hash, string values' do
         source = "Examples:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
@@ -185,7 +185,19 @@ describe 'Example, Unit' do
         example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2'], ['value3', 'value4']]
       end
 
-      it 'can add a new row as an array' do
+      it 'can add a new row as a hash, non-string values' do
+        source = "Examples:\n|param1|param2|\n|value1|value2|"
+        example = clazz.new(source)
+
+        new_row = {:param1 => 'value3', 'param2' => 4}
+        example.add_row(new_row)
+
+        #todo - remove once Hash rows are no longer supported
+        example.rows.should == [{'param1' => 'value1', 'param2' => 'value2'}, {'param1' => 'value3', 'param2' => '4'}]
+        example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2'], ['value3', '4']]
+      end
+
+      it 'can add a new row as an array, string values' do
         source = "Examples:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
@@ -197,7 +209,22 @@ describe 'Example, Unit' do
         example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2'], ['value3', 'value4']]
       end
 
+      it 'can add a new row as an array, non-string values' do
+        source = "Examples:\n|param1|param2|param3|\n|value1|value2|value3|"
+        example = clazz.new(source)
+
+        new_row = [:value4, 5, 'value6']
+        example.add_row(new_row)
+
+        #todo - remove once Hash rows are no longer supported
+        example.rows.should == [{'param1' => 'value1', 'param2' => 'value2', 'param3' => 'value3'}, {'param1' => 'value4', 'param2' => '5', 'param3' => 'value6'}]
+        example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2', 'value3'], ['value4', '5', 'value6']]
+      end
+
       it 'can only use a Hash or an Array to add a new row' do
+        source = "Examples:\n|param|\n|value|"
+        example = clazz.new(source)
+
         expect { example.add_row({}) }.to_not raise_error
         expect { example.add_row([]) }.to_not raise_error
         expect { example.add_row(:a_row) }.to raise_error(ArgumentError)
@@ -216,6 +243,31 @@ describe 'Example, Unit' do
         example.rows.should == [{'param1' => 'value1', 'param2' => 'value2'}, {'param1' => 'value3', 'param2' => 'value4'}, {'param1' => 'value5', 'param2' => 'value6'}]
         example.row_elements.collect { |row| row.cells }[1..example.row_elements.count].should == [['value1', 'value2'], ['value3', 'value4'], ['value5', 'value6']]
       end
+
+      #todo - remove once Hash rows are no longer supported
+      it 'will complain if a row is added and no parameters have been set' do
+        example = clazz.new
+        example.parameters = []
+
+        new_row = ['value1', 'value2']
+        expect { example.add_row(new_row) }.to raise_error('Cannot add a row. No parameters have been set.')
+
+        new_row = {'param1' => 'value1', 'param2' => 'value2'}
+        expect { example.add_row(new_row) }.to raise_error('Cannot add a row. No parameters have been set.')
+      end
+
+      #todo - remove once Hash rows are no longer supported
+      it 'does not modify its row input' do
+        source = "Examples:\n|param1|param2|\n|value1|value2|"
+        example = clazz.new(source)
+
+        new_row = ['value1'.freeze, 'value2'.freeze].freeze
+        expect { example.add_row(new_row) }.to_not raise_error
+
+        new_row = {'param1'.freeze => 'value1'.freeze, 'param2'.freeze => 'value2'.freeze}.freeze
+        expect { example.add_row(new_row) }.to_not raise_error
+      end
+
     end
 
     describe '#remove_row' do
