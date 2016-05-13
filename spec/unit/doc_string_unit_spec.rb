@@ -9,9 +9,7 @@ describe 'DocString, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
+    it_should_behave_like 'a modeled element'
     it_should_behave_like 'a raw element'
 
   end
