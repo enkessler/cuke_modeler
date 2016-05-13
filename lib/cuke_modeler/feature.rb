@@ -29,7 +29,6 @@ module CukeModeler
       @name = ''
       @description = ''
       @tags = []
-      @tag_elements = []
       @tests = []
 
       build_feature(parsed_feature) if parsed_feature

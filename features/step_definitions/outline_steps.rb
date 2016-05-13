@@ -63,8 +63,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
 
   expected_tags = expected_tags.raw.flatten
 
-  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].tags.should == expected_tags
-  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].tag_elements.collect { |tag| tag.name }.should == expected_tags
+  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].tags.collect { |tag| tag.name }.should == expected_tags
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^"]*)")? is found to have the following applied tags:$/ do |file, test, example, expected_tags|
@@ -74,8 +73,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
 
   expected_tags = expected_tags.raw.flatten.sort
 
-  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].applied_tags.sort.should == expected_tags
-  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].applied_tag_elements.collect { |tag| tag.name }.sort.should == expected_tags
+  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].applied_tags.collect { |tag| tag.name }.sort.should == expected_tags
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^"]*)")? has no tags$/ do |file, test, example|
@@ -84,7 +82,6 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
   example ||= 1
 
   @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].tags.should == []
-  @parsed_files[file - 1].feature.tests[test - 1].examples[example - 1].tag_elements.collect { |tag| tag.name }.should == []
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^"]*)")? rows are as follows:$/ do |file, test, example, rows|

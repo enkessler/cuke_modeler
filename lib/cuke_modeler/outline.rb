@@ -29,7 +29,6 @@ module CukeModeler
       @description = ''
       @steps = []
       @tags = []
-      @tag_elements = []
       @examples = []
 
       build_outline(parsed_outline) if parsed_outline

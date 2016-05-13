@@ -19,8 +19,7 @@ end
 Then /^feature "([^"]*)" is found to have the following tags:$/ do |file, expected_tags|
   expected_tags = expected_tags.raw.flatten
 
-  @parsed_files[file - 1].feature.tags.should == expected_tags
-  @parsed_files[file - 1].feature.tag_elements.collect { |tag| tag.name }.should == expected_tags
+  @parsed_files[file - 1].feature.tags.collect { |tag| tag.name }.should == expected_tags
 end
 
 Then /^feature "([^"]*)" has no description$/ do |file|
@@ -29,7 +28,6 @@ end
 
 Then /^feature "([^"]*)" has no tags$/ do |file|
   assert @parsed_files[file - 1].feature.tags == []
-  assert @parsed_files[file - 1].feature.tag_elements.collect { |tag| tag.name } == []
 end
 
 When /^(?:the )?feature(?: "([^"]*)")? scenarios are as follows:$/ do |file, scenarios|

@@ -24,7 +24,7 @@ describe 'Example, Integration' do
 
       example = clazz.new(source)
       rows = example.row_elements
-      tag = example.tag_elements.first
+      tag = example.tags.first
 
       expect(rows[0].parent_element).to equal(example)
       expect(rows[1].parent_element).to equal(example)
@@ -111,8 +111,8 @@ describe 'Example, Integration' do
         let(:example) { clazz.new }
 
 
-        it 'can output an example that has only tag elements' do
-          example.tag_elements = [CukeModeler::Tag.new]
+        it 'can output an example that has only tags' do
+          example.tags = [CukeModeler::Tag.new]
 
           expect { example.to_s }.to_not raise_error
         end

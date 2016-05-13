@@ -186,12 +186,6 @@ describe 'Feature, Unit' do
           expect { feature.to_s }.to_not raise_error
         end
 
-        it 'can output a feature that has only tags' do
-          feature.tags = ['a tag']
-
-          expect { feature.to_s }.to_not raise_error
-        end
-
       end
 
     end

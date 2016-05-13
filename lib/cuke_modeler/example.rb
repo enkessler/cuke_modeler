@@ -38,7 +38,6 @@ module CukeModeler
       @name = ''
       @description = ''
       @tags = []
-      @tag_elements = []
       @rows = []
       @parameters = []
       @row_elements = []

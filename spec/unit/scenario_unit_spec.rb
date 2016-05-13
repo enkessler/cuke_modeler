@@ -103,12 +103,6 @@ describe 'Scenario, Unit' do
           expect { scenario.to_s }.to_not raise_error
         end
 
-        it 'can output a scenario that has only tags' do
-          scenario.tags = ['a tag']
-
-          expect { scenario.to_s }.to_not raise_error
-        end
-
       end
 
     end

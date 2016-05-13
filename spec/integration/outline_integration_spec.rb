@@ -27,7 +27,7 @@ describe 'Outline, Integration' do
       outline = clazz.new(source)
       example = outline.examples.first
       step = outline.steps.first
-      tag = outline.tag_elements.first
+      tag = outline.tags.first
 
       expect(example.parent_element).to equal(outline)
       expect(step.parent_element).to equal(outline)
@@ -86,8 +86,8 @@ describe 'Outline, Integration' do
           let(:outline) { clazz.new }
 
 
-          it 'can output an outline that has only tag elements' do
-            outline.tag_elements = [CukeModeler::Tag.new]
+          it 'can output an outline that has only tags' do
+            outline.tags = [CukeModeler::Tag.new]
 
             expect { outline.to_s }.to_not raise_error
           end

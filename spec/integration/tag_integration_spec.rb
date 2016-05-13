@@ -35,8 +35,8 @@ describe 'Tag, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tag_elements.first }
-      let(:high_level_tag) { directory.feature_files.first.features.first.tag_elements.first }
+      let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tags.first }
+      let(:high_level_tag) { directory.feature_files.first.features.first.tags.first }
 
 
       it 'can get its directory' do
@@ -71,7 +71,7 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.tag_elements.first }
+        let(:tag) { directory.feature_files.first.features.first.tests.first.tags.first }
 
 
         it 'can get its scenario' do
@@ -99,7 +99,7 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.tag_elements.first }
+        let(:tag) { directory.feature_files.first.features.first.tests.first.tags.first }
 
 
         it 'can get its outline' do
@@ -126,7 +126,7 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tag_elements.first }
+        let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tags.first }
 
 
         it 'can get its example' do

@@ -298,12 +298,6 @@ describe 'Example, Unit' do
           expect { example.to_s }.to_not raise_error
         end
 
-        it 'can output an example that has only tags' do
-          example.tags = ['a tag']
-
-          expect { example.to_s }.to_not raise_error
-        end
-
         #todo - remove once Hash rows are no longer supported
         it 'can output an example that only has parameters' do
           example.parameters = ['param1']

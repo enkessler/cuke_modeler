@@ -23,7 +23,7 @@ describe 'Scenario, Integration' do
 
       scenario = clazz.new(source)
       step = scenario.steps.first
-      tag = scenario.tag_elements.first
+      tag = scenario.tags.first
 
       step.parent_element.should equal scenario
       tag.parent_element.should equal scenario
@@ -78,8 +78,8 @@ describe 'Scenario, Integration' do
           let(:scenario) { clazz.new }
 
 
-          it 'can output a scenario that has only tag elements' do
-            scenario.tag_elements = [CukeModeler::Tag.new]
+          it 'can output a scenario that has only tags' do
+            scenario.tags = [CukeModeler::Tag.new]
 
             expect { scenario.to_s }.to_not raise_error
           end

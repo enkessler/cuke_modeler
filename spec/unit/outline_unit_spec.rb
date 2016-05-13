@@ -125,12 +125,6 @@ describe 'Outline, Unit' do
           expect { outline.to_s }.to_not raise_error
         end
 
-        it 'can output an outline that has only tags' do
-          outline.tags = ['a tag']
-
-          expect { outline.to_s }.to_not raise_error
-        end
-
       end
 
     end
