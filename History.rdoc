@@ -1,3 +1,9 @@
+=== Version 0.4.1 / 2016-05-12
+
+* Increased the flexibility of input when adding rows to an Example object.
+* Added some error checking around adding value rows to an Example object without adding a parameter row as well.
+
+
 === Version 0.4.0 / 2016-05-01
 
 * The path of a Directory object is now a changeable attribute instead of only being populated if the instance was

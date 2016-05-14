@@ -49,11 +49,22 @@ module CukeModeler
     # parameters and their corresponding values or as an Array of values which
     # will be assigned in order.
     def add_row(row)
+      raise('Cannot add a row. No parameters have been set.') if @parameters.empty?
+
+      # A quick 'deep clone' so that the input isn't modified
+      row = Marshal::load(Marshal.dump(row))
+
       case
         when row.is_a?(Array)
+          # 'stringify' input
+          row.collect! { |value| value.to_s }
+
           @rows << Hash[@parameters.zip(row.collect { |value| value.strip })]
           @row_elements << Row.new("|#{row.join('|')}|")
         when row.is_a?(Hash)
+          # 'stringify' input
+          row = row.inject({}) { |hash, (key, value)| hash[key.to_s] = value.to_s; hash }
+
           @rows << row.each_value { |value| value.strip! }
           @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
         else
