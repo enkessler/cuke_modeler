@@ -23,9 +23,7 @@ describe 'DocString, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
 
       # Sanity check in case instantiation failed in a non-explosive manner
-      @element.contents_text.should == "some doc string"
-      #todo Remove once Array contents is no longer supported
-      @element.contents.should == ["some doc string"]
+      @element.contents.should == "some doc string"
     end
 
     it 'provides a descriptive filename when being parsed from stand alone text' do
@@ -76,51 +74,27 @@ describe 'DocString, Unit' do
     end
 
     it 'has contents' do
-      #todo Remove once Array contents is no longer supported
       doc_string.should respond_to(:contents)
-      doc_string.should respond_to(:contents_text)
     end
 
     it 'can get and set its contents' do
       expect(doc_string).to respond_to(:contents=)
-      expect(doc_string).to respond_to(:contents_text=)
 
-      #todo Remove once Array contents is no longer supported
       doc_string.contents = :some_contents
       doc_string.contents.should == :some_contents
       doc_string.contents = :some_other_contents
       doc_string.contents.should == :some_other_contents
-
-      doc_string.contents_text = :some_contents
-      doc_string.contents_text.should == :some_contents
-      doc_string.contents_text = :some_other_contents
-      doc_string.contents_text.should == :some_other_contents
     end
 
     it 'starts with no contents' do
-      #todo Remove once Array contents is no longer supported
-      doc_string.contents.should == []
-      doc_string.contents_text.should == ''
-    end
-
-    #todo Remove once Array contents is no longer supported
-    it 'stores its contents as an array of strings - deprecated' do
-      source = "\"\"\"\nsome text\nsome more text\n\"\"\""
-      doc_string = clazz.new(source)
-
-      contents = doc_string.contents
-
-      contents.is_a?(Array).should be_true
-      contents.each do |line|
-        line.is_a?(String).should be_true
-      end
+      doc_string.contents.should == ''
     end
 
     it 'stores its contents as a String' do
       source = "\"\"\"\nsome text\nsome more text\n\"\"\""
       doc_string = clazz.new(source)
 
-      contents = doc_string.contents_text
+      contents = doc_string.contents
 
       contents.is_a?(String).should be_true
     end
