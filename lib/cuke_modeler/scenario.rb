@@ -16,7 +16,7 @@ module CukeModeler
     # Creates a new Scenario object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_scenario = process_source(source, 'cuke_modeler_stand_alone_scenario.feature')
+      parsed_scenario = process_source(source)
 
       super(parsed_scenario)
 
@@ -56,11 +56,11 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text, file_name)
+    def parse_model(source_text)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, file_name)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_scenario.feature')
 
       parsed_file.first['elements'].first
     end

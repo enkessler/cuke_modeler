@@ -22,7 +22,7 @@ module CukeModeler
     # Creates a new Feature object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_feature = process_source(source, 'cuke_modeler_stand_alone_feature.feature')
+      parsed_feature = process_source(source)
 
       super(parsed_feature)
 
@@ -96,8 +96,8 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text, file_name)
-      parsed_file = Parsing::parse_text(source_text, file_name)
+    def parse_model(source_text)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file.first
     end

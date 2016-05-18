@@ -31,16 +31,7 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_table(source)
-        else
-          source
-      end
-    end
-
-    def parse_table(source_text)
+    def parse_model(source_text)
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 

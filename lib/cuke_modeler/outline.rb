@@ -20,7 +20,7 @@ module CukeModeler
     # Creates a new Outline object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      parsed_outline = process_source(source, 'cuke_modeler_stand_alone_outline.feature')
+      parsed_outline = process_source(source)
 
       super(parsed_outline)
 
@@ -65,11 +65,11 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text, file_name)
+    def parse_model(source_text)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, file_name)
+      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_outline.feature')
 
       parsed_file.first['elements'].first
     end
