@@ -32,7 +32,7 @@ describe 'Row, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.row_elements.first }
+      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
 
 
       it 'can get its directory' do
@@ -69,7 +69,7 @@ describe 'Row, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.row_elements.first }
+        let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
 
 
         it 'can get its outline' do
