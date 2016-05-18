@@ -5,9 +5,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?(?:step(?: "([^"
 
   expected = contents.raw
 
-  @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements.collect { |row| row.cells }.should == expected
-  # todo - remove once #contents is no longer supported
-  @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.contents.should == expected
+  @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.rows.collect { |row| row.cells }.should == expected
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?(?:step(?: "([^"]*)") )?table correctly stores its underlying implementation$/ do |file, test, step|
@@ -38,7 +36,7 @@ Given(/^a table row element based on the following gherkin:$/) do |row_text|
 end
 
 Then(/^the table row has convenient output$/) do
-  @parsed_files.first.feature.tests.first.steps.first.block.row_elements.first.method(:to_s).owner.should == CukeModeler::TableRow
+  @parsed_files.first.feature.tests.first.steps.first.block.rows.first.method(:to_s).owner.should == CukeModeler::TableRow
 end
 
 Given(/^a table element$/) do

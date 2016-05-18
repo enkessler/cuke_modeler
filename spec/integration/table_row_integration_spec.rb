@@ -30,7 +30,7 @@ describe 'TableRow, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.row_elements.first }
+      let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
 
 
       it 'can get its directory' do
@@ -65,7 +65,7 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.row_elements.first }
+        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
 
 
         it 'can get its scenario' do
@@ -93,7 +93,7 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.row_elements.first }
+        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
 
 
         it 'can get its outline' do
@@ -118,7 +118,7 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.background.steps.first.block.row_elements.first }
+        let(:table_row) { directory.feature_files.first.features.first.background.steps.first.block.rows.first }
 
 
         it 'can get its background' do

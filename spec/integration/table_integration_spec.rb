@@ -21,8 +21,8 @@ describe 'Table, Integration' do
       source = source.join("\n")
 
       table = clazz.new(source)
-      row_1 = table.row_elements[0]
-      row_2 = table.row_elements[1]
+      row_1 = table.rows[0]
+      row_2 = table.rows[1]
 
       row_1.parent_element.should equal table
       row_2.parent_element.should equal table
@@ -163,9 +163,8 @@ describe 'Table, Integration' do
         let(:table) { clazz.new }
 
 
-        # todo - remove once #contents is no longer supported
         it 'can output a table that only has row elements' do
-          table.row_elements = [CukeModeler::TableRow.new]
+          table.rows = [CukeModeler::TableRow.new]
 
           expect { table.to_s }.to_not raise_error
         end

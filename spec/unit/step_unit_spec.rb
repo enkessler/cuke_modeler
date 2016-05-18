@@ -250,6 +250,7 @@ describe 'Step, Unit' do
         (clazz.instance_method(:step_text).arity != 0).should be_true
       end
 
+      # todo - this is now an integration test and should be moved
       it 'returns the step\'s text as an Array' do
         step.step_text.is_a?(Array).should be_true
       end

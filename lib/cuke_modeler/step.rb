@@ -208,7 +208,7 @@ module CukeModeler
     end
 
     def rebuild_block_text(blok)
-      blok.contents.collect { |row| "|#{row.join('|')}|" }
+      blok.rows.collect { |row| "|#{row.cells.join('|')}|" }
     end
 
   end

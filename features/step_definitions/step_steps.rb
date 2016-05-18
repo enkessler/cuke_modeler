@@ -125,7 +125,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
 
   properties.each do |property, value|
     expected = value
-    actual = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements[row - 1].send(property.to_sym).to_s
+    actual = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.rows[row - 1].send(property.to_sym).to_s
 
     assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
   end
@@ -137,7 +137,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
   step ||= 1
   row ||= 1
 
-  raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements[row - 1].raw_element
+  raw_element = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.rows[row - 1].raw_element
 
   if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
     raw_element.has_key?(:cells).should be_true
@@ -153,7 +153,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
   row ||= 1
 
   expected = cells.raw.flatten
-  actual = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.row_elements[row - 1].cells
+  actual = @parsed_files[file - 1].feature.tests[test - 1].steps[step - 1].block.rows[row - 1].cells
 
   assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
 end
