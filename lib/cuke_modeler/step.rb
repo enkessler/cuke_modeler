@@ -18,118 +18,21 @@ module CukeModeler
     # The step's passed block
     attr_accessor :block
 
-    # The step's arguments
-    attr_accessor :arguments
-
 
     # Creates a new Step object and, if *source* is provided, populates the
     # object.
     def initialize(source = nil)
-      @arguments = []
-
       parsed_step = process_source(source)
 
       build_step(parsed_step) if parsed_step
     end
 
-    # Sets the delimiter that will be used by default when determining the
-    # boundaries of step arguments.
-    def delimiter=(new_delimiter)
-      self.left_delimiter = new_delimiter
-      self.right_delimiter = new_delimiter
-    end
-
-    # Returns the delimiter that is used to mark the beginning of a step
-    # argument.
-    def left_delimiter
-      @left_delimiter || World.left_delimiter
-    end
-
-    # Sets the left delimiter that will be used by default when determining
-    # step arguments.
-    def left_delimiter=(new_delimiter)
-      @left_delimiter = new_delimiter
-    end
-
-    # Returns the delimiter that is used to mark the end of a step
-    # argument.
-    def right_delimiter
-      @right_delimiter || World.right_delimiter
-    end
-
-    # Sets the right delimiter that will be used by default when determining
-    # step arguments.
-    def right_delimiter=(new_delimiter)
-      @right_delimiter = new_delimiter
-    end
-
-    # Returns true if the two steps have the same text, minus any keywords
-    # and arguments, and false otherwise.
+    # Returns true if the two steps have the same base text (i.e. minus any keyword, 
+    # table, or doc string
     def ==(other_step)
-      return false unless other_step.respond_to?(:step_text)
+      return false unless other_step.respond_to?(:base)
 
-      left_step = step_text(:with_keywords => false, :with_arguments => false)
-      right_step = other_step.step_text(:with_keywords => false, :with_arguments => false)
-
-      left_step == right_step
-    end
-
-    # Deprecated
-    #
-    # Returns the entire text of the step. Options can be set to selectively
-    # exclude certain portions of the text. *left_delimiter* and *right_delimiter*
-    # are used to determine which parts of the step are arguments.
-    #
-    #  a_step = CukeModeler::Step.new("Given *some* step with a block:\n|block line 1|\n|block line 2|")
-    #
-    #  a_step.step_text
-    #  #=> ['Given *some* step with a block:', '|block line 1|', '|block line 2|']
-    #  a_step.step_text(:with_keywords => false)
-    #  #=> ['*some* step with a block:', '|block line 1|', '|block line 2|']
-    #  a_step.step_text(:with_arguments => false, :left_delimiter => '*', :right_delimiter => '*')
-    #  #=> ['Given ** step with a block:']
-    #  a_step.step_text(:with_keywords => false, :with_arguments => false, :left_delimiter => '-', :right_delimiter => '-'))
-    #  #=> ['*some* step with a block:']
-    #
-    def step_text(options = {})
-      options = {:with_keywords => true,
-                 :with_arguments => true,
-                 :left_delimiter => self.left_delimiter,
-                 :right_delimiter => self.right_delimiter}.merge(options)
-
-      final_step = []
-      step_text = ''
-
-      step_text += "#{@keyword} " if options[:with_keywords]
-
-      if options[:with_arguments]
-        step_text += @base
-        final_step << step_text
-        final_step.concat(rebuild_block_text(@block)) if @block
-      else
-        step_text += stripped_step(@base, options[:left_delimiter], options[:right_delimiter])
-        final_step << step_text
-      end
-
-      final_step
-    end
-
-    # Populates the step's arguments based on the step's text and some method of
-    # determining which parts of the text are arguments. Methods include using
-    # a regular expression and using the step's delimiters.
-    def scan_arguments(*how)
-      if how.count == 1
-        pattern = how.first
-      else
-        left_delimiter = how[0] || self.left_delimiter
-        right_delimiter = how[1] || self.right_delimiter
-
-        return [] unless left_delimiter && right_delimiter
-
-        pattern = Regexp.new(Regexp.escape(left_delimiter) + '(.*?)' + Regexp.escape(right_delimiter))
-      end
-
-      @arguments = @base.scan(pattern).flatten
+      base == other_step.base
     end
 
     # Returns a gherkin representation of the step.
@@ -159,8 +62,6 @@ module CukeModeler
       populate_keyword(step)
       populate_element_source_line(step)
       populate_raw_element(step)
-
-      scan_arguments
     end
 
     def populate_base(step)
@@ -175,16 +76,6 @@ module CukeModeler
       @keyword = step['keyword'].strip
     end
 
-    # Returns the step string minus any arguments based on the given delimiters.
-    def stripped_step(step, left_delimiter, right_delimiter)
-      unless left_delimiter.nil? || right_delimiter.nil?
-        pattern = Regexp.new(Regexp.escape(left_delimiter) + '.*?' + Regexp.escape(right_delimiter))
-        step = step.gsub(pattern, left_delimiter + right_delimiter)
-      end
-
-      step
-    end
-
     def build_block(step)
       case
         when step['rows']
@@ -196,10 +87,6 @@ module CukeModeler
       end
 
       @block
-    end
-
-    def rebuild_block_text(blok)
-      blok.rows.collect { |row| "|#{row.cells.join('|')}|" }
     end
 
   end

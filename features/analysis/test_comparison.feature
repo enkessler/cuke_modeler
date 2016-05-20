@@ -4,8 +4,7 @@ Feature: Test equality can be determined.
   Acceptance criteria
 
   Tests can be compared for equality.
-    1. tests whose steps are the same except for arguments and keywords (i.e.
-       they match the same step definition) are equal
+  1. tests whose steps have the same text (ignoring keyword, able, or doc string) are equal
 
 
   Background: Test file setup.
@@ -14,7 +13,7 @@ Feature: Test equality can be determined.
     Feature: A feature with duplicate tests.
 
       Scenario: A test
-        Given this *parameterized* step takes a table:
+        Given this step takes a table:
           | data 1 |
           | data 2 |
         And some setup step
@@ -26,7 +25,7 @@ Feature: Test equality can be determined.
         Then *lots* *of* *parameters*
 
       Scenario: Same test, different arguments and keywords
-        Given this *similarly parameterized* step takes a table:
+        Given this step takes a table:
           | data 3 |
           | data 4 |
         Given some setup step
@@ -39,7 +38,7 @@ Feature: Test equality can be determined.
         Then *lots* *of* *parameters*
 
       Scenario Outline: This is the same test as an outline
-        Given this *parameterized* step takes a table:
+        Given this step takes a table:
           | <param1> |
           | <param2> |
         And some setup step
@@ -57,17 +56,17 @@ Feature: Test equality can be determined.
         | a      | b      |
 
       Scenario Outline: Same outline, different arguments and keywords
-        Given this *similarly parameterized* step takes a table:
+        Given this step takes a table:
           | <param3> |
           | <param4> |
         Given some setup step
-        When a step with a *slightly different parameter*
+        When a step with a *parameter*
         * a big step:
         \"\"\"
         A little
         bigger doc block
         \"\"\"
-        Then *lots* *of effectively the same* *parameters*
+        Then *lots* *of* *parameters*
       Examples:
         | param1 | param2 |
         | h      | k      |
@@ -76,7 +75,7 @@ Feature: Test equality can be determined.
         | i      | j      |
 
       Scenario: A different test
-        Given this *parameterized* step takes a table:
+        Given this step takes a table:
           | data 1 |
           | data 2 |
         And not the same setup step as before
@@ -88,7 +87,7 @@ Feature: Test equality can be determined.
         Then *lots* *of* *parameters*
 
       Scenario Outline: This is the same different test as an outline
-        Given this *similarly parameterized* step takes a table:
+        Given this step takes a table:
           | <param1> |
           | <param2> |
         And not the same setup step as before
@@ -106,7 +105,6 @@ Feature: Test equality can be determined.
         | param1 | param2 |
         | a      | b      |
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 

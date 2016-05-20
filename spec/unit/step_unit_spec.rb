@@ -19,23 +19,6 @@ describe 'Step, Unit' do
 
   describe 'unique behavior' do
 
-    it 'has arguments' do
-      step.should respond_to(:arguments)
-    end
-
-    it 'can change its arguments' do
-      expect(step).to respond_to(:arguments=)
-
-      step.arguments = :some_arguments
-      step.arguments.should == :some_arguments
-      step.arguments = :some_other_arguments
-      step.arguments.should == :some_other_arguments
-    end
-
-    it 'starts with no arguments' do
-      step.arguments.should == []
-    end
-
     it 'has a base' do
       step.should respond_to(:base)
     end
@@ -87,112 +70,6 @@ describe 'Step, Unit' do
       step.keyword.should == nil
     end
 
-    it 'has a left delimiter' do
-      step.should respond_to(:left_delimiter)
-    end
-
-    it 'can change its left delimiter' do
-      expect(step).to respond_to(:left_delimiter=)
-
-      step.left_delimiter = :some_left_delimiter
-      step.left_delimiter.should == :some_left_delimiter
-      step.left_delimiter = :some_other_left_delimiter
-      step.left_delimiter.should == :some_other_left_delimiter
-    end
-
-    it 'starts with no left delimiter' do
-      step.left_delimiter.should == nil
-    end
-
-    it 'has a right delimiter' do
-      step.should respond_to(:right_delimiter)
-    end
-
-    it 'can change its right delimiter' do
-      expect(step).to respond_to(:right_delimiter=)
-
-      step.right_delimiter = :some_right_delimiter
-      step.right_delimiter.should == :some_right_delimiter
-      step.right_delimiter = :some_other_right_delimiter
-      step.right_delimiter.should == :some_other_right_delimiter
-    end
-
-    it 'starts with no right delimiter' do
-      step.right_delimiter.should == nil
-    end
-
-    it 'can set both of its delimiters at once' do
-      step.delimiter = :new_delimiter
-      step.left_delimiter.should == :new_delimiter
-      step.right_delimiter.should == :new_delimiter
-    end
-
-    describe '#scan_arguments' do
-
-      it 'can explicitly scan for arguments' do
-        step.should respond_to(:scan_arguments)
-      end
-
-      it 'can determine its arguments based on a regular expression' do
-        source = 'Given a test step with a parameter'
-        step = clazz.new(source)
-
-        step.scan_arguments(/parameter/)
-        step.arguments.should == ['parameter']
-        step.scan_arguments(/t s/)
-        step.arguments.should == ['t s']
-      end
-
-      it 'can determine its arguments based on delimiters' do
-        source = 'Given a test step with -parameter 1- and -parameter 2-'
-
-        step = clazz.new(source)
-
-        step.scan_arguments('-', '-')
-        step.arguments.should == ['parameter 1', 'parameter 2']
-        step.scan_arguments('!', '!')
-        step.arguments.should == []
-      end
-
-      it 'can use different left and right delimiters when scanning' do
-        source = 'Given a test step with !a parameter-'
-
-        step = clazz.new(source)
-
-        step.scan_arguments('!', '-')
-        step.arguments.should == ['a parameter']
-      end
-
-      it 'can use delimiters of varying lengths' do
-        source = 'Given a test step with -start-a parameter-end-'
-
-        step = clazz.new(source)
-
-        step.scan_arguments('-start-', '-end-')
-        step.arguments.should == ['a parameter']
-      end
-
-      it 'can handle delimiters with special regular expression characters' do
-        source = 'Given a test step with \d+a parameter.?'
-
-        step = clazz.new(source)
-
-        step.scan_arguments('\d+', '.?')
-        step.arguments.should == ['a parameter']
-      end
-
-      it 'defaults to its set delimiters when scanning' do
-        source = 'Given a test step with *parameter 1* and "parameter 2" and *parameter 3*'
-        step = clazz.new(source)
-
-        step.left_delimiter = '"'
-        step.right_delimiter = '"'
-        step.scan_arguments
-
-        step.arguments.should == ['parameter 2']
-      end
-    end
-
     it 'can be parsed from stand alone text' do
       source = '* test step'
 
@@ -232,54 +109,6 @@ describe 'Step, Unit' do
       expect(raw_data['keyword']).to eq('* ')
     end
 
-
-    describe '#step_text' do
-
-      let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
-      let(:delimiter) { '-' }
-      let(:step) { s = clazz.new(source)
-      s.delimiter = delimiter
-      s }
-
-
-      it 'can provide different flavors of step\'s text' do
-        step.should respond_to(:step_text)
-      end
-
-      it 'returns different text based on options' do
-        (clazz.instance_method(:step_text).arity != 0).should be_true
-      end
-
-      # todo - this is now an integration test and should be moved
-      it 'returns the step\'s text as an Array' do
-        step.step_text.is_a?(Array).should be_true
-      end
-
-      it 'can provide the step\'s text without the arguments' do
-        expected_output = ['Given a test step with -- ^and@ *parameter 2!!']
-
-        step.step_text(:with_arguments => false).should == expected_output
-      end
-
-      it 'can determine its arguments based on delimiters' do
-        expected_output = ['Given a test step with -parameter 1- ^@ *parameter 2!!']
-
-        step.step_text(:with_arguments => false, :left_delimiter => '^', :right_delimiter => '@').should == expected_output
-      end
-
-      it 'can use delimiters of varying lengths' do
-        expected_output = ['Given a test step with -parameter 1- ^and@ *!!']
-
-        step.step_text(:with_arguments => false, :left_delimiter => '*', :right_delimiter => '!!').should == expected_output
-      end
-
-      it 'can handle delimiters with special regular expression characters' do
-        expected_output = ['Given a test step with -parameter 1- ^and@ *!!']
-
-        step.step_text(:with_arguments => false, :left_delimiter => '*', :right_delimiter => '!!').should == expected_output
-      end
-
-    end
 
     describe 'step output edge cases' do
 
