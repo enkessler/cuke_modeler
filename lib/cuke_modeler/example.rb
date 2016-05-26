@@ -68,7 +68,10 @@ module CukeModeler
         when row_removed.is_a?(Array)
           location = argument_rows.index { |row| row.cells == row_removed.collect { |value| value.strip } }
         when row_removed.is_a?(Hash)
-          location = argument_rows.index { |row| row.cells == row_removed.each_value { |value| value.strip! }.values }
+          # Note: the hash value order has to be manually calculated because Ruby 1.8.7 does not have ordered 
+          # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead 
+          # of being built up in order according to the parameter order.
+          location = argument_rows.index { |row| row.cells == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
       end
 
       @rows.delete_at(location + 1) if location

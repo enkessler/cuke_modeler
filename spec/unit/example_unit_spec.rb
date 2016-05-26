@@ -151,6 +151,16 @@ describe 'Example, Unit' do
         expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', '4']])
       end
 
+      it 'can add a new row as a hash, random key order' do
+        source = "Examples:\n|param1|param2|\n|value1|value2|"
+        example = clazz.new(source)
+
+        new_row = {'param2' => 'value4', 'param1' => 'value3'}
+        example.add_row(new_row)
+
+        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4']])
+      end
+
       it 'can add a new row as an array, string values' do
         source = "Examples:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
@@ -227,6 +237,16 @@ describe 'Example, Unit' do
         example = clazz.new(source)
 
         old_row = {'param1' => 'value3', 'param2' => 'value4'}
+        example.remove_row(old_row)
+
+        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
+      end
+
+      it 'can remove an existing row as a hash, random key order' do
+        source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
+        example = clazz.new(source)
+
+        old_row = {'param2' => 'value4', 'param1' => 'value3'}
         example.remove_row(old_row)
 
         expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
