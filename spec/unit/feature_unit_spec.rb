@@ -124,15 +124,17 @@ describe 'Feature, Unit' do
       expect(feature.outlines).to be_empty
     end
 
-    it 'contains backgrounds and tests' do
+    it 'contains backgrounds, tests, and tags' do
+      tags = [:tag_1, :tagt_2]
       tests = [:test_1, :test_2]
       background = :a_background
-      everything = [background] + tests
+      everything = [background] + tests + tags
 
       feature.background = background
       feature.tests = tests
+      feature.tags = tags
 
-      feature.children.should =~ everything
+      expect(feature.children).to match_array(everything)
     end
 
     it 'contains a background only if one is present' do

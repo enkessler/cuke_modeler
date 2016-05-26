@@ -306,6 +306,17 @@ describe 'Example, Unit' do
 
     end
 
+    it 'contains rows and tags' do
+      tags = [:tag_1, :tag_2]
+      rows = [:row_1, :row_2]
+      everything = rows + tags
+
+      example.rows = rows
+      example.tags = tags
+
+      expect(example.children).to match_array(everything)
+    end
+
     describe 'example output edge cases' do
 
       it 'is a String' do

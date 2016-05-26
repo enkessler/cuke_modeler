@@ -35,6 +35,11 @@ module CukeModeler
       base == other_step.base
     end
 
+    # Returns the model objects that belong to this model.
+    def children
+      [block]
+    end
+
     # Returns a gherkin representation of the step.
     def to_s
       text = "#{keyword} #{base}"

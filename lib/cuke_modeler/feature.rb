@@ -73,10 +73,12 @@ module CukeModeler
       }
     end
 
-    # Returns the immediate child elements of the feature (i.e. its Background,
-    # Scenario, and Outline objects.
+    # Returns the model objects that belong to this model.
     def children
-      @background ? [@background] + @tests : @tests
+      models = tests + tags
+      models << background if background
+
+      models
     end
 
     # Returns gherkin representation of the feature.

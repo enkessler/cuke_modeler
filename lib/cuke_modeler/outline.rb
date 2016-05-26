@@ -41,10 +41,9 @@ module CukeModeler
       steps == other_element.steps
     end
 
-    # Returns the immediate child elements of the outline (i.e. its Example
-    # objects.
+    # Returns the model objects that belong to this model.
     def children
-      @examples + @steps
+      examples + steps + tags
     end
 
     # Returns a gherkin representation of the outline.

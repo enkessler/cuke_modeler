@@ -73,6 +73,15 @@ describe 'Table, Unit' do
       expect(table.rows).to eq([])
     end
 
+    it 'contains rows' do
+      rows = [:row_1, :row_2]
+      everything = rows
+
+      table.rows = rows
+
+      expect(table.children).to match_array(everything)
+    end
+    
 
     describe 'table output edge cases' do
 

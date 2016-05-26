@@ -62,13 +62,15 @@ describe 'Scenario, Unit' do
       expect(raw_data['keyword']).to eq('Scenario')
     end
 
-    it 'contains only steps' do
+    it 'contains steps and tags' do
+      tags = [:tag_1, :tag_2]
       steps = [:step_1, :step_2]
-      everything = steps
+      everything = steps + tags
 
       scenario.steps = steps
+      scenario.tags = tags
 
-      scenario.children.should =~ everything
+      expect(scenario.children).to match_array(everything)
     end
 
     describe 'scenario output edge cases' do

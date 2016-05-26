@@ -35,8 +35,9 @@ module CukeModeler
       steps == other_element.steps
     end
 
+    # Returns the model objects that belong to this model.
     def children
-      steps
+      steps + tags
     end
 
     # Returns gherkin representation of the scenario.

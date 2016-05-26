@@ -87,9 +87,9 @@ module CukeModeler
       rows.first
     end
 
-    # Returns the immediate child elements of the element.
+    # Returns the model objects that belong to this model.
     def children
-      @rows
+      rows + tags
     end
 
     # Returns a gherkin representation of the example.

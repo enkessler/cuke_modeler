@@ -82,15 +82,17 @@ describe 'Outline, Unit' do
       outline.examples.should == []
     end
 
-    it 'contains steps and examples' do
+    it 'contains steps, examples, and tags' do
+      tags = [:tag_1, :tagt_2]
       steps = [:step_1, :step_2, :step_3]
       examples = [:example_1, :example_2, :example_3]
-      everything = steps + examples
+      everything = steps + examples + tags
 
       outline.steps = steps
       outline.examples = examples
+      outline.tags = tags
 
-      outline.children.should =~ everything
+      expect(outline.children).to match_array(everything)
     end
 
     describe 'outline output edge cases' do

@@ -109,6 +109,15 @@ describe 'Step, Unit' do
       expect(raw_data['keyword']).to eq('* ')
     end
 
+    it 'contains some kind of block' do
+      block = :block
+      everything = [block]
+
+      step.block = block
+
+      expect(step.children).to match_array(everything)
+    end
+
 
     describe 'step output edge cases' do
 

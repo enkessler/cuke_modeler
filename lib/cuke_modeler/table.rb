@@ -22,6 +22,11 @@ module CukeModeler
       build_table(parsed_table) if parsed_table
     end
 
+    # Returns the model objects that belong to this model.
+    def children
+      rows
+    end
+
     # Returns a gherkin representation of the table.
     def to_s
       rows.empty? ? '' : rows.collect { |row| row_output_string(row) }.join("\n")
