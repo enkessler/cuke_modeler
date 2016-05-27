@@ -79,6 +79,90 @@ describe 'Outline, Integration' do
         expect(ancestor).to be_nil
       end
 
+
+      describe 'comparison' do
+
+        it 'is equal to a background with the same steps' do
+          source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+          outline = clazz.new(source)
+
+          source = "Background:
+                      * step 1
+                      * step 2"
+          background_1 = CukeModeler::Background.new(source)
+
+          source = "Background:
+                      * step 2
+                      * step 1"
+          background_2 = CukeModeler::Background.new(source)
+
+
+          expect(outline).to eq(background_1)
+          expect(outline).to_not eq(background_2)
+        end
+
+        it 'is equal to a scenario with the same steps' do
+          source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+          outline = clazz.new(source)
+
+          source = "Scenario:
+                      * step 1
+                      * step 2"
+          scenario_1 = CukeModeler::Scenario.new(source)
+
+          source = "Scenario:
+                      * step 2
+                      * step 1"
+          scenario_2 = CukeModeler::Scenario.new(source)
+
+
+          expect(outline).to eq(scenario_1)
+          expect(outline).to_not eq(scenario_2)
+        end
+
+        it 'is equal to an outline with the same steps' do
+          source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+          outline_1 = clazz.new(source)
+
+          source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+          outline_2 = clazz.new(source)
+
+          source = "Scenario Outline:
+                      * step 2
+                      * step 1
+                    Examples:
+                      | param |
+                      | value |"
+          outline_3 = clazz.new(source)
+
+
+          expect(outline_1).to eq(outline_2)
+          expect(outline_1).to_not eq(outline_3)
+        end
+
+      end
+
+
       describe 'outline output edge cases' do
 
         context 'a new outline object' do

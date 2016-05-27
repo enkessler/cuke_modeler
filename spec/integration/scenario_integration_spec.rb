@@ -71,6 +71,81 @@ describe 'Scenario, Integration' do
         ancestor.should be_nil
       end
 
+
+      describe 'comparison' do
+
+        it 'is equal to a background with the same steps' do
+          source = "Scenario:
+                      * step 1
+                      * step 2"
+          scenario = clazz.new(source)
+
+          source = "Background:
+                      * step 1
+                      * step 2"
+          background_1 = CukeModeler::Background.new(source)
+
+          source = "Background:
+                      * step 2
+                      * step 1"
+          background_2 = CukeModeler::Background.new(source)
+
+
+          expect(scenario).to eq(background_1)
+          expect(scenario).to_not eq(background_2)
+        end
+
+        it 'is equal to a scenario with the same steps' do
+          source = "Scenario:
+                      * step 1
+                      * step 2"
+          scenario_1 = clazz.new(source)
+
+          source = "Scenario:
+                      * step 1
+                      * step 2"
+          scenario_2 = clazz.new(source)
+
+          source = "Scenario:
+                      * step 2
+                      * step 1"
+          scenario_3 = clazz.new(source)
+
+
+          expect(scenario_1).to eq(scenario_2)
+          expect(scenario_1).to_not eq(scenario_3)
+        end
+
+        it 'is equal to an outline with the same steps' do
+          source = "Scenario:
+                      * step 1
+                      * step 2"
+          scenario = clazz.new(source)
+
+          source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+          outline_1 = CukeModeler::Outline.new(source)
+
+          source = "Scenario Outline:
+                      * step 2
+                      * step 1
+                    Examples:
+                      | param |
+                      | value |"
+          outline_2 = CukeModeler::Outline.new(source)
+
+
+          expect(scenario).to eq(outline_1)
+          expect(scenario).to_not eq(outline_2)
+        end
+
+      end
+
+
       describe 'scenario output edge cases' do
 
         context 'a new scenario object' do

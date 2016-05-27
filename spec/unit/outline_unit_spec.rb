@@ -95,6 +95,20 @@ describe 'Outline, Unit' do
       expect(outline.children).to match_array(everything)
     end
 
+
+    describe 'comparison' do
+
+      it 'can gracefully be compared to other types of objects' do
+        # Some common types of object
+        [1, 'foo', :bar, [], {}].each do |thing|
+          expect { outline == thing }.to_not raise_error
+          expect(outline == thing).to be false
+        end
+      end
+
+    end
+
+
     describe 'outline output edge cases' do
 
       it 'is a String' do

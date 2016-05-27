@@ -71,6 +71,19 @@ describe 'Background, Unit' do
     end
 
 
+    describe 'comparison' do
+
+      it 'can gracefully be compared to other types of objects' do
+        # Some common types of object
+        [1, 'foo', :bar, [], {}].each do |thing|
+          expect { background == thing }.to_not raise_error
+          expect(background == thing).to be false
+        end
+      end
+
+    end
+
+
     describe 'background output edge cases' do
 
       it 'is a String' do

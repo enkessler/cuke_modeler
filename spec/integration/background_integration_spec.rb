@@ -69,6 +69,81 @@ describe 'Background, Integration' do
 
     end
 
+
+    describe 'comparison' do
+
+      it 'is equal to a background with the same steps' do
+        source = "Background:
+                    * step 1
+                    * step 2"
+        background_1 = clazz.new(source)
+
+        source = "Background:
+                    * step 1
+                    * step 2"
+        background_2 = clazz.new(source)
+
+        source = "Background:
+                    * step 2
+                    * step 1"
+        background_3 = clazz.new(source)
+
+
+        expect(background_1).to eq(background_2)
+        expect(background_1).to_not eq(background_3)
+      end
+
+      it 'is equal to a scenario with the same steps' do
+        source = "Background:
+                    * step 1
+                    * step 2"
+        background = clazz.new(source)
+
+        source = "Scenario:
+                    * step 1
+                    * step 2"
+        scenario_1 = CukeModeler::Scenario.new(source)
+
+        source = "Scenario:
+                    * step 2
+                    * step 1"
+        scenario_2 = CukeModeler::Scenario.new(source)
+
+
+        expect(background).to eq(scenario_1)
+        expect(background).to_not eq(scenario_2)
+      end
+
+      it 'is equal to an outline with the same steps' do
+        source = "Background:
+                    * step 1
+                    * step 2"
+        background = clazz.new(source)
+
+        source = "Scenario Outline:
+                    * step 1
+                    * step 2
+                  Examples:
+                    | param |
+                    | value |"
+        outline_1 = CukeModeler::Outline.new(source)
+
+        source = "Scenario Outline:
+                    * step 2
+                    * step 1
+                  Examples:
+                    | param |
+                    | value |"
+        outline_2 = CukeModeler::Outline.new(source)
+
+
+        expect(background).to eq(outline_1)
+        expect(background).to_not eq(outline_2)
+      end
+
+    end
+
+
     describe 'background output edge cases' do
 
       context 'a new background object' do

@@ -26,6 +26,13 @@ module CukeModeler
       build_background(parsed_background) if parsed_background
     end
 
+    # Returns true if the two models have equivalent steps and false otherwise.
+    def ==(other_model)
+      return false unless other_model.respond_to?(:steps)
+
+      steps == other_model.steps
+    end
+
     def children
       steps
     end
