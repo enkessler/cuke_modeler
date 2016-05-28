@@ -10,11 +10,14 @@ module CukeModeler
     # The Feature objects contained by the FeatureFile
     attr_accessor :features
 
+    # The file path of the FeatureFile
+    attr_accessor :path
+
 
     # Creates a new FeatureFile object and, if *file_parsed* is provided,
     # populates the object.
     def initialize(file = nil)
-      @file = file
+      @path = file
       @features = []
 
       if file
@@ -28,12 +31,7 @@ module CukeModeler
 
     # Returns the name of the file.
     def name
-      File.basename(@file.gsub('\\', '/'))
-    end
-
-    # Returns the path of the file.
-    def path
-      @file
+      File.basename(@path.gsub('\\', '/')) if @path
     end
 
     # Returns the immediate child elements of the file(i.e. its Feature object).

@@ -17,6 +17,7 @@ describe 'FeatureFile, Unit' do
 
   describe 'unique behavior' do
 
+    # todo - this is an integration test
     it 'provides its own filename when being parsed' do
       path = "#{@default_file_directory}/#{@default_feature_file_name}"
       File.open(path, "w") { |file| file.puts 'bad feature text' }
@@ -24,15 +25,30 @@ describe 'FeatureFile, Unit' do
       expect { clazz.new(path) }.to raise_error(/'#{path}'/)
     end
 
+    # todo - this is an integration test
     it 'knows the name of the file that it is modeling' do
       path = "#{@default_file_directory}/#{@default_feature_file_name}"
       File.open(path, "w") { |file| file.puts "Feature:" }
 
-      feature = clazz.new(path)
+      feature_file = clazz.new(path)
 
-      feature.name.should == @default_feature_file_name
+      feature_file.name.should == @default_feature_file_name
     end
 
+    it 'has a path' do
+      expect(feature_file).to respond_to(:path)
+    end
+
+    it 'can change its path' do
+      expect(feature_file).to respond_to(:path=)
+
+      feature_file.path = :some_path
+      feature_file.path.should == :some_path
+      feature_file.path = :some_other_path
+      feature_file.path.should == :some_other_path
+    end
+
+    # todo - this is an integration test
     it 'knows the path of the file that it is modeling' do
       path = "#{@default_file_directory}/#{@default_feature_file_name}"
       File.open(path, "w") { |file| file.puts "Feature:" }
@@ -62,8 +78,20 @@ describe 'FeatureFile, Unit' do
       feature_file.feature_count.should == 0
     end
 
-    it 'starts with no features' do
-      feature_file.features.should == []
+    describe 'abstract instantiation' do
+
+      it 'starts with no path' do
+        expect(feature_file.path).to be nil
+      end
+
+      it 'starts with no name' do
+        expect(feature_file.name).to be nil
+      end
+
+      it 'starts with no features' do
+        feature_file.features.should == []
+      end
+
     end
 
     it 'contains features' do
@@ -82,6 +110,7 @@ describe 'FeatureFile, Unit' do
       feature_file.features = [:a_feature]
       feature_file.feature.should == :a_feature
     end
+
 
     describe 'feature file output edge cases' do
 
