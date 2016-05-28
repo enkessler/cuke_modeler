@@ -7,8 +7,8 @@ module CukeModeler
     include Containing
 
 
-    # The Feature objects contained by the FeatureFile
-    attr_accessor :features
+    # The Feature object contained by the FeatureFile
+    attr_accessor :feature
 
     # The file path of the FeatureFile
     attr_accessor :path
@@ -18,7 +18,6 @@ module CukeModeler
     # populates the object.
     def initialize(file = nil)
       @path = file
-      @features = []
 
       if file
         raise(ArgumentError, "Unknown file: #{file.inspect}") unless File.exists?(file)
@@ -36,17 +35,7 @@ module CukeModeler
 
     # Returns the immediate child elements of the file(i.e. its Feature object).
     def children
-      @features
-    end
-
-    # Returns the number of features contained in the file.
-    def feature_count
-      @features.count
-    end
-
-    # Returns the Feature object contained by the FeatureFile.
-    def feature
-      @features.first
+      [@feature]
     end
 
     # Returns the path of the feature file.
@@ -66,7 +55,7 @@ module CukeModeler
 
     def build_file(parsed_file)
       unless parsed_file.empty?
-        @features << build_child_element(Feature, parsed_file.first)
+        @feature = build_child_element(Feature, parsed_file.first)
       end
     end
 

@@ -44,7 +44,7 @@ describe 'Scenario, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:scenario) { directory.feature_files.first.features.first.tests.first }
+      let(:scenario) { directory.feature_files.first.feature.tests.first }
 
 
       it 'can get its directory' do
@@ -62,7 +62,7 @@ describe 'Scenario, Integration' do
       it 'can get its feature' do
         ancestor = scenario.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.features.first
+        ancestor.should equal directory.feature_files.first.feature
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

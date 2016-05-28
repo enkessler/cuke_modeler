@@ -32,7 +32,7 @@ describe 'Row, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
+      let(:row) { directory.feature_files.first.feature.tests.first.examples.first.rows.first }
 
 
       it 'can get its directory' do
@@ -50,7 +50,7 @@ describe 'Row, Integration' do
       it 'can get its feature' do
         ancestor = row.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.features.first
+        ancestor.should equal directory.feature_files.first.feature
       end
 
       context 'a row that is part of an outline' do
@@ -69,13 +69,13 @@ describe 'Row, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
+        let(:row) { directory.feature_files.first.feature.tests.first.examples.first.rows.first }
 
 
         it 'can get its outline' do
           ancestor = row.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -83,7 +83,7 @@ describe 'Row, Integration' do
       it 'can get its example' do
         ancestor = row.get_ancestor(:example)
 
-        ancestor.should equal directory.feature_files.first.features.first.tests.first.examples.first
+        ancestor.should equal directory.feature_files.first.feature.tests.first.examples.first
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

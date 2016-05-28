@@ -66,7 +66,7 @@ describe 'Step, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
+      let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
 
 
       it 'can get its directory' do
@@ -84,7 +84,7 @@ describe 'Step, Integration' do
       it 'can get its feature' do
         ancestor = step.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.features.first
+        ancestor.should equal directory.feature_files.first.feature
       end
 
 
@@ -101,13 +101,13 @@ describe 'Step, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
+        let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
 
 
         it 'can get its scenario' do
           ancestor = step.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -128,13 +128,13 @@ describe 'Step, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
+        let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
 
 
         it 'can get its outline' do
           ancestor = step.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -152,13 +152,13 @@ describe 'Step, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.features.first.background.steps.first }
+        let(:step) { directory.feature_files.first.feature.background.steps.first }
 
 
         it 'can get its background' do
           ancestor = step.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.background)
+          expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end
 
       end

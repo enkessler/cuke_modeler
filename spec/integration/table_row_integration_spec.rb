@@ -30,7 +30,7 @@ describe 'TableRow, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
+      let(:table_row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
       it 'can get its directory' do
@@ -48,7 +48,7 @@ describe 'TableRow, Integration' do
       it 'can get its feature' do
         ancestor = table_row.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.features.first
+        ancestor.should equal directory.feature_files.first.feature
       end
 
       context 'a table row that is part of a scenario' do
@@ -65,13 +65,13 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
+        let(:table_row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
         it 'can get its scenario' do
           ancestor = table_row.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -93,13 +93,13 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.tests.first.steps.first.block.rows.first }
+        let(:table_row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
         it 'can get its outline' do
           ancestor = table_row.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -118,13 +118,13 @@ describe 'TableRow, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:table_row) { directory.feature_files.first.features.first.background.steps.first.block.rows.first }
+        let(:table_row) { directory.feature_files.first.feature.background.steps.first.block.rows.first }
 
 
         it 'can get its background' do
           ancestor = table_row.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.background)
+          expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end
 
       end
@@ -132,13 +132,13 @@ describe 'TableRow, Integration' do
       it 'can get its step' do
         ancestor = table_row.get_ancestor(:step)
 
-        ancestor.should equal directory.feature_files.first.features.first.tests.first.steps.first
+        ancestor.should equal directory.feature_files.first.feature.tests.first.steps.first
       end
 
       it 'can get its table' do
         ancestor = table_row.get_ancestor(:table)
 
-        ancestor.should equal directory.feature_files.first.features.first.tests.first.steps.first.block
+        ancestor.should equal directory.feature_files.first.feature.tests.first.steps.first.block
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

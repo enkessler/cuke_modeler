@@ -40,7 +40,7 @@ describe 'Background, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:background) { directory.feature_files.first.features.first.background }
+      let(:background) { directory.feature_files.first.feature.background }
 
 
       it 'can get its directory' do
@@ -58,7 +58,7 @@ describe 'Background, Integration' do
       it 'can get its feature' do
         ancestor = background.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first)
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

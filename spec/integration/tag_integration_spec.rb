@@ -35,8 +35,8 @@ describe 'Tag, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tags.first }
-      let(:high_level_tag) { directory.feature_files.first.features.first.tags.first }
+      let(:tag) { directory.feature_files.first.feature.tests.first.examples.first.tags.first }
+      let(:high_level_tag) { directory.feature_files.first.feature.tags.first }
 
 
       it 'can get its directory' do
@@ -54,7 +54,7 @@ describe 'Tag, Integration' do
       it 'can get its feature' do
         ancestor = tag.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.features.first
+        ancestor.should equal directory.feature_files.first.feature
       end
 
       context 'a tag that is part of a scenario' do
@@ -71,13 +71,13 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.tags.first }
+        let(:tag) { directory.feature_files.first.feature.tests.first.tags.first }
 
 
         it 'can get its scenario' do
           ancestor = tag.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -99,13 +99,13 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.tags.first }
+        let(:tag) { directory.feature_files.first.feature.tests.first.tags.first }
 
 
         it 'can get its outline' do
           ancestor = tag.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -126,13 +126,13 @@ describe 'Tag, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.features.first.tests.first.examples.first.tags.first }
+        let(:tag) { directory.feature_files.first.feature.tests.first.examples.first.tags.first }
 
 
         it 'can get its example' do
           ancestor = tag.get_ancestor(:example)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first.examples.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first)
         end
 
       end

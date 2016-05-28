@@ -58,25 +58,19 @@ describe 'FeatureFile, Unit' do
       file.path.should == path
     end
 
-    it 'has features' do
-      feature_file.should respond_to(:features)
+    it 'has a feature' do
+      expect(feature_file).to respond_to(:feature)
     end
 
-    it 'can change its features' do
-      expect(feature_file).to respond_to(:features=)
+    it 'can change its feature' do
+      expect(feature_file).to respond_to(:feature=)
 
-      feature_file.features = :some_features
-      feature_file.features.should == :some_features
-      feature_file.features = :some_other_features
-      feature_file.features.should == :some_other_features
+      feature_file.feature = :some_features
+      expect(feature_file.feature).to eq(:some_features)
+      feature_file.feature = :some_other_features
+      expect(feature_file.feature).to eq(:some_other_features)
     end
 
-    it 'knows how many features it has' do
-      feature_file.features = [:a_feature]
-      feature_file.feature_count.should == 1
-      feature_file.features = []
-      feature_file.feature_count.should == 0
-    end
 
     describe 'abstract instantiation' do
 
@@ -88,27 +82,19 @@ describe 'FeatureFile, Unit' do
         expect(feature_file.name).to be nil
       end
 
-      it 'starts with no features' do
-        feature_file.features.should == []
+      it 'starts with no feature' do
+        expect(feature_file.feature).to be_nil
       end
 
     end
 
-    it 'contains features' do
-      features = [:a_feature]
-      everything = features
+    it 'contains a feature' do
+      feature = :a_feature
+      everything = [feature]
 
-      feature_file.features = features
+      feature_file.feature = feature
 
-      feature_file.children.should =~ everything
-    end
-
-    it 'can easily access its sole feature' do
-      feature_file.features = []
-      feature_file.feature.should be_nil
-
-      feature_file.features = [:a_feature]
-      feature_file.feature.should == :a_feature
+      expect(feature_file.children).to match_array(everything)
     end
 
 

@@ -23,7 +23,7 @@ When /^(?:the )?file(?: "([^"]*)")? features are as follows:$/ do |file, feature
   assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
 end
 
-When /^(?:the )?file(?: "([^"]*)")? has no features$/ do |file|
+When /^(?:the )?file(?: "([^"]*)")? has no feature$/ do |file|
   file ||= 1
 
   assert @parsed_files[file - 1].feature.nil?

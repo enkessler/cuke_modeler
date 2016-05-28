@@ -107,7 +107,7 @@ describe 'Feature, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:feature) { directory.feature_files.first.features.first }
+      let(:feature) { directory.feature_files.first.feature }
 
 
       it 'can get its directory' do

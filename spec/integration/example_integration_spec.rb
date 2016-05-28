@@ -66,7 +66,7 @@ describe 'Example, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:example) { directory.feature_files.first.features.first.tests.first.examples.first }
+      let(:example) { directory.feature_files.first.feature.tests.first.examples.first }
 
 
       it 'can get its directory' do
@@ -84,7 +84,7 @@ describe 'Example, Integration' do
       it 'can get its feature' do
         ancestor = example.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first)
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'an example that is part of an outline' do
@@ -103,13 +103,13 @@ describe 'Example, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:example) { directory.feature_files.first.features.first.tests.first.examples.first }
+        let(:example) { directory.feature_files.first.feature.tests.first.examples.first }
 
 
         it 'can get its outline' do
           ancestor = example.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end

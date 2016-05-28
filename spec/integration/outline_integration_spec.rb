@@ -52,7 +52,7 @@ describe 'Outline, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:outline) { directory.feature_files.first.features.first.tests.first }
+      let(:outline) { directory.feature_files.first.feature.tests.first }
 
 
       it 'can get its directory' do
@@ -70,7 +70,7 @@ describe 'Outline, Integration' do
       it 'can get its feature' do
         ancestor = outline.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first)
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

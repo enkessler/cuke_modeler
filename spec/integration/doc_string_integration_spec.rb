@@ -34,7 +34,7 @@ describe 'DocString, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+      let(:doc_string) { directory.feature_files.first.feature.tests.first.steps.first.block }
 
 
       it 'can get its directory' do
@@ -52,7 +52,7 @@ describe 'DocString, Integration' do
       it 'can get its feature' do
         ancestor = doc_string.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first)
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'a doc string that is part of a scenario' do
@@ -73,13 +73,13 @@ describe 'DocString, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+        let(:doc_string) { directory.feature_files.first.feature.tests.first.steps.first.block }
 
 
         it 'can get its scenario' do
           ancestor = doc_string.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -105,13 +105,13 @@ describe 'DocString, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:doc_string) { directory.feature_files.first.features.first.tests.first.steps.first.block }
+        let(:doc_string) { directory.feature_files.first.feature.tests.first.steps.first.block }
 
 
         it 'can get its outline' do
           ancestor = doc_string.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
       end
@@ -134,13 +134,13 @@ describe 'DocString, Integration' do
         end
 
         let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:doc_string) { directory.feature_files.first.features.first.background.steps.first.block }
+        let(:doc_string) { directory.feature_files.first.feature.background.steps.first.block }
 
 
         it 'can get its background' do
           ancestor = doc_string.get_ancestor(:test)
 
-          expect(ancestor).to equal(directory.feature_files.first.features.first.background)
+          expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end
 
       end
@@ -148,7 +148,7 @@ describe 'DocString, Integration' do
       it 'can get its step' do
         ancestor = doc_string.get_ancestor(:step)
 
-        expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first.steps.first)
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
