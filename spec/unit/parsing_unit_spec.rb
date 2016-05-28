@@ -13,9 +13,13 @@ describe 'Parsing, Unit' do
       nodule.should respond_to(:parse_text)
     end
 
-    it 'can only parse strings' do
-      expect { nodule.parse_text(5) }.to raise_error(ArgumentError)
+    it 'raises and error if given something to parse besides a string' do
+      expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Text to parse must be a String but got/)
       expect { nodule.parse_text('Feature:') }.to_not raise_error
+    end
+
+    it 'includes the type of object provided when raising an non-string exception' do
+      expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Fixnum/)
     end
 
     it 'returns an Array' do

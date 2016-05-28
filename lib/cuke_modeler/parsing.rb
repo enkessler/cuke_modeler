@@ -19,7 +19,7 @@ case
         class << self
 
           def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
-            raise(ArgumentError, "Cannot parse #{source_text.class} objects. Strings only.") unless source_text.is_a?(String)
+            raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
 
             begin
               parsed_result = Gherkin::Parser.new.parse(source_text)
@@ -47,7 +47,7 @@ case
         class << self
 
           def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
-            raise(ArgumentError, "Cannot parse #{source_text.class} objects. Strings only.") unless source_text.is_a?(String)
+            raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
 
             begin
               parsed_result = Gherkin::Parser.new.parse(source_text)
@@ -84,7 +84,7 @@ case
           # Parses the Cucumber feature given in *source_text* and returns an array
           # containing the hash representation of its logical structure.
           def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
-            raise(ArgumentError, "Cannot parse #{source_text.class} objects. Strings only.") unless source_text.is_a?(String)
+            raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
 
             io = StringIO.new
             formatter = Gherkin::Formatter::JSONFormatter.new(io)
