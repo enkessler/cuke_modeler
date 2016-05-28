@@ -8,24 +8,24 @@ shared_examples_for 'a tagged element' do
 
 
   it 'has tags' do
-    element.should respond_to(:tags)
+    expect(element).to respond_to(:tags)
   end
 
   it 'can get and set its tags' do
     expect(element).to respond_to(:tags=)
 
     element.tags = :some_tags
-    element.tags.should == :some_tags
+    expect(element.tags).to eq(:some_tags)
     element.tags = :some_other_tags
-    element.tags.should == :some_other_tags
+    expect(element.tags).to eq(:some_other_tags)
   end
 
   it 'starts with no tags' do
-    element.tags.should == []
+    expect(element.tags).to eq([])
   end
 
   it 'has applied tags' do
-    element.should respond_to(:applied_tags)
+    expect(element).to respond_to(:applied_tags)
   end
 
   it 'inherits its applied tags from its ancestors' do
@@ -34,7 +34,7 @@ shared_examples_for 'a tagged element' do
 
     element.parent_element = parent
 
-    element.applied_tags.should == all_parent_tags
+    expect(element.applied_tags).to match_array(all_parent_tags)
   end
 
   it 'knows all of its applicable tags' do
@@ -46,7 +46,7 @@ shared_examples_for 'a tagged element' do
     element.parent_element = parent
     element.tags = own_tags
 
-    element.all_tags.should == all_parent_tags + own_tags
+    expect(element.all_tags).to match_array(all_parent_tags + own_tags)
   end
 
 end

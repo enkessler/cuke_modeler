@@ -8,11 +8,11 @@ shared_examples_for 'a sourced element' do
 
 
   it 'has a source line' do
-    element.should respond_to(:source_line)
+    expect(element).to respond_to(:source_line)
   end
 
   it 'starts with no source line' do
-    element.source_line.should == nil
+    expect(element.source_line).to be_nil
   end
 
 end

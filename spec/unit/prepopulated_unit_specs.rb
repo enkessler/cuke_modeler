@@ -8,7 +8,7 @@ shared_examples_for 'a prepopulated element' do
 
 
   it 'can take an argument' do
-    (clazz.instance_method(:initialize).arity != 0).should be_true
+    expect(clazz.instance_method(:initialize).arity).to_not eq(0)
   end
 
 end
