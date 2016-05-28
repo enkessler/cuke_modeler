@@ -54,9 +54,7 @@ module CukeModeler
     end
 
     def build_file(parsed_file)
-      unless parsed_file.empty?
-        @feature = build_child_element(Feature, parsed_file.first)
-      end
+      @feature = build_child_element(Feature, parsed_file.first) unless parsed_file.empty?
     end
 
   end
