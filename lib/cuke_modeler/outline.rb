@@ -75,11 +75,11 @@ module CukeModeler
 
     def build_outline(parsed_outline)
       populate_raw_element(parsed_outline)
-      populate_element_source_line(parsed_outline)
+      populate_source_line(parsed_outline)
       populate_name(parsed_outline)
       populate_description(parsed_outline)
       populate_steps(parsed_outline)
-      populate_element_tags(parsed_outline)
+      populate_tags(parsed_outline)
       populate_outline_examples(parsed_outline['examples']) if parsed_outline['examples']
     end
 

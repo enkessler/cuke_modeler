@@ -65,7 +65,7 @@ module CukeModeler
       populate_base(step)
       populate_block(step)
       populate_keyword(step)
-      populate_element_source_line(step)
+      populate_source_line(step)
       populate_raw_element(step)
     end
 

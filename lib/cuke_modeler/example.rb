@@ -121,10 +121,10 @@ module CukeModeler
 
     def build_example(parsed_example)
       populate_raw_element(parsed_example)
-      populate_element_source_line(parsed_example)
+      populate_source_line(parsed_example)
       populate_name(parsed_example)
       populate_description(parsed_example)
-      populate_element_tags(parsed_example)
+      populate_tags(parsed_example)
       populate_example_rows(parsed_example)
     end
 

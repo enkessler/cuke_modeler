@@ -66,7 +66,7 @@ module CukeModeler
       populate_raw_element(parsed_background)
       populate_name(parsed_background)
       populate_description(parsed_background)
-      populate_element_source_line(parsed_background)
+      populate_source_line(parsed_background)
       populate_steps(parsed_background)
     end
 

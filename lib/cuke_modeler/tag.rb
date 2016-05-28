@@ -41,7 +41,7 @@ module CukeModeler
     def build_tag(parsed_tag)
       populate_name(parsed_tag)
       populate_raw_element(parsed_tag)
-      populate_element_source_line(parsed_tag)
+      populate_source_line(parsed_tag)
     end
 
     def populate_name(parsed_tag)

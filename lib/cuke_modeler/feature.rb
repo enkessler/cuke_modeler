@@ -106,10 +106,10 @@ module CukeModeler
 
     def build_feature(parsed_feature)
       populate_raw_element(parsed_feature)
-      populate_element_source_line(parsed_feature)
+      populate_source_line(parsed_feature)
       populate_name(parsed_feature)
       populate_description(parsed_feature)
-      populate_element_tags(parsed_feature)
+      populate_tags(parsed_feature)
       populate_children(parsed_feature)
     end
 

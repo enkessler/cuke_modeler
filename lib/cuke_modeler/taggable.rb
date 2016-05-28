@@ -23,7 +23,7 @@ module CukeModeler
     private
 
 
-    def populate_element_tags(parsed_element)
+    def populate_tags(parsed_element)
       if parsed_element['tags']
         parsed_element['tags'].each do |tag|
           @tags << build_child_element(Tag, tag)

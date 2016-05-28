@@ -41,7 +41,7 @@ module CukeModeler
     end
 
     def build_row(parsed_row)
-      populate_element_source_line(parsed_row)
+      populate_source_line(parsed_row)
       populate_row_cells(parsed_row)
       populate_raw_element(parsed_row)
     end

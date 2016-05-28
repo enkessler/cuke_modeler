@@ -12,7 +12,7 @@ module CukeModeler
     private
 
 
-    def populate_element_source_line(parsed_element)
+    def populate_source_line(parsed_element)
       @source_line = parsed_element['line']
     end
 

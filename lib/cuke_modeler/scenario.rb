@@ -68,11 +68,11 @@ module CukeModeler
 
     def build_scenario(parsed_scenario)
       populate_raw_element(parsed_scenario)
-      populate_element_source_line(parsed_scenario)
+      populate_source_line(parsed_scenario)
       populate_name(parsed_scenario)
       populate_description(parsed_scenario)
       populate_steps(parsed_scenario)
-      populate_element_tags(parsed_scenario)
+      populate_tags(parsed_scenario)
     end
 
   end
