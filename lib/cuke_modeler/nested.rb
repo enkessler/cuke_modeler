@@ -12,18 +12,18 @@ module CukeModeler
     # Returns the ancestor of *self* that matches the given type.
     def get_ancestor(ancestor_type)
       ancestor = self.parent_element
-      target_type = {:directory => Directory,
-                     :feature_file => FeatureFile,
-                     :feature => Feature,
-                     :test => TestElement,
-                     :step => Step,
-                     :table => Table,
-                     :example => Example
+      target_type = {:directory => [Directory],
+                     :feature_file => [FeatureFile],
+                     :feature => [Feature],
+                     :test => [Scenario, Outline, Background],
+                     :step => [Step],
+                     :table => [Table],
+                     :example => [Example]
       }[ancestor_type]
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_type.nil?
 
-      until ancestor.is_a?(target_type) || ancestor.nil?
+      until target_type.include?(ancestor.class) || ancestor.nil?
         ancestor = ancestor.parent_element
       end
 

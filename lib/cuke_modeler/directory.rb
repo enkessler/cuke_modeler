@@ -2,10 +2,9 @@ module CukeModeler
 
   # A class modeling a directory containing .feature files.
 
-  class Directory
+  class Directory < ModelElement
 
     include Containing
-    include Nested
 
 
     # The FeatureFile objects contained by the Directory
@@ -48,7 +47,7 @@ module CukeModeler
 
     # Returns the immediate child elements of the directory (i.e. its Directory
     # and FeatureFile objects).
-    def contains
+    def children
       @feature_files + @directories
     end
 

@@ -2,52 +2,41 @@ module CukeModeler
 
   # A class modeling the table of a Step.
 
-  class Table
+  class Table < ModelElement
 
     include Containing
     include Raw
-    include Nested
 
 
-    # The contents of the table
-    #
-    # Deprecated
-    attr_accessor :contents
-
-    # The row elements that make up the table
-    attr_accessor :row_elements
+    # The row objects that make up the table
+    attr_accessor :rows
 
 
     # Creates a new Table object and, if *source* is provided, populates
     # the object.
     def initialize(source = nil)
-      @contents = []
-      @row_elements = []
+      @rows = []
 
       parsed_table = process_source(source)
 
       build_table(parsed_table) if parsed_table
     end
 
+    # Returns the model objects that belong to this model.
+    def children
+      rows
+    end
+
     # Returns a gherkin representation of the table.
     def to_s
-      row_elements.empty? ? '' : row_elements.collect { |row| row_output_string(row) }.join("\n")
+      rows.empty? ? '' : rows.collect { |row| row_output_string(row) }.join("\n")
     end
 
 
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_table(source)
-        else
-          source
-      end
-    end
-
-    def parse_table(source_text)
+    def parse_model(source_text)
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 
@@ -57,18 +46,13 @@ module CukeModeler
     end
 
     def build_table(table)
-      populate_contents(table)
       populate_row_elements(table)
       populate_raw_element(table)
     end
 
-    def populate_contents(table)
-      @contents = table['rows'].collect { |row| row['cells'] }
-    end
-
     def populate_row_elements(table)
       table['rows'].each do |row|
-        @row_elements << build_child_element(TableRow, row)
+        @rows << build_child_element(TableRow, row)
       end
     end
 
@@ -83,7 +67,7 @@ module CukeModeler
     end
 
     def determine_buffer_size(index)
-      row_elements.collect { |row| row.cells[index].length }.max || 0
+      rows.collect { |row| row.cells[index].length }.max || 0
     end
 
   end

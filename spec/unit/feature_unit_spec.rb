@@ -10,12 +10,10 @@ describe 'Feature, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a feature element'
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
+    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a named element'
+    it_should_behave_like 'a described element'
     it_should_behave_like 'a tagged element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
     it_should_behave_like 'a sourced element'
     it_should_behave_like 'a raw element'
 
@@ -126,15 +124,17 @@ describe 'Feature, Unit' do
       expect(feature.outlines).to be_empty
     end
 
-    it 'contains backgrounds and tests' do
+    it 'contains backgrounds, tests, and tags' do
+      tags = [:tag_1, :tagt_2]
       tests = [:test_1, :test_2]
       background = :a_background
-      everything = [background] + tests
+      everything = [background] + tests + tags
 
       feature.background = background
       feature.tests = tests
+      feature.tags = tags
 
-      feature.contains.should =~ everything
+      expect(feature.children).to match_array(everything)
     end
 
     it 'contains a background only if one is present' do
@@ -145,7 +145,7 @@ describe 'Feature, Unit' do
       feature.background = background
       feature.tests = tests
 
-      feature.contains.should =~ everything
+      feature.children.should =~ everything
     end
 
     it 'starts with no background' do
@@ -179,13 +179,7 @@ describe 'Feature, Unit' do
         end
 
         it 'can output a feature that has only a description' do
-          feature.description_text = 'a description'
-
-          expect { feature.to_s }.to_not raise_error
-        end
-
-        it 'can output a feature that has only tags' do
-          feature.tags = ['a tag']
+          feature.description = 'a description'
 
           expect { feature.to_s }.to_not raise_error
         end

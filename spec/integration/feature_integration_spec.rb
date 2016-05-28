@@ -8,6 +8,12 @@ describe 'Feature, Integration' do
   let(:feature) { clazz.new }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     it 'properly sets its child elements' do
@@ -26,7 +32,7 @@ describe 'Feature, Integration' do
       background = feature.background
       scenario = feature.tests[0]
       outline = feature.tests[1]
-      tag = feature.tag_elements[0]
+      tag = feature.tags[0]
 
 
       expect(outline.parent_element).to equal(feature)
@@ -131,8 +137,8 @@ describe 'Feature, Integration' do
         let(:feature) { clazz.new }
 
 
-        it 'can output a feature that has only tag elements' do
-          feature.tag_elements = [CukeModeler::Tag.new]
+        it 'can output a feature that has only tags' do
+          feature.tags = [CukeModeler::Tag.new]
 
           expect { feature.to_s }.to_not raise_error
         end

@@ -10,13 +10,11 @@ describe 'Scenario, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a feature element'
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
+    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a named element'
+    it_should_behave_like 'a described element'
+    it_should_behave_like 'a stepped element'
     it_should_behave_like 'a tagged element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
-    it_should_behave_like 'a test element'
     it_should_behave_like 'a sourced element'
     it_should_behave_like 'a raw element'
 
@@ -64,14 +62,30 @@ describe 'Scenario, Unit' do
       expect(raw_data['keyword']).to eq('Scenario')
     end
 
-    it 'contains only steps' do
+    it 'contains steps and tags' do
+      tags = [:tag_1, :tag_2]
       steps = [:step_1, :step_2]
-      everything = steps
+      everything = steps + tags
 
       scenario.steps = steps
+      scenario.tags = tags
 
-      scenario.contains.should =~ everything
+      expect(scenario.children).to match_array(everything)
     end
+
+
+    describe 'comparison' do
+
+      it 'can gracefully be compared to other types of objects' do
+        # Some common types of object
+        [1, 'foo', :bar, [], {}].each do |thing|
+          expect { scenario == thing }.to_not raise_error
+          expect(scenario == thing).to be false
+        end
+      end
+
+    end
+
 
     describe 'scenario output edge cases' do
 
@@ -96,13 +110,7 @@ describe 'Scenario, Unit' do
         end
 
         it 'can output a scenario that has only a description' do
-          scenario.description_text = 'a description'
-
-          expect { scenario.to_s }.to_not raise_error
-        end
-
-        it 'can output a scenario that has only tags' do
-          scenario.tags = ['a tag']
+          scenario.description = 'a description'
 
           expect { scenario.to_s }.to_not raise_error
         end

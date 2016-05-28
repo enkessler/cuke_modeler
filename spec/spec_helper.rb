@@ -5,6 +5,12 @@ this_dir = File.dirname(__FILE__)
 
 require "#{this_dir}/../lib/cuke_modeler"
 
+require "#{this_dir}/unit/modeled_element_unit_specs"
+require "#{this_dir}/integration/modeled_element_integration_specs"
+require "#{this_dir}/unit/named_element_unit_specs"
+require "#{this_dir}/unit/described_element_unit_specs"
+require "#{this_dir}/unit/stepped_element_unit_specs"
+require "#{this_dir}/unit/stringifiable_unit_specs"
 require "#{this_dir}/unit/feature_element_unit_specs"
 require "#{this_dir}/unit/nested_element_unit_specs"
 require "#{this_dir}/unit/tagged_element_unit_specs"

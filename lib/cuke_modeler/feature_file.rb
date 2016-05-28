@@ -2,10 +2,9 @@ module CukeModeler
 
   # A class modeling a Cucumber .feature file.
 
-  class FeatureFile
+  class FeatureFile < ModelElement
 
     include Containing
-    include Nested
 
 
     # The Feature objects contained by the FeatureFile
@@ -38,7 +37,7 @@ module CukeModeler
     end
 
     # Returns the immediate child elements of the file(i.e. its Feature object).
-    def contains
+    def children
       @features
     end
 

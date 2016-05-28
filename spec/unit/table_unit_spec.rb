@@ -10,9 +10,7 @@ describe 'Table, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
+    it_should_behave_like 'a modeled element'
     it_should_behave_like 'a raw element'
 
   end
@@ -26,9 +24,7 @@ describe 'Table, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
 
       # Sanity check in case instantiation failed in a non-explosive manner
-      @element.row_elements.collect { |row| row.cells }.should == [['a table']]
-      # todo - remove once #contents is no longer supported
-      @element.contents.should == [['a table']]
+      expect(@element.rows.collect { |row| row.cells }).to eq([['a table']])
     end
 
     it 'provides a descriptive filename when being parsed from stand alone text' do
@@ -60,57 +56,32 @@ describe 'Table, Unit' do
       expect(raw_data).to match_array([{"cells" => ["a table"], "line" => 4}])
     end
 
-    # todo - remove once #contents is no longer supported
-    it 'has contents' do
-      table.should respond_to(:contents)
-    end
-
-    # todo - remove once #contents is no longer supported
-    it 'can change its contents' do
-      expect(table).to respond_to(:contents=)
-
-      table.contents = :some_contents
-      table.contents.should == :some_contents
-      table.contents = :some_other_contents
-      table.contents.should == :some_other_contents
-    end
-
-    # todo - remove once #contents is no longer supported
-    it 'starts with no contents' do
-      table.contents.should == []
-    end
-
-    it 'has row elements' do
-      table.should respond_to(:row_elements)
+    it 'has rows' do
+      expect(table).to respond_to(:rows)
     end
 
     it 'can get and set its row elements' do
-      expect(table).to respond_to(:row_elements=)
+      expect(table).to respond_to(:rows=)
 
-      table.row_elements = :some_row_elements
-      table.row_elements.should == :some_row_elements
-      table.row_elements = :some_other_row_elements
-      table.row_elements.should == :some_other_row_elements
+      table.rows = :some_row_elements
+      expect(table.rows).to eq(:some_row_elements)
+      table.rows = :some_other_row_elements
+      expect(table.rows).to eq(:some_other_row_elements)
     end
 
-    it 'starts with no row elements' do
-      table.row_elements.should == []
+    it 'starts with no rows' do
+      expect(table.rows).to eq([])
     end
 
-    # todo - remove once #contents is no longer supported
-    it 'stores its contents as a nested array of strings' do
-      source = "| cell 1 | cell 2 |\n| cell 3 | cell 4 |"
-      table = clazz.new(source)
+    it 'contains rows' do
+      rows = [:row_1, :row_2]
+      everything = rows
 
-      contents = table.contents
+      table.rows = rows
 
-      contents.is_a?(Array).should be_true
-
-      contents.each do |row|
-        row.is_a?(Array).should be_true
-        row.each { |cell| cell.is_a?(String).should be_true }
-      end
+      expect(table.children).to match_array(everything)
     end
+    
 
     describe 'table output edge cases' do
 
@@ -125,13 +96,6 @@ describe 'Table, Unit' do
 
 
         it 'can output an empty table' do
-          expect { table.to_s }.to_not raise_error
-        end
-
-        # todo - remove once #contents is no longer supported
-        it 'can output a table that only has contents' do
-          table.contents = ['some contents']
-
           expect { table.to_s }.to_not raise_error
         end
 

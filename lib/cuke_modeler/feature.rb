@@ -2,16 +2,20 @@ module CukeModeler
 
   # A class modeling a Cucumber Feature.
 
-  class Feature < FeatureElement
+  class Feature < ModelElement
 
+    include Raw
+    include Named
+    include Described
     include Taggable
+    include Sourceable
     include Containing
 
 
     # The Background object contained by the Feature
     attr_accessor :background
 
-    # The TestElement objects contained by the Feature
+    # The Scenario and Outline objects contained by the Feature
     attr_accessor :tests
 
 
@@ -22,8 +26,9 @@ module CukeModeler
 
       super(parsed_feature)
 
+      @name = ''
+      @description = ''
       @tags = []
-      @tag_elements = []
       @tests = []
 
       build_feature(parsed_feature) if parsed_feature
@@ -63,17 +68,18 @@ module CukeModeler
     def test_case_count
       scenario_count + outlines.reduce(0) { |outline_sum, outline|
         outline_sum += outline.examples.reduce(0) { |example_sum, example|
-          example_sum += example.rows.count
+          example_sum += example.argument_rows.count
         }
       }
     end
 
-    # Returns the immediate child elements of the feature (i.e. its Background,
-    # Scenario, and Outline objects.
-    def contains
-      @background ? [@background] + @tests : @tests
-    end
+    # Returns the model objects that belong to this model.
+    def children
+      models = tests + tags
+      models << background if background
 
+      models
+    end
 
     # Returns gherkin representation of the feature.
     def to_s
@@ -81,7 +87,7 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Feature:#{name_output_string}"
-      text << "\n" + description_output_string unless description_text.empty?
+      text << "\n" + description_output_string unless description.empty?
       text << "\n\n" + background_output_string if background
       text << "\n\n" + tests_output_string unless tests.empty?
 
@@ -92,27 +98,22 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_feature(source)
-        else
-          source
-      end
-    end
-
-    def parse_feature(source_text)
+    def parse_model(source_text)
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file.first
     end
 
     def build_feature(parsed_feature)
+      populate_raw_element(parsed_feature)
+      populate_element_source_line(parsed_feature)
+      populate_name(parsed_feature)
+      populate_description(parsed_feature)
       populate_element_tags(parsed_feature)
-      populate_feature_elements(parsed_feature)
+      populate_children(parsed_feature)
     end
 
-    def populate_feature_elements(parsed_feature)
+    def populate_children(parsed_feature)
       elements = parsed_feature['elements']
 
       if elements

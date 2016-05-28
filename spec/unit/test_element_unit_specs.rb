@@ -28,7 +28,7 @@ shared_examples_for 'a test element' do
     steps = [:step_1, :step_2, :step_3]
     element.steps = steps
 
-    steps.each { |step| element.contains.should include(step) }
+    steps.each { |step| element.children.should include(step) }
   end
 
 end

@@ -7,6 +7,12 @@ describe 'Step, Integration' do
   let(:clazz) { CukeModeler::Step }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     it 'properly sets its child elements' do
@@ -28,93 +34,23 @@ describe 'Step, Integration' do
       table.parent_element.should equal step_2
     end
 
-    it 'defaults to the World delimiters if its own are not set' do
-      world = CukeModeler::World
-      world.left_delimiter = '"'
-      world.right_delimiter = '"'
-
-      step = clazz.new
-      step.right_delimiter = nil
-      step.left_delimiter = nil
-
-      step.right_delimiter.should == '"'
-      step.left_delimiter.should == '"'
-    end
-
-    it 'attempts to determine its arguments during creation' do
-      source = 'Given a test step with *parameter 1* and "parameter 2" and *parameter 3*'
-
-      world = CukeModeler::World
-      world.left_delimiter = '"'
-      world.right_delimiter = '"'
-
-      step = clazz.new(source)
-
-      step.arguments.should == ['parameter 2']
-    end
-
-    it 'finds nothing when no regular expression or delimiters are available' do
-      world = CukeModeler::World
-      world.left_delimiter = nil
-      world.right_delimiter = nil
-
-      source = 'Given a test step with *parameter 1* and "parameter 2" and *parameter 3*'
-      step = clazz.new(source)
-
-      step.scan_arguments
-
-      step.arguments.should == []
-    end
-
     it 'can determine its equality with another Step' do
-      source_1 = "Given a test step with *parameter 1* and *parameter 2*\n|a block|"
-      source_2 = "Given a test step with *parameter 3* and *parameter 4*\n|another block|"
-      source_3 = 'Given a different *parameterized* step'
+      source_1 = "Given a step"
+      source_2 = "When  a step\n|with a table|"
+      source_3 = "Then  a step\n\"\"\"\nwith a doc string\n\"\"\""
+      source_4 = 'And   a different step'
 
       step_1 = clazz.new(source_1)
       step_2 = clazz.new(source_2)
       step_3 = clazz.new(source_3)
-
-      step_1.delimiter = '*'
-      step_2.delimiter = '*'
-      step_3.delimiter = '*'
+      step_4 = clazz.new(source_4)
 
 
-      (step_1 == step_2).should be_true
-      (step_1 == step_3).should be_false
+      expect(step_1).to eq(step_2)
+      expect(step_2).to eq(step_3)
+      expect(step_3).to_not eq(step_4)
     end
 
-    describe '#step_text' do
-
-      let(:source) { "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|" }
-      let(:step) { clazz.new(source) }
-
-
-      it 'returns the step\'s entire text by default' do
-        source = "Given a test step with -parameter 1- ^and@ *parameter 2!!\n|a block|"
-        step_with_block = clazz.new(source)
-
-        expected_output = ['Given a test step with -parameter 1- ^and@ *parameter 2!!',
-                           '|a block|']
-
-        step_with_block.step_text.should == expected_output
-
-        source = 'Given a test step with -parameter 1- ^and@ *parameter 2!!'
-        step_without_block = clazz.new(source)
-
-        expected_output = ['Given a test step with -parameter 1- ^and@ *parameter 2!!']
-
-        step_without_block.step_text.should == expected_output
-      end
-
-      it 'can provide the step\'s text without the keyword' do
-        expected_output = ['a test step with -parameter 1- ^and@ *parameter 2!!',
-                           '|a block|']
-
-        step.step_text(:with_keywords => false).should == expected_output
-      end
-
-    end
 
     describe 'getting ancestors' do
 
@@ -151,10 +87,80 @@ describe 'Step, Integration' do
         ancestor.should equal directory.feature_files.first.features.first
       end
 
-      it 'can get its test' do
-        ancestor = step.get_ancestor(:test)
 
-        ancestor.should equal directory.feature_files.first.features.first.tests.first
+      context 'a step that is part of a scenario' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+                      
+                      Scenario: Test scenario
+                        * a step'
+
+          file_path = "#{@default_file_directory}/step_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
+
+
+        it 'can get its scenario' do
+          ancestor = step.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
+      end
+
+      context 'a step that is part of an outline' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+                      
+                      Scenario Outline: Test outline
+                        * a step
+                      Examples:
+                        | param |
+                        | value |'
+
+          file_path = "#{@default_file_directory}/step_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:step) { directory.feature_files.first.features.first.tests.first.steps.first }
+
+
+        it 'can get its outline' do
+          ancestor = step.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
+      end
+
+      context 'a step that is part of a background' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+                      
+                      Background: Test background
+                        * a step'
+
+          file_path = "#{@default_file_directory}/step_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:step) { directory.feature_files.first.features.first.background.steps.first }
+
+
+        it 'can get its background' do
+          ancestor = step.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.background)
+        end
+
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do

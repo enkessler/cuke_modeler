@@ -10,10 +10,7 @@ describe 'Directory, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
+     it_should_behave_like 'a modeled element'
 
   end
 
@@ -114,7 +111,7 @@ describe 'Directory, Unit' do
       directory.directories = directories
       directory.feature_files = files
 
-      directory.contains.should =~ everything
+      directory.children.should =~ everything
     end
 
     describe 'directory output edge cases' do

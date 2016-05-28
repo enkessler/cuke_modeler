@@ -2,11 +2,10 @@ module CukeModeler
 
   # A class modeling a Cucumber Examples table row.
 
-  class Row
+  class Row < ModelElement
 
     include Sourceable
     include Raw
-    include Nested
 
 
     # The cells that make up the row
@@ -32,16 +31,7 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_row(source)
-        else
-          source
-      end
-    end
-
-    def parse_row(source_text)
+    def parse_model(source_text)
       base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\nExamples: fake examples\n#{source_text}\n"
       source_text = base_file_string + source_text
 

@@ -10,13 +10,11 @@ describe 'Outline, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a feature element'
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
+    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a named element'
+    it_should_behave_like 'a described element'
+    it_should_behave_like 'a stepped element'
     it_should_behave_like 'a tagged element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
-    it_should_behave_like 'a test element'
     it_should_behave_like 'a sourced element'
     it_should_behave_like 'a raw element'
 
@@ -84,16 +82,32 @@ describe 'Outline, Unit' do
       outline.examples.should == []
     end
 
-    it 'contains steps and examples' do
+    it 'contains steps, examples, and tags' do
+      tags = [:tag_1, :tagt_2]
       steps = [:step_1, :step_2, :step_3]
       examples = [:example_1, :example_2, :example_3]
-      everything = steps + examples
+      everything = steps + examples + tags
 
       outline.steps = steps
       outline.examples = examples
+      outline.tags = tags
 
-      outline.contains.should =~ everything
+      expect(outline.children).to match_array(everything)
     end
+
+
+    describe 'comparison' do
+
+      it 'can gracefully be compared to other types of objects' do
+        # Some common types of object
+        [1, 'foo', :bar, [], {}].each do |thing|
+          expect { outline == thing }.to_not raise_error
+          expect(outline == thing).to be false
+        end
+      end
+
+    end
+
 
     describe 'outline output edge cases' do
 
@@ -118,13 +132,7 @@ describe 'Outline, Unit' do
         end
 
         it 'can output an outline that has only a description' do
-          outline.description_text = 'a description'
-
-          expect { outline.to_s }.to_not raise_error
-        end
-
-        it 'can output an outline that has only tags' do
-          outline.tags = ['a tag']
+          outline.description = 'a description'
 
           expect { outline.to_s }.to_not raise_error
         end

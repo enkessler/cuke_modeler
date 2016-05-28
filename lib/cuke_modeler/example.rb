@@ -2,26 +2,18 @@ module CukeModeler
 
   # A class modeling a Cucumber Examples table.
 
-  class Example < FeatureElement
+  class Example < ModelElement
 
-    include Taggable
+    include Raw
+    include Named
+    include Described
+    include Sourceable
     include Containing
+    include Taggable
 
 
-    # The argument rows in the example table
-    #
-    # todo - Make this a read only method that derives the rows from
-    # the row elements
+    # The row objects in the example table
     attr_accessor :rows
-
-    # The parameters for the example table
-    #
-    # todo - Make this a read only method that derives the parameters from
-    # the row elements
-    attr_accessor :parameters
-
-    # The row elements in the example table
-    attr_accessor :row_elements
 
 
     # Creates a new Example object and, if *source* is provided,
@@ -31,11 +23,10 @@ module CukeModeler
 
       super(parsed_example)
 
+      @name = ''
+      @description = ''
       @tags = []
-      @tag_elements = []
       @rows = []
-      @parameters = []
-      @row_elements = []
 
       build_example(parsed_example) if parsed_example
     end
@@ -44,7 +35,7 @@ module CukeModeler
     # parameters and their corresponding values or as an Array of values which
     # will be assigned in order.
     def add_row(row)
-      raise('Cannot add a row. No parameters have been set.') if @parameters.empty?
+      raise('Cannot add a row. No parameters have been set.') if rows.empty?
 
       # A quick 'deep clone' so that the input isn't modified
       row = Marshal::load(Marshal.dump(row))
@@ -54,14 +45,12 @@ module CukeModeler
           # 'stringify' input
           row.collect! { |value| value.to_s }
 
-          @rows << Hash[@parameters.zip(row.collect { |value| value.strip })]
-          @row_elements << Row.new("|#{row.join('|')}|")
+          @rows << Row.new("|#{row.join('|')}|")
         when row.is_a?(Hash)
           # 'stringify' input
           row = row.inject({}) { |hash, (key, value)| hash[key.to_s] = value.to_s; hash }
 
-          @rows << row.each_value { |value| value.strip! }
-          @row_elements << Row.new("|#{ordered_row_values(row).join('|')}|")
+          @rows << Row.new("|#{ordered_row_values(row).join('|')}|")
         else
           raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
       end
@@ -70,24 +59,37 @@ module CukeModeler
     # Removes a row from the example table. The row can be given as a Hash of
     # parameters and their corresponding values or as an Array of values
     # which will be assigned in order.
-    def remove_row(row)
+    def remove_row(row_removed)
+      raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}") unless row_removed.is_a?(Array) or row_removed.is_a?(Hash)
+
+      return unless argument_rows
+
       case
-        when row.is_a?(Array)
-          location = @rows.index { |row_hash| row_hash.values_at(*@parameters) == row.collect { |value| value.strip } }
-        when row.is_a?(Hash)
-          location = @rows.index { |row_hash| row_hash == row.each_value { |value| value.strip! } }
-        else
-          raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row.class}")
+        when row_removed.is_a?(Array)
+          location = argument_rows.index { |row| row.cells == row_removed.collect { |value| value.strip } }
+        when row_removed.is_a?(Hash)
+          # Note: the hash value order has to be manually calculated because Ruby 1.8.7 does not have ordered 
+          # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead 
+          # of being built up in order according to the parameter order.
+          location = argument_rows.index { |row| row.cells == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
       end
 
-      #todo - remove once Hash rows are no longer supported
-      @rows.delete_at(location) if location
-      @row_elements.delete_at(location + 1) if location
+      @rows.delete_at(location + 1) if location
     end
 
-    # Returns the immediate child elements of the element.
-    def contains
-      @row_elements
+    # The argument rows in the example table
+    def argument_rows
+      rows[1..rows.count] || []
+    end
+
+    # The parameter row for the example table
+    def parameter_row
+      rows.first
+    end
+
+    # Returns the model objects that belong to this model.
+    def children
+      rows + tags
     end
 
     # Returns a gherkin representation of the example.
@@ -96,10 +98,10 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Examples:#{name_output_string}"
-      text << "\n" + description_output_string unless description_text.empty?
-      text << "\n" unless description_text.empty?
+      text << "\n" + description_output_string unless description.empty?
+      text << "\n" unless description.empty?
       text << "\n" + parameters_output_string
-      text << "\n" + rows_output_string unless rows.empty?
+      text << "\n" + rows_output_string unless argument_rows.empty?
 
       text
     end
@@ -108,16 +110,7 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_example(source)
-        else
-          source
-      end
-    end
-
-    def parse_example(source_text)
+    def parse_model(source_text)
       base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\n"
       source_text = base_file_string + source_text
 
@@ -127,40 +120,30 @@ module CukeModeler
     end
 
     def build_example(parsed_example)
+      populate_raw_element(parsed_example)
+      populate_element_source_line(parsed_example)
+      populate_name(parsed_example)
+      populate_description(parsed_example)
       populate_element_tags(parsed_example)
-      populate_example_row_elements(parsed_example)
-      populate_example_parameters
-      populate_example_rows
+      populate_example_rows(parsed_example)
     end
 
-    def populate_example_parameters
-      @parameters = @row_elements.first.cells unless @row_elements.empty?
-    end
-
-    def populate_example_rows
-      @row_elements.each do |row|
-        @rows << Hash[@parameters.zip(row.cells)]
-      end
-
-      @rows.shift
-    end
-
-    def populate_example_row_elements(parsed_example)
+    def populate_example_rows(parsed_example)
       parsed_example['rows'].each do |row|
-        @row_elements << build_child_element(Row, row)
+        @rows << build_child_element(Row, row)
       end
     end
 
     def determine_buffer_size(index)
-      row_elements.collect { |row| row.cells[index].length }.max || 0
+      rows.collect { |row| row.cells[index].length }.max || 0
     end
 
     def parameters_output_string
       text = ''
 
-      unless parameters.empty?
+      unless parameter_row.nil?
         text << "  |"
-        parameters.count.times { |index| text << " #{string_for(parameters, index)} |" }
+        parameter_row.cells.count.times { |index| text << " #{string_for(parameter_row.cells, index)} |" }
       end
 
       text
@@ -169,11 +152,11 @@ module CukeModeler
     def rows_output_string
       text = ''
 
-      unless rows.empty?
+      unless argument_rows.empty?
 
-        rows.each do |row|
+        argument_rows.each do |row|
           text << "  |"
-          row.values.count.times { |index| text << " #{string_for(ordered_row_values(row), index)} |" }
+          row.cells.count.times { |index| text << " #{string_for(row.cells, index)} |" }
           text << "\n"
         end
 
@@ -188,7 +171,7 @@ module CukeModeler
     end
 
     def ordered_row_values(row_hash)
-      @parameters.collect { |parameter| row_hash[parameter] }
+      parameter_row.cells.collect { |parameter| row_hash[parameter] }
     end
 
   end

@@ -17,11 +17,9 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? has the following des
   file ||= 1
   test ||= 1
 
-  new_description = @parsed_files[file - 1].feature.tests[test - 1].description_text
-  old_description = @parsed_files[file - 1].feature.tests[test - 1].description
+  description = @parsed_files[file - 1].feature.tests[test - 1].description
 
-  new_description.should == text
-  old_description.should == remove_whitespace(text)
+  expect(description).to eq(text)
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? steps are as follows:$/ do |file, test, steps|
@@ -51,8 +49,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? is found to have the 
 
   expected_tags = expected_tags.raw.flatten
 
-  @parsed_files[file - 1].feature.tests[test - 1].tags.should == expected_tags
-  @parsed_files[file - 1].feature.tests[test - 1].tag_elements.collect { |tag| tag.name }.should == expected_tags
+  @parsed_files[file - 1].feature.tests[test - 1].tags.collect { |tag| tag.name }.should == expected_tags
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? is found to have the following applied tags:$/ do |file, test, expected_tags|
@@ -61,8 +58,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? is found to have the 
 
   expected_tags = expected_tags.raw.flatten
 
-  @parsed_files[file - 1].feature.tests[test - 1].applied_tags.should == expected_tags
-  @parsed_files[file - 1].feature.tests[test - 1].applied_tag_elements.collect { |tag| tag.name }.should == expected_tags
+  @parsed_files[file - 1].feature.tests[test - 1].applied_tags.collect { |tag| tag.name }.should == expected_tags
 end
 
 Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? step "([^"]*)" has the following block:$/ do |file, test, step, block|

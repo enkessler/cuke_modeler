@@ -25,7 +25,7 @@ describe 'TestElement, Unit' do
       steps = [:step_1, :step_2, :step_3]
       element.steps = steps
 
-      element.contains.should =~ steps
+      element.children.should =~ steps
     end
 
     it 'can determine its equality with another TestElement' do

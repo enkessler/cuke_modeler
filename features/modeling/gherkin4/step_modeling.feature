@@ -7,7 +7,6 @@ Feature: Step elements can be modeled.
   1. All conceptual pieces of a step can be modeled:
   - the step's keyword
   - the text of the step
-  - the step's arguments, if any
   - the step's associated block, if any
   - the step's source line
   - the step's raw element
@@ -32,7 +31,6 @@ Feature: Step elements can be modeled.
           | more data | a value  |
         Then a step with a *parameter*
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 
@@ -56,14 +54,6 @@ Feature: Step elements can be modeled.
     And test step "2" text is "some big setup step:"
     And test step "3" text is "this *parameterized* step takes a table:"
     And test step "4" text is "a step with a *parameter*"
-
-  Scenario: The step's arguments are modeled.
-    Then test step "1" has no arguments
-    And test step "2" has no arguments
-    And test step "3" arguments are:
-      | parameterized |
-    And test step "4" arguments are:
-      | parameter |
 
   Scenario: The steps's block is modeled.
     Then step "1" has no block

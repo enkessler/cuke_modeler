@@ -2,29 +2,22 @@ module CukeModeler
 
   # A class modeling the Doc String of a Step.
 
-  class DocString
+  class DocString < ModelElement
 
     include Raw
-    include Nested
 
 
     # The content type associated with the doc string
     attr_accessor :content_type
 
-    # Deprecated
-    #
     # The contents of the doc string
     attr_accessor :contents
-
-    # The contents of the doc string
-    attr_accessor :contents_text
 
 
     # Creates a new DocString object and, if *source* is provided, populates
     # the object.
     def initialize(source = nil)
-      @contents = []
-      @contents_text = ''
+      @contents = ''
 
       parsed_doc_string = process_source(source)
 
@@ -42,16 +35,7 @@ module CukeModeler
     private
 
 
-    def process_source(source)
-      case
-        when source.is_a?(String)
-          parse_doc_string(source)
-        else
-          source
-      end
-    end
-
-    def parse_doc_string(source_text)
+    def parse_model(source_text)
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 
@@ -71,8 +55,7 @@ module CukeModeler
     end
 
     def populate_contents(doc_string)
-      @contents = doc_string['value'].split($/, -1)
-      @contents_text = doc_string['value']
+      @contents = doc_string['value']
     end
 
     def content_type_output_string
@@ -80,7 +63,7 @@ module CukeModeler
     end
 
     def contents_output_string
-      contents_text.empty? ? '' : contents_text.gsub('"""', '\"\"\"') + "\n"
+      contents.empty? ? '' : contents.gsub('"""', '\"\"\"') + "\n"
     end
 
   end

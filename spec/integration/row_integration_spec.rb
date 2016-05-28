@@ -7,6 +7,12 @@ describe 'Row, Integration' do
   let(:clazz) { CukeModeler::Row }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a modeled element, integration'
+
+  end
+
   describe 'unique behavior' do
 
     describe 'getting ancestors' do
@@ -26,7 +32,7 @@ describe 'Row, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.row_elements.first }
+      let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
 
 
       it 'can get its directory' do
@@ -47,10 +53,31 @@ describe 'Row, Integration' do
         ancestor.should equal directory.feature_files.first.features.first
       end
 
-      it 'can get its test' do
-        ancestor = row.get_ancestor(:test)
+      context 'a row that is part of an outline' do
 
-        ancestor.should equal directory.feature_files.first.features.first.tests.first
+        before(:each) do
+          source = 'Feature: Test feature
+                      
+                      Scenario Outline: Test outline
+                        * a step
+                      Examples:
+                        | param |
+                        | value |'
+
+          file_path = "#{@default_file_directory}/step_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:row) { directory.feature_files.first.features.first.tests.first.examples.first.rows.first }
+
+
+        it 'can get its outline' do
+          ancestor = row.get_ancestor(:test)
+
+          expect(ancestor).to equal(directory.feature_files.first.features.first.tests.first)
+        end
+
       end
 
       it 'can get its example' do
