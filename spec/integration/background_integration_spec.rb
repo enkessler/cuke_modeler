@@ -23,7 +23,7 @@ describe 'Background, Integration' do
       background = clazz.new(source)
       step = background.steps.first
 
-      expect(step.parent_element).to equal(background)
+      expect(step.parent_model).to equal(background)
     end
 
     describe 'getting ancestors' do

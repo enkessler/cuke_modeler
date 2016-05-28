@@ -9,9 +9,9 @@ module CukeModeler
 
 
     # Returns the tags which are indirectly assigned to the element (i.e. they
-    # have been inherited from a parent element).
+    # have been inherited from a parent model).
     def applied_tags
-      @parent_element.respond_to?(:all_tags) ? @parent_element.all_tags : []
+      parent_model.respond_to?(:all_tags) ? parent_model.all_tags : []
     end
 
     # Returns all of the tags which are applicable to the element.

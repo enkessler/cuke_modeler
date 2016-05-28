@@ -6,7 +6,7 @@ module CukeModeler
   module Nested
 
     # The parent object that contains *self*
-    attr_accessor :parent_element
+    attr_accessor :parent_model
 
 
     # Returns the ancestor of *self* that matches the given type.
@@ -22,14 +22,14 @@ module CukeModeler
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_type.nil?
 
-      
-      ancestor = self.parent_element
-      
+
+      ancestor = self.parent_model
+
       until target_type.include?(ancestor.class) || ancestor.nil?
-        ancestor = ancestor.parent_element
+        ancestor = ancestor.parent_model
       end
 
-      
+
       ancestor
     end
 

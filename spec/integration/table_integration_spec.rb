@@ -24,8 +24,8 @@ describe 'Table, Integration' do
       row_1 = table.rows[0]
       row_2 = table.rows[1]
 
-      row_1.parent_element.should equal table
-      row_2.parent_element.should equal table
+      row_1.parent_model.should equal table
+      row_2.parent_model.should equal table
     end
 
     describe 'getting ancestors' do

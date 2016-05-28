@@ -29,5 +29,5 @@ properties. In these cases, their structure and properties can be set directly.
         child_model = <model_class>.new
         parent_model = <model_class>.new
 
-        child_model.parent_element = parent_model
+        child_model.parent_model = parent_model
       """

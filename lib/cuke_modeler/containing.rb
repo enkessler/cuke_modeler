@@ -9,7 +9,7 @@ module CukeModeler
 
     def build_child_element(clazz, element_data)
       element = clazz.new(element_data)
-      element.parent_element = self
+      element.parent_model = self
 
       element
     end

@@ -26,9 +26,9 @@ describe 'Example, Integration' do
       rows = example.rows
       tag = example.tags.first
 
-      expect(rows[0].parent_element).to equal(example)
-      expect(rows[1].parent_element).to equal(example)
-      expect(tag.parent_element).to equal(example)
+      expect(rows[0].parent_model).to equal(example)
+      expect(rows[1].parent_model).to equal(example)
+      expect(tag.parent_model).to equal(example)
     end
 
     it 'does not include the parameter row when accessing argument rows' do

@@ -25,8 +25,8 @@ describe 'Scenario, Integration' do
       step = scenario.steps.first
       tag = scenario.tags.first
 
-      step.parent_element.should equal scenario
-      tag.parent_element.should equal scenario
+      step.parent_model.should equal scenario
+      tag.parent_model.should equal scenario
     end
 
 

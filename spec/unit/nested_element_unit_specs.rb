@@ -7,21 +7,21 @@ shared_examples_for 'a nested element' do
   let(:nested_element) { clazz.new }
 
 
-  it 'has a parent element' do
-    expect(nested_element).to respond_to(:parent_element)
+  it 'has a parent model' do
+    expect(nested_element).to respond_to(:parent_model)
   end
 
-  it 'can change its parent element' do
-    expect(nested_element).to respond_to(:parent_element=)
+  it 'can change its parent model' do
+    expect(nested_element).to respond_to(:parent_model=)
 
-    nested_element.parent_element = :some_parent_element
-    expect(nested_element.parent_element).to eq(:some_parent_element)
-    nested_element.parent_element = :some_other_parent_element
-    expect(nested_element.parent_element).to eq(:some_other_parent_element)
+    nested_element.parent_model = :some_parent_model
+    expect(nested_element.parent_model).to eq(:some_parent_model)
+    nested_element.parent_model = :some_other_parent_model
+    expect(nested_element.parent_model).to eq(:some_other_parent_model)
   end
 
-  it 'starts with no parent element' do
-    expect(nested_element.parent_element).to be_nil
+  it 'starts with no parent model' do
+    expect(nested_element.parent_model).to be_nil
   end
 
   it 'has access to its ancestors' do

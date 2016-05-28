@@ -7,12 +7,12 @@ describe 'Taggable, Unit' do
   let(:nodule) { CukeModeler::Taggable }
   let(:element) { o = Object.new.extend(nodule)
 
-                  def o.parent_element
-                    @parent_element
+                  def o.parent_model
+                    @parent_model
                   end
 
-                  def o.parent_element=(parent)
-                    @parent_element = parent
+                  def o.parent_model=(parent)
+                    @parent_model = parent
                   end
 
                   o
@@ -42,7 +42,7 @@ describe 'Taggable, Unit' do
       all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
       parent = double(:all_tags => all_parent_tags)
 
-      element.parent_element = parent
+      element.parent_model = parent
 
       element.applied_tags.should == all_parent_tags
     end
@@ -53,14 +53,14 @@ describe 'Taggable, Unit' do
 
       parent = double(:all_tags => all_parent_tags)
 
-      element.parent_element = parent
+      element.parent_model = parent
       element.tags = own_tags
 
       element.all_tags.should == all_parent_tags + own_tags
     end
 
     it 'may have no applied tags' do
-      element.parent_element = :not_a_tagged_object
+      element.parent_model = :not_a_tagged_object
 
       element.applied_tags.should == []
     end

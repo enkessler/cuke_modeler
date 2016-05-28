@@ -35,10 +35,10 @@ describe 'Feature, Integration' do
       tag = feature.tags[0]
 
 
-      expect(outline.parent_element).to equal(feature)
-      expect(scenario.parent_element).to equal(feature)
-      expect(background.parent_element).to equal(feature)
-      expect(tag.parent_element).to equal(feature)
+      expect(outline.parent_model).to equal(feature)
+      expect(scenario.parent_model).to equal(feature)
+      expect(background.parent_model).to equal(feature)
+      expect(tag.parent_model).to equal(feature)
     end
 
     it 'can selectively access its scenarios and outlines' do

@@ -10,17 +10,17 @@ describe 'Nested, Unit' do
 
   describe 'unique behavior' do
 
-    it 'has a parent element' do
-      nested_element.should respond_to(:parent_element)
+    it 'has a parent model' do
+      expect(nested_element).to respond_to(:parent_model)
     end
 
-    it 'can change its parent element' do
-      expect(nested_element).to respond_to(:parent_element=)
+    it 'can change its parent model' do
+      expect(nested_element).to respond_to(:parent_model=)
 
-      nested_element.parent_element = :some_parent_element
-      nested_element.parent_element.should == :some_parent_element
-      nested_element.parent_element = :some_other_parent_element
-      nested_element.parent_element.should == :some_other_parent_element
+      nested_element.parent_model = :some_parent_model
+      expect(nested_element.parent_model).to eq(:some_parent_model)
+      nested_element.parent_model = :some_other_parent_model
+      expect(nested_element.parent_model).to eq(:some_other_parent_model)
     end
 
     it 'has access to its ancestors' do

@@ -29,9 +29,9 @@ describe 'Outline, Integration' do
       step = outline.steps.first
       tag = outline.tags.first
 
-      expect(example.parent_element).to equal(outline)
-      expect(step.parent_element).to equal(outline)
-      expect(tag.parent_element).to equal(outline)
+      expect(example.parent_model).to equal(outline)
+      expect(step.parent_model).to equal(outline)
+      expect(tag.parent_model).to equal(outline)
     end
 
 

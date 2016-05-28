@@ -30,8 +30,8 @@ describe 'Step, Integration' do
       doc_string = step_1.block
       table = step_2.block
 
-      doc_string.parent_element.should equal step_1
-      table.parent_element.should equal step_2
+      doc_string.parent_model.should equal step_1
+      table.parent_model.should equal step_2
     end
 
     it 'can determine its equality with another Step' do

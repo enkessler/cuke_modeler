@@ -28,8 +28,8 @@ describe 'Directory, Integration' do
       nested_directory = directory.directories.first
       file = directory.feature_files.first
 
-      expect(nested_directory.parent_element).to equal(directory)
-      expect(file.parent_element).to equal(directory)
+      expect(nested_directory.parent_model).to equal(directory)
+      expect(file.parent_model).to equal(directory)
     end
 
     it 'cannot model a non-existent directory' do

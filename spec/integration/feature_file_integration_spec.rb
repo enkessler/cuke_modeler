@@ -31,7 +31,7 @@ describe 'FeatureFile, Integration' do
       file = clazz.new(file_path)
       feature = file.feature
 
-      expect(feature.parent_element).to equal(file)
+      expect(feature.parent_model).to equal(file)
     end
 
     describe 'getting ancestors' do

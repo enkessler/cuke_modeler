@@ -32,7 +32,7 @@ shared_examples_for 'a tagged element' do
     all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
     parent = double(:all_tags => all_parent_tags)
 
-    element.parent_element = parent
+    element.parent_model = parent
 
     expect(element.applied_tags).to match_array(all_parent_tags)
   end
@@ -43,7 +43,7 @@ shared_examples_for 'a tagged element' do
 
     parent = double(:all_tags => all_parent_tags)
 
-    element.parent_element = parent
+    element.parent_model = parent
     element.tags = own_tags
 
     expect(element.all_tags).to match_array(all_parent_tags + own_tags)
