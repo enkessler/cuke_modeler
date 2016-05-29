@@ -7,10 +7,10 @@ module CukeModeler
     include Containing
 
 
-    # The Feature object contained by the FeatureFile
+    # The feature object contained by the modeled feature file
     attr_accessor :feature
 
-    # The file path of the FeatureFile
+    # The file path of the modeled feature file
     attr_accessor :path
 
 
@@ -28,17 +28,17 @@ module CukeModeler
       end
     end
 
-    # Returns the name of the file.
+    # Returns the name of the modeled feature file.
     def name
       File.basename(@path.gsub('\\', '/')) if @path
     end
 
-    # Returns the immediate child elements of the file(i.e. its Feature object).
+    # Returns the immediate child elements of the modeled feature file(i.e. its Feature object).
     def children
       [@feature]
     end
 
-    # Returns the path of the feature file.
+    # Returns the path of the modeled feature file.
     def to_s
       path.to_s
     end

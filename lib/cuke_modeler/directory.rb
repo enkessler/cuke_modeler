@@ -7,13 +7,13 @@ module CukeModeler
     include Containing
 
 
-    # The FeatureFile objects contained by the Directory
+    # The feature file objects contained by the modeled directory
     attr_accessor :feature_files
 
-    # The Directory objects contained by the Directory
+    # The directory objects contained by the modeled directory
     attr_accessor :directories
 
-    # The file path of the Directory
+    # The file path of the modeled directory
     attr_accessor :path
 
 
@@ -30,28 +30,29 @@ module CukeModeler
       end
     end
 
-    # Returns the name of the directory.
+    # Returns the name of the modeled directory.
     def name
       File.basename(@path.gsub('\\', '/')) if @path
     end
 
-    # Returns the number of sub-directories contained in the directory.
+    # todo - remove simple counting methods like this one
+    # Returns the number of sub-directories contained in the modeled directory.
     def directory_count
       @directories.count
     end
 
-    # Returns the number of features files contained in the directory.
+    # Returns the number of features files contained in the modeled directory.
     def feature_file_count
       @feature_files.count
     end
 
-    # Returns the immediate child elements of the directory (i.e. its Directory
+    # Returns the immediate child elements of the modeled directory (i.e. its Directory
     # and FeatureFile objects).
     def children
       @feature_files + @directories
     end
 
-    # Returns the path of the directory.
+    # Returns the path of the modeled directory.
     def to_s
       path.to_s
     end
