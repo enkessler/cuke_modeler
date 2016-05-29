@@ -76,18 +76,14 @@ Feature: Features can be modeled.
   Scenario: The feature's properties are modeled.
     Then feature "1" is found to have the following properties:
       | name            | The test feature name. |
-      | test_count      | 3                      |
       | test_case_count | 5                      |
       | source_line     | 3                      |
     And feature "2" is found to have the following properties:
       | name            |   |
-      | test_count      | 2 |
       | test_case_count | 1 |
       | source_line     | 1 |
-
     And feature "3" is found to have the following properties:
       | name            |   |
-      | test_count      | 0 |
       | test_case_count | 0 |
       | source_line     | 1 |
 
@@ -110,30 +106,18 @@ Feature: Features can be modeled.
     And feature "3" has no tags
 
   Scenario: The feature's scenarios are modeled.
-    Then feature "1" is found to have the following properties:
-      | scenario_count | 2 |
-    And feature "1" scenarios are as follows:
+    Then feature "1" scenarios are as follows:
       | The first scenario's name.  |
       | The second scenario's name. |
-    And feature "2" is found to have the following properties:
-      | scenario_count | 1 |
     And feature "2" scenarios are as follows:
       |  |
-    And feature "3" is found to have the following properties:
-      | scenario_count | 0 |
     And feature "3" has no scenarios
 
   Scenario: The feature's outlines are modeled.
-    Then feature "1" is found to have the following properties:
-      | outline_count | 1 |
-    And feature "1" outlines are as follows:
+    Then feature "1" outlines are as follows:
       | The scenario outline's name. |
-    And feature "2" is found to have the following properties:
-      | outline_count | 1 |
     And feature "2" outlines are as follows:
       |  |
-    And feature "3" is found to have the following properties:
-      | outline_count | 0 |
     And feature "3" has no outlines
 
   Scenario: The feature's background is modeled.

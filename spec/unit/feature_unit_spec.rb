@@ -102,13 +102,6 @@ describe 'Feature, Unit' do
       feature.tests.should == :some_other_tests
     end
 
-    it 'knows how many tests it has' do
-      feature.tests = []
-      feature.test_count.should == 0
-      feature.tests = [:test_1, :test_2]
-      feature.test_count.should == 2
-    end
-
     it 'can selectively access its scenarios' do
       expect(feature).to respond_to(:scenarios)
     end

@@ -35,17 +35,6 @@ module CukeModeler
       File.basename(@path.gsub('\\', '/')) if @path
     end
 
-    # todo - remove simple counting methods like this one
-    # Returns the number of sub-directories contained in the modeled directory.
-    def directory_count
-      @directories.count
-    end
-
-    # Returns the number of features files contained in the modeled directory.
-    def feature_file_count
-      @feature_files.count
-    end
-
     # Returns the immediate child elements of the modeled directory (i.e. its Directory
     # and FeatureFile objects).
     def children

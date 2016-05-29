@@ -49,24 +49,9 @@ module CukeModeler
       @tests.select { |test| test.is_a? Outline }
     end
 
-    # Returns the number of scenarios contained in the feature.
-    def scenario_count
-      scenarios.count
-    end
-
-    # Returns the number of outlines contained in the feature.
-    def outline_count
-      outlines.count
-    end
-
-    # Returns the number of tests contained in the feature.
-    def test_count
-      @tests.count
-    end
-
     # Returns the number of test cases contained in the feature.
     def test_case_count
-      scenario_count + outlines.reduce(0) { |outline_sum, outline|
+      scenarios.count + outlines.reduce(0) { |outline_sum, outline|
         outline_sum += outline.examples.reduce(0) { |example_sum, example|
           example_sum += example.argument_rows.count
         }

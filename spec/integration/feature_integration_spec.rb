@@ -51,28 +51,6 @@ describe 'Feature, Integration' do
       expect(feature.outlines).to match_array(outlines)
     end
 
-    it 'knows how many scenarios it has' do
-      scenarios = [CukeModeler::Scenario.new, CukeModeler::Scenario.new]
-      outlines = [CukeModeler::Outline.new]
-
-      feature.tests = []
-      expect(feature.scenario_count).to eq(0)
-
-      feature.tests = scenarios + outlines
-      expect(feature.scenario_count).to eq(2)
-    end
-
-    it 'knows how many outlines it has' do
-      scenarios = [CukeModeler::Scenario.new]
-      outlines = [CukeModeler::Outline.new, CukeModeler::Outline.new]
-
-      feature.tests = []
-      expect(feature.outline_count).to eq(0)
-
-      feature.tests = scenarios + outlines
-      expect(feature.outline_count).to eq(2)
-    end
-
     it 'knows how many test cases it has' do
       source_1 = ['Feature: Test feature']
       source_1 = source_1.join("\n")

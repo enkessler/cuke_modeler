@@ -61,12 +61,6 @@ describe 'Directory, Unit' do
       directory.feature_files.should == :some_other_feature_files
     end
 
-    it 'knows how many feature files it has' do
-      directory.feature_files = [:file_1, :file_2, :file_3]
-
-      directory.feature_file_count.should == 3
-    end
-
     it 'has directories' do
       directory.should respond_to(:directories)
     end
@@ -80,11 +74,6 @@ describe 'Directory, Unit' do
       directory.directories.should == :some_other_directories
     end
 
-    it 'knows how many directories it has' do
-      directory.directories = [:directory_1, :directory_2, :directory_3]
-
-      directory.directory_count.should == 3
-    end
 
     describe 'abstract instantiation' do
 
