@@ -67,15 +67,15 @@ describe 'Step, Unit' do
 
 
         it 'starts with no base' do
-          step.base.should == nil
+          expect(step.base).to be_nil
         end
 
         it 'starts with no block' do
-          step.block.should == nil
+          expect(step.block).to be_nil
         end
 
         it 'starts with no keyword' do
-          step.keyword.should == nil
+          expect(step.keyword).to be_nil
         end
 
       end

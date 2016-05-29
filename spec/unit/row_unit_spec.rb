@@ -80,7 +80,7 @@ describe 'Row, Unit' do
 
 
         it 'starts with no cells' do
-          row.cells.should == []
+          expect(row.cells).to eq([])
         end
 
       end

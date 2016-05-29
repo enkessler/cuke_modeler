@@ -87,7 +87,7 @@ describe 'Outline, Unit' do
 
 
         it 'starts with no examples' do
-          outline.examples.should == []
+          expect(outline.examples).to eq([])
         end
 
       end

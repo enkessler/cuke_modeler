@@ -91,8 +91,8 @@ describe 'Directory, Unit' do
         end
 
         it 'starts with no feature files or directories' do
-          directory.feature_files.should == []
-          directory.directories.should == []
+          expect(directory.feature_files).to eq([])
+          expect(directory.directories).to eq([])
         end
 
       end

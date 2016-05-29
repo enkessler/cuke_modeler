@@ -150,11 +150,11 @@ describe 'Feature, Unit' do
 
 
         it 'starts with no background' do
-          feature.background.should == nil
+          expect(feature.background).to be_nil
         end
 
         it 'starts with no tests' do
-          feature.tests.should == []
+          expect(feature.tests).to eq([])
         end
 
       end

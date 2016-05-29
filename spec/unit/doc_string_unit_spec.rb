@@ -100,11 +100,11 @@ describe 'DocString, Unit' do
 
 
         it 'starts with no content type' do
-          doc_string.content_type.should == nil
+          expect(doc_string.content_type).to be_nil
         end
 
         it 'starts with no contents' do
-          doc_string.contents.should == ''
+          expect(doc_string.contents).to eq('')
         end
 
       end
