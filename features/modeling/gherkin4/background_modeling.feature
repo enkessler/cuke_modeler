@@ -30,7 +30,6 @@ Feature: Background elements can be modeled.
         And another setup step
         When an action step
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 

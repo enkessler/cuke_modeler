@@ -21,7 +21,6 @@ Feature: Tests can be manipulated in various ways.
         | param1 | param2 |
         | x      | y      |
     """
-    And parameter delimiters of "*" and "*"
     And the file is read
 
   Scenario: Rows can be added to an outline

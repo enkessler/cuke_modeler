@@ -27,7 +27,6 @@ Feature: Row elements can be modeled.
         | param1 |
         | a      |
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 

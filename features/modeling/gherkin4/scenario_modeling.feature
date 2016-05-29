@@ -35,7 +35,6 @@ Feature: Scenario elements can be modeled.
         When an action step
         Then a verification step
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 

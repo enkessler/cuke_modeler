@@ -15,18 +15,6 @@ When /^the file(?: "([^"]*)")? is read$/ do |file_name|
   @parsed_files << CukeModeler::FeatureFile.new("#{@test_directory}/#{file_name}")
 end
 
-When /^the step definition file "([^"]*)" is read$/ do |file_name|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_step_file_name
-
-  CukeModeler::World.load_step_file("#{@test_directory}/#{file_name}")
-end
-
-When /^parameter delimiters of "([^"]*)" and "([^"]*)"$/ do |left_delimiter, right_delimiter|
-  CukeModeler::World.left_delimiter = left_delimiter
-  CukeModeler::World.right_delimiter = right_delimiter
-end
-
 Given /^a directory "([^"]*)"$/ do |directory_name|
   @test_directory = "#{@default_file_directory}/#{directory_name}"
 

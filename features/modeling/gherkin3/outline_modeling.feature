@@ -42,7 +42,6 @@ Feature: Outline elements can be modeled.
         | setup | verification |
         | a     | b            |
     """
-    And parameter delimiters of "*" and "*"
     When the file is read
 
 
