@@ -20,8 +20,19 @@ shared_examples_for 'a described element' do
     expect(element.description).to eq(:some_other_description)
   end
 
-  it 'starts with no description' do
-    expect(element.description).to eq('')
+
+  describe 'abstract instantiation' do
+
+    context 'a new described object' do
+
+      let(:element) { clazz.new }
+
+      it 'starts with no description' do
+        expect(element.description).to eq('')
+      end
+
+    end
+
   end
 
 end

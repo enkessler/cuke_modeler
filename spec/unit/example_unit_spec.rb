@@ -104,10 +104,6 @@ describe 'Example, Unit' do
       expect(example.rows).to eq(:some_other_rows)
     end
 
-    it 'starts with no rows' do
-      expect(example.rows).to eq([])
-    end
-
     it 'can selectively access its parameter row' do
       expect(example).to respond_to(:parameter_row)
     end
@@ -116,13 +112,30 @@ describe 'Example, Unit' do
       expect(example).to respond_to(:argument_rows)
     end
 
-    it 'starts with no argument rows' do
-      expect(example.argument_rows).to eq([])
+
+    describe 'abstract instantiation' do
+
+      context 'a new example object' do
+
+        let(:example) { clazz.new }
+
+
+        it 'starts with no rows' do
+          expect(example.rows).to eq([])
+        end
+
+        it 'starts with no argument rows' do
+          expect(example.argument_rows).to eq([])
+        end
+
+        it 'starts with no parameter row' do
+          expect(example.parameter_row).to be_nil
+        end
+
+      end
+
     end
 
-    it 'starts with no parameter row' do
-      expect(example.parameter_row).to be_nil
-    end
 
     describe '#add_row' do
 

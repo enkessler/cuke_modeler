@@ -32,10 +32,6 @@ describe 'Step, Unit' do
       step.base.should == :some_other_base
     end
 
-    it 'starts with no base' do
-      step.base.should == nil
-    end
-
     it 'has a block' do
       step.should respond_to(:block)
     end
@@ -47,10 +43,6 @@ describe 'Step, Unit' do
       step.block.should == :some_block
       step.block = :some_other_block
       step.block.should == :some_other_block
-    end
-
-    it 'starts with no block' do
-      step.block.should == nil
     end
 
     it 'has a keyword' do
@@ -66,8 +58,28 @@ describe 'Step, Unit' do
       step.keyword.should == :some_other_keyword
     end
 
-    it 'starts with no keyword' do
-      step.keyword.should == nil
+
+    describe 'abstract instantiation' do
+
+      context 'a new step object' do
+
+        let(:step) { clazz.new }
+
+
+        it 'starts with no base' do
+          step.base.should == nil
+        end
+
+        it 'starts with no block' do
+          step.block.should == nil
+        end
+
+        it 'starts with no keyword' do
+          step.keyword.should == nil
+        end
+
+      end
+
     end
 
     it 'can be parsed from stand alone text' do

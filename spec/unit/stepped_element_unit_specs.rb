@@ -20,8 +20,20 @@ shared_examples_for 'a stepped element' do
     expect(element.steps).to eq(:some_other_steps)
   end
 
-  it 'starts with no steps' do
-    expect(element.steps).to eq([])
+
+  describe 'abstract instantiation' do
+
+    context 'a new stepped object' do
+
+      let(:element) { clazz.new }
+
+
+      it 'starts with no steps' do
+        expect(element.steps).to eq([])
+      end
+
+    end
+
   end
 
   it 'contains steps' do

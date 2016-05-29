@@ -20,8 +20,20 @@ shared_examples_for 'a named element' do
     expect(element.name).to eq(:some_other_name)
   end
 
-  it 'starts with no name' do
-    expect(element.name).to eq('')
+
+  describe 'abstract instantiation' do
+
+    context 'a new named object' do
+
+      let(:element) { clazz.new }
+
+
+      it 'starts with no name' do
+        expect(element.name).to eq('')
+      end
+
+    end
+
   end
 
 end

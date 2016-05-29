@@ -71,9 +71,22 @@ describe 'TableRow, Unit' do
       row.cells.should == :some_other_cells
     end
 
-    it 'starts with no cells' do
-      row.cells.should == []
+
+    describe 'abstract instantiation' do
+
+      context 'a new row object' do
+
+        let(:row) { clazz.new }
+
+
+        it 'starts with no cells' do
+          row.cells.should == []
+        end
+
+      end
+
     end
+
 
     describe 'table row output edge cases' do
 

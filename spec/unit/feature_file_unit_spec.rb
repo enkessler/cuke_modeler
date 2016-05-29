@@ -74,16 +74,23 @@ describe 'FeatureFile, Unit' do
 
     describe 'abstract instantiation' do
 
-      it 'starts with no path' do
-        expect(feature_file.path).to be_nil
-      end
+      context 'a new feature file object' do
 
-      it 'starts with no name' do
-        expect(feature_file.name).to be_nil
-      end
+        let(:feature_file) { clazz.new }
 
-      it 'starts with no feature' do
-        expect(feature_file.feature).to be_nil
+
+        it 'starts with no path' do
+          expect(feature_file.path).to be_nil
+        end
+
+        it 'starts with no name' do
+          expect(feature_file.name).to be_nil
+        end
+
+        it 'starts with no feature' do
+          expect(feature_file.feature).to be_nil
+        end
+
       end
 
     end

@@ -72,11 +72,15 @@ describe 'Tag, Unit' do
 
     describe 'abstract instantiation' do
 
-      let(:tag) { clazz.new }
+      context 'a new tag object' do
+
+        let(:tag) { clazz.new }
 
 
-      it 'starts with no name' do
-        expect(tag.name).to be_nil
+        it 'starts with no name' do
+          expect(tag.name).to be_nil
+        end
+
       end
 
     end

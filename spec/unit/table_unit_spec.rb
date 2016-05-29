@@ -69,8 +69,20 @@ describe 'Table, Unit' do
       expect(table.rows).to eq(:some_other_row_elements)
     end
 
-    it 'starts with no rows' do
-      expect(table.rows).to eq([])
+
+    describe 'abstract instantiation' do
+
+      context 'a new table object' do
+
+        let(:table) { clazz.new }
+
+
+        it 'starts with no rows' do
+          expect(table.rows).to eq([])
+        end
+
+      end
+
     end
 
     it 'contains rows' do

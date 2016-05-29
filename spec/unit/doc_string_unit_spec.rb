@@ -69,10 +69,6 @@ describe 'DocString, Unit' do
       doc_string.content_type.should == :some_other_content_type
     end
 
-    it 'starts with no content type' do
-      doc_string.content_type.should == nil
-    end
-
     it 'has contents' do
       doc_string.should respond_to(:contents)
     end
@@ -86,10 +82,6 @@ describe 'DocString, Unit' do
       doc_string.contents.should == :some_other_contents
     end
 
-    it 'starts with no contents' do
-      doc_string.contents.should == ''
-    end
-
     it 'stores its contents as a String' do
       source = "\"\"\"\nsome text\nsome more text\n\"\"\""
       doc_string = clazz.new(source)
@@ -98,6 +90,27 @@ describe 'DocString, Unit' do
 
       contents.is_a?(String).should be_true
     end
+
+
+    describe 'abstract instantiation' do
+
+      context 'a new doc string object' do
+
+        let(:doc_string) { clazz.new }
+
+
+        it 'starts with no content type' do
+          doc_string.content_type.should == nil
+        end
+
+        it 'starts with no contents' do
+          doc_string.contents.should == ''
+        end
+
+      end
+
+    end
+
 
     describe 'doc string output edge cases' do
 

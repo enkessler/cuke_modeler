@@ -20,8 +20,20 @@ shared_examples_for 'a raw element' do
     expect(element.raw_element).to eq(:some_other_raw_element)
   end
 
-  it 'starts with no underlying implementation representation' do
-    expect(element.raw_element).to be_nil
+
+  describe 'abstract instantiation' do
+
+    context 'a new raw object' do
+
+      let(:element) { clazz.new }
+
+
+      it 'starts with no underlying implementation representation' do
+        expect(element.raw_element).to be_nil
+      end
+
+    end
+
   end
 
 end

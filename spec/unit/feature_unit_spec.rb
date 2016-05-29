@@ -141,13 +141,26 @@ describe 'Feature, Unit' do
       feature.children.should =~ everything
     end
 
-    it 'starts with no background' do
-      feature.background.should == nil
+
+    describe 'abstract instantiation' do
+
+      context 'a new feature object' do
+
+        let(:feature) { clazz.new }
+
+
+        it 'starts with no background' do
+          feature.background.should == nil
+        end
+
+        it 'starts with no tests' do
+          feature.tests.should == []
+        end
+
+      end
+
     end
 
-    it 'starts with no tests' do
-      feature.tests.should == []
-    end
 
     describe 'feature output edge cases' do
 

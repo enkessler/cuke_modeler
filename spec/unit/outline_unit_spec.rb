@@ -78,10 +78,22 @@ describe 'Outline, Unit' do
       outline.examples.should == :some_other_examples
     end
 
-    it 'starts with no examples' do
-      outline.examples.should == []
-    end
 
+    describe 'abstract instantiation' do
+
+      context 'a new outline object' do
+
+        let(:outline) { clazz.new }
+
+
+        it 'starts with no examples' do
+          outline.examples.should == []
+        end
+
+      end
+
+    end
+    
     it 'contains steps, examples, and tags' do
       tags = [:tag_1, :tagt_2]
       steps = [:step_1, :step_2, :step_3]

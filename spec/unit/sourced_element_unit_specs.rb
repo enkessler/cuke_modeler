@@ -11,8 +11,20 @@ shared_examples_for 'a sourced element' do
     expect(element).to respond_to(:source_line)
   end
 
-  it 'starts with no source line' do
-    expect(element.source_line).to be_nil
+
+  describe 'abstract instantiation' do
+
+    context 'a new sourced object' do
+
+      let(:element) { clazz.new }
+
+
+      it 'starts with no source line' do
+        expect(element.source_line).to be_nil
+      end
+
+    end
+
   end
 
 end

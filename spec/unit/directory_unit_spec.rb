@@ -77,17 +77,24 @@ describe 'Directory, Unit' do
 
     describe 'abstract instantiation' do
 
-      it 'starts with no path' do
-        expect(directory.path).to be_nil
-      end
+      context 'a new directory object' do
 
-      it 'starts with no name' do
-        expect(directory.name).to be_nil
-      end
+        let(:directory) { clazz.new }
 
-      it 'starts with no feature files or directories' do
-        directory.feature_files.should == []
-        directory.directories.should == []
+
+        it 'starts with no path' do
+          expect(directory.path).to be_nil
+        end
+
+        it 'starts with no name' do
+          expect(directory.name).to be_nil
+        end
+
+        it 'starts with no feature files or directories' do
+          directory.feature_files.should == []
+          directory.directories.should == []
+        end
+
       end
 
     end

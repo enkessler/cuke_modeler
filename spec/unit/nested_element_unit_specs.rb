@@ -20,8 +20,20 @@ shared_examples_for 'a nested element' do
     expect(nested_element.parent_model).to eq(:some_other_parent_model)
   end
 
-  it 'starts with no parent model' do
-    expect(nested_element.parent_model).to be_nil
+
+  describe 'abstract instantiation' do
+
+    context 'a new nested object' do
+
+      let(:nested_element) { clazz.new }
+
+
+      it 'starts with no parent model' do
+        expect(nested_element.parent_model).to be_nil
+      end
+
+    end
+
   end
 
   it 'has access to its ancestors' do

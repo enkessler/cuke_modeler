@@ -20,8 +20,20 @@ shared_examples_for 'a tagged element' do
     expect(element.tags).to eq(:some_other_tags)
   end
 
-  it 'starts with no tags' do
-    expect(element.tags).to eq([])
+
+  describe 'abstract instantiation' do
+
+    context 'a new tagged object' do
+
+      let(:element) { clazz.new }
+
+
+      it 'starts with no tags' do
+        expect(element.tags).to eq([])
+      end
+
+    end
+
   end
 
   it 'has applied tags' do
