@@ -17,6 +17,7 @@ module CukeModeler
       super
     end
 
+    # Returns the model objects that belong to this model.
     def children
       []
     end

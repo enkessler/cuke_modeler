@@ -33,7 +33,7 @@ module CukeModeler
       File.basename(@path.gsub('\\', '/')) if @path
     end
 
-    # Returns the immediate child elements of the modeled feature file(i.e. its Feature object).
+    # Returns the model objects that belong to this model.
     def children
       [@feature]
     end

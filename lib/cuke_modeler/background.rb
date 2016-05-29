@@ -33,6 +33,7 @@ module CukeModeler
       steps == other_model.steps
     end
 
+    # Returns the model objects that belong to this model.
     def children
       steps
     end
