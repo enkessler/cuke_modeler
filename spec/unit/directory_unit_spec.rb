@@ -78,11 +78,11 @@ describe 'Directory, Unit' do
     describe 'abstract instantiation' do
 
       it 'starts with no path' do
-        expect(directory.path).to be nil
+        expect(directory.path).to be_nil
       end
 
       it 'starts with no name' do
-        expect(directory.name).to be nil
+        expect(directory.name).to be_nil
       end
 
       it 'starts with no feature files or directories' do

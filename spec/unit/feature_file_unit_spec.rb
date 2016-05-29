@@ -75,11 +75,11 @@ describe 'FeatureFile, Unit' do
     describe 'abstract instantiation' do
 
       it 'starts with no path' do
-        expect(feature_file.path).to be nil
+        expect(feature_file.path).to be_nil
       end
 
       it 'starts with no name' do
-        expect(feature_file.name).to be nil
+        expect(feature_file.name).to be_nil
       end
 
       it 'starts with no feature' do
