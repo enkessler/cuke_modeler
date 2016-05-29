@@ -124,7 +124,7 @@ describe 'Feature, Unit' do
       expect(feature.outlines).to be_empty
     end
 
-    it 'contains backgrounds, tests, and tags' do
+    it 'contains a background, tests, and tags' do
       tags = [:tag_1, :tagt_2]
       tests = [:test_1, :test_2]
       background = :a_background
