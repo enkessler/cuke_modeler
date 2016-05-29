@@ -69,6 +69,19 @@ describe 'Tag, Unit' do
       element.name.should == :some_other_name
     end
 
+
+    describe 'abstract instantiation' do
+
+      let(:tag) { clazz.new }
+
+
+      it 'starts with no name' do
+        expect(tag.name).to be_nil
+      end
+
+    end
+
+
     describe 'tag output edge cases' do
 
       it 'is a String' do
