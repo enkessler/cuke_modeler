@@ -15,6 +15,15 @@ describe 'Table, Integration' do
 
   describe 'unique behavior' do
 
+    it 'can be parsed from stand alone text' do
+      source = '| a table |'
+
+      expect { @element = clazz.new(source) }.to_not raise_error
+
+      # Sanity check in case instantiation failed in a non-explosive manner
+      expect(@element.rows.collect { |row| row.cells }).to eq([['a table']])
+    end
+
     it 'can be instantiated with the minimum viable Gherkin' do
       source = '| a table |'
 

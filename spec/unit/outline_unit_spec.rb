@@ -41,16 +41,6 @@ describe 'Outline, Unit' do
       expect { clazz.new(source) }.to_not raise_error
     end
 
-    # todo - integration test because of row use
-    it 'can be instantiated with the minimum viable Gherkin', :gherkin3 => true do
-      source = "Scenario Outline:
-                Examples:
-                  | param |
-                  | value |"
-
-      expect { clazz.new(source) }.to_not raise_error
-    end
-
     it 'can be instantiated with the minimum viable Gherkin', :gherkin2 => true do
       source = "Scenario Outline:"
 

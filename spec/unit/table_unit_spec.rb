@@ -18,16 +18,6 @@ describe 'Table, Unit' do
 
   describe 'unique behavior' do
 
-    # todo - this is an integration test due to using rows, move it
-    it 'can be parsed from stand alone text' do
-      source = '| a table |'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      expect(@element.rows.collect { |row| row.cells }).to eq([['a table']])
-    end
-
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = 'bad table text'
 

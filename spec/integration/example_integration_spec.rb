@@ -16,6 +16,23 @@ describe 'Example, Integration' do
 
   describe 'unique behavior' do
 
+    it 'can be instantiated with the minimum viable Gherkin', :gherkin3 => true do
+      source = ['Examples:',
+                '|param|',
+                '|value|']
+      source = source.join("\n")
+
+      expect { @element = clazz.new(source) }.to_not raise_error
+    end
+
+    it 'can be instantiated with the minimum viable Gherkin', :gherkin2 => true do
+      source = ['Examples:',
+                '|param|']
+      source = source.join("\n")
+
+      expect { @element = clazz.new(source) }.to_not raise_error
+    end
+
     it 'properly sets its child elements' do
       source = ['@a_tag',
                 'Examples:',

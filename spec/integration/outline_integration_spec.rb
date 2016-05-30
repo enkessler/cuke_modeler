@@ -15,6 +15,15 @@ describe 'Outline, Integration' do
 
   describe 'unique behavior' do
 
+    it 'can be instantiated with the minimum viable Gherkin', :gherkin3 => true do
+      source = "Scenario Outline:
+                Examples:
+                  | param |
+                  | value |"
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'properly sets its child elements' do
       source = ['@a_tag',
                 '  Scenario Outline:',
