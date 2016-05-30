@@ -208,10 +208,10 @@ describe 'Example, Integration' do
         source = "Examples:\n|param1|param2|\n|value1|value2|\n|value3|value4|\n|value5|value6|"
         example = clazz.new(source)
 
+        # These will affect different rows
         hash_row = {'param1' => 'value3  ', 'param2' => '  value4'}
         array_row = ['value5', ' value6 ']
 
-        # todo - test these separately
         example.remove_row(hash_row)
         example.remove_row(array_row)
 
