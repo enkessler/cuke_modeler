@@ -18,6 +18,7 @@ describe 'Table, Unit' do
 
   describe 'unique behavior' do
 
+    # todo - this is an integration test due to using rows, move it
     it 'can be parsed from stand alone text' do
       source = '| a table |'
 

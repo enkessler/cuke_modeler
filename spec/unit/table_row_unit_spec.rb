@@ -28,6 +28,12 @@ describe 'TableRow, Unit' do
       @element.cells.should == ['a', 'row']
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = '| a | row |'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = 'bad table row text'
 

@@ -31,6 +31,12 @@ describe 'Background, Unit' do
       @element.name.should == 'test background'
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = 'Background:'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = "bad background text \n Background:\n And a step\n @foo "
 

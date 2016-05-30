@@ -26,6 +26,12 @@ describe 'DocString, Unit' do
       @element.contents.should == "some doc string"
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = "\"\"\"\n\"\"\""
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = 'bad doc string text'
 

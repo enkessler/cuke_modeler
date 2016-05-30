@@ -34,7 +34,6 @@ describe 'Example, Unit' do
       @element.name.should == 'test example'
     end
 
-    # todo - add more tests like this to the 'barebones' test set
     it 'can be instantiated with the minimum viable Gherkin', :gherkin4 => true do
       source = ['Examples:']
       source = source.join("\n")
@@ -42,7 +41,7 @@ describe 'Example, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
     end
 
-    # todo - add more tests like this to the 'barebones' test set
+    # todo - integration test because of row use
     it 'can be instantiated with the minimum viable Gherkin', :gherkin3 => true do
       source = ['Examples:',
                 '|param|',
@@ -52,7 +51,7 @@ describe 'Example, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
     end
 
-    # todo - add more tests like this to the 'barebones' test set
+    # todo - integration test because of row use
     it 'can be instantiated with the minimum viable Gherkin', :gherkin2 => true do
       source = ['Examples:',
                 '|param|']

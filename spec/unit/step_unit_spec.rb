@@ -91,6 +91,12 @@ describe 'Step, Unit' do
       @element.base.should == 'test step'
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = '* a step'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = "bad step text\n And a step\n @foo"
 

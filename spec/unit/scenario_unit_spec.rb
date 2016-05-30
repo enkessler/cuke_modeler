@@ -32,6 +32,12 @@ describe 'Scenario, Unit' do
       @element.name.should == 'test scenario'
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = 'Scenario:'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = "bad scenario text \n Scenario:\n And a step\n @foo "
 

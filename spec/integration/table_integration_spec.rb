@@ -15,6 +15,12 @@ describe 'Table, Integration' do
 
   describe 'unique behavior' do
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = '| a table |'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'properly sets its child elements' do
       source = ['| cell 1 |',
                 '| cell 2 |']

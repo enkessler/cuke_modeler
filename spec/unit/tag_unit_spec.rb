@@ -26,6 +26,12 @@ describe 'Tag, Unit' do
       @element.name.should == '@a_tag'
     end
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = '@a_tag'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = 'bad tag text'
 
