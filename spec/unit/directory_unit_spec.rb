@@ -40,14 +40,6 @@ describe 'Directory, Unit' do
       directory.path.should == :some_other_path
     end
 
-    it 'knows the path of the directory that it is modeling' do
-      path = "#{@default_file_directory}"
-
-      directory = clazz.new(path)
-
-      directory.path.should == path
-    end
-
     it 'has feature files' do
       directory.should respond_to(:feature_files)
     end

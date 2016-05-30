@@ -17,24 +17,6 @@ describe 'FeatureFile, Unit' do
 
   describe 'unique behavior' do
 
-    # todo - this is an integration test
-    it 'provides its own filename when being parsed' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts 'bad feature text' }
-
-      expect { clazz.new(path) }.to raise_error(/'#{path}'/)
-    end
-
-    # todo - this is an integration test
-    it 'knows the name of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
-
-      feature_file = clazz.new(path)
-
-      feature_file.name.should == @default_feature_file_name
-    end
-
     it 'has a path' do
       expect(feature_file).to respond_to(:path)
     end
@@ -46,16 +28,6 @@ describe 'FeatureFile, Unit' do
       feature_file.path.should == :some_path
       feature_file.path = :some_other_path
       feature_file.path.should == :some_other_path
-    end
-
-    # todo - this is an integration test
-    it 'knows the path of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
-
-      file = clazz.new(path)
-
-      file.path.should == path
     end
 
     it 'has a feature' do

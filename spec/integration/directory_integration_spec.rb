@@ -32,6 +32,14 @@ describe 'Directory, Integration' do
       expect(file.parent_model).to equal(directory)
     end
 
+    it 'knows the path of the directory that it is modeling' do
+      path = "#{@default_file_directory}"
+
+      directory = clazz.new(path)
+
+      expect(directory.path).to eq(path)
+    end
+
     it 'cannot model a non-existent directory' do
       path = "#{@default_file_directory}/missing_directory"
 

@@ -15,6 +15,31 @@ describe 'FeatureFile, Integration' do
 
   describe 'unique behavior' do
 
+    it 'provides its own filename when being parsed' do
+      path = "#{@default_file_directory}/#{@default_feature_file_name}"
+      File.open(path, "w") { |file| file.puts 'bad feature text' }
+
+      expect { clazz.new(path) }.to raise_error(/'#{path}'/)
+    end
+
+    it 'knows the name of the file that it is modeling' do
+      path = "#{@default_file_directory}/#{@default_feature_file_name}"
+      File.open(path, "w") { |file| file.puts "Feature:" }
+
+      feature_file = clazz.new(path)
+
+      expect(feature_file.name).to eq(@default_feature_file_name)
+    end
+
+    it 'knows the path of the file that it is modeling' do
+      path = "#{@default_file_directory}/#{@default_feature_file_name}"
+      File.open(path, "w") { |file| file.puts "Feature:" }
+
+      file = clazz.new(path)
+
+      expect(file.path).to eq(path)
+    end
+
     it 'cannot model a non-existent feature file' do
       path = "#{@default_file_directory}/missing_file.txt"
 
