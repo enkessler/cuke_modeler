@@ -8,7 +8,7 @@ case
     require 'cuke_modeler/adapters/gherkin_4_adapter'
 
 
-    def parsing_method(source_text, filename)
+    def parsing_method(source_text, _filename)
       Gherkin::Parser.new.parse(source_text)
     end
 
@@ -21,7 +21,7 @@ case
     require 'cuke_modeler/adapters/gherkin_3_adapter'
 
 
-    def parsing_method(source_text, filename)
+    def parsing_method(source_text, _filename)
       Gherkin::Parser.new.parse(source_text)
     end
 
