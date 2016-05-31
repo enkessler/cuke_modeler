@@ -48,7 +48,10 @@ describe 'Directory, Integration' do
 
           before(:each) do
             feature_files.each do |file_name|
-              FileUtils.touch("#{directory_path}/#{file_name}")
+              # Some versions of Gherkin require feature content to be present in feature files
+              File.open("#{directory_path}/#{file_name}", "w") { |file|
+                file.puts('Feature: Test feature')
+              }
             end
 
             non_feature_files.each do |file_name|
