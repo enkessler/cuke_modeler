@@ -4,7 +4,7 @@ When modeling an existing test suite, the element models form a nested structure
 as whatever portion of the suite that they represent (see the documentation for specific models for details).
 
 However, all models can also be used in an 'abstract' manner. That is, they can be created without any input
-(such as a file path or snippet of Gherkin) that would normally use for determining their structure and
+(such as a file path or snippet of Gherkin) that would normally be used for determining their structure and
 properties. In these cases, their structure and properties can be set directly.
 
 
