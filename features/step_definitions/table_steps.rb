@@ -32,7 +32,7 @@ When(/^the table row element has no cells$/) do
 end
 
 Given(/^a table row element based on the following gherkin:$/) do |row_text|
-  @element = CukeModeler::TableRow.new(row_text)
+  @model = CukeModeler::TableRow.new(row_text)
 end
 
 Then(/^the table row has convenient output$/) do
@@ -52,5 +52,5 @@ Then(/^the table has convenient output$/) do
 end
 
 Given(/^a table element based on the following gherkin:$/) do |table_text|
-  @element = CukeModeler::Table.new(table_text)
+  @model = CukeModeler::Table.new(table_text)
 end

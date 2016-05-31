@@ -55,9 +55,9 @@ Then(/^the doc string has convenient output$/) do
 end
 
 Given(/^a doc string element based on the following gherkin:$/) do |doc_string_text|
-  @element = CukeModeler::DocString.new(doc_string_text)
+  @model = CukeModeler::DocString.new(doc_string_text)
 end
 
 Given(/^a doc string element based on the string "(.*)"$/) do |string|
-  @element = CukeModeler::DocString.new(string.gsub('\n', "\n"))
+  @model = CukeModeler::DocString.new(string.gsub('\n', "\n"))
 end

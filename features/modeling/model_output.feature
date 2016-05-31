@@ -1,7 +1,8 @@
 Feature: Model output
 
-  All models can be output in text form, suitable for use in feature files or anything else that 
-  uses Gherkin (see the model output documentation for specific models for details).
+  All models can be output in text form. For models that represent parts of the file structure, this text
+  will be a path. For models that represent parts of a feature file, this text will be Gherkin. See the
+  model output documentation for specific models for details.
 
 
   Scenario: Outputting a model element

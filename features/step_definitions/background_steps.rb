@@ -72,7 +72,7 @@ Then(/^the(?: feature "([^"]*)")? background correctly stores its underlying imp
 end
 
 Given(/^a background element based on the following gherkin:$/) do |background_text|
-  @element = CukeModeler::Background.new(background_text)
+  @model = CukeModeler::Background.new(background_text)
 end
 
 Then /^the background has convenient output$/ do

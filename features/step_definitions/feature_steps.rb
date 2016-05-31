@@ -87,5 +87,5 @@ Then(/^the feature has convenient output$/) do
 end
 
 Given(/^a feature element based on the following gherkin:$/) do |feature_text|
-  @element = CukeModeler::Feature.new(feature_text)
+  @model = CukeModeler::Feature.new(feature_text)
 end

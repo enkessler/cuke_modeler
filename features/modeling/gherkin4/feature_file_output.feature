@@ -10,5 +10,5 @@ Feature: Outputting feature file elements
     When it is outputted
     Then the following text is provided:
     """
-    path_to/some_feature_file.feature
+    <path_to>/some_feature_file.feature
     """

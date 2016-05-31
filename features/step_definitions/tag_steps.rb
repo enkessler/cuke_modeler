@@ -69,5 +69,5 @@ Then(/^the tag has convenient output$/) do
 end
 
 Given(/^a tag element based on the following gherkin:$/) do |tag_text|
-  @element = CukeModeler::Tag.new(tag_text)
+  @model = CukeModeler::Tag.new(tag_text)
 end

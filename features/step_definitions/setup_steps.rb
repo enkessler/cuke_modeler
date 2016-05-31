@@ -15,10 +15,16 @@ When /^the file(?: "([^"]*)")? is read$/ do |file_name|
   @parsed_files << CukeModeler::FeatureFile.new("#{@test_directory}/#{file_name}")
 end
 
-Given /^a directory "([^"]*)"$/ do |directory_name|
+Given /^(?:a|the) directory "([^"]*)"$/ do |directory_name|
   @test_directory = "#{@default_file_directory}/#{directory_name}"
 
   FileUtils.mkdir(@test_directory) unless File.exists?(@test_directory)
+end
+
+And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
+  file_path = "#{@default_file_directory}/#{file_name}"
+
+  FileUtils.touch(file_path)
 end
 
 When /^the directory(?: "([^"]*)")? is read$/ do |directory_name|

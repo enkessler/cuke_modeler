@@ -206,7 +206,7 @@ Then(/^the row has convenient output$/) do
 end
 
 Given(/^a row element based on the following gherkin:$/) do |row_text|
-  @element = CukeModeler::Row.new(row_text)
+  @model = CukeModeler::Row.new(row_text)
 end
 
 Given(/^a row element$/) do
@@ -222,7 +222,7 @@ Then(/^the example block has convenient output$/) do
 end
 
 Given(/^an example element based on the following gherkin:$/) do |example_text|
-  @element = CukeModeler::Example.new(example_text)
+  @model = CukeModeler::Example.new(example_text)
 end
 
 Given(/^an example element$/) do
@@ -242,5 +242,5 @@ Then(/^the outline has convenient output$/) do
 end
 
 Given(/^an outline element based on the following gherkin:$/) do |outline_text|
-  @element = CukeModeler::Outline.new(outline_text)
+  @model = CukeModeler::Outline.new(outline_text)
 end

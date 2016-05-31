@@ -1,3 +1,3 @@
 When(/^it is outputted$/) do
-  @output = @element.to_s
+  @output = @model.to_s
 end

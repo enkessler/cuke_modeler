@@ -159,7 +159,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
 end
 
 Given(/^a step element based on the following gherkin:$/) do |step_text|
-  @element = CukeModeler::Step.new(step_text)
+  @model = CukeModeler::Step.new(step_text)
 end
 
 Then(/^the step has convenient output$/) do

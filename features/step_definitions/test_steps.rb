@@ -115,5 +115,5 @@ Then(/^the scenario has convenient output$/) do
 end
 
 Given(/^a scenario element based on the following gherkin:$/) do |scenario_text|
-  @element = CukeModeler::Scenario.new(scenario_text)
+  @model = CukeModeler::Scenario.new(scenario_text)
 end
