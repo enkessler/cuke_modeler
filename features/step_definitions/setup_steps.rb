@@ -33,19 +33,3 @@ And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
     FileUtils.touch(file_path)
   end
 end
-
-When /^the directory(?: "([^"]*)")? is read$/ do |directory_name|
-  @parsed_directories ||= []
-  @test_directory = "#{@default_file_directory}/#{directory_name}" if directory_name
-
-  @parsed_directories << CukeModeler::Directory.new(@test_directory)
-end
-
-When /^the following step definition file(?: "([^"]*)")?:$/ do |file_name, file_text|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_step_file_name
-
-  File.open("#{@test_directory}/#{file_name}", 'w') { |file|
-    file.write(file_text)
-  }
-end
