@@ -52,10 +52,10 @@ Feature: Scenario elements can be modeled.
   Scenario: The scenario description is modeled.
     Then the test has the following description:
       """
-          Some scenario description.
+        Some scenario description.
 
-        Some more.
-            Even more.
+      Some more.
+          Even more.
       """
 
   Scenario: The scenario steps are modeled.

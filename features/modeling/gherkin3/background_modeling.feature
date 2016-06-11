@@ -47,10 +47,10 @@ Feature: Background elements can be modeled.
   Scenario: The background description is modeled.
     Then the background has the following description:
       """
-          Some background description.
+        Some background description.
 
-        Some more.
-            Even more.
+      Some more.
+          Even more.
       """
 
   Scenario: The background steps are modeled.

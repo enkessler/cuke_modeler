@@ -75,6 +75,28 @@ describe 'Feature, Unit' do
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
     end
 
+    it 'trims whitespace from its source description' do
+      source = ['Feature:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  Scenario:']
+      source = source.join("\n")
+
+      feature = clazz.new(source)
+      description = feature.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
     it 'has a background' do
       feature.should respond_to(:background)
     end

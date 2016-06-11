@@ -77,6 +77,32 @@ describe 'Outline, Unit' do
       expect(raw_data['keyword']).to eq('Scenario Outline')
     end
 
+    it 'trims whitespace from its source description' do
+      source = ['Scenario Outline:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  * a step',
+                '',
+                'Examples:',
+                '|param|',
+                '|value|']
+      source = source.join("\n")
+
+      outline = clazz.new(source)
+      description = outline.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
     it 'has examples' do
       outline.should respond_to(:examples)
     end
@@ -105,7 +131,7 @@ describe 'Outline, Unit' do
       end
 
     end
-    
+
     it 'contains steps, examples, and tags' do
       tags = [:tag_1, :tagt_2]
       steps = [:step_1, :step_2, :step_3]

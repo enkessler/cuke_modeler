@@ -90,7 +90,6 @@ Feature: Features can be modeled.
   Scenario: The feature's description is modeled.
     Then feature "1" has the following description:
       """
-          
       Some feature description.
 
       Some more.

@@ -13,7 +13,7 @@ Feature: Background elements can be modeled.
 
     2. Backgrounds can be outputted in a convenient form
 
-  
+
   Background: Test file setup.
     Given the following feature file:
     """
@@ -47,7 +47,6 @@ Feature: Background elements can be modeled.
   Scenario: The background description is modeled.
     Then the background has the following description:
       """
-          
       Some background description.
 
       Some more.

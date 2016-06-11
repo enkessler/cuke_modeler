@@ -59,7 +59,6 @@ Feature: Outline elements can be modeled.
   Scenario: The outline description is modeled.
     Then the test has the following description:
       """
-          
       Some outline description.
 
       Some more.

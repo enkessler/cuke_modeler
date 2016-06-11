@@ -67,6 +67,28 @@ describe 'Background, Unit' do
       expect(raw_data['keyword']).to eq('Background')
     end
 
+    it 'trims whitespace from its source description' do
+      source = ['Background:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  * a step']
+      source = source.join("\n")
+
+      background = clazz.new(source)
+      description = background.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
     it 'contains steps' do
       steps = [:step_1, :step_2]
       everything = steps

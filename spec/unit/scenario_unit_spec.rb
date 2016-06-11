@@ -68,6 +68,28 @@ describe 'Scenario, Unit' do
       expect(raw_data['keyword']).to eq('Scenario')
     end
 
+    it 'trims whitespace from its source description' do
+      source = ['Scenario:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  * a step']
+      source = source.join("\n")
+
+      scenario = clazz.new(source)
+      description = scenario.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
     it 'contains steps and tags' do
       tags = [:tag_1, :tag_2]
       steps = [:step_1, :step_2]

@@ -81,9 +81,9 @@ Feature: Outputting example elements
     Then the following text is provided:
     """
     Examples:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       | param |
       | value |
@@ -103,9 +103,9 @@ Feature: Outputting example elements
     Then the following text is provided:
     """
     Examples:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       | param |
       | value |
@@ -125,9 +125,9 @@ Feature: Outputting example elements
     Then the following text is provided:
     """
     Examples:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       | param |
       | value |
@@ -182,9 +182,9 @@ Feature: Outputting example elements
     """
     @tag1 @tag2 @tag3
     Examples: with a name
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       | param1 | param2 |
       | value1 | value2 |

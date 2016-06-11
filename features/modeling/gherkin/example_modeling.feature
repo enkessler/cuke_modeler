@@ -62,7 +62,6 @@ Feature: Example elements can be modeled.
   Scenario: The examples' description is modeled.
     Then the test example block "1" has the following description:
       """
-          
       Some example description.
   
       Some more.

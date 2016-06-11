@@ -71,6 +71,29 @@ describe 'Example, Unit' do
       expect(raw_data['keyword']).to eq('Examples')
     end
 
+    it 'trims whitespace from its source description' do
+      source = ['Examples:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '|param|',
+                '|value|']
+      source = source.join("\n")
+
+      example = clazz.new(source)
+      description = example.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
     it 'has rows' do
       example.should respond_to(:rows)
     end

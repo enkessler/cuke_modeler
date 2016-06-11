@@ -52,9 +52,9 @@ Feature: Outputting outline elements
     Then the following text is provided:
     """
     Scenario Outline:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of an outline that has a description, first line is blank
@@ -69,9 +69,9 @@ Feature: Outputting outline elements
     Then the following text is provided:
     """
     Scenario Outline:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of an outline that has a description, first line is only whitespace
@@ -86,9 +86,9 @@ Feature: Outputting outline elements
     Then the following text is provided:
     """
     Scenario Outline:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of an outline that has steps
@@ -172,9 +172,9 @@ Feature: Outputting outline elements
     """
     @tag1 @tag2 @tag3
     Scenario Outline: An outline with everything it could have
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       * a step
         | value |
@@ -184,9 +184,9 @@ Feature: Outputting outline elements
         \"\"\"
 
     Examples:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
 
       | value |
       | x     |

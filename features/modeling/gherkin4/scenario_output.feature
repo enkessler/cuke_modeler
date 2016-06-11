@@ -52,9 +52,9 @@ Feature: Outputting scenario elements
     Then the following text is provided:
     """
     Scenario:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a scenario that has a description, first line is blank
@@ -69,9 +69,9 @@ Feature: Outputting scenario elements
     Then the following text is provided:
     """
     Scenario:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a scenario that has a description, first line is only whitespace
@@ -86,9 +86,9 @@ Feature: Outputting scenario elements
     Then the following text is provided:
     """
     Scenario:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a scenario that has steps
@@ -135,9 +135,9 @@ Feature: Outputting scenario elements
     """
     @tag1 @tag2 @tag3
     Scenario: A scenario with everything it could have
-      
-      Including a description
-      and then some.
+
+    Including a description
+    and then some.
 
       * a step
         | value |

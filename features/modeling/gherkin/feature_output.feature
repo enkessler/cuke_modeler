@@ -52,9 +52,9 @@ Feature: Outputting feature elements
     Then the following text is provided:
     """
     Feature:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a feature that has a description, first line is blank
@@ -69,16 +69,16 @@ Feature: Outputting feature elements
     Then the following text is provided:
     """
     Feature:
-      
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a feature that has a description, first line is only whitespace
     Given a feature element based on the following gherkin:
     """
     Feature:
-       
+
     Some description.
     Some more description.
     """
@@ -86,9 +86,9 @@ Feature: Outputting feature elements
     Then the following text is provided:
     """
     Feature:
-       
-      Some description.
-      Some more description.
+
+    Some description.
+    Some more description.
     """
 
   Scenario: Output of a feature that has a background
@@ -197,14 +197,14 @@ Feature: Outputting feature elements
     """
     @tag1 @tag2 @tag3
     Feature: A feature with everything it could have
-      
-      Including a description
-      and then some.
+
+    Including a description
+    and then some.
 
       Background:
-        
-        Background
-        description
+
+      Background
+      description
 
         * a step
           | value1 |
@@ -212,9 +212,9 @@ Feature: Outputting feature elements
 
       @scenario_tag
       Scenario:
-        
-        Scenario
-        description
+
+      Scenario
+      description
 
         * a step
         * another step
@@ -224,9 +224,9 @@ Feature: Outputting feature elements
 
       @outline_tag
       Scenario Outline:
-        
-        Outline
-        description
+
+      Outline
+      description
 
         * a step
           | value2 |
@@ -237,9 +237,9 @@ Feature: Outputting feature elements
 
       @example_tag
       Examples:
-        
-        Example
-        description
+
+      Example
+      description
 
         | param |
     """
