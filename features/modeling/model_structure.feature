@@ -9,14 +9,14 @@ properties. In these cases, their structure and properties can be set directly.
 
 
   Scenario: Creating abstract models
-    Given the element models provided by CukeModeler
+    Given the models provided by CukeModeler
     Then  all of them can be created without further context
       """
         abstract_model = <model_class>.new
       """
 
   Scenario: Nesting models
-    Given the element models provided by CukeModeler
+    Given the models provided by CukeModeler
     Then  all of them can contain other models
       """
         child_model = <model_class>.new

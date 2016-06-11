@@ -59,3 +59,11 @@ Then(/^the model returns models for the following directories:$/) do |directory_
 
   expect(@result.collect { |directory_model| directory_model.name }).to match_array(directory_names)
 end
+
+And(/^the output can be used to make an equivalent model$/) do |code_text|
+  @available_model_classes.each do |clazz|
+    code_text.gsub!('<model_class>', clazz.to_s)
+
+    expect { eval(code_text) }.to_not raise_error
+  end
+end
