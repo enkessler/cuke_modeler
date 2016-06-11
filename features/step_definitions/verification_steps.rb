@@ -2,6 +2,8 @@ Then(/^all of them can be output as text appropriate to the model type$/) do |co
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
 
+    expect(clazz.instance_method(:to_s).owner).to equal(clazz), "#{clazz} does not override #to_s"
+
     expect { eval(code_text) }.to_not raise_error
   end
 end
