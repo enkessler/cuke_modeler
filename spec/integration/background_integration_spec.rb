@@ -144,17 +144,43 @@ describe 'Background, Integration' do
     end
 
 
-    describe 'background output edge cases' do
+    describe 'background output' do
 
-      context 'a new background object' do
+      it 'can be remade from its own output' do
+        source = ['Background: A background with everything it could have',
+                  '',
+                  'Including a description',
+                  'and then some.',
+                  '',
+                  '  * a step',
+                  '    | value |',
+                  '  * another step',
+                  '    """',
+                  '    some string',
+                  '    """']
+        source = source.join("\n")
+        background = clazz.new(source)
 
-        let(:background) { clazz.new }
+        background_output = background.to_s
+        remade_background_output = clazz.new(background_output).to_s
+
+        expect(remade_background_output).to eq(background_output)
+      end
 
 
-        it 'can output a background that has only steps' do
-          background.steps = [CukeModeler::Step.new]
+      describe 'edge cases' do
 
-          expect { background.to_s }.to_not raise_error
+        context 'a new background object' do
+
+          let(:background) { clazz.new }
+
+
+          it 'can output a background that has only steps' do
+            background.steps = [CukeModeler::Step.new]
+
+            expect { background.to_s }.to_not raise_error
+          end
+
         end
 
       end

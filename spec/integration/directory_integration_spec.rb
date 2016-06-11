@@ -190,6 +190,21 @@ describe 'Directory, Integration' do
 
     end
 
+
+    describe 'directory output' do
+
+      it 'can be remade from its own output' do
+        source = @default_file_directory
+        directory = clazz.new(source)
+
+        directory_output = directory.to_s
+        remade_directory_output = clazz.new(directory_output).to_s
+
+        expect(remade_directory_output).to eq(directory_output)
+      end
+
+    end
+
   end
 
 end

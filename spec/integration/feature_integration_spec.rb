@@ -108,35 +108,99 @@ describe 'Feature, Integration' do
 
     end
 
-    describe 'feature output edge cases' do
 
-      context 'a new feature object' do
+    describe 'feature output' do
 
-        let(:feature) { clazz.new }
+      it 'can be remade from its own output' do
+        source = ['@tag1 @tag2 @tag3',
+                  'Feature: A feature with everything it could have',
+                  '',
+                  'Including a description',
+                  'and then some.',
+                  '',
+                  '  Background:',
+                  '',
+                  '  Background',
+                  '  description',
+                  '',
+                  '    * a step',
+                  '      | value1 |',
+                  '    * another step ',
+                  '',
+                  '  @scenario_tag ',
+                  '  Scenario:',
+                  '',
+                  '  Scenario ',
+                  '  description ',
+                  '',
+                  '    * a step ',
+                  '    * another step ',
+                  '      """"',
+                  '      some text ',
+                  '      """',
+                  '',
+                  '  @outline_tag ',
+                  '  Scenario Outline: ',
+                  '',
+                  '  Outline ',
+                  '  description ',
+                  '',
+                  '    * a step ',
+                  '      | value2 |',
+                  '    * another step ',
+                  '      """',
+                  '      some text ',
+                  '      """',
+                  '',
+                  '  @example_tag ',
+                  '  Examples:',
+                  '',
+                  '  Example ',
+                  '  description',
+                  '',
+                  '    | param |',
+                  '    | value |']
+        source = source.join(" \n")
+        feature = clazz.new(source)
+
+        feature_output = feature.to_s
+        remade_feature_output = clazz.new(feature_output).to_s
+
+        expect(remade_feature_output).to eq(feature_output)
+      end
 
 
-        it 'can output a feature that has only tags' do
-          feature.tags = [CukeModeler::Tag.new]
+      describe 'feature output edge cases' do
 
-          expect { feature.to_s }.to_not raise_error
-        end
+        context 'a new feature object' do
 
-        it 'can output a feature that has only a background' do
-          feature.background = [CukeModeler::Background.new]
+          let(:feature) { clazz.new }
 
-          expect { feature.to_s }.to_not raise_error
-        end
 
-        it 'can output a feature that has only scenarios' do
-          feature.tests = [CukeModeler::Scenario.new]
+          it 'can output a feature that has only tags' do
+            feature.tags = [CukeModeler::Tag.new]
 
-          expect { feature.to_s }.to_not raise_error
-        end
+            expect { feature.to_s }.to_not raise_error
+          end
 
-        it 'can output a feature that has only outlines' do
-          feature.tests = [CukeModeler::Outline.new]
+          it 'can output a feature that has only a background' do
+            feature.background = [CukeModeler::Background.new]
 
-          expect { feature.to_s }.to_not raise_error
+            expect { feature.to_s }.to_not raise_error
+          end
+
+          it 'can output a feature that has only scenarios' do
+            feature.tests = [CukeModeler::Scenario.new]
+
+            expect { feature.to_s }.to_not raise_error
+          end
+
+          it 'can output a feature that has only outlines' do
+            feature.tests = [CukeModeler::Outline.new]
+
+            expect { feature.to_s }.to_not raise_error
+          end
+
         end
 
       end

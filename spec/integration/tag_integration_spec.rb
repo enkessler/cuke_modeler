@@ -145,6 +145,21 @@ describe 'Tag, Integration' do
 
     end
 
+
+    describe 'tag output' do
+
+      it 'can be remade from its own output' do
+        source = '@some_tag'
+        tag = clazz.new(source)
+
+        tag_output = tag.to_s
+        remade_tag_output = clazz.new(tag_output).to_s
+
+        expect(remade_tag_output).to eq(tag_output)
+      end
+
+    end
+
   end
 
 end

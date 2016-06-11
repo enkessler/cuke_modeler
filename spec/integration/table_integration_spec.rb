@@ -171,17 +171,35 @@ describe 'Table, Integration' do
 
     end
 
-    describe 'table output edge cases' do
 
-      context 'a new table object' do
+    describe 'table output' do
 
-        let(:table) { clazz.new }
+      it 'can be remade from its own output' do
+        source = ['| value1 | value2 |',
+                  '| value3 | value4 |']
+        source = source.join("\n")
+        table = clazz.new(source)
+
+        table_output = table.to_s
+        remade_table_output = clazz.new(table_output).to_s
+
+        expect(remade_table_output).to eq(table_output)
+      end
 
 
-        it 'can output a table that only has row elements' do
-          table.rows = [CukeModeler::TableRow.new]
+      describe 'edge cases' do
 
-          expect { table.to_s }.to_not raise_error
+        context 'a new table object' do
+
+          let(:table) { clazz.new }
+
+
+          it 'can output a table that only has row elements' do
+            table.rows = [CukeModeler::TableRow.new]
+
+            expect { table.to_s }.to_not raise_error
+          end
+
         end
 
       end

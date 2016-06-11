@@ -171,23 +171,42 @@ describe 'Step, Integration' do
 
     end
 
-    describe 'step output edge cases' do
 
-      context 'a new step object' do
+    describe 'step output' do
 
-        let(:step) { clazz.new }
+      it 'can be remade from its own output' do
+        source = ['* a step',
+                  '  | value1 | value2 |',
+                  '  | value3 | value4 |']
+        source = source.join("\n")
+        step = clazz.new(source)
+
+        step_output = step.to_s
+        remade_step_output = clazz.new(step_output).to_s
+
+        expect(remade_step_output).to eq(step_output)
+      end
 
 
-        it 'can output a step that has only a table' do
-          step.block = CukeModeler::Table.new
+      describe 'edge cases' do
 
-          expect { step.to_s }.to_not raise_error
-        end
+        context 'a new step object' do
 
-        it 'can output a step that has only a doc string' do
-          step.block = CukeModeler::DocString.new
+          let(:step) { clazz.new }
 
-          expect { step.to_s }.to_not raise_error
+
+          it 'can output a step that has only a table' do
+            step.block = CukeModeler::Table.new
+
+            expect { step.to_s }.to_not raise_error
+          end
+
+          it 'can output a step that has only a doc string' do
+            step.block = CukeModeler::DocString.new
+
+            expect { step.to_s }.to_not raise_error
+          end
+
         end
 
       end

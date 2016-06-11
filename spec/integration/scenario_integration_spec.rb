@@ -146,23 +146,50 @@ describe 'Scenario, Integration' do
       end
 
 
-      describe 'scenario output edge cases' do
+      describe 'scenario output' do
 
-        context 'a new scenario object' do
+        it 'can be remade from its own output' do
+          source = ['@tag1 @tag2 @tag3',
+                    'Scenario: A scenario with everything it could have',
+                    '',
+                    'Including a description',
+                    'and then some.',
+                    '',
+                    '  * a step',
+                    '    | value |',
+                    '  * another step',
+                    '    """',
+                    '    some string',
+                    '    """']
+          source = source.join("\n")
+          scenario = clazz.new(source)
 
-          let(:scenario) { clazz.new }
+          scenario_output = scenario.to_s
+          remade_scenario_output = clazz.new(scenario_output).to_s
+
+          expect(remade_scenario_output).to eq(scenario_output)
+        end
 
 
-          it 'can output a scenario that has only tags' do
-            scenario.tags = [CukeModeler::Tag.new]
+        describe 'edge cases' do
 
-            expect { scenario.to_s }.to_not raise_error
-          end
+          context 'a new scenario object' do
 
-          it 'can output a scenario that has only steps' do
-            scenario.steps = [CukeModeler::Step.new]
+            let(:scenario) { clazz.new }
 
-            expect { scenario.to_s }.to_not raise_error
+
+            it 'can output a scenario that has only tags' do
+              scenario.tags = [CukeModeler::Tag.new]
+
+              expect { scenario.to_s }.to_not raise_error
+            end
+
+            it 'can output a scenario that has only steps' do
+              scenario.steps = [CukeModeler::Step.new]
+
+              expect { scenario.to_s }.to_not raise_error
+            end
+
           end
 
         end
@@ -174,3 +201,4 @@ describe 'Scenario, Integration' do
   end
 
 end
+

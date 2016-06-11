@@ -84,6 +84,24 @@ describe 'FeatureFile, Integration' do
 
     end
 
+
+    describe 'feature file output' do
+
+      it 'can be remade from its own output' do
+        path = "#{@default_file_directory}/#{@default_feature_file_name}"
+        File.open(path, "w") { |file| file.puts "Feature:" }
+
+        source = path
+        feature_file = clazz.new(source)
+
+        feature_file_output = feature_file.to_s
+        remade_feature_file_output = clazz.new(feature_file_output).to_s
+
+        expect(remade_feature_file_output).to eq(feature_file_output)
+      end
+
+    end
+
   end
 
 end

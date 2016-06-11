@@ -149,6 +149,22 @@ describe 'TableRow, Integration' do
 
     end
 
+
+    describe 'table row output' do
+
+      it 'can be remade from its own output' do
+        source = ['| value1 | value2 |']
+        source = source.join("\n")
+        row = clazz.new(source)
+
+        row_output = row.to_s
+        remade_row_output = clazz.new(row_output).to_s
+
+        expect(remade_row_output).to eq(row_output)
+      end
+
+    end
+
   end
 
 end

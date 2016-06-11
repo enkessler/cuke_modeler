@@ -159,6 +159,27 @@ describe 'DocString, Integration' do
 
     end
 
+
+    describe 'doc string output' do
+
+      it 'can be remade from its own output' do
+        source = ['"""" the type',
+                  '* a step',
+                  '  \"\"\"',
+                  '  that also has a doc string',
+                  '  \"\"\"',
+                  '"""']
+        source = source.join("\n")
+        doc_string = clazz.new(source)
+
+        doc_string_output = doc_string.to_s
+        remade_doc_string_output = clazz.new(doc_string_output).to_s
+
+        expect(remade_doc_string_output).to eq(doc_string_output)
+      end
+
+    end
+
   end
 
 end

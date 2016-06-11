@@ -316,23 +316,48 @@ describe 'Example, Integration' do
 
     end
 
-    describe 'example output edge cases' do
 
-      context 'a new example object' do
+    describe 'example output' do
 
-        let(:example) { clazz.new }
+      it 'can be remade from its own output' do
+        source = ['@tag1 @tag2 @tag3',
+                  'Examples: with everything it could have',
+                  '',
+                  'Some description.',
+                  'Some more description.',
+                  '',
+                  '  | param1 | param2 |',
+                  '  | value1 | value2 |',
+                  '  | value3 | value4 |']
+        source = source.join("\n")
+        example = clazz.new(source)
+
+        example_output = example.to_s
+        remade_example_output = clazz.new(example_output).to_s
+
+        expect(remade_example_output).to eq(example_output)
+      end
 
 
-        it 'can output an example that has only tags' do
-          example.tags = [CukeModeler::Tag.new]
+      describe 'edge cases' do
 
-          expect { example.to_s }.to_not raise_error
-        end
+        context 'a new example object' do
 
-        it 'can output an example that has only rows' do
-          example.rows = [CukeModeler::Row.new]
+          let(:example) { clazz.new }
 
-          expect { example.to_s }.to_not raise_error
+
+          it 'can output an example that has only tags' do
+            example.tags = [CukeModeler::Tag.new]
+
+            expect { example.to_s }.to_not raise_error
+          end
+
+          it 'can output an example that has only rows' do
+            example.rows = [CukeModeler::Row.new]
+
+            expect { example.to_s }.to_not raise_error
+          end
+
         end
 
       end

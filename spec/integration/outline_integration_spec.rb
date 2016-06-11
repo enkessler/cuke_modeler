@@ -172,29 +172,69 @@ describe 'Outline, Integration' do
       end
 
 
-      describe 'outline output edge cases' do
+      describe 'outline output' do
 
-        context 'a new outline object' do
+        it 'can be remade from its own output' do
+          source = ['@tag1 @tag2 @tag3',
+                    'Scenario Outline: An outline with everything it could have',
+                    '',
+                    'Some description.',
+                    'Some more description.',
+                    '',
+                    '  * a step',
+                    '    | value |',
+                    '  * a <value> step',
+                    '    """',
+                    '      some string',
+                    '    """',
+                    '',
+                    'Examples:',
+                    '',
+                    'Some description.',
+                    'Some more description.',
+                    '',
+                    '  | value |',
+                    '  | x     |',
+                    '',
+                    '@example_tag',
+                    'Examples:',
+                    '  | value |',
+                    '  | y     |']
+          source = source.join("\n")
+          outline = clazz.new(source)
 
-          let(:outline) { clazz.new }
+          outline_output = outline.to_s
+          remade_outline_output = clazz.new(outline_output).to_s
+
+          expect(remade_outline_output).to eq(outline_output)
+        end
 
 
-          it 'can output an outline that has only tags' do
-            outline.tags = [CukeModeler::Tag.new]
+        describe 'edge cases' do
 
-            expect { outline.to_s }.to_not raise_error
-          end
+          context 'a new outline object' do
 
-          it 'can output an outline that has only steps' do
-            outline.steps = [CukeModeler::Step.new]
+            let(:outline) { clazz.new }
 
-            expect { outline.to_s }.to_not raise_error
-          end
 
-          it 'can output an outline that has only examples' do
-            outline.examples = [CukeModeler::Example.new]
+            it 'can output an outline that has only tags' do
+              outline.tags = [CukeModeler::Tag.new]
 
-            expect { outline.to_s }.to_not raise_error
+              expect { outline.to_s }.to_not raise_error
+            end
+
+            it 'can output an outline that has only steps' do
+              outline.steps = [CukeModeler::Step.new]
+
+              expect { outline.to_s }.to_not raise_error
+            end
+
+            it 'can output an outline that has only examples' do
+              outline.examples = [CukeModeler::Example.new]
+
+              expect { outline.to_s }.to_not raise_error
+            end
+
           end
 
         end
