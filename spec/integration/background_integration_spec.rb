@@ -70,6 +70,53 @@ describe 'Background, Integration' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the background's source line" do
+          source_text = "Feature:
+
+                           Background: foo
+                             * step"
+          background = CukeModeler::Feature.new(source_text).background
+
+          expect(background.source_line).to eq(3)
+        end
+
+        context 'a filled background' do
+
+          let(:source_text) { "Background:
+                                 * a step
+                                 * another step" }
+          let(:background) { clazz.new(source_text) }
+
+
+          it "models the background's steps" do
+            step_names = background.steps.collect { |step| step.base }
+
+            expect(step_names).to eq(['a step', 'another step'])
+          end
+
+        end
+
+        context 'an empty background' do
+
+          let(:source_text) { 'Background:' }
+          let(:background) { clazz.new(source_text) }
+
+
+          it "models the background's steps" do
+            expect(background.steps).to eq([])
+          end
+
+        end
+
+      end
+
+    end
+
+
     describe 'comparison' do
 
       it 'is equal to a background with the same steps' do
@@ -168,19 +215,70 @@ describe 'Background, Integration' do
       end
 
 
-      describe 'edge cases' do
+      context 'from source text' do
 
-        context 'a new background object' do
+        it 'can output a background that has steps' do
+          source = ['Background:',
+                    '* a step',
+                    '|value|',
+                    '* another step',
+                    '"""',
+                    'some string',
+                    '"""']
+          source = source.join("\n")
+          background = clazz.new(source)
 
-          let(:background) { clazz.new }
+          background_output = background.to_s.split("\n")
+
+          expect(background_output).to eq(['Background:',
+                                           '  * a step',
+                                           '    | value |',
+                                           '  * another step',
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+        end
+
+        it 'can output a background that has everything' do
+          source = ['Background: A background with everything it could have',
+                    'Including a description',
+                    'and then some.',
+                    '* a step',
+                    '|value|',
+                    '* another step',
+                    '"""',
+                    'some string',
+                    '"""']
+          source = source.join("\n")
+          background = clazz.new(source)
+
+          background_output = background.to_s.split("\n")
+
+          expect(background_output).to eq(['Background: A background with everything it could have',
+                                           '',
+                                           'Including a description',
+                                           'and then some.',
+                                           '',
+                                           '  * a step',
+                                           '    | value |',
+                                           '  * another step',
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+        end
+
+      end
 
 
-          it 'can output a background that has only steps' do
-            background.steps = [CukeModeler::Step.new]
+      context 'from abstract instantiation' do
 
-            expect { background.to_s }.to_not raise_error
-          end
+        let(:background) { clazz.new }
 
+
+        it 'can output a background that has only steps' do
+          background.steps = [CukeModeler::Step.new]
+
+          expect { background.to_s }.to_not raise_error
         end
 
       end

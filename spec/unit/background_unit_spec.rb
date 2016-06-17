@@ -99,6 +99,56 @@ describe 'Background, Unit' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        context 'a filled background' do
+
+          let(:source_text) { "Background: Background name
+
+                               Background description.
+
+                             Some more.
+                                 Even more." }
+          let(:background) { clazz.new(source_text) }
+
+
+          it "models the background's name" do
+            expect(background.name).to eq('Background name')
+          end
+
+          it "models the background's description" do
+            description = background.description.split("\n")
+
+            expect(description).to eq(['  Background description.',
+                                       '',
+                                       'Some more.',
+                                       '    Even more.'])
+          end
+
+        end
+
+        context 'an empty background' do
+
+          let(:source_text) { 'Background:' }
+          let(:background) { clazz.new(source_text) }
+
+          it "models the background's name" do
+            expect(background.name).to eq('')
+          end
+
+          it "models the background's description" do
+            expect(background.description).to eq('')
+          end
+
+        end
+
+      end
+
+    end
+
+
     describe 'comparison' do
 
       it 'can gracefully be compared to other types of objects' do
@@ -112,14 +162,54 @@ describe 'Background, Unit' do
     end
 
 
-    describe 'background output edge cases' do
+    describe 'background output' do
 
       it 'is a String' do
         background.to_s.should be_a(String)
       end
 
 
-      context 'a new background object' do
+      context 'from source text' do
+
+        it 'can output an empty background' do
+          source = ['Background:']
+          source = source.join("\n")
+          background = clazz.new(source)
+
+          background_output = background.to_s.split("\n")
+
+          expect(background_output).to eq(['Background:'])
+        end
+
+        it 'can output a background that has a name' do
+          source = ['Background: test background']
+          source = source.join("\n")
+          background = clazz.new(source)
+
+          background_output = background.to_s.split("\n")
+
+          expect(background_output).to eq(['Background: test background'])
+        end
+
+        it 'can output a background that has a description' do
+          source = ['Background:',
+                    'Some description.',
+                    'Some more description.']
+          source = source.join("\n")
+          background = clazz.new(source)
+
+          background_output = background.to_s.split("\n")
+
+          expect(background_output).to eq(['Background:',
+                                           '',
+                                           'Some description.',
+                                           'Some more description.'])
+        end
+
+      end
+
+
+      context 'from abstract instantiation' do
 
         let(:background) { clazz.new }
 

@@ -43,7 +43,13 @@ Then(/^all of them can be created without further context$/) do |code_text|
 end
 
 Then(/^the model returns "([^"]*)"$/) do |value|
-  value.gsub!('path_to', @default_file_directory)
+  value.gsub!('path_to', @default_file_directory) if value.is_a?(String)
+
+  expect(@result).to eq(value)
+end
+
+Then(/^the model returns$/) do |value|
+  value.gsub!('path_to', @default_file_directory) if value.is_a?(String)
 
   expect(@result).to eq(value)
 end
@@ -66,4 +72,24 @@ And(/^the output can be used to make an equivalent model$/) do |code_text|
 
     expect { eval(code_text) }.to_not raise_error
   end
+end
+
+Then(/^all of them provide access to the parsing data that was used to create them$/) do |code_text|
+  unparsed_models = [CukeModeler::ModelElement, CukeModeler::FeatureFile, CukeModeler::Directory]
+
+  @available_model_classes.each do |clazz|
+    next if unparsed_models.include?(clazz)
+
+    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text.gsub!('<source_text>', '')
+
+    expect { eval(code_text) }.to_not raise_error
+  end
+end
+
+
+Then(/^the model returns models for the following steps:$/) do |step_names|
+  step_names = step_names.raw.flatten
+
+  expect(@result.collect { |step_model| step_model.base }).to match_array(step_names)
 end

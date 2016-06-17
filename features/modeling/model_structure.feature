@@ -1,7 +1,8 @@
 Feature: Model structure
 
-When modeling an existing test suite, the element models form a nested structure that has the same shape
-as whatever portion of the suite that they represent (see the documentation for specific models for details).
+When modeling an existing test suite, that suite is parsed and models are created for each piece of the
+suite. These models form a nested structure which has the same shape as whatever portion of the suite
+that they represent (see the documentation for specific models for details).
 
 However, all models can also be used in an 'abstract' manner. That is, they can be created without any input
 (such as a file path or snippet of Gherkin) that would normally be used for determining their structure and
@@ -30,4 +31,17 @@ properties. In these cases, their structure and properties can be set directly.
         parent_model = <model_class>.new
 
         child_model.parent_model = parent_model
+      """
+
+  Scenario: Accessing the parsing data
+
+  Note: Directory and feature file models do not store any parsing data because parsing Gherkin source text
+  does not come into play until the feature level of modeling.
+
+    Given the models provided by CukeModeler
+    Then  all of them provide access to the parsing data that was used to create them
+      """
+        model = <model_class>.new(<source_text>)
+
+        model.raw_element
       """

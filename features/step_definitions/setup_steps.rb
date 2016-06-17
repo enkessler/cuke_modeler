@@ -33,3 +33,7 @@ And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
     FileUtils.touch(file_path)
   end
 end
+
+Given(/^the following gherkin:$/) do |text|
+  @source_text = text
+end

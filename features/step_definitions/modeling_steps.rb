@@ -7,3 +7,13 @@ Given(/^the models provided by CukeModeler/) do
     end
   end
 end
+
+When(/^the model is output as a string$/) do |code_text|
+  @output = eval(code_text)
+end
+
+And(/^a (?:background|feature) model based on that gherkin$/) do |code_text|
+  code_text.gsub!('<source_text>', "'#{@source_text}'")
+
+  eval(code_text)
+end
