@@ -72,6 +72,65 @@ describe 'Scenario, Integration' do
       end
 
 
+      describe 'model population' do
+
+        context 'from source text' do
+
+          it "models the scenario's source line" do
+            source_text = "Feature:
+
+                           Scenario: foo
+                             * step"
+            scenario = CukeModeler::Feature.new(source_text).tests.first
+
+            expect(scenario.source_line).to eq(3)
+          end
+
+
+          context 'a filled scenario' do
+
+            let(:source_text) { "@tag1 @tag2 @tag3
+                                 Scenario:
+                                 * a step
+                                 * another step" }
+            let(:scenario) { clazz.new(source_text) }
+
+
+            it "models the scenario's steps" do
+              step_names = scenario.steps.collect { |step| step.base }
+
+              expect(step_names).to eq(['a step', 'another step'])
+            end
+
+            it "models the scenario's tags" do
+              tag_names = scenario.tags.collect { |tag| tag.name }
+
+              expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
+            end
+
+          end
+
+          context 'an empty scenario' do
+
+            let(:source_text) { 'Scenario:' }
+            let(:scenario) { clazz.new(source_text) }
+
+
+            it "models the scenario's steps" do
+              expect(scenario.steps).to eq([])
+            end
+
+            it "models the scenario's tags" do
+              expect(scenario.steps).to eq([])
+            end
+
+          end
+
+        end
+
+      end
+
+
       describe 'comparison' do
 
         it 'is equal to a background with the same steps' do
@@ -171,25 +230,91 @@ describe 'Scenario, Integration' do
         end
 
 
-        describe 'edge cases' do
+        context 'from source text' do
 
-          context 'a new scenario object' do
+          it 'can output a scenario that has steps' do
+            source = ['Scenario:',
+                      '* a step',
+                      '|value|',
+                      '* another step',
+                      '"""',
+                      'some string',
+                      '"""']
+            source = source.join("\n")
+            scenario = clazz.new(source)
 
-            let(:scenario) { clazz.new }
+            scenario_output = scenario.to_s.split("\n")
+
+            expect(scenario_output).to eq(['Scenario:',
+                                           '  * a step',
+                                           '    | value |',
+                                           '  * another step',
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+          end
+
+          it 'can output a scenario that has tags' do
+            source = ['@tag1 @tag2',
+                      '@tag3',
+                      'Scenario:']
+            source = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n")
+
+            expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
+                                           'Scenario:'])
+          end
+
+          it 'can output a scenario that has everything' do
+            source = ['@tag1 @tag2 @tag3',
+                      'Scenario: A scenario with everything it could have',
+                      'Including a description',
+                      'and then some.',
+                      '* a step',
+                      '|value|',
+                      '* another step',
+                      '"""',
+                      'some string',
+                      '"""']
+            source = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n")
+
+            expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
+                                           'Scenario: A scenario with everything it could have',
+                                           '',
+                                           'Including a description',
+                                           'and then some.',
+                                           '',
+                                           '  * a step',
+                                           '    | value |',
+                                           '  * another step',
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+          end
+
+        end
 
 
-            it 'can output a scenario that has only tags' do
-              scenario.tags = [CukeModeler::Tag.new]
+        context 'from abstract instantiation' do
 
-              expect { scenario.to_s }.to_not raise_error
-            end
+          let(:scenario) { clazz.new }
 
-            it 'can output a scenario that has only steps' do
-              scenario.steps = [CukeModeler::Step.new]
 
-              expect { scenario.to_s }.to_not raise_error
-            end
+          it 'can output a scenario that has only tags' do
+            scenario.tags = [CukeModeler::Tag.new]
 
+            expect { scenario.to_s }.to_not raise_error
+          end
+
+          it 'can output a scenario that has only steps' do
+            scenario.steps = [CukeModeler::Step.new]
+
+            expect { scenario.to_s }.to_not raise_error
           end
 
         end
@@ -201,4 +326,5 @@ describe 'Scenario, Integration' do
   end
 
 end
+
 

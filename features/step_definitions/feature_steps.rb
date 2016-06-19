@@ -89,3 +89,7 @@ end
 Given(/^a feature element based on the following gherkin:$/) do |feature_text|
   @model = CukeModeler::Feature.new(feature_text)
 end
+
+And(/^the (?:background|scenario) model of that feature model$/) do |code_text|
+  eval(code_text)
+end

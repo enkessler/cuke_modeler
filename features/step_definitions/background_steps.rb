@@ -78,11 +78,3 @@ end
 Then /^the background has convenient output$/ do
   @parsed_files.first.feature.background.method(:to_s).owner.should == CukeModeler::Background
 end
-
-When(/^the background's (?:source line|name|description|steps) (?:is|are) requested$/) do |code_text|
-  @result = eval(code_text)
-end
-
-And(/^the background model of that feature model$/) do |code_text|
-  eval(code_text)
-end

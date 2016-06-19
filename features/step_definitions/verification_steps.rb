@@ -87,9 +87,14 @@ Then(/^all of them provide access to the parsing data that was used to create th
   end
 end
 
-
 Then(/^the model returns models for the following steps:$/) do |step_names|
   step_names = step_names.raw.flatten
 
   expect(@result.collect { |step_model| step_model.base }).to match_array(step_names)
+end
+
+Then(/^the model returns models for the following tags:$/) do |tag_names|
+  tag_names = tag_names.raw.flatten
+
+  expect(@result.collect { |tag_model| tag_model.name }).to match_array(tag_names)
 end

@@ -1,77 +1,118 @@
-@gherkin4
-Feature: Scenario elements can be modeled.
+Feature: Scenario modeling
+
+  Scenario models represent a Scenario portion of a feature. They expose several attributes of the scenario
+  that they represent, as well as containing models for the steps and tags that are present in that scenario.
 
 
-  Acceptance criteria
+  Background:
+    Given the following gherkin:
+      """
+      Scenario: example scenario
 
-  1. All conceptual pieces of a scenario can be modeled:
-  - the scenario's name
-  - the scenario's description
-  - the scenario's steps
-  - the scenario's tags
-  - the scenario's applied tags
-  - the scenario's source line
-  - the scenario's raw element
+          Some background description.
 
-  2. Scenarios can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    @a_feature_level_tag
-    Feature:
-
-      @a_tag
-      @another_tag
-      Scenario:The first scenario's name.
-            
-        Some scenario description.
-    
-      Some more.
-          Even more.
+        Some more.
+            Even more.
 
         Given a setup step
         When an action step
         Then a verification step
-    """
-    When the file is read
-
-
-  Scenario: The raw scenario element is modeled.
-    Then the test correctly stores its underlying implementation
-
-  Scenario: The scenario source line is modeled.
-    Then the test is found to have the following properties:
-      | source_line | 6 |
-
-  Scenario: The scenario name is modeled.
-    Then the test is found to have the following properties:
-      | name | The first scenario's name. |
-
-  Scenario: The scenario description is modeled.
-    Then the test has the following description:
       """
-        Some scenario description.
+    And a scenario model based on that gherkin
+      """
+        @model = CukeModeler::Scenario.new(<source_text>)
+      """
+
+
+  Scenario: Modeling a scenario's name
+    When the scenario's name is requested
+      """
+        @model.name
+      """
+    Then the model returns "example scenario"
+
+  Scenario: Modeling a scenario's description
+    When the scenario's description is requested
+      """
+        @model.description
+      """
+    Then the model returns
+      """
+        Some background description.
 
       Some more.
           Even more.
       """
 
-  Scenario: The scenario steps are modeled.
-    Then the test steps are as follows:
+  Scenario: Modeling a scenario's steps
+    When the scenario's steps are requested
+      """
+        @model.steps
+      """
+    Then the model returns models for the following steps:
       | a setup step        |
       | an action step      |
       | a verification step |
 
-  Scenario: The scenario tags are modeled.
-    Then the test is found to have the following tags:
-      | @a_tag       |
-      | @another_tag |
+  Scenario: Modeling a scenario's tags
+    Given the following gherkin:
+      """
+      @feature_tag
+      Feature:
 
-  Scenario: The scenario applied tags are modeled.
-    Then the test is found to have the following applied tags:
-      | @a_feature_level_tag |
+        @scenario_tag_1
+        @scenario_tag_2
+        Scenario:
+          * a step
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the scenario model of that feature model
+      """
+        @model = @model.scenarios.first
+      """
+    When the scenario's tags are requested
+      """
+        @model.tags
+      """
+    Then the model returns models for the following tags:
+      | @scenario_tag_1 |
+      | @scenario_tag_2 |
+    When the scenario's inherited tags are requested
+      """
+        @model.applied_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+    When all of the scenarios tags are requested
+      """
+        @model.all_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag    |
+      | @scenario_tag_1 |
+      | @scenario_tag_2 |
 
-  Scenario: Convenient output of a scenario
-    Then the scenario has convenient output
+  Scenario: Modeling a scenario's source line
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario:
+          * a step
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the scenario model of that feature model
+      """
+        @model = @model.scenarios.first
+      """
+    When the scenario's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "3"
