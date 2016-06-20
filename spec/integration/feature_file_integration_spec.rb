@@ -22,28 +22,54 @@ describe 'FeatureFile, Integration' do
       expect { clazz.new(path) }.to raise_error(/'#{path}'/)
     end
 
-    it 'knows the name of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
-
-      feature_file = clazz.new(path)
-
-      expect(feature_file.name).to eq(@default_feature_file_name)
-    end
-
-    it 'knows the path of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
-
-      file = clazz.new(path)
-
-      expect(file.path).to eq(path)
-    end
-
     it 'cannot model a non-existent feature file' do
       path = "#{@default_file_directory}/missing_file.txt"
 
       expect { clazz.new(path) }.to raise_error(ArgumentError)
+    end
+
+
+    describe 'model population' do
+
+      let(:source_text) { "Feature: Test feature" }
+      let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+      let(:feature_file) { clazz.new(feature_file_path) }
+
+      before(:each) do
+        File.open(feature_file_path, "w") { |file| file.puts source_text }
+      end
+
+      it "models the feature file's name" do
+        expect(feature_file.name).to eq(@default_feature_file_name)
+      end
+
+      it "models the feature file's path" do
+        expect(feature_file.path).to eq(feature_file_path)
+      end
+
+      it "models the feature file's feature" do
+        feature_name = feature_file.feature.name
+
+        expect(feature_name).to eq('Test feature')
+      end
+
+      context 'an empty feature file' do
+
+        let(:source_text) { '' }
+        let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+        let(:feature_file) { clazz.new(feature_file_path) }
+
+        before(:each) do
+          File.open(feature_file_path, "w") { |file| file.puts source_text }
+        end
+
+
+        it "models the feature file's feature" do
+          expect(feature_file.feature).to be_nil
+        end
+
+      end
+
     end
 
     it 'properly sets its child elements' do
@@ -58,6 +84,7 @@ describe 'FeatureFile, Integration' do
 
       expect(feature.parent_model).to equal(file)
     end
+
 
     describe 'getting ancestors' do
 
@@ -86,6 +113,25 @@ describe 'FeatureFile, Integration' do
 
 
     describe 'feature file output' do
+
+      context 'from source text' do
+
+        let(:source_text) { "Feature: Test feature" }
+        let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+        let(:feature_file) { clazz.new(feature_file_path) }
+
+        before(:each) do
+          File.open(feature_file_path, "w") { |file| file.puts source_text }
+        end
+
+
+        it 'can output a feature file' do
+          feature_file_output = feature_file.to_s
+
+          expect(feature_file_output).to eq(feature_file_path)
+        end
+
+      end
 
       it 'can be remade from its own output' do
         path = "#{@default_file_directory}/#{@default_feature_file_name}"

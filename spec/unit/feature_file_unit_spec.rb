@@ -77,14 +77,14 @@ describe 'FeatureFile, Unit' do
     end
 
 
-    describe 'feature file output edge cases' do
+    describe 'feature file output' do
 
       it 'is a String' do
         feature_file.to_s.should be_a(String)
       end
 
 
-      context 'a new feature file object' do
+      context 'from abstract instantiation' do
 
         let(:feature_file) { clazz.new }
 

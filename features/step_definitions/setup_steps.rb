@@ -34,6 +34,12 @@ And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
   end
 end
 
+And(/^the file "([^"]*)":$/) do |file_name, file_text|
+  file_path = "#{@default_file_directory}/#{file_name}"
+
+  File.open(file_path, 'w') { |file| file.write(file_text) }
+end
+
 Given(/^the following gherkin:$/) do |text|
   @source_text = text
 end

@@ -98,3 +98,9 @@ Then(/^the model returns models for the following tags:$/) do |tag_names|
 
   expect(@result.collect { |tag_model| tag_model.name }).to match_array(tag_names)
 end
+
+Then(/^the model returns a model for the following feature:$/) do |feature_name|
+  feature_name = feature_name.raw.flatten.first
+
+  expect(@result.name).to eq(feature_name)
+end

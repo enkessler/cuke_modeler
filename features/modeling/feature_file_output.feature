@@ -1,14 +1,12 @@
-@gherkin4
-Feature: Outputting feature file elements
+Feature: Feature file output
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A feature file model's string output is simply the file path of the feature file that it models.
 
 
-  Scenario: Output of a feature file
+  Scenario: Outputting a feature file model
     Given a feature file element based on "some_feature_file.feature"
     When it is outputted
     Then the following text is provided:
-    """
-    <path_to>/some_feature_file.feature
-    """
+      """
+      <path_to>/some_feature_file.feature
+      """
