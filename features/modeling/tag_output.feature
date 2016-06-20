@@ -1,17 +1,22 @@
-@gherkin4
 Feature: Outputting tag elements
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A tag model's string output is a Gherkin representation of itself.
 
 
-  Scenario: Output of a tag that has a name
-    Given a tag element based on the following gherkin:
-    """
-    @some_tag
-    """
-    When it is outputted
+  Scenario: Outputting a tag model
+    Given the following gherkin:
+      """
+      @a_tag
+      """
+    And a scenario model based on that gherkin
+      """
+        @model = CukeModeler::Tag.new(<source_text>)
+      """
+    When the model is output as a string
+      """
+        @model.to_s
+      """
     Then the following text is provided:
-    """
-    @some_tag
-    """
+      """
+      @a_tag
+      """

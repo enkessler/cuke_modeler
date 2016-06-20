@@ -92,22 +92,54 @@ describe 'Tag, Unit' do
     end
 
 
-    describe 'tag output edge cases' do
+    describe 'model population' do
 
-      it 'is a String' do
-        element.to_s.should be_a(String)
-      end
+      context 'from source text' do
 
-
-      context 'a new tag object' do
-
-        let(:tag) { clazz.new }
+        let(:source_text) { '@a_tag' }
+        let(:tag) { clazz.new(source_text) }
 
 
-        it 'can output an empty tag' do
-          expect { tag.to_s }.to_not raise_error
+        it "models the tag's name" do
+          expect(tag.name).to eq('@a_tag')
         end
 
+      end
+
+    end
+
+  end
+
+
+  describe 'tag output' do
+
+    it 'is a String' do
+      element.to_s.should be_a(String)
+    end
+
+
+    context 'from source text' do
+
+      it 'can output a tag' do
+        source = ['@a_tag']
+        source = source.join("\n")
+        tag = clazz.new(source)
+
+        tag_output = tag.to_s.split("\n")
+
+        expect(tag_output).to eq(['@a_tag'])
+      end
+
+    end
+
+
+    context 'from abstract instantiation' do
+
+      let(:tag) { clazz.new }
+
+
+      it 'can output an empty tag' do
+        expect { tag.to_s }.to_not raise_error
       end
 
     end

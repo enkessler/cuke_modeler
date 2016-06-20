@@ -146,6 +146,26 @@ describe 'Tag, Integration' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the tag's source line" do
+          source_text = "Feature:
+
+                           @a_tag
+                           Scenario:
+                             * step"
+          tag = CukeModeler::Feature.new(source_text).tests.first.tags.first
+
+          expect(tag.source_line).to eq(3)
+        end
+
+      end
+
+    end
+
+
     describe 'tag output' do
 
       it 'can be remade from its own output' do

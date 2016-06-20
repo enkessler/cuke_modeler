@@ -1,48 +1,44 @@
-@gherkin4
-Feature: Tag elements can be modeled.
+Feature: Tag modeling
+
+  Tag models represent a tag portion of a feature. They expose several attributes of the tag
+  that they represent.
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of a tag can be modeled:
-  - the tag's name
-  - the tags's source line
-  - the tags's raw element
-
-  2. Features can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    @feature_tag
-    Feature:
-
-      @outline_tag
-      Scenario Outline:
-        * a step
-
-      @example_tag
-      Examples:
-        | a param |
-    """
-    When the file is read
+  Background:
+    Given the following gherkin:
+      """
+      @a_tag
+      """
+    And a tag model based on that gherkin
+      """
+        @model = CukeModeler::Tag.new(<source_text>)
+      """
 
 
-  Scenario: The raw tag element is modeled.
-    Then the feature tag correctly stores its underlying implementation
-    And the test tag correctly stores its underlying implementation
-    And the example tag correctly stores its underlying implementation
+  Scenario: Modeling a tag's name
+    When the tag's name is requested
+      """
+        @model.name
+      """
+    Then the model returns "@a_tag"
 
-  Scenario: The tag's source line is modeled.
-    Then the feature tag source line "1"
-    And the test tag source line "4"
-    And the example tag source line "8"
 
-  Scenario: The tag name is modeled.
-    Then the feature tag name is "@feature_tag"
-    And the test tag name is "@outline_tag"
-    And the example tag name is "@example_tag"
-
-  Scenario: Convenient output of a tag
-    Then the tag has convenient output
+  Scenario: Modeling a tag's source line
+    Given the following gherkin:
+      """
+      @a_tag
+      Feature:
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the tag model of that feature model
+      """
+        @model = @model.tags.first
+      """
+    When the tag's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "1"
