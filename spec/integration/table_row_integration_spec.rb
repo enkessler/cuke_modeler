@@ -150,6 +150,26 @@ describe 'TableRow, Integration' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the table row's source line" do
+          source_text = "Feature:
+
+                           Scenario:
+                             * a step
+                               | foo |"
+          row = CukeModeler::Feature.new(source_text).tests.first.steps.first.block.rows.first
+
+          expect(row.source_line).to eq(5)
+        end
+
+      end
+
+    end
+
+
     describe 'table row output' do
 
       it 'can be remade from its own output' do

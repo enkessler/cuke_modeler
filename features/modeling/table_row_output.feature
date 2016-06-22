@@ -1,28 +1,22 @@
-@gherkin4
 Feature: Outputting table row elements
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A table row model's string output is a Gherkin representation of itself.
 
 
-  Scenario: Output of a table row that has one cell
-    Given a table row element based on the following gherkin:
-    """
-    |value|
-    """
-    When it is outputted
+  Scenario: Outputting a table row model
+    Given the following gherkin:
+      """
+      |foo|bar|
+      """
+    And a table row model based on that gherkin
+      """
+        @model = CukeModeler::TableRow.new(<source_text>)
+      """
+    When the model is output as a string
+      """
+        @model.to_s
+      """
     Then the following text is provided:
-    """
-    | value |
-    """
-
-  Scenario: Output of a table row that has multiple cells
-    Given a table row element based on the following gherkin:
-    """
-    |value|another_value|
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    | value | another_value |
-    """
+      """
+      | foo | bar |
+      """

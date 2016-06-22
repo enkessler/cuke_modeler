@@ -1,57 +1,48 @@
-@gherkin4
-Feature: Table Row elements can be modeled.
+Feature: Table row modeling
+
+  Table row models represent an individual row in a step table. They expose several attributes of the row
+  that they represent.
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of a table row can be modeled:
-  - the row's source line
-  - the row's cells
-  - the row's raw element
-
-  2. Rows can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    Feature:
-
-      Scenario:
-        * some data filled step:
-          | value 1 | value 2 |
-          | value 3 | value 4 |
-        * some data filled step:
-          | value 1 |
-          | value 2 |
-    """
-    When the file is read
+  Background:
+    Given the following gherkin:
+      """
+      | foo | bar |
+      """
+    And a table row model based on that gherkin
+      """
+        @model = CukeModeler::TableRow.new(<source_text>)
+      """
 
 
-  Scenario: The raw table row element is modeled.
-    Then the step table row correctly stores its underlying implementation
+  Scenario: Modeling a table rows's cells
+    When the table rows's cells are requested
+      """
+        @model.cells
+      """
+    Then the model returns the following values:
+      | foo |
+      | bar |
 
-  Scenario: The table row's source line is modeled.
-    Then step "1" table row "1" is found to have the following properties:
-      | source_line | 5 |
-    And step "1" table row "2" is found to have the following properties:
-      | source_line | 6 |
-    And step "2" table row "1" is found to have the following properties:
-      | source_line | 8 |
-    And step "2" table row "2" is found to have the following properties:
-      | source_line | 9 |
+  Scenario: Modeling a table row's source line
+    Given the following gherkin:
+      """
+      Feature:
 
-  Scenario: The table row's cells are modeled.
-    Then step "1" table row "1" cells are as follows:
-      | value 1 |
-      | value 2 |
-    And step "1" table row "2" cells are as follows:
-      | value 3 |
-      | value 4 |
-    And step "2" table row "1" cells are as follows:
-      | value 1 |
-    And step "2" table row "2" cells are as follows:
-      | value 2 |
-
-  Scenario: Convenient output of a table row
-    Then the table row has convenient output
+        Scenario:
+          * a step
+            | foo |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the table row model inside of that feature model
+      """
+        @model = @model.tests.first.steps.first.block.rows.first
+      """
+    When the table rows's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "5"
