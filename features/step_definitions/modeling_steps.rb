@@ -12,7 +12,7 @@ When(/^the model is output as a string$/) do |code_text|
   @output = eval(code_text)
 end
 
-And(/^a (?:background|feature|scenario|tag) model based on that gherkin$/) do |code_text|
+And(/^a (?:background|feature|scenario|tag|row) model based on that gherkin$/) do |code_text|
   code_text.gsub!('<source_text>', "'#{@source_text}'")
 
   eval(code_text)
@@ -24,6 +24,6 @@ Given(/^(?:a|the) (?:directory|feature file) is modeled$/) do |code_text|
   eval(code_text)
 end
 
-When(/^the (?:background|scenario|tag|directory|feature file)'s (?:source line|name|description|steps|path|feature files|directories|feature) (?:is|are) requested$/) do |code_text|
+When(/^the (?:\w+|feature file)'s (?:source line|feature files|inherited tags|\w+) (?:is|are) requested$/) do |code_text|
   @result = eval(code_text)
 end

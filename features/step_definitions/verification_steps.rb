@@ -104,3 +104,9 @@ Then(/^the model returns a model for the following feature:$/) do |feature_name|
 
   expect(@result.name).to eq(feature_name)
 end
+
+Then(/^the model returns the following values:$/) do |cell_values|
+  cell_values = cell_values.raw.flatten
+
+  expect(@result).to eq(cell_values)
+end

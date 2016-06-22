@@ -1,28 +1,22 @@
-@gherkin4
 Feature: Outputting row elements
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A tag model's string output is a Gherkin representation of itself.
 
 
-  Scenario: Output of a row that has one cell
-    Given a row element based on the following gherkin:
-    """
-    |value|
-    """
-    When it is outputted
+  Scenario: Outputting a row model
+    Given the following gherkin:
+      """
+      |foo|bar|
+      """
+    And a row model based on that gherkin
+      """
+        @model = CukeModeler::Row.new(<source_text>)
+      """
+    When the model is output as a string
+      """
+        @model.to_s
+      """
     Then the following text is provided:
-    """
-    | value |
-    """
-
-  Scenario: Output of a row that has multiple cells
-    Given a row element based on the following gherkin:
-    """
-    |value|another_value|
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    | value | another_value |
-    """
+      """
+      | foo | bar |
+      """

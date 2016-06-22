@@ -1,67 +1,50 @@
-@gherkin4
-Feature: Row elements can be modeled.
+Feature: Tag modeling
+
+  Row models represent an individual row in an examples table. They expose several attributes of the row
+  that they represent.
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of a Row can be modeled:
-  - the row's source line
-  - the row's cells
-  - the row's raw element
-
-  2. Rows can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    Feature:
-
-      Scenario Outline:
-        * a step
-      Examples:
-        | param1 | param2 | extra param |
-        | x      | y      |      ?      |
-        | 1      | 2      |      3      |
-      Examples:
-        | param1 |
-        | a      |
-    """
-    When the file is read
+  Background:
+    Given the following gherkin:
+      """
+      | foo | bar |
+      """
+    And a row model based on that gherkin
+      """
+        @model = CukeModeler::Row.new(<source_text>)
+      """
 
 
-  Scenario: The raw row element is modeled.
-    Then the test example block row correctly stores its underlying implementation
+  Scenario: Modeling a rows's cells
+    When the rows's cells are requested
+      """
+        @model.cells
+      """
+    Then the model returns the following values:
+      | foo |
+      | bar |
 
-  Scenario: The row's source line is modeled.
-    Then the test example block "1" row "1" is found to have the following properties:
-      | source_line | 6 |
-    And the test example block "1" row "2" is found to have the following properties:
-      | source_line | 7 |
-    And the test example block "1" row "3" is found to have the following properties:
-      | source_line | 8 |
-    And the test example block "2" row "1" is found to have the following properties:
-      | source_line | 10 |
-    And the test example block "2" row "2" is found to have the following properties:
-      | source_line | 11 |
+  Scenario: Modeling a row's source line
+    Given the following gherkin:
+      """
+      Feature:
 
-  Scenario: The row's cells are modeled.
-    Then the test example block "1" row "1" cells are as follows:
-      | param1      |
-      | param2      |
-      | extra param |
-    And the test example block "1" row "2" cells are as follows:
-      | x |
-      | y |
-      | ? |
-    And the test example block "1" row "3" cells are as follows:
-      | 1 |
-      | 2 |
-      | 3 |
-    And the test example block "2" row "1" cells are as follows:
-      | param1 |
-    And the test example block "2" row "2" cells are as follows:
-      | a |
-
-  Scenario: Convenient output of a row
-    Then the row has convenient output
+        Scenario Outline:
+          * a step
+        Examples:
+          | param | row |
+          | value | row |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the row model inside of that feature model
+      """
+        @model = @model.tests.first.examples.first.rows.first
+      """
+    When the rows's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "6"

@@ -78,18 +78,40 @@ describe 'Row, Integration' do
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
 
-      end
+        it 'can get its example' do
+          ancestor = row.get_ancestor(:example)
 
-      it 'can get its example' do
-        ancestor = row.get_ancestor(:example)
+          ancestor.should equal directory.feature_files.first.feature.tests.first.examples.first
+        end
 
-        ancestor.should equal directory.feature_files.first.feature.tests.first.examples.first
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = row.get_ancestor(:table)
 
         ancestor.should be_nil
+      end
+
+    end
+
+
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the row's source line" do
+          source_text = "Feature: Test feature
+
+                           Scenario Outline: Test outline
+                             * a step
+                           Examples:
+                             | param |
+                             | value |"
+          row = CukeModeler::Feature.new(source_text).tests.first.examples.first.rows.first
+
+          expect(row.source_line).to eq(6)
+        end
+
       end
 
     end

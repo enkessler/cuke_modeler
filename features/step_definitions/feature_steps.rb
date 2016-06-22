@@ -93,3 +93,7 @@ end
 And(/^the (?:background|scenario|tag) model of that feature model$/) do |code_text|
   eval(code_text)
 end
+
+And(/^the row model inside of that feature model$/) do |code_text|
+  eval(code_text)
+end

@@ -78,6 +78,23 @@ describe 'Row, Unit' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        let(:source_text) { '| some value | some other value |' }
+        let(:row) { clazz.new(source_text) }
+
+
+        it "models the row's columns" do
+          expect(row.cells).to match_array(['some value', 'some other value'])
+        end
+
+      end
+
+    end
+
+
     describe 'abstract instantiation' do
 
       context 'a new row object' do
@@ -94,14 +111,37 @@ describe 'Row, Unit' do
     end
 
 
-    describe 'row output edge cases' do
+    describe 'row output' do
 
       it 'is a String' do
         row.to_s.should be_a(String)
       end
 
+      context 'from source text' do
 
-      context 'a new row object' do
+        it 'can output a row' do
+          source = ['| some value |']
+          source = source.join("\n")
+          row = clazz.new(source)
+
+          row_output = row.to_s.split("\n")
+
+          expect(row_output).to eq(['| some value |'])
+        end
+
+        it 'can output a row with multiple columns' do
+          source = ['| some value | some other value |']
+          source = source.join("\n")
+          row = clazz.new(source)
+
+          row_output = row.to_s.split("\n")
+
+          expect(row_output).to eq(['| some value | some other value |'])
+        end
+
+      end
+
+      context 'from abstract instantiation' do
 
         let(:row) { clazz.new }
 

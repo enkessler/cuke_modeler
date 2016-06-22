@@ -72,10 +72,6 @@ Given(/^a tag element based on the following gherkin:$/) do |tag_text|
   @model = CukeModeler::Tag.new(tag_text)
 end
 
-When(/^the scenario's (?:tags|inherited tags) are requested$/) do |code_text|
-  @result = eval(code_text)
-end
-
 When(/^all of the scenarios tags are requested$/) do |code_text|
   @result = eval(code_text)
 end
