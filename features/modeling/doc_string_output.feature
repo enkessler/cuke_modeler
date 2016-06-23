@@ -1,72 +1,32 @@
-@gherkin4
-Feature: Outputting doc string elements
+Feature: Outputting doc string models
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A doc string model's string output is a Gherkin representation of itself.
 
 
-  Scenario: Output of an empty doc string
-    Given a doc string element based on the following gherkin:
-    """
-    \"\"\"
-    \"\"\"
-    """
-    When it is outputted
+  Scenario: Outputting a doc string model
+    Given the following gherkin:
+      """
+      \"\"\" type foo
+      Some text
+
+        some more text
+
+      \"\"\"
+      """
+    And a doc string model based on that gherkin
+      """
+        @model = CukeModeler::DocString.new(<source_text>)
+      """
+    When the model is output as a string
+      """
+        @model.to_s
+      """
     Then the following text is provided:
-    """
-    \"\"\"
-    \"\"\"
-    """
+      """
+      \"\"\" type foo
+      Some text
 
-  Scenario: Output of a doc string without a content type
-    Given a doc string element based on the following gherkin:
-    """
-    \"\"\"
-    Some text
-      
-      some more text
-    
-    \"\"\"
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    \"\"\"
-    Some text
-      
-      some more text
-    
-    \"\"\"
-    """
+        some more text
 
-  Scenario: Output of a doc string with a content type
-    Given a doc string element based on the following gherkin:
-    """
-    \"\"\" the type
-    Some text
-      
-      some more text
-    
-    \"\"\"
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    \"\"\" the type
-    Some text
-      
-      some more text
-    
-    \"\"\"
-    """
-
-  Scenario: Output of a doc string with a triple quotes in its contents
-
-  Since triple quotes mark the beginning and end of a doc string, any triple
-  quotes inside of the doc string (which would have had to have been escaped
-  to get inside in the first place) will be escaped when outputted so as to
-  retain the quality of being able to use the output directly as gherkin.
-
-    Given a doc string element based on the string """" the type\n* a step\n  \"\"\"\n  that also has a doc string\n  \"\"\"\n""""
-    When it is outputted
-    Then the text provided is """" the type\n* a step\n  \"\"\"\n  that also has a doc string\n  \"\"\"\n""""
+      \"\"\"
+      """

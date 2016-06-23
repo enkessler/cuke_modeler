@@ -160,6 +160,31 @@ describe 'DocString, Integration' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the doc string's source line" do
+          pending('not yet implemented')
+
+
+          source_text = 'Feature:
+
+                           Scenario:
+                             * step
+                               """
+                               foo
+                               """'
+          doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
+
+          expect(doc_string.source_line).to eq(3)
+        end
+
+      end
+
+    end
+
+
     describe 'doc string output' do
 
       it 'can be remade from its own output' do

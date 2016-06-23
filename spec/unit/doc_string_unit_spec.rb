@@ -98,6 +98,49 @@ describe 'DocString, Unit' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        context 'a filled doc string' do
+
+          let(:source_text) { ['""" type foo',
+                               'bar',
+                               '"""'].join("\n") }
+          let(:doc_string) { clazz.new(source_text) }
+
+
+          it "models the doc string's content type" do
+            expect(doc_string.content_type).to eq('type foo')
+          end
+
+          it "models the doc_string's contents" do
+            expect(doc_string.contents).to eq('bar')
+          end
+
+        end
+
+        context 'an empty doc_string' do
+
+          let(:source_text) { '"""
+                               """' }
+          let(:doc_string) { clazz.new(source_text) }
+
+          it "models the doc_string's content type" do
+            expect(doc_string.content_type).to be_nil
+          end
+
+          it "models the doc_string's content" do
+            expect(doc_string.contents).to eq('')
+          end
+
+        end
+
+      end
+
+    end
+
+
     describe 'abstract instantiation' do
 
       context 'a new doc string object' do
@@ -118,26 +161,117 @@ describe 'DocString, Unit' do
     end
 
 
-    describe 'doc string output edge cases' do
+    describe 'doc string output' do
 
-      it 'is a String' do
-        doc_string.to_s.should be_a(String)
+      context 'from source text' do
+
+        it 'can output an empty doc string' do
+          source = ['"""',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['"""', '"""'])
+        end
+
+        it 'can output a doc string that has a content type' do
+          source = ['""" foo',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['""" foo',
+                                           '"""'])
+        end
+
+        it 'can output a doc_string that has contents' do
+          source = ['"""',
+                    'foo',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['"""',
+                                           'foo',
+                                           '"""'])
+        end
+
+        #  Since triple quotes mark the beginning and end of a doc string, any triple
+        #  quotes inside of the doc string (which would have had to have been escaped
+        #  to get inside in the first place) will be escaped when outputted so as to
+        #  retain the quality of being able to use the output directly as gherkin.
+
+        it 'can output a doc_string that has triple quotes in the contents' do
+          source = ['"""',
+                    '\"\"\"',
+                    '\"\"\"',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['"""',
+                                           '\"\"\"',
+                                           '\"\"\"',
+                                           '"""'])
+        end
+
+        it 'can output a doc string that has everything' do
+          source = ['""" type foo',
+                    '\"\"\"',
+                    'bar',
+                    '\"\"\"',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['""" type foo',
+                                           '\"\"\"',
+                                           'bar',
+                                           '\"\"\"',
+                                           '"""'])
+        end
+
       end
 
 
-      context 'a new doc string object' do
+      context 'from abstract instantiation' do
 
-        let(:doc_string) { clazz.new }
-
-
-        it 'can output an empty doc string' do
-          expect { doc_string.to_s }.to_not raise_error
+        it 'is a String' do
+          doc_string.to_s.should be_a(String)
         end
 
-        it 'can output a doc string that has only a content type' do
-          doc_string.content_type = 'some type'
 
-          expect { doc_string.to_s }.to_not raise_error
+        context 'a new doc string object' do
+
+          let(:doc_string) { clazz.new }
+
+
+          it 'can output an empty doc string' do
+            expect { doc_string.to_s }.to_not raise_error
+          end
+
+          it 'can output a doc string that has only a content type' do
+            doc_string.content_type = 'some type'
+
+            expect { doc_string.to_s }.to_not raise_error
+          end
+
+          it 'can output a doc string that has only a contents' do
+            doc_string.contents = 'foo'
+
+            expect { doc_string.to_s }.to_not raise_error
+          end
+
         end
 
       end

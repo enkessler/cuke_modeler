@@ -1,53 +1,62 @@
-@gherkin4
-Feature: Doc string elements can be modeled.
+Feature: Doc string modeling
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of a doc string can be modeled:
-  - the doc string's content type
-  - the doc string's contents
-  - the doc string's raw element
-
-  2. Doc string can be outputted in a convenient form
+  Doc string models represent represent the doc string argument to a step. They expose several attributes of the doc string
+  that they represent.
 
 
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    Feature:
-
-      Scenario:
-        * some wordy step:
-        \"\"\" content type
-      some text
-          
-            some more text
-        
-        \"\"\"
-        * some wordy step:
-        \"\"\"
-        \"\"\"
-    """
-    When the file is read
-
-
-  Scenario: The raw doc string element is modeled.
-    Then the doc string correctly stores its underlying implementation
-
-  Scenario: The doc string's content type is modeled.
-    Then the step "1" doc string content type is "content type"
-    And the step "2" doc string has no content type
-
-  Scenario: The doc string's contents are modeled.
-    Then the step "1" doc string has the following contents:
+  Background:
+    Given the following gherkin:
       """
-      some text
-        
-          some more text
-      
+      \"\"\" type foo
+      content bar
+      \"\"\"
       """
-    And the step "2" doc string contents are empty
+    And a doc string model based on that gherkin
+      """
+        @model = CukeModeler::DocString.new(<source_text>)
+      """
 
-  Scenario: Convenient output of an a doc string
-    Then the doc string has convenient output
+
+  Scenario: Modeling a doc string's content type
+    When the doc string's name is requested
+      """
+        @model.content_type
+      """
+    Then the model returns "type foo"
+
+  Scenario: Modeling a doc string's content
+    When the doc string's content is requested
+      """
+        @model.contents
+      """
+    Then the model returns
+      """
+      content bar
+      """
+
+  @wip
+  Scenario: Modeling a doc string's source line
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario:
+          * a step
+            \"\"\"
+            foo
+            \"\"\"
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the doc string model inside of that feature model
+      """
+        @model = @model.tests.first.steps.first.block
+      """
+    When the doc string's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "3"

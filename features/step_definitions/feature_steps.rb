@@ -94,6 +94,6 @@ And(/^the (?:background|scenario|tag) model of that feature model$/) do |code_te
   eval(code_text)
 end
 
-And(/^the (?:table )?row model inside of that feature model$/) do |code_text|
+And(/^the \w+(?: \w+)? model inside of that feature model$/) do |code_text|
   eval(code_text)
 end
