@@ -165,9 +165,6 @@ describe 'DocString, Integration' do
       context 'from source text' do
 
         it "models the doc string's source line" do
-          pending('not yet implemented')
-
-
           source_text = 'Feature:
 
                            Scenario:
@@ -177,7 +174,7 @@ describe 'DocString, Integration' do
                                """'
           doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
-          expect(doc_string.source_line).to eq(3)
+          expect(doc_string.source_line).to eq(5)
         end
 
       end

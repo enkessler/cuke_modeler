@@ -35,7 +35,6 @@ Feature: Doc string modeling
       content bar
       """
 
-  @wip
   Scenario: Modeling a doc string's source line
     Given the following gherkin:
       """
@@ -59,4 +58,4 @@ Feature: Doc string modeling
       """
         @model.source_line
       """
-    Then the model returns "3"
+    Then the model returns "5"

@@ -5,6 +5,7 @@ module CukeModeler
   class DocString < ModelElement
 
     include Raw
+    include Sourceable
 
 
     # The content type associated with the doc string
@@ -48,6 +49,7 @@ module CukeModeler
       populate_content_type(doc_string)
       populate_contents(doc_string)
       populate_raw_element(doc_string)
+      populate_source_line(doc_string)
     end
 
     def populate_content_type(doc_string)

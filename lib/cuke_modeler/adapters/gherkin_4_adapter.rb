@@ -191,6 +191,7 @@ module CukeModeler
 
       parsed_doc_string['value'] = parsed_doc_string.delete(:content)
       parsed_doc_string['content_type'] = parsed_doc_string.delete(:contentType)
+      parsed_doc_string['line'] = parsed_doc_string.delete(:location)[:line]
     end
 
     def adapt_step_table!(parsed_step_table)
