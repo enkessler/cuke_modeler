@@ -1,42 +1,51 @@
-@gherkin4
-Feature: Table elements can be modeled.
+Feature: Table modeling
+
+  Table models represent represent the table argument to a step. They expose several attributes of the table
+  that they represent.
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of a table can be modeled:
-  - the table's contents
-  - the table's raw element
-
-  2. Tables can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    Feature:
-
-      Scenario:
-        * some data filled step:
-          | value 1 | value 2 |
-          | value 3 | value 4 |
-        * some data filled step:
-          | value 1 |
-          | value 2 |
-    """
-    When the file is read
-
-
-  Scenario: The table's contents are modeled.
-    Then the step "1" table has the following contents:
+  Background:
+    Given the following gherkin:
+      """
       | value 1 | value 2 |
       | value 3 | value 4 |
-    And the step "2" table has the following contents:
-      | value 1 |
-      | value 2 |
+      """
+    And a table model based on that gherkin
+      """
+        @model = CukeModeler::Table.new(<source_text>)
+      """
 
-  Scenario: The raw table element is modeled.
-    Then the table correctly stores its underlying implementation
 
-  Scenario: Convenient output of a table
-    Then the table has convenient output
+  Scenario: Modeling a table's rows
+    When the table's rows are requested
+      """
+        @model.rows
+      """
+    Then the model returns models for the following rows:
+      | value 1 | value 2 |
+      | value 3 | value 4 |
+
+  @wip
+  Scenario: Modeling a table's source line
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario:
+          * a step
+            | param |
+            | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the table model inside of that feature model
+      """
+        @model = @model.tests.first.steps.first.block
+      """
+    When the table's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "6"

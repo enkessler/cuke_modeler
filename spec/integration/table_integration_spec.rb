@@ -30,6 +30,45 @@ describe 'Table, Integration' do
       expect { clazz.new(source) }.to_not raise_error
     end
 
+
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the table's source line" do
+          pending
+
+          source_text = "Feature:
+
+                           Scenario:
+                             * step
+                               | value |"
+          table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
+
+          expect(table.source_line).to eq(6)
+        end
+
+
+        context 'a filled table' do
+
+          let(:source_text) { "| value 1 |
+                               | value 2 |" }
+          let(:table) { clazz.new(source_text) }
+
+
+          it "models the table's rows" do
+            table_cells = table.rows.collect { |row| row.cells }
+
+            expect(table_cells).to eq([['value 1'], ['value 2']])
+          end
+
+        end
+
+      end
+
+    end
+
+
     it 'properly sets its child elements' do
       source = ['| cell 1 |',
                 '| cell 2 |']
@@ -187,19 +226,56 @@ describe 'Table, Integration' do
       end
 
 
-      describe 'edge cases' do
+      context 'from source text' do
 
-        context 'a new table object' do
+        it 'can output an table that has a single row' do
+          source = ['|value1|value2|']
+          source = source.join("\n")
+          table = clazz.new(source)
 
-          let(:table) { clazz.new }
+          table_output = table.to_s.split("\n")
+
+          expect(table_output).to eq(['| value1 | value2 |'])
+        end
+
+        it 'can output an table that has multiple rows' do
+          source = ['|value1|value2|',
+                    '|value3|value4|']
+          source = source.join("\n")
+          table = clazz.new(source)
+
+          table_output = table.to_s.split("\n")
+
+          expect(table_output).to eq(['| value1 | value2 |',
+                                      '| value3 | value4 |'])
+        end
+
+        it 'buffers row cells based on the longest value in a column' do
+          source = ['|value 1| x|',
+                    '|y|value 2|',
+                    '|a|b|']
+          source = source.join("\n")
+          table = clazz.new(source)
+
+          table_output = table.to_s.split("\n")
+
+          expect(table_output).to eq(['| value 1 | x       |',
+                                      '| y       | value 2 |',
+                                      '| a       | b       |'])
+        end
+
+      end
 
 
-          it 'can output a table that only has row elements' do
-            table.rows = [CukeModeler::TableRow.new]
+      context 'from abstract instantiation' do
 
-            expect { table.to_s }.to_not raise_error
-          end
+        let(:table) { clazz.new }
 
+
+        it 'can output a table that only has row elements' do
+          table.rows = [CukeModeler::TableRow.new]
+
+          expect { table.to_s }.to_not raise_error
         end
 
       end

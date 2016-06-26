@@ -84,16 +84,16 @@ describe 'Table, Unit' do
 
       expect(table.children).to match_array(everything)
     end
-    
 
-    describe 'table output edge cases' do
+
+    describe 'table output' do
 
       it 'is a String' do
         table.to_s.should be_a(String)
       end
 
 
-      context 'a new table object' do
+      context 'from abstract instantiation' do
 
         let(:table) { clazz.new }
 
