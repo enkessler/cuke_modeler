@@ -121,7 +121,7 @@ describe 'Scenario, Integration' do
             end
 
             it "models the scenario's tags" do
-              expect(scenario.steps).to eq([])
+              expect(scenario.tags).to eq([])
             end
 
           end
