@@ -159,13 +159,104 @@ describe 'Example, Unit' do
       expect(example.children).to match_array(everything)
     end
 
-    describe 'example output edge cases' do
+    describe 'model population' do
+
+      context 'from source text' do
+
+        context 'a filled example' do
+
+          let(:source_text) { "Examples: test example
+
+                                   Some example description.
+
+                                 Some more.
+                                     Even more." }
+          let(:example) { clazz.new(source_text) }
+
+
+          it "models the example's name" do
+            expect(example.name).to eq('test example')
+          end
+
+          it "models the example's description" do
+            description = example.description.split("\n")
+
+            expect(description).to eq(['  Some example description.',
+                                       '',
+                                       'Some more.',
+                                       '    Even more.'])
+          end
+
+        end
+
+        context 'an empty example' do
+
+          let(:source_text) { 'Examples:' }
+          let(:example) { clazz.new(source_text) }
+
+          it "models the example's name" do
+            expect(example.name).to eq('')
+          end
+
+          it "models the example's description" do
+            expect(example.description).to eq('')
+          end
+
+        end
+
+      end
+
+    end
+
+
+    describe 'example output' do
 
       it 'is a String' do
         example.to_s.should be_a(String)
       end
 
-      context 'a new example object' do
+
+      context 'from source text' do
+
+        it 'can output an empty example' do
+          source = ['Examples:']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples:'])
+        end
+
+        it 'can output an example that has a name' do
+          source = ['Examples: test example']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples: test example'])
+        end
+
+        it 'can output an example that has a description' do
+          source = ['Examples:',
+                    'Some description.',
+                    'Some more description.']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.'])
+        end
+
+      end
+
+
+      context 'from abstract instantiation' do
 
         let(:example) { clazz.new }
 

@@ -1,99 +1,125 @@
-@gherkin4
-Feature: Example elements can be modeled.
+Feature: Example modeling
+
+  Example models represent an example table of a Scenario Outline portion of a feature. They expose
+  several attributes of the example that they represent, as well as containing models for the example
+  rows and tags that are present in that example.
 
 
-  Acceptance criteria
+  Background:
+    Given the following gherkin:
+      """
+      @a_tag
+      Examples: test example
 
-  1. All conceptual pieces of an example block can be modeled:
-  - the example's name
-  - the example's description
-  - the example's parameters
-  - the example's rows
-  - the example's tags
-  - the example's applied tags
-  - the example's source line
-  - the example's raw element
+          Some example description.
 
-  2. Example blocks can be outputted in a convenient form
+        Some more.
+            Even more.
+
+        | param 1 | param 2 |
+        | value 1 | value 2 |
+      """
+    And an example model based on that gherkin
+      """
+        @model = CukeModeler::Example.new(<source_text>)
+      """
 
 
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    @a_feature_level_tag
-    Feature:
+  Scenario: Modeling an example's name
+    When the example's name is requested
+      """
+        @model.name
+      """
+    Then the model returns "test example"
 
-      @outline_tag
-      Scenario Outline:
-        * a step
-
-      Examples: text describing the significance of the examples
-
+  Scenario: Modeling an example's description
+    When the example's description is requested
+      """
+        @model.description
+      """
+    Then the model returns
+      """
         Some example description.
 
       Some more.
           Even more.
-        |param1| param2 | extra param |
-        |x     | y      |      ?      |
-        |1     | 2      |      3      |
-      @example_tag @another_one
-      Examples: some examples with different significance and a tag
-        | param1 |
-        | a      |
-    """
-    When the file is read
-
-
-  Scenario: The raw example element is modeled.
-    Then the test example block correctly stores its underlying implementation
-
-  Scenario: The example's source line is modeled.
-    Then the test example block "1" is found to have the following properties:
-      | source_line | 8 |
-    And the test example block "2" is found to have the following properties:
-      | source_line | 18 |
-
-  Scenario: The examples' name is modeled.
-    Then the test example block "1" is found to have the following properties:
-      | name | text describing the significance of the examples |
-    And the test example block "2" is found to have the following properties:
-      | name | some examples with different significance and a tag |
-
-  Scenario: The examples' description is modeled.
-    Then the test example block "1" has the following description:
       """
-        Some example description.
-  
-      Some more.
-          Even more.
-      """
-    And the test example block "2" has no description
 
-  Scenario: The examples' tags are modeled.
-    Then the test example block "1" has no tags
-    And the test example block "2" is found to have the following tags:
+  Scenario: Modeling an example's rows
+    When the example's rows are requested
+      """
+        @model.rows
+      """
+    Then the model returns models for the following rows:
+      | param 1 | param 2 |
+      | value 1 | value 2 |
+
+  Scenario: Modeling an example's tags
+    Given the following gherkin:
+      """
+      @feature_tag
+      Feature:
+
+        @outline_tag
+        Scenario Outline:
+          * a step
+
+        @example_tag
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the example model inside of that feature model
+      """
+        @model = @model.tests.first.examples.first
+      """
+    When the example's tags are requested
+      """
+        @model.tags
+      """
+    Then the model returns models for the following tags:
       | @example_tag |
-      | @another_one |
+    When the example's inherited tags are requested
+      """
+        @model.applied_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+      | @outline_tag |
+    When all of the example's tags are requested
+      """
+        @model.all_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+      | @outline_tag |
+      | @example_tag |
 
-  Scenario: The examples' applied tags are modeled.
-    Then the test example block "2" is found to have the following applied tags:
-      | @a_feature_level_tag |
-      | @outline_tag         |
+  Scenario: Modeling an example's source line
+    Given the following gherkin:
+      """
+      Feature:
 
-  Scenario: The examples' parameters are modeled.
-    Then the test example block "1" parameters are as follows:
-      | param1      |
-      | param2      |
-      | extra param |
-    And the test example block "2" parameters are as follows:
-      | param1 |
-
-  Scenario: The examples' rows are modeled.
-    Then the test example block "1" rows are as follows:
-      | x,y,? |
-      | 1,2,3 |
-    And the test example block "2" rows are as follows:
-      | a |
-
-  Scenario: Convenient output of an example block
-    Then the example block has convenient output
+        Scenario Outline:
+          * a step
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the example model inside of that feature model
+      """
+        @model = @model.tests.first.examples.first
+      """
+    When the example's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "5"

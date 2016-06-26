@@ -90,7 +90,14 @@ end
 Then(/^the model returns models for the following steps:$/) do |step_names|
   step_names = step_names.raw.flatten
 
+  #todo - should be an #eq instead of #match_array because orser matters for steps
   expect(@result.collect { |step_model| step_model.base }).to match_array(step_names)
+end
+
+Then(/^the model returns models for the following rows:$/) do |rows|
+  rows = rows.raw
+
+  expect(@result.collect { |row_model| row_model.cells }).to eq(rows)
 end
 
 Then(/^the model returns models for the following tags:$/) do |tag_names|

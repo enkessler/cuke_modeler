@@ -33,6 +33,67 @@ describe 'Example, Integration' do
       expect { @element = clazz.new(source) }.to_not raise_error
     end
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the example's source line" do
+          source_text = "Feature:
+
+                           Scenario Outline:
+                             * step
+                           Examples:
+                             | param |
+                             | value |"
+          example = CukeModeler::Feature.new(source_text).tests.first.examples.first
+
+          expect(example.source_line).to eq(5)
+        end
+
+
+        context 'a filled example' do
+
+          let(:source_text) { "@tag1 @tag2 @tag3
+                               Examples:
+                                 | param |
+                                 | value |" }
+          let(:example) { clazz.new(source_text) }
+
+
+          it "models the example's rows" do
+            example_names = example.rows.collect { |row| row.cells }
+
+            expect(example_names).to eq([['param'], ['value']])
+          end
+
+          it "models the example's tags" do
+            tag_names = example.tags.collect { |tag| tag.name }
+
+            expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
+          end
+
+        end
+
+        context 'an empty example' do
+
+          let(:source_text) { 'Examples:' }
+          let(:example) { clazz.new(source_text) }
+
+
+          it "models the example's rows" do
+            expect(example.rows).to eq([])
+          end
+
+          it "models the example's tags" do
+            expect(example.tags).to eq([])
+          end
+
+        end
+
+      end
+
+    end
+
     it 'properly sets its child elements' do
       source = ['@a_tag',
                 'Examples:',
@@ -339,23 +400,121 @@ describe 'Example, Integration' do
       end
 
 
-      describe 'edge cases' do
+      context 'from source text' do
 
-        context 'a new example object' do
+        it 'can output an example that has a single row' do
+          source = ['Examples:',
+                    '|param1|param2|']
+          source = source.join("\n")
+          example = clazz.new(source)
 
-          let(:example) { clazz.new }
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples:',
+                                        '  | param1 | param2 |'])
+        end
+
+        it 'can output an example that has multiple rows' do
+          source = ['Examples:',
+                    '|param1|param2|',
+                    '|value1|value2|',
+                    '|value3|value4|']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples:',
+                                        '  | param1 | param2 |',
+                                        '  | value1 | value2 |',
+                                        '  | value3 | value4 |'])
+        end
+
+        it 'can output an example that has tags' do
+          source = ['@tag1',
+                    '@tag2 @tag3',
+                    'Examples:',
+                    '|param1|param2|',
+                    '|value1|value2|',
+                    '|value3|value4|']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Examples:',
+                                        '  | param1 | param2 |',
+                                        '  | value1 | value2 |',
+                                        '  | value3 | value4 |'])
+        end
+
+        it 'can output an example that has everything' do
+          source = ['@tag1',
+                    '@tag2 @tag3',
+                    'Examples: with everything it could have',
+                    'Some description.',
+                    'Some more description.',
+                    '|param1|param2|',
+                    '|value1|value2|',
+                    '|value3|value4|']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Examples: with everything it could have',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.',
+                                        '',
+                                        '  | param1 | param2 |',
+                                        '  | value1 | value2 |',
+                                        '  | value3 | value4 |'])
+        end
+
+        it 'buffers row cells based on the longest value in a column' do
+          source = ['Examples:',
+                    '|parameter 1| x|',
+                    '|y|value 1|',
+                    '|a|b|']
+          source = source.join("\n")
+          example = clazz.new(source)
+
+          example_output = example.to_s.split("\n")
+
+          expect(example_output).to eq(['Examples:',
+                                        '  | parameter 1 | x       |',
+                                        '  | y           | value 1 |',
+                                        '  | a           | b       |'])
+        end
+
+      end
 
 
-          it 'can output an example that has only tags' do
-            example.tags = [CukeModeler::Tag.new]
+      context 'from abstract instantiation' do
 
-            expect { example.to_s }.to_not raise_error
-          end
 
-          it 'can output an example that has only rows' do
-            example.rows = [CukeModeler::Row.new]
+        describe 'edge cases' do
 
-            expect { example.to_s }.to_not raise_error
+          context 'a new example object' do
+
+            let(:example) { clazz.new }
+
+
+            it 'can output an example that has only tags' do
+              example.tags = [CukeModeler::Tag.new]
+
+              expect { example.to_s }.to_not raise_error
+            end
+
+            it 'can output an example that has only rows' do
+              example.rows = [CukeModeler::Row.new]
+
+              expect { example.to_s }.to_not raise_error
+            end
+
           end
 
         end

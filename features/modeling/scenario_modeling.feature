@@ -86,7 +86,7 @@ Feature: Scenario modeling
       """
     Then the model returns models for the following tags:
       | @feature_tag |
-    When all of the scenarios tags are requested
+    When all of the scenario's tags are requested
       """
         @model.all_tags
       """
