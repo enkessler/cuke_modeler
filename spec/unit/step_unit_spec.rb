@@ -137,14 +137,63 @@ describe 'Step, Unit' do
     end
 
 
-    describe 'step output edge cases' do
+    describe 'model population' do
+
+      context 'from source text' do
+
+        let(:source_text) { '* a step' }
+        let(:step) { clazz.new(source_text) }
+
+
+        it "models the step's keyword" do
+          expect(step.keyword).to eq('*')
+        end
+
+        it "models the step's base" do
+          expect(step.base).to eq('a step')
+        end
+
+
+        context 'with no block' do
+
+          let(:source_text) { '* a step' }
+          let(:step) { clazz.new(source_text) }
+
+
+          it "models the step's block" do
+            expect(step.block).to be_nil
+          end
+
+        end
+
+      end
+
+    end
+
+
+    describe 'step output' do
 
       it 'is a String' do
         step.to_s.should be_a(String)
       end
 
 
-      context 'a new step object' do
+      context 'from source text' do
+
+        it 'can output a step' do
+          source = ['* a step']
+          source = source.join("\n")
+          step = clazz.new(source)
+
+          step_output = step.to_s.split("\n")
+
+          expect(step_output).to eq(['* a step'])
+        end
+
+      end
+
+
+      context 'from abstract instantiation' do
 
         let(:step) { clazz.new }
 

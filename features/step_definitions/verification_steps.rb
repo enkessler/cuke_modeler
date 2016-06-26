@@ -117,3 +117,13 @@ Then(/^the model returns the following values:$/) do |cell_values|
 
   expect(@result).to eq(cell_values)
 end
+
+Then(/^the model returns a model for the following table:$/) do |table_rows|
+  table_rows = table_rows.raw
+
+  expect(@result.rows.collect { |row| row.cells }).to eq(table_rows)
+end
+
+Then(/^the model returns a model for the following doc string:$/) do |string_text|
+  expect(@result.contents).to eq(string_text)
+end

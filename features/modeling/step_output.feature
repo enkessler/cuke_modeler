@@ -1,53 +1,29 @@
-@gherkin4
-Feature: Outputting step elements
+Feature: Outputting step models
 
-  The output of an element model is a representation of the element as it would
-  appear in gherkin.
+  A step model's string output is a Gherkin representation of itself.
 
 
-  Scenario: Output of a step without a block
-    Given a step element based on the following gherkin:
-    """
-    * a step
-    """
-    When it is outputted
+  Scenario: Outputting a step model
+
+  Note: Outputting a step that has a doc string is accomplished in the same manner
+
+    Given the following gherkin:
+      """
+      * a step
+        |value1|
+        |value2|
+      """
+    And a step model based on that gherkin
+      """
+        @model = CukeModeler::Step.new(<source_text>)
+      """
+    When the model is output as a string
+      """
+        @model.to_s
+      """
     Then the following text is provided:
-    """
-    * a step
-    """
-
-  Scenario: Output of a step with a doc string
-    Given a step element based on the following gherkin:
-    """
-    * a step
-    \"\"\"
-    Some text
-
-      some more text
-    \"\"\"
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    * a step
-      \"\"\"
-      Some text
-      
-        some more text
-      \"\"\"
-    """
-
-  Scenario: Output of a step with a table
-    Given a step element based on the following gherkin:
-    """
-    * a step
-    |value1|
-    |value2|
-    """
-    When it is outputted
-    Then the following text is provided:
-    """
-    * a step
-      | value1 |
-      | value2 |
-    """
+      """
+      * a step
+        | value1 |
+        | value2 |
+      """

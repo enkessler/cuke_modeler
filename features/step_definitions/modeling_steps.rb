@@ -24,6 +24,6 @@ Given(/^(?:a|the) (?:directory|feature file) is modeled$/) do |code_text|
   eval(code_text)
 end
 
-When(/^the \w+(?: \w+)?'s (?:source line|feature files|inherited tags|\w+) (?:is|are) requested$/) do |code_text|
+When(/^the \w+(?: \w+)?'s \w+(?: \w+)? (?:is|are) requested$/) do |code_text|
   @result = eval(code_text)
 end

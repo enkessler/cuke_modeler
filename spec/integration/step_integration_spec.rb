@@ -15,6 +15,60 @@ describe 'Step, Integration' do
 
   describe 'unique behavior' do
 
+
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the step's source line" do
+          source_text = "Feature:
+
+                           Scenario: foo
+                             * step"
+          step = CukeModeler::Feature.new(source_text).tests.first.steps.first
+
+          expect(step.source_line).to eq(4)
+        end
+
+
+        context 'a step with a table' do
+
+          let(:source_text) { '* a step
+                                 | value 1 |
+                                 | value 2 |' }
+          let(:step) { clazz.new(source_text) }
+
+
+          it "models the step's table" do
+            table_cells = step.block.rows.collect { |row| row.cells }
+
+            expect(table_cells).to eq([['value 1'], ['value 2']])
+          end
+
+        end
+
+        context 'a step with a doc string' do
+
+          let(:source_text) { '* a step
+                                 """
+                                 some text
+                                 """' }
+          let(:step) { clazz.new(source_text) }
+
+
+          it "models the step's doc string" do
+            doc_string = step.block
+
+            expect(doc_string.contents).to eq('some text')
+          end
+
+        end
+
+      end
+
+    end
+
+
     it 'properly sets its child elements' do
       source_1 = ['* a step',
                   '"""',
@@ -174,39 +228,79 @@ describe 'Step, Integration' do
 
     describe 'step output' do
 
-      it 'can be remade from its own output' do
-        source = ['* a step',
-                  '  | value1 | value2 |',
-                  '  | value3 | value4 |']
-        source = source.join("\n")
-        step = clazz.new(source)
+      context 'from source text' do
 
-        step_output = step.to_s
-        remade_step_output = clazz.new(step_output).to_s
+        context 'a step with a table' do
 
-        expect(remade_step_output).to eq(step_output)
+          let(:source_text) { ['* a step',
+                               '  | value1 | value2 |',
+                               '  | value3 | value4 |'].join("\n") }
+          let(:step) { clazz.new(source_text) }
+
+
+          it 'can output a step that has a table' do
+            step_output = step.to_s.split("\n")
+
+            expect(step_output).to eq(['* a step',
+                                       '  | value1 | value2 |',
+                                       '  | value3 | value4 |'])
+
+          end
+
+          it 'can be remade from its own output' do
+            step_output = step.to_s
+            remade_step_output = clazz.new(step_output).to_s
+
+            expect(remade_step_output).to eq(step_output)
+          end
+
+        end
+
+        context 'a step with a doc string' do
+
+          let(:source_text) { ['* a step',
+                               '  """',
+                               '  some text',
+                               '  """'].join("\n") }
+          let(:step) { clazz.new(source_text) }
+
+
+          it 'can output a step that has a doc string' do
+            step_output = step.to_s.split("\n")
+
+            expect(step_output).to eq(['* a step',
+                                       '  """',
+                                       '  some text',
+                                       '  """'])
+          end
+
+          it 'can be remade from its own output' do
+            step_output = step.to_s
+            remade_step_output = clazz.new(step_output).to_s
+
+            expect(remade_step_output).to eq(step_output)
+          end
+
+        end
+
       end
 
 
-      describe 'edge cases' do
+      context 'from abstract instantiation' do
 
-        context 'a new step object' do
-
-          let(:step) { clazz.new }
+        let(:step) { clazz.new }
 
 
-          it 'can output a step that has only a table' do
-            step.block = CukeModeler::Table.new
+        it 'can output a step that has only a table' do
+          step.block = CukeModeler::Table.new
 
-            expect { step.to_s }.to_not raise_error
-          end
+          expect { step.to_s }.to_not raise_error
+        end
 
-          it 'can output a step that has only a doc string' do
-            step.block = CukeModeler::DocString.new
+        it 'can output a step that has only a doc string' do
+          step.block = CukeModeler::DocString.new
 
-            expect { step.to_s }.to_not raise_error
-          end
-
+          expect { step.to_s }.to_not raise_error
         end
 
       end

@@ -158,8 +158,8 @@ Then /^(?:the )?(?:feature "([^"]*)" )?(?:test(?: "([^"]*)")? )?step(?: "([^"]*)
   assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
 end
 
-Given(/^a step element based on the following gherkin:$/) do |step_text|
-  @model = CukeModeler::Step.new(step_text)
+Given(/^a step model based on the following gherkin:$/) do |source_text|
+  @model = CukeModeler::Step.new(source_text)
 end
 
 Then(/^the step has convenient output$/) do
