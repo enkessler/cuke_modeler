@@ -193,6 +193,24 @@ describe 'Directory, Integration' do
 
     describe 'directory output' do
 
+      context 'from source text' do
+
+        let(:directory_path) { "#{@default_file_directory}/test_directory" }
+        let(:directory) { clazz.new(directory_path) }
+
+        before(:each) do
+          FileUtils.mkdir(directory_path)
+        end
+
+
+        it 'can output a directory' do
+          directory_output = directory.to_s
+
+          expect(directory_output).to eq(directory_path)
+        end
+
+      end
+
       it 'can be remade from its own output' do
         source = @default_file_directory
         directory = clazz.new(source)
