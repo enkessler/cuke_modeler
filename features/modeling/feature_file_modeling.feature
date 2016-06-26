@@ -1,7 +1,7 @@
 Feature: Feature file modeling
 
 
-  Feature file models represent a single feature file in a test suite. They expose several attributes of the
+  Feature file models represent a single .feature file in a test suite. They expose several attributes of the
   feature file that they represent, as well as containing the model for the feature that is present in that file.
 
 

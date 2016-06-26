@@ -1,6 +1,6 @@
-Feature: Outputting row elements
+Feature: Outputting row models
 
-  A tag model's string output is a Gherkin representation of itself.
+  A row model's string output is a Gherkin representation of itself.
 
 
   Scenario: Outputting a row model

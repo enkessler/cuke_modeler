@@ -1,4 +1,4 @@
-Feature: Tag modeling
+Feature: Row modeling
 
   Row models represent an individual row in an examples table. They expose several attributes of the row
   that they represent.

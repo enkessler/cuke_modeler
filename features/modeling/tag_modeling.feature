@@ -22,7 +22,6 @@ Feature: Tag modeling
       """
     Then the model returns "@a_tag"
 
-
   Scenario: Modeling a tag's source line
     Given the following gherkin:
       """
