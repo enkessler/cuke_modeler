@@ -36,7 +36,7 @@ namespace 'cuke_modeler' do
         cucumber_args = '-t ~@gherkin3 -t ~@gherkin4'
     end
 
-    cucumber_args += ' -f progress'
+    cucumber_args += ' -f progress -t ~@wip'
 
     Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)
   end
