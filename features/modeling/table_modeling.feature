@@ -25,7 +25,6 @@ Feature: Table modeling
       | value 1 | value 2 |
       | value 3 | value 4 |
 
-  @wip
   Scenario: Modeling a table's source line
     Given the following gherkin:
       """
@@ -33,8 +32,8 @@ Feature: Table modeling
 
         Scenario:
           * a step
-            | param |
-            | value |
+            | value 1 |
+            | value 2 |
       """
     And a feature model based on that gherkin
       """
@@ -48,4 +47,4 @@ Feature: Table modeling
       """
         @model.source_line
       """
-    Then the model returns "6"
+    Then the model returns "5"

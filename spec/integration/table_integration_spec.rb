@@ -36,8 +36,6 @@ describe 'Table, Integration' do
       context 'from source text' do
 
         it "models the table's source line" do
-          pending
-
           source_text = "Feature:
 
                            Scenario:
@@ -45,7 +43,7 @@ describe 'Table, Integration' do
                                | value |"
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
-          expect(table.source_line).to eq(6)
+          expect(table.source_line).to eq(5)
         end
 
 

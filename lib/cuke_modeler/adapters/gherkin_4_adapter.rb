@@ -203,6 +203,7 @@ module CukeModeler
         adapt_table_row!(row)
       end
       parsed_step_table['rows'].concat(parsed_step_table.delete(:rows))
+      parsed_step_table['line'] = parsed_step_table.delete(:location)[:line]
     end
 
     def adapt_table_row!(parsed_table_row)

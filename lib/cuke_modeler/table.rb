@@ -6,6 +6,7 @@ module CukeModeler
 
     include Containing
     include Raw
+    include Sourceable
 
 
     # The row objects that make up the table
@@ -48,6 +49,7 @@ module CukeModeler
     def build_table(table)
       populate_row_elements(table)
       populate_raw_element(table)
+      populate_source_line(table)
     end
 
     def populate_row_elements(table)

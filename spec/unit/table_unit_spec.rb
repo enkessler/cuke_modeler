@@ -12,6 +12,7 @@ describe 'Table, Unit' do
 
     it_should_behave_like 'a modeled element'
     it_should_behave_like 'a raw element'
+    it_should_behave_like 'a sourced element'
 
   end
 
