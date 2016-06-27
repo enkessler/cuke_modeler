@@ -1,88 +1,135 @@
-@gherkin4
-Feature: Outline elements can be modeled.
+Feature: Outline modeling
+
+  Outline models represent a Scenario Outline portion of a feature. They expose several attributes of the outline
+  that they represent, as well as containing models for the steps, tags, and examples that are present in that outline.
 
 
-  Acceptance criteria
-
-  1. All conceptual pieces of an outline can be modeled:
-  - the outline's name
-  - the outline's description
-  - the outline's steps
-  - the outline's tags
-  - the outline's applied tags
-  - the outline's example blocks
-  - the outline's source line
-  - the outline's raw element
-
-  2. Outlines can be outputted in a convenient form
-
-
-  Background: Test file setup.
-    Given the following feature file:
-    """
-    @a_feature_level_tag
-    Feature:
-
-      @outline_tag
-      Scenario Outline: The scenario outline's name.
-            
-        Some outline description.
-    
-      Some more.
-          Even more.
-
-        Given a <setup> step
-        When an action step
-        Then a <verification> step
-
-      Examples: example 1
-        | setup | verification |
-        | x     | y            |
-      Examples: example 2
-        | setup | verification |
-        | a     | b            |
-    """
-    When the file is read
-
-
-  Scenario: The raw outline element is modeled.
-    Then the test correctly stores its underlying implementation
-
-  Scenario: The outline source line is modeled.
-    Then the test is found to have the following properties:
-      | source_line | 5 |
-
-  Scenario: The outline name is modeled.
-    Then the test is found to have the following properties:
-      | name | The scenario outline's name. |
-
-  Scenario: The outline description is modeled.
-    Then the test has the following description:
+  Background:
+    Given the following gherkin:
       """
-        Some outline description.
+      Scenario Outline: example outline
+
+          Some background description.
+
+        Some more.
+            Even more.
+
+
+          Given a <setup> step
+          When an action step
+          Then a <verification> step
+
+        Examples: example 1
+          | setup | verification |
+          | x     | y            |
+        Examples: example 2
+          | setup | verification |
+          | a     | b            |
+      """
+    And an outline model based on that gherkin
+      """
+        @model = CukeModeler::Outline.new(<source_text>)
+      """
+
+
+  Scenario: Modeling an outline's name
+    When the outline's name is requested
+      """
+        @model.name
+      """
+    Then the model returns "example outline"
+
+  Scenario: Modeling an outline's description
+    When the outline's description is requested
+      """
+        @model.description
+      """
+    Then the model returns
+      """
+        Some background description.
 
       Some more.
           Even more.
       """
 
-  Scenario: The outline steps are modeled.
-    Then the test steps are as follows:
+  Scenario: Modeling an outline's steps
+    When the outline's steps are requested
+      """
+        @model.steps
+      """
+    Then the model returns models for the following steps:
       | a <setup> step        |
       | an action step        |
       | a <verification> step |
 
-  Scenario: The outline tags are modeled.
-    Then the test is found to have the following tags:
-      | @outline_tag |
+  Scenario: Modeling an outline's tags
+    Given the following gherkin:
+      """
+      @feature_tag
+      Feature:
 
-  Scenario: The outline applied tags are modeled.
-    Then the test is found to have the following applied tags:
-      | @a_feature_level_tag |
+        @outline_tag_1
+        @outline_tag_2
+        Scenario Outline:
+          Given a <setup> step
+          When an action step
+          Then a <verification> step
 
-  Scenario: The outline example blocks are modeled.
-    And the test example blocks are as follows:
-      | example 1 |
-      | example 2 |
+        Examples:
+          | setup | verification |
+          | x     | y            |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the outline model of that feature model
+      """
+        @model = @model.outlines.first
+      """
+    When the outline's tags are requested
+      """
+        @model.tags
+      """
+    Then the model returns models for the following tags:
+      | @outline_tag_1 |
+      | @outline_tag_2 |
+    When the outline's inherited tags are requested
+      """
+        @model.applied_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+    When all of the outline's tags are requested
+      """
+        @model.all_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag   |
+      | @outline_tag_1 |
+      | @outline_tag_2 |
 
-  Scenario: Convenient output of an an outline
-    Then the outline has convenient output
+  Scenario: Modeling a outline's source line
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario Outline:
+          * a step
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the outline model of that feature model
+      """
+        @model = @model.outlines.first
+      """
+    When the outline's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "3"

@@ -146,6 +146,56 @@ describe 'Outline, Unit' do
     end
 
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        context 'a filled outline' do
+
+          let(:source_text) { 'Scenario Outline: Outline name
+
+                                 Scenario description.
+
+                               Some more.
+                                   Even more.' }
+          let(:outline) { clazz.new(source_text) }
+
+
+          it "models the outline's name" do
+            expect(outline.name).to eq('Outline name')
+          end
+
+          it "models the outline's description" do
+            description = outline.description.split("\n")
+
+            expect(description).to eq(['  Scenario description.',
+                                       '',
+                                       'Some more.',
+                                       '    Even more.'])
+          end
+
+        end
+
+        context 'an empty outline' do
+
+          let(:source_text) { 'Scenario Outline:' }
+          let(:outline) { clazz.new(source_text) }
+
+          it "models the outline's name" do
+            expect(outline.name).to eq('')
+          end
+
+          it "models the outline's description" do
+            expect(outline.description).to eq('')
+          end
+
+        end
+
+      end
+
+    end
+
+
     describe 'comparison' do
 
       it 'can gracefully be compared to other types of objects' do
@@ -159,14 +209,54 @@ describe 'Outline, Unit' do
     end
 
 
-    describe 'outline output edge cases' do
+    describe 'outline output' do
 
       it 'is a String' do
         outline.to_s.should be_a(String)
       end
 
 
-      context 'a new outline object' do
+      context 'from source text' do
+
+        it 'can output an empty outline' do
+          source = ['Scenario Outline:']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n")
+
+          expect(outline_output).to eq(['Scenario Outline:'])
+        end
+
+        it 'can output a outline that has a name' do
+          source = ['Scenario Outline: test outline']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n")
+
+          expect(outline_output).to eq(['Scenario Outline: test outline'])
+        end
+
+        it 'can output a outline that has a description' do
+          source = ['Scenario Outline:',
+                    'Some description.',
+                    'Some more description.']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n")
+
+          expect(outline_output).to eq(['Scenario Outline:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.'])
+        end
+
+      end
+
+
+      context 'from abstract instantiation' do
 
         let(:outline) { clazz.new }
 
