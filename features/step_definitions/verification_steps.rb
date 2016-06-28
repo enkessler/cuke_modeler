@@ -90,20 +90,13 @@ end
 Then(/^the model returns models for the following steps:$/) do |step_names|
   step_names = step_names.raw.flatten
 
-  #todo - should be an #eq instead of #match_array because orser matters for steps
-  expect(@result.collect { |step_model| step_model.base }).to match_array(step_names)
+  expect(@result.collect { |step_model| step_model.base }).to eq(step_names)
 end
 
 Then(/^the model returns models for the following rows:$/) do |rows|
   rows = rows.raw
 
   expect(@result.collect { |row_model| row_model.cells }).to eq(rows)
-end
-
-Then(/^the model returns models for the following tags:$/) do |tag_names|
-  tag_names = tag_names.raw.flatten
-
-  expect(@result.collect { |tag_model| tag_model.name }).to match_array(tag_names)
 end
 
 Then(/^the model returns a model for the following feature:$/) do |feature_name|
@@ -126,4 +119,14 @@ end
 
 Then(/^the model returns a model for the following doc string:$/) do |string_text|
   expect(@result.contents).to eq(string_text)
+end
+
+Then(/^the model returns a model for the background "([^"]*)"$/) do |background_name|
+  expect(@result.name).to eq(background_name)
+end
+
+Then(/^the model returns models for the following (?:scenario|outline|tag)s:$/) do |model_names|
+  model_names = model_names.raw.flatten
+
+  expect(@result.collect { |model| model.name }).to eq(model_names)
 end

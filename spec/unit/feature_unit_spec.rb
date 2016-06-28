@@ -170,19 +170,49 @@ describe 'Feature, Unit' do
     end
 
 
-    describe 'abstract instantiation' do
+    describe 'model population' do
 
-      context 'a new feature object' do
+      context 'from source text' do
 
-        let(:feature) { clazz.new }
+        context 'a filled feature' do
+
+          let(:source_text) { "Feature: Feature name
+
+                               Feature description.
+
+                             Some more.
+                                 Even more." }
+          let(:feature) { clazz.new(source_text) }
 
 
-        it 'starts with no background' do
-          expect(feature.background).to be_nil
+          it "models the feature's name" do
+            expect(feature.name).to eq('Feature name')
+          end
+
+          it "models the feature's description" do
+            description = feature.description.split("\n")
+
+            expect(description).to eq(['  Feature description.',
+                                       '',
+                                       'Some more.',
+                                       '    Even more.'])
+          end
+
         end
 
-        it 'starts with no tests' do
-          expect(feature.tests).to eq([])
+        context 'an empty feature' do
+
+          let(:source_text) { 'Feature:' }
+          let(:feature) { clazz.new(source_text) }
+
+          it "models the feature's name" do
+            expect(feature.name).to eq('')
+          end
+
+          it "models the feature's description" do
+            expect(feature.description).to eq('')
+          end
+
         end
 
       end
@@ -190,14 +220,70 @@ describe 'Feature, Unit' do
     end
 
 
-    describe 'feature output edge cases' do
+    context 'from abstract instantiation' do
+
+      let(:feature) { clazz.new }
+
+
+      it 'starts with no background' do
+        expect(feature.background).to be_nil
+      end
+
+      it 'starts with no tests' do
+        expect(feature.tests).to eq([])
+      end
+
+    end
+
+
+    describe 'feature output' do
 
       it 'is a String' do
         feature.to_s.should be_a(String)
       end
 
 
-      context 'a new feature object' do
+      context 'from source text' do
+
+        it 'can output an empty feature' do
+          source = ['Feature:']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:'])
+        end
+
+        it 'can output a feature that has a name' do
+          source = ['Feature: test feature']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature: test feature'])
+        end
+
+        it 'can output a feature that has a description' do
+          source = ['Feature:',
+                    'Some description.',
+                    'Some more description.']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.'])
+        end
+
+      end
+
+
+      context 'from abstract instantiation' do
 
         let(:feature) { clazz.new }
 

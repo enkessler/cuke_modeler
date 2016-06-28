@@ -51,6 +51,105 @@ describe 'Feature, Integration' do
       expect(feature.outlines).to match_array(outlines)
     end
 
+
+    describe 'model population' do
+
+      context 'from source text' do
+
+        it "models the feature's source line" do
+          source_text = "Feature:"
+          feature = CukeModeler::Feature.new(source_text)
+
+          expect(feature.source_line).to eq(1)
+        end
+
+
+        context 'a filled feature' do
+
+          let(:source_text) { '@tag_1 @tag_2
+                               Feature: Feature Foo
+
+                                 Some feature description.
+
+                               Some more.
+                                   And some more.
+
+                                 Background: The background
+                                   * some setup step
+
+                                 Scenario: Scenario 1
+                                   * a step
+
+                                 Scenario Outline: Outline 1
+                                   * a step
+                                 Examples:
+                                   | param |
+                                   | value |
+
+                                 Scenario: Scenario 2
+                                   * a step
+
+                                 Scenario Outline: Outline 2
+                                   * a step
+                                 Examples:
+                                   | param |
+                                   | value |' }
+          let(:feature) { clazz.new(source_text) }
+
+
+          it "models the feature's background" do
+            expect(feature.background.name).to eq('The background')
+          end
+
+          it "models the feature's scenarios" do
+            scenario_names = feature.scenarios.collect { |scenario| scenario.name }
+
+            expect(scenario_names).to eq(['Scenario 1', 'Scenario 2'])
+          end
+
+          it "models the feature's outlines" do
+            outline_names = feature.outlines.collect { |outline| outline.name }
+
+            expect(outline_names).to eq(['Outline 1', 'Outline 2'])
+          end
+
+          it "models the feature's tags" do
+            tag_names = feature.tags.collect { |tag| tag.name }
+
+            expect(tag_names).to eq(['@tag_1', '@tag_2'])
+          end
+
+        end
+
+        context 'an empty feature' do
+
+          let(:source_text) { 'Feature:' }
+          let(:feature) { clazz.new(source_text) }
+
+
+          it "models the feature's background" do
+            expect(feature.background).to be_nil
+          end
+
+          it "models the feature's scenarios" do
+            expect(feature.scenarios).to eq([])
+          end
+
+          it "models the feature's outlines" do
+            expect(feature.outlines).to eq([])
+          end
+
+          it "models the feature's tags" do
+            expect(feature.tags).to eq([])
+          end
+
+        end
+
+      end
+
+    end
+
+
     it 'knows how many test cases it has' do
       source_1 = ['Feature: Test feature']
       source_1 = source_1.join("\n")
@@ -170,37 +269,194 @@ describe 'Feature, Integration' do
       end
 
 
-      describe 'feature output edge cases' do
+      context 'from source text' do
 
-        context 'a new feature object' do
+        it 'can output a feature that has tags' do
+          source = ['@tag1 @tag2',
+                    '@tag3',
+                    'Feature:']
+          source = source.join("\n")
+          feature = clazz.new(source)
 
-          let(:feature) { clazz.new }
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Feature:'])
+        end
+
+        it 'can output a feature that has a background' do
+          source = ['Feature:',
+                    'Background:',
+                    '* a step']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:',
+                                        '',
+                                        '  Background:',
+                                        '    * a step'])
+        end
+
+        it 'can output a feature that has a scenario' do
+          source = ['Feature:',
+                    'Scenario:',
+                    '* a step']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:',
+                                        '',
+                                        '  Scenario:',
+                                        '    * a step'])
+        end
+
+        it 'can output a feature that has an outline' do
+          source = ['Feature:',
+                    'Scenario Outline:',
+                    '* a step',
+                    'Examples:',
+                    '|param|',
+                    '|value|']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:',
+                                        '',
+                                        '  Scenario Outline:',
+                                        '    * a step',
+                                        '',
+                                        '  Examples:',
+                                        '    | param |',
+                                        '    | value |'])
+        end
+
+        it 'can output a feature that has everything' do
+          source = ['@tag1 @tag2 @tag3',
+                    'Feature: A feature with everything it could have',
+                    'Including a description',
+                    'and then some.',
+                    'Background:',
+                    'Background',
+                    'description',
+                    '* a step',
+                    '|value1|',
+                    '* another step',
+                    '@scenario_tag',
+                    'Scenario:',
+                    'Scenario',
+                    'description',
+                    '* a step',
+                    '* another step',
+                    '"""',
+                    'some text',
+                    '"""',
+                    '@outline_tag',
+                    'Scenario Outline:',
+                    'Outline ',
+                    'description',
+                    '* a step ',
+                    '|value2|',
+                    '* another step',
+                    '"""',
+                    'some text',
+                    '"""',
+                    '@example_tag',
+                    'Examples:',
+                    'Example',
+                    'description',
+                    '|param|',
+                    '|value|']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Feature: A feature with everything it could have',
+                                        '',
+                                        'Including a description',
+                                        'and then some.',
+                                        '',
+                                        '  Background:',
+                                        '',
+                                        '  Background',
+                                        '  description',
+                                        '',
+                                        '    * a step',
+                                        '      | value1 |',
+                                        '    * another step',
+                                        '',
+                                        '  @scenario_tag',
+                                        '  Scenario:',
+                                        '',
+                                        '  Scenario',
+                                        '  description',
+                                        '',
+                                        '    * a step',
+                                        '    * another step',
+                                        '      """',
+                                        '      some text',
+                                        '      """',
+                                        '',
+                                        '  @outline_tag',
+                                        '  Scenario Outline:',
+                                        '',
+                                        '  Outline',
+                                        '  description',
+                                        '',
+                                        '    * a step',
+                                        '      | value2 |',
+                                        '    * another step',
+                                        '      """',
+                                        '      some text',
+                                        '      """',
+                                        '',
+                                        '  @example_tag',
+                                        '  Examples:',
+                                        '',
+                                        '  Example',
+                                        '  description',
+                                        '',
+                                        '    | param |',
+                                        '    | value |'])
+        end
+
+      end
 
 
-          it 'can output a feature that has only tags' do
-            feature.tags = [CukeModeler::Tag.new]
+      context 'from abstract instantiation' do
 
-            expect { feature.to_s }.to_not raise_error
-          end
+        let(:feature) { clazz.new }
 
-          it 'can output a feature that has only a background' do
-            feature.background = [CukeModeler::Background.new]
 
-            expect { feature.to_s }.to_not raise_error
-          end
+        it 'can output a feature that has only tags' do
+          feature.tags = [CukeModeler::Tag.new]
 
-          it 'can output a feature that has only scenarios' do
-            feature.tests = [CukeModeler::Scenario.new]
+          expect { feature.to_s }.to_not raise_error
+        end
 
-            expect { feature.to_s }.to_not raise_error
-          end
+        it 'can output a feature that has only a background' do
+          feature.background = [CukeModeler::Background.new]
 
-          it 'can output a feature that has only outlines' do
-            feature.tests = [CukeModeler::Outline.new]
+          expect { feature.to_s }.to_not raise_error
+        end
 
-            expect { feature.to_s }.to_not raise_error
-          end
+        it 'can output a feature that has only scenarios' do
+          feature.tests = [CukeModeler::Scenario.new]
 
+          expect { feature.to_s }.to_not raise_error
+        end
+
+        it 'can output a feature that has only outlines' do
+          feature.tests = [CukeModeler::Outline.new]
+
+          expect { feature.to_s }.to_not raise_error
         end
 
       end

@@ -1,137 +1,109 @@
-@gherkin4
-Feature: Features can be modeled.
+Feature: Feature modeling
+
+Feature models are the top level element of the gherkin portion of the model tree. They expose several attributes of
+the feature that they represent, as well as containing models for any background, scenarios, or outlines that are
+present in that feature.
 
 
-  Acceptance criteria
+  Background:
+    Given the following gherkin:
+      """
+      @tag_1 @tag_2
+      Feature: Feature Foo
 
-  1. All conceptual pieces of a feature can be modeled:
-  -  the feature's name
-  -  the feature's description
-  -  the feature's tags
-  -  the feature's scenarios
-  -  the feature's outlines
-  -  the feature's background
-  -  the feature's total number of tests
-  -  the feature's total number of test cases
-  -  the feature's source line
-  - the feature's raw element
+        Some feature description.
 
-  2. Features can be outputted in a convenient form
+      Some more.
+          And some more.
 
+        Background: The background
+          * some setup step
 
-  Background: Test file setup.
-    Given the following feature file "much_stuff.feature":
-    """
-    @a_feature_level_tag @and_another
+        Scenario: Scenario 1
+          * a step
 
-    Feature: The test feature name.
-          
-      Some feature description.
+        Scenario Outline: Outline 1
+          * a step
+        Examples:
+          | param |
+          | value |
 
-    Some more.
-        And some more.
+        Scenario: Scenario 2
+          * a step
 
-      Background: Some general test setup stuff.
-        * some setup step
-
-      Scenario: The first scenario's name.
-      * a step
-
-      Scenario Outline: The scenario outline's name.
-        * a step
-      Examples:
-        | param |
-        | x     |
-        | y     |
-      Examples:
-        | param |
-        | z     |
-
-      Scenario: The second scenario's name.
-        * a step
-    """
-    And the following feature file "barely_any_stuff.feature":
-    """
-    Feature:
-
-      Background:
-
-      Scenario:
-
-      Scenario Outline:
-      Examples:
-    """
-    And the following feature file "as_empty_as_it_gets.feature":
-    """
-    Feature:
-    """
-    When the file "much_stuff.feature" is read
-    And the file "barely_any_stuff.feature" is read
-    And the file "as_empty_as_it_gets.feature" is read
+        Scenario Outline: Outline 2
+          * a step
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
 
 
-  Scenario: The raw feature element is modeled.
-    Then the feature correctly stores its underlying implementation
+  Scenario: Modeling a feature's name
+    When the feature's name is requested
+      """
+        @model.name
+      """
+    Then the model returns "Feature Foo"
 
-  Scenario: The feature's properties are modeled.
-    Then feature "1" is found to have the following properties:
-      | name            | The test feature name. |
-      | test_case_count | 5                      |
-      | source_line     | 3                      |
-    And feature "2" is found to have the following properties:
-      | name            |   |
-      | test_case_count | 1 |
-      | source_line     | 1 |
-    And feature "3" is found to have the following properties:
-      | name            |   |
-      | test_case_count | 0 |
-      | source_line     | 1 |
-
-  Scenario: The feature's description is modeled.
-    Then feature "1" has the following description:
+  Scenario: Modeling a feature's description
+    When the feature's description is requested
+      """
+        @model.description
+      """
+    Then the model returns
       """
         Some feature description.
 
       Some more.
           And some more.
       """
-    And feature "2" has no description
-    And feature "3" has no description
 
-  Scenario: The feature's tags are modeled.
-    Then feature "1" is found to have the following tags:
-      | @a_feature_level_tag |
-      | @and_another         |
-    And feature "2" has no tags
-    And feature "3" has no tags
+  Scenario: Modeling a feature's background
+    When the feature's background is requested
+      """
+        @model.background
+      """
+    Then the model returns a model for the background "The background"
 
-  Scenario: The feature's scenarios are modeled.
-    Then feature "1" scenarios are as follows:
-      | The first scenario's name.  |
-      | The second scenario's name. |
-    And feature "2" scenarios are as follows:
-      |  |
-    And feature "3" has no scenarios
+  Scenario: Modeling a feature's scenarios
+    When the feature's scenarios are requested
+      """
+        @model.scenarios
+      """
+    Then the model returns models for the following scenarios:
+      | Scenario 1 |
+      | Scenario 2 |
 
-  Scenario: The feature's outlines are modeled.
-    Then feature "1" outlines are as follows:
-      | The scenario outline's name. |
-    And feature "2" outlines are as follows:
-      |  |
-    And feature "3" has no outlines
+  Scenario: Modeling a feature's outlines
+    When the feature's outlines are requested
+      """
+        @model.outlines
+      """
+    Then the model returns models for the following outlines:
+      | Outline 1 |
+      | Outline 2 |
 
-  Scenario: The feature's background is modeled.
-    Then feature "1" is found to have the following properties:
-      | has_background? | true |
-    And feature "1" background is as follows:
-      | Some general test setup stuff. |
-    And feature "2" is found to have the following properties:
-      | has_background? | true |
-    And feature "2" background is as follows:
-      |  |
-    And feature "3" is found to have the following properties:
-      | has_background? | false |
-    And feature "3" has no background
+  Scenario: Modeling a feature's tags
 
-  Scenario: Convenient output of a feature
-    Then the feature has convenient output
+  Note: Although a feature does not inherit tags from anything else, they can still
+  be requested in the same manner as other models that have tags.
+
+    When the feature's tags are requested
+      """
+        @model.tags
+      """
+    Then the model returns models for the following tags:
+      | @tag_1 |
+      | @tag_2 |
+
+  Scenario: Modeling a feature's source line
+    When the feature's source line is requested
+      """
+        @model.source_line
+      """
+    Then the model returns "2"
