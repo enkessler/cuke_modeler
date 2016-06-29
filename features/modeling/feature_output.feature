@@ -41,6 +41,7 @@ Feature: Outputting feature models
       Example
       description
       |param|
+      |value|
       """
     And a feature model based on that gherkin
       """
@@ -99,4 +100,5 @@ Feature: Outputting feature models
         description
 
           | param |
+          | value |
       """

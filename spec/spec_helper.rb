@@ -24,12 +24,15 @@ RSpec.configure do |config|
   case
     when Gem.loaded_specs['gherkin'].version.version[/^4/]
       config.filter_run_excluding :gherkin2 => true,
-                                  :gherkin3 => true
+                                  :gherkin3 => true,
+                                  :gherkin4 => false
     when Gem.loaded_specs['gherkin'].version.version[/^3/]
       config.filter_run_excluding :gherkin2 => true,
+                                  :gherkin3 => false,
                                   :gherkin4 => true
     else
-      config.filter_run_excluding :gherkin3 => true,
+      config.filter_run_excluding :gherkin2 => false,
+                                  :gherkin3 => true,
                                   :gherkin4 => true
   end
 

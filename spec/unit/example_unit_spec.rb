@@ -174,11 +174,13 @@ describe 'Example, Unit' do
           let(:example) { clazz.new(source_text) }
 
 
-          it "models the example's name" do
+          # gherkin 3.x does not accept incomplete examples
+          it "models the example's name", gherkin3: false do
             expect(example.name).to eq('test example')
           end
 
-          it "models the example's description" do
+          # gherkin 3.x does not accept incomplete examples
+          it "models the example's description", gherkin3: false do
             description = example.description.split("\n")
 
             expect(description).to eq(['  Some example description.',
@@ -189,7 +191,8 @@ describe 'Example, Unit' do
 
         end
 
-        context 'an empty example' do
+        # gherkin 3.x does not accept incomplete examples
+        context 'an empty example', gherkin3: false do
 
           let(:source_text) { 'Examples:' }
           let(:example) { clazz.new(source_text) }
@@ -218,7 +221,8 @@ describe 'Example, Unit' do
 
       context 'from source text' do
 
-        it 'can output an empty example' do
+        # gherkin 3.x does not accept incomplete examples
+        it 'can output an empty example', gherkin3: false do
           source = ['Examples:']
           source = source.join("\n")
           example = clazz.new(source)
@@ -228,7 +232,8 @@ describe 'Example, Unit' do
           expect(example_output).to eq(['Examples:'])
         end
 
-        it 'can output an example that has a name' do
+        # gherkin 3.x does not accept incomplete examples
+        it 'can output an example that has a name', gherkin3: false do
           source = ['Examples: test example']
           source = source.join("\n")
           example = clazz.new(source)
@@ -238,7 +243,8 @@ describe 'Example, Unit' do
           expect(example_output).to eq(['Examples: test example'])
         end
 
-        it 'can output an example that has a description' do
+        # gherkin 3.x does not accept incomplete examples
+        it 'can output an example that has a description', gherkin3: false do
           source = ['Examples:',
                     'Some description.',
                     'Some more description.']

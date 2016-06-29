@@ -53,7 +53,8 @@ describe 'FeatureFile, Integration' do
         expect(feature_name).to eq('Test feature')
       end
 
-      context 'an empty feature file' do
+      # gherkin 3.x does not accept empty feature files
+      context 'an empty feature file', :gherkin3 => false do
 
         let(:source_text) { '' }
         let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
