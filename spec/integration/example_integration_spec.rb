@@ -74,8 +74,8 @@ describe 'Example, Integration' do
 
         end
 
-        # gherkin 3.x does not accept incomplete examples
-        context 'an empty example', :gherkin3 => false do
+        # gherkin 2.x/3.x does not accept incomplete examples
+        context 'an empty example', :gherkin2 => false, :gherkin3 => false do
 
           let(:source_text) { 'Examples:' }
           let(:example) { clazz.new(source_text) }

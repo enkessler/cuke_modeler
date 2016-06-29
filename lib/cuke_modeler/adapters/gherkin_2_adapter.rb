@@ -132,6 +132,8 @@ module CukeModeler
       # Saving off the original data
       parsed_step_table['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step_table['rows']))
 
+      parsed_step_table['line'] = parsed_step_table['rows'].first['line']
+
       parsed_step_table['rows'].each do |row|
         adapt_table_row!(row)
       end
