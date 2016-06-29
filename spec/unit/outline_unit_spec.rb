@@ -151,7 +151,7 @@ describe 'Outline, Unit' do
       context 'from source text' do
 
         # gherkin 3.x does not accept incomplete outlines
-        context 'a filled outline', gherkin3: false do
+        context 'a filled outline', :gherkin3 => false do
 
           let(:source_text) { 'Scenario Outline: Outline name
 
@@ -167,7 +167,7 @@ describe 'Outline, Unit' do
           end
 
           # gherkin 3.x does not accept incomplete outlines
-          it "models the outline's description", gherkin3: false do
+          it "models the outline's description", :gherkin3 => false do
             description = outline.description.split("\n")
 
             expect(description).to eq(['  Scenario description.',
@@ -179,7 +179,7 @@ describe 'Outline, Unit' do
         end
 
         # gherkin 3.x does not accept incomplete outlines
-        context 'an empty outline', gherkin3: false do
+        context 'an empty outline', :gherkin3 => false do
 
           let(:source_text) { 'Scenario Outline:' }
           let(:outline) { clazz.new(source_text) }
@@ -222,7 +222,7 @@ describe 'Outline, Unit' do
       context 'from source text' do
 
         # gherkin 3.x does not accept incomplete outlines
-        it 'can output an empty outline', gherkin3: false do
+        it 'can output an empty outline', :gherkin3 => false do
           source = ['Scenario Outline:']
           source = source.join("\n")
           outline = clazz.new(source)
@@ -233,7 +233,7 @@ describe 'Outline, Unit' do
         end
 
         # gherkin 3.x does not accept incomplete outlines
-        it 'can output a outline that has a name', gherkin3: false do
+        it 'can output a outline that has a name', :gherkin3 => false do
           source = ['Scenario Outline: test outline']
           source = source.join("\n")
           outline = clazz.new(source)
@@ -244,7 +244,7 @@ describe 'Outline, Unit' do
         end
 
         # gherkin 3.x does not accept incomplete outlines
-        it 'can output a outline that has a description', gherkin3: false do
+        it 'can output a outline that has a description', :gherkin3 => false do
           source = ['Scenario Outline:',
                     'Some description.',
                     'Some more description.']

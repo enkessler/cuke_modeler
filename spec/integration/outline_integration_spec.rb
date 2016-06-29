@@ -146,7 +146,7 @@ describe 'Outline, Integration' do
 
 
           # gherkin 3.x does not accept incomplete outlines
-          context 'an empty outline', gherkin3: false do
+          context 'an empty outline', :gherkin3 => false do
 
             let(:source_text) { 'Scenario Outline:' }
             let(:outline) { clazz.new(source_text) }
@@ -295,7 +295,7 @@ describe 'Outline, Integration' do
         context 'from source text' do
 
           # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has steps', gherkin3: false do
+          it 'can output a outline that has steps', :gherkin3 => false do
             source = ['Scenario Outline:',
                       '  * a step',
                       '    | value |',
@@ -318,7 +318,7 @@ describe 'Outline, Integration' do
           end
 
           # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has tags', gherkin3: false do
+          it 'can output a outline that has tags', :gherkin3 => false do
             source = ['@tag1 @tag2',
                       '@tag3',
                       'Scenario Outline:']

@@ -75,7 +75,7 @@ describe 'Example, Integration' do
         end
 
         # gherkin 3.x does not accept incomplete examples
-        context 'an empty example', gherkin3: false do
+        context 'an empty example', :gherkin3 => false do
 
           let(:source_text) { 'Examples:' }
           let(:example) { clazz.new(source_text) }
@@ -404,7 +404,7 @@ describe 'Example, Integration' do
       context 'from source text' do
 
         # gherkin 3.x does not accept incomplete examples
-        it 'can output an example that has a single row', gherkin3: false do
+        it 'can output an example that has a single row', :gherkin3 => false do
           source = ['Examples:',
                     '|param1|param2|']
           source = source.join("\n")
