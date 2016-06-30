@@ -1,4 +1,4 @@
-Feature: Outputting scenario elements
+Feature: Scenario output
 
   A scenario model's string output is a Gherkin representation of itself.
 

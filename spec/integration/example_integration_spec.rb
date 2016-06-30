@@ -497,28 +497,19 @@ describe 'Example, Integration' do
 
       context 'from abstract instantiation' do
 
-
-        describe 'edge cases' do
-
-          context 'a new example object' do
-
-            let(:example) { clazz.new }
+        let(:example) { clazz.new }
 
 
-            it 'can output an example that has only tags' do
-              example.tags = [CukeModeler::Tag.new]
+        it 'can output an example that has only tags' do
+          example.tags = [CukeModeler::Tag.new]
 
-              expect { example.to_s }.to_not raise_error
-            end
+          expect { example.to_s }.to_not raise_error
+        end
 
-            it 'can output an example that has only rows' do
-              example.rows = [CukeModeler::Row.new]
+        it 'can output an example that has only rows' do
+          example.rows = [CukeModeler::Row.new]
 
-              expect { example.to_s }.to_not raise_error
-            end
-
-          end
-
+          expect { example.to_s }.to_not raise_error
         end
 
       end

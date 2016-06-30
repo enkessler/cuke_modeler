@@ -1,4 +1,4 @@
-Feature: Outputting feature models
+Feature: Feature output
 
   A feature model's string output is a Gherkin representation of itself.
 

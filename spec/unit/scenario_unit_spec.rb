@@ -167,6 +167,11 @@ describe 'Scenario, Unit' do
 
     describe 'scenario output' do
 
+      it 'is a String' do
+        scenario.to_s.should be_a(String)
+      end
+
+
       context 'from source text' do
 
         it 'can output an empty scenario' do
@@ -209,33 +214,23 @@ describe 'Scenario, Unit' do
 
       context 'from abstract instantiation' do
 
+        let(:scenario) { clazz.new }
 
-        it 'is a String' do
-          scenario.to_s.should be_a(String)
+
+        it 'can output an empty scenario' do
+          expect { scenario.to_s }.to_not raise_error
         end
 
+        it 'can output a scenario that has only a name' do
+          scenario.name = 'a name'
 
-        context 'a new scenario object' do
+          expect { scenario.to_s }.to_not raise_error
+        end
 
-          let(:scenario) { clazz.new }
+        it 'can output a scenario that has only a description' do
+          scenario.description = 'a description'
 
-
-          it 'can output an empty scenario' do
-            expect { scenario.to_s }.to_not raise_error
-          end
-
-          it 'can output a scenario that has only a name' do
-            scenario.name = 'a name'
-
-            expect { scenario.to_s }.to_not raise_error
-          end
-
-          it 'can output a scenario that has only a description' do
-            scenario.description = 'a description'
-
-            expect { scenario.to_s }.to_not raise_error
-          end
-
+          expect { scenario.to_s }.to_not raise_error
         end
 
       end

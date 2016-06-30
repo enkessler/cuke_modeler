@@ -1,6 +1,6 @@
-Feature: Outputting outline models
+Feature: Outline output
 
-  A outline model's string output is a Gherkin representation of itself.
+  An outline model's string output is a Gherkin representation of itself.
 
 
   Scenario: Outputting an outline model

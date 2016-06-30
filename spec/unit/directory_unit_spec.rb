@@ -10,7 +10,7 @@ describe 'Directory, Unit' do
 
   describe 'common behavior' do
 
-     it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a modeled element'
 
   end
 
@@ -102,14 +102,15 @@ describe 'Directory, Unit' do
       directory.children.should =~ everything
     end
 
-    describe 'directory output edge cases' do
+
+    describe 'directory output' do
 
       it 'is a String' do
         directory.to_s.should be_a(String)
       end
 
 
-      context 'a new directory object' do
+      context 'from abstract instantiation' do
 
         let(:directory) { clazz.new }
 

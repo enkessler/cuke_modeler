@@ -1,4 +1,4 @@
-Feature: Outputting row models
+Feature: Row output
 
   A row model's string output is a Gherkin representation of itself.
 

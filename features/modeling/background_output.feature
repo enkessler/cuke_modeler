@@ -1,4 +1,4 @@
-Feature: Outputting background elements
+Feature: Background output
 
   A background model's string output is a Gherkin representation of itself.
 

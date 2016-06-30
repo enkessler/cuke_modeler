@@ -1,4 +1,4 @@
-Feature: Outputting step models
+Feature: Step output
 
   A step model's string output is a Gherkin representation of itself.
 

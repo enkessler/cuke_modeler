@@ -1,4 +1,4 @@
-Feature: Outputting example elements
+Feature: Example output
 
   An example model's string output is a Gherkin representation of itself.
 

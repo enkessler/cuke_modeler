@@ -159,6 +159,7 @@ describe 'Example, Unit' do
       expect(example.children).to match_array(everything)
     end
 
+
     describe 'model population' do
 
       context 'from source text' do

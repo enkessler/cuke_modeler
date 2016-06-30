@@ -1,4 +1,4 @@
-Feature: Outputting tag elements
+Feature: Tag output
 
   A tag model's string output is a Gherkin representation of itself.
 

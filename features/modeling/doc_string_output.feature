@@ -1,4 +1,4 @@
-Feature: Outputting doc string models
+Feature: Doc string output
 
   A doc string model's string output is a Gherkin representation of itself.
 

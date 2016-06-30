@@ -1,4 +1,4 @@
-Feature: Outputting table elements
+Feature: Table output
 
   A table model's string output is a Gherkin representation of itself.
 
