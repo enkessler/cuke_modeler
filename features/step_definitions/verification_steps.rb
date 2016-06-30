@@ -14,10 +14,6 @@ Then(/^the following text is provided:$/) do |expected_text|
   @output.should == expected_text
 end
 
-Then(/^the text provided is "(.*)"$/) do |text_string|
-  @output.should == text_string.gsub('\n', "\n")
-end
-
 Then(/^all of them can be contained inside of another model$/) do |code_text|
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
