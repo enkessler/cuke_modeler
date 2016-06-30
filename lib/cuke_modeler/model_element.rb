@@ -10,15 +10,17 @@ module CukeModeler
     # Creates a new ModelElement object and, if *parsed_element* is provided,
     # populates the object.
     def initialize(parsed_element = nil)
-      # Nothing to do
+      # This should be overridden by a child class
     end
 
     def to_s
+      # This should be overridden by a child class
       super
     end
 
     # Returns the model objects that belong to this model.
     def children
+      # This should be overridden by a child class
       []
     end
 
