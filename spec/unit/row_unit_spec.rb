@@ -139,6 +139,20 @@ describe 'Row, Unit' do
           expect(row_output).to eq(['| some value | some other value |'])
         end
 
+        #  Since vertical bars mark the beginning and end of a table cell, any vertical bars
+        #  inside of the row (which would have had to have been escaped to get inside of the
+        #  row in the first place) will be escaped when outputted so as to retain the quality
+        #  of being able to use the output directly as gherkin.
+
+        it 'can output a row that has vertical bars in it' do
+          source = '| 123\|abc |'
+          row = clazz.new(source)
+
+          row_output = row.to_s
+
+          expect(row_output).to eq('| 123\|abc |')
+        end
+
       end
 
       context 'from abstract instantiation' do

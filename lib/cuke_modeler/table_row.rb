@@ -24,7 +24,9 @@ module CukeModeler
 
     # Returns a gherkin representation of the table row.
     def to_s
-      "| #{cells.join(' | ')} |"
+      escaped_cells = cells.collect { |cell| cell.gsub('|', '\|') }
+
+      "| #{escaped_cells.join(' | ')} |"
     end
 
 
