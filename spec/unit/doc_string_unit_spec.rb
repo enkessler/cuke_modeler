@@ -51,7 +51,7 @@ describe 'DocString, Unit' do
       doc_string = clazz.new("\"\"\" content type\nsome doc string\n\"\"\"")
       raw_data = doc_string.raw_element
 
-      expect(raw_data.keys).to match_array([:type, :location, :content])
+      expect(raw_data.keys).to match_array([:type, :location, :content, :contentType])
       expect(raw_data[:type]).to eq(:DocString)
     end
 
