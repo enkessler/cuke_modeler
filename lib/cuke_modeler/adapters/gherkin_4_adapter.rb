@@ -12,6 +12,10 @@ module CukeModeler
       # Saving off the original data
       parsed_feature['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_feature))
 
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_feature['cuke_modeler_raw_adapter_output'][:tags] = nil
+      parsed_feature['cuke_modeler_raw_adapter_output'][:children] = nil
+
       parsed_feature['name'] = parsed_feature.delete(:name)
       parsed_feature['description'] = parsed_feature.delete(:description) || ''
       parsed_feature['line'] = parsed_feature.delete(:location)[:line]
@@ -42,6 +46,9 @@ module CukeModeler
     def adapt_background!(parsed_background)
       # Saving off the original data
       parsed_background['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_background))
+
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_background['cuke_modeler_raw_adapter_output'][:steps] = nil
 
       parsed_background['keyword'] = parsed_background.delete(:type).to_s
       parsed_background['name'] = parsed_background.delete(:name)
@@ -81,6 +88,10 @@ module CukeModeler
     end
 
     def adapt_scenario!(parsed_test)
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_test['cuke_modeler_raw_adapter_output'][:tags] = nil
+      parsed_test['cuke_modeler_raw_adapter_output'][:steps] = nil
+
       parsed_test['name'] = parsed_test.delete(:name)
       parsed_test['description'] = parsed_test.delete(:description) || ''
       parsed_test['line'] = parsed_test.delete(:location)[:line]
@@ -99,6 +110,11 @@ module CukeModeler
     end
 
     def adapt_outline!(parsed_test)
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_test['cuke_modeler_raw_adapter_output'][:tags] = nil
+      parsed_test['cuke_modeler_raw_adapter_output'][:steps] = nil
+      parsed_test['cuke_modeler_raw_adapter_output'][:examples] = nil
+
       parsed_test['name'] = parsed_test.delete(:name)
       parsed_test['description'] = parsed_test.delete(:description) || ''
       parsed_test['line'] = parsed_test.delete(:location)[:line]
@@ -125,6 +141,11 @@ module CukeModeler
     def adapt_example!(parsed_example)
       # Saving off the original data
       parsed_example['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_example))
+
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_example['cuke_modeler_raw_adapter_output'][:tags] = nil
+      parsed_example['cuke_modeler_raw_adapter_output'][:tableHeader] = nil
+      parsed_example['cuke_modeler_raw_adapter_output'][:tableBody] = nil
 
       parsed_example['name'] = parsed_example.delete(:name)
       parsed_example['line'] = parsed_example.delete(:location)[:line]
@@ -164,6 +185,9 @@ module CukeModeler
       # Saving off the original data
       parsed_step['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step))
 
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_step['cuke_modeler_raw_adapter_output'][:argument] = nil
+
       parsed_step['keyword'] = parsed_step.delete(:keyword)
       parsed_step['name'] = parsed_step.delete(:text)
       parsed_step['line'] = parsed_step.delete(:location)[:line]
@@ -197,6 +221,9 @@ module CukeModeler
     def adapt_step_table!(parsed_step_table)
       # Saving off the original data
       parsed_step_table['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step_table))
+
+      # Removing raw data from child models in order to avoid duplicating data
+      parsed_step_table['cuke_modeler_raw_adapter_output'][:rows] = nil
 
       parsed_step_table['rows'] = []
       parsed_step_table[:rows].each do |row|

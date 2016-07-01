@@ -5,8 +5,6 @@ SimpleCov.command_name('Gherkin3Adapter') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
 
-  let(:clazz) { CukeModeler::Gherkin2Adapter }
-  let(:adapter) { clazz.new }
   let(:source_text) { '@tag1 @tag2 @tag3
                        Feature: A feature with everything it could have
 
