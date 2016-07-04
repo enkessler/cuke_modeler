@@ -1,0 +1,84 @@
+Priority
+-------------
+update readme
+
+Show less boilerplate code in the documentation
+
+typo 'parsed_background' in Stepped module
+move Containing module into base model class
+actual assertions in executable documentation instead of just explosino checks
+verbiage update 'element' -> 'model'
+verbiage update 'can get and set' -> 'can change'
+
+rename Step#base to Step#text
+
+Example table and step table share common functionality via module
+Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row)
+
+
+have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
+
+
+Have tags use the Named module?
+
+rename #raw_element to #parsing_data
+replace 'element' verbiage with 'model' verbiage in high level documentation
+
+replace joined array source text with single string source text/heredocs
+reduce duplication in parsing module
+
+
+rewrite Cucumber features so that they are documentation instead of just tests (post remodel)
+
+document helper modules as not part of the public API
+
+
+Make sure that unit specs don't have file I/O in them
+Make sure that specs use clazz instead of fully specifying the class under test
+Don't bother to test directory create/destroy around unit tests
+
+
+
+Backlog
+-------------
+
+Named, Tagged, etc. --> Nameable, Tagable, etc.?
+
+#feature or #features for feature files? (and including both in test verificaitons)
+
+More definition around element creation input arguments and parsing results
+Single featyure or collection of features for feature file elements?
+All specs stem from an acceptance test?
+Double check/review class level documentation
+Switch to RSpec 'expect' syntax instead of 'should' syntax
+All elements share common superclass for easy identification/behavior sharing?
+All specs must come from a documented feature/behavior?
+Still need behavior modules if only included in the super parent class?
+unit testing around parsing cases (whitespace, indentation, minimalistic feature elements, etc.)
+
+              replace "\n" usages with the currently set record separator (i.e "\$" )
+Example table and step table share common functionality via module
+Row and TableRow use superclass for common functionality
+Clean up step verifications
+Remove dead steps
+Figure out why using empty files for directory_modeling.feature doesn't work
+See if the 'stringio' require is really needed.
+See if the 'version' require is really needed.
+parsing module needs json/multijson require line?
+
+Fix transient test failures (permission denied file access problems)
+
+replace File.dir(__FILE__), etc. with 'here' varaible
+@default_file_directory -> @test_directory
+
+rewrite verification steps that use #send for properties
+make sure that all classes and tests are covered and attaches to code coverage
+requirement (model_input).feature) that models only take strings as input (raise exception otherwise)
+
+                                use 'here doc' for source text construction in rspec tests
+
+
+# todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
+# todo - rename simplecov datasets (cuke_modeler-cucumber/cuke_modeler-rspec)
+# todo - incorporate cuke_modeler extensions from other projects
+# todo - add plenty of testing around weird and minimal gherkin text for all models
