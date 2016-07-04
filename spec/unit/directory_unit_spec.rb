@@ -27,43 +27,48 @@ describe 'Directory, Unit' do
       expect(directory.name).to eq('foo')
     end
 
-    it 'has a path' do
-      expect(directory).to respond_to(:path)
-    end
 
-    it 'can change its path' do
-      expect(directory).to respond_to(:path=)
+    describe 'attributes' do
 
-      directory.path = :some_path
-      directory.path.should == :some_path
-      directory.path = :some_other_path
-      directory.path.should == :some_other_path
-    end
+      it 'has a path' do
+        expect(directory).to respond_to(:path)
+      end
 
-    it 'has feature files' do
-      directory.should respond_to(:feature_files)
-    end
+      it 'can change its path' do
+        expect(directory).to respond_to(:path=)
 
-    it 'can change its feature files' do
-      expect(directory).to respond_to(:feature_files=)
+        directory.path = :some_path
+        directory.path.should == :some_path
+        directory.path = :some_other_path
+        directory.path.should == :some_other_path
+      end
 
-      directory.feature_files = :some_feature_files
-      directory.feature_files.should == :some_feature_files
-      directory.feature_files = :some_other_feature_files
-      directory.feature_files.should == :some_other_feature_files
-    end
+      it 'has feature files' do
+        directory.should respond_to(:feature_files)
+      end
 
-    it 'has directories' do
-      directory.should respond_to(:directories)
-    end
+      it 'can change its feature files' do
+        expect(directory).to respond_to(:feature_files=)
 
-    it 'can change its directories' do
-      expect(directory).to respond_to(:directories=)
+        directory.feature_files = :some_feature_files
+        directory.feature_files.should == :some_feature_files
+        directory.feature_files = :some_other_feature_files
+        directory.feature_files.should == :some_other_feature_files
+      end
 
-      directory.directories = :some_directories
-      directory.directories.should == :some_directories
-      directory.directories = :some_other_directories
-      directory.directories.should == :some_other_directories
+      it 'has directories' do
+        directory.should respond_to(:directories)
+      end
+
+      it 'can change its directories' do
+        expect(directory).to respond_to(:directories=)
+
+        directory.directories = :some_directories
+        directory.directories.should == :some_directories
+        directory.directories = :some_other_directories
+        directory.directories.should == :some_other_directories
+      end
+
     end
 
 
