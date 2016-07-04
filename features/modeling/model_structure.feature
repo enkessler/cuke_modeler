@@ -1,12 +1,13 @@
 Feature: Model structure
 
 When modeling an existing test suite, that suite is parsed and models are created for each piece of the
-suite. These models form a nested structure which has the same shape as whatever portion of the suite
-that they represent (see the documentation for specific models for details).
+suite. These models form a nested structure of parent and child models which has the same shape as whatever
+portion of the suite that they represent (see the documentation for specific models for details).
 
 However, all models can also be used in an 'abstract' manner. That is, they can be created without any input
 (such as a file path or snippet of Gherkin) that would normally be used for determining their structure and
-properties. In these cases, their structure and properties can be set directly.
+properties. In these cases, their parent/child relationships and properties can be set directly rather than
+being populated dynamically based on an actual test suite.
 
 
   Scenario: Creating abstract models

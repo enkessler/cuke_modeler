@@ -1,5 +1,9 @@
 # CukeModeler
 
+
+  The models provided by this gem are used to represent a test suite that is written in the Gherkin language.
+
+
 The intention of this gem is to provide the ability to model a Cucumber test
 suite. It provides a foundation upon which to build other useful tools for
 interacting with a test suite that is written in Gherkin (and written with

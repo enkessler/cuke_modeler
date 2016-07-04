@@ -1,7 +1,7 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that know their
-  # source code line.
+  # A mix-in module containing methods used by models that know which line of
+  # source code they originate from.
 
   module Sourceable
 
