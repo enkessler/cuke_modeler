@@ -121,7 +121,7 @@ Then(/^the model returns a model for the background "([^"]*)"$/) do |background_
   expect(@result.name).to eq(background_name)
 end
 
-Then(/^the model returns models for the following (?:scenario|outline|tag)s:$/) do |model_names|
+Then(/^the model returns models for the following (?:scenario|outline|tag|example)s:$/) do |model_names|
   model_names = model_names.raw.flatten
 
   expect(@result.collect { |model| model.name }).to eq(model_names)

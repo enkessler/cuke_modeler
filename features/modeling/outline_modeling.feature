@@ -62,6 +62,15 @@ Feature: Outline modeling
       | an action step        |
       | a <verification> step |
 
+  Scenario: Modeling an outline's examples
+    When the outline's examples are requested
+      """
+        @model.examples
+      """
+    Then the model returns models for the following examples:
+      | example 1 |
+      | example 2 |
+
   Scenario: Modeling an outline's tags
     Given the following gherkin:
       """
