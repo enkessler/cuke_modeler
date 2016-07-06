@@ -43,6 +43,10 @@ describe 'FeatureFile, Unit' do
       expect(feature_file.feature).to eq(:some_other_features)
     end
 
+    it 'knows the name of the file that it is modeling' do
+      expect(feature_file).to respond_to(:name)
+    end
+
 
     describe 'abstract instantiation' do
 
