@@ -48,6 +48,13 @@ describe 'FeatureFile, Unit' do
     end
 
 
+    it 'derives its file name from its path' do
+      feature_file.path = 'path/to/foo'
+
+      expect(feature_file.name).to eq('foo')
+    end
+
+
     describe 'abstract instantiation' do
 
       context 'a new feature file object' do
