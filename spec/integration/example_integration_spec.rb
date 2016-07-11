@@ -425,6 +425,27 @@ describe 'Example, Integration' do
       end
 
 
+      # This behavior should already be taken care of by the row object's output method, but
+      # the example object has to adjust that output in order to properly buffer column width
+      # and it is possible that during that process it messes up the row's output.
+
+      it 'can correctly output a row that has vertical bars in it', :wip => true do
+        source = ['Examples:',
+                  '  | param with \| |',
+                  '  | a value with \| |',
+                  '  | another value with \| |']
+        source = source.join("\n")
+        example = clazz.new(source)
+
+        example_output = example.to_s.split("\n")
+
+        expect(example_output).to eq(['Examples:',
+                                      '  | param with \|         |',
+                                      '  | a value with \|       |',
+                                      '  | another value with \| |'])
+      end
+
+
       context 'from source text' do
 
         # gherkin 3.x does not accept incomplete examples

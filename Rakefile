@@ -25,7 +25,7 @@ namespace 'cuke_modeler' do
 
   desc 'Test gem based on Ruby/dependency versions'
   task :smart_test do |t, args|
-    rspec_args = ''
+    rspec_args = '--tag ~@wip'
     cucumber_args = '-f progress -t ~@wip'
 
     Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)

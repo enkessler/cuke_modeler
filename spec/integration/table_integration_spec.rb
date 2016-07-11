@@ -247,6 +247,21 @@ describe 'Table, Integration' do
         expect(remade_table_output).to eq(table_output)
       end
 
+      # This behavior should already be taken care of by the row object's output method, but
+      # the table object has to adjust that output in order to properly buffer column width
+      # and it is possible that during that process it messes up the row's output.
+
+      it 'can correctly output a row that has vertical bars in it', :wip => true do
+        source = ['  | a value with \| |',
+                  '  | another value with \| |']
+        source = source.join("\n")
+        table = clazz.new(source)
+
+        table_output = table.to_s.split("\n")
+
+        expect(table_output).to eq(['| a value with \|       |',
+                                    '| another value with \| |'])
+      end
 
       context 'from source text' do
 
