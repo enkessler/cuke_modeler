@@ -17,7 +17,8 @@ module CukeModeler
                      :test => [Scenario, Outline, Background],
                      :step => [Step],
                      :table => [Table],
-                     :example => [Example]
+                     :example => [Example],
+                     :row => [Row, TableRow]
       }[ancestor_type]
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_type.nil?

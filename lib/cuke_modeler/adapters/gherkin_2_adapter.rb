@@ -174,6 +174,26 @@ module CukeModeler
     def adapt_table_row!(parsed_table_row)
       # Saving off the original data
       parsed_table_row['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_table_row))
+
+      # Removing raw data for child models in order to avoid duplicating data which the child models will themselves include
+      parsed_table_row['cuke_modeler_raw_adapter_output']['cells'] = nil
+
+      parsed_table_row['cells'].collect! do |cell|
+        create_cell_for(cell, parsed_table_row['line'])
+      end
+    end
+
+    def create_cell_for(parsed_cell, line_number)
+      cell = {}
+
+      # Saving off the original data
+      cell['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_cell))
+
+      cell['value'] = parsed_cell
+      cell['line'] = line_number
+
+
+      cell
     end
 
   end

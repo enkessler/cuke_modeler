@@ -91,6 +91,12 @@ describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
     expect(model.raw_element['rows']).to be_nil
   end
 
+  it "does not store parsing data for an example row's children" do
+    model = feature.outlines.first.examples.first.rows.first
+
+    expect(model.raw_element['cells']).to be_nil
+  end
+
   it "does not store parsing data for a step's children, table" do
     model = feature.outlines.first.steps.first
 
@@ -107,6 +113,12 @@ describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
     model = feature.outlines.first.steps.first.block
 
     expect(model.raw_element).to be_empty
+  end
+
+  it "does not store parsing data for a table row's children" do
+    model = feature.outlines.first.steps.first.block.rows.first
+
+    expect(model.raw_element['cells']).to be_nil
   end
 
 end

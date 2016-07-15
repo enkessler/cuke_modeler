@@ -92,7 +92,7 @@ end
 Then(/^the model returns models for the following rows:$/) do |rows|
   rows = rows.raw
 
-  expect(@result.collect { |row_model| row_model.cells }).to eq(rows)
+  expect(@result.collect { |row_model| row_model.cells.collect { |cell| cell.value } }).to eq(rows)
 end
 
 Then(/^the model returns a model for the following feature:$/) do |feature_name|
@@ -110,7 +110,7 @@ end
 Then(/^the model returns a model for the following table:$/) do |table_rows|
   table_rows = table_rows.raw
 
-  expect(@result.rows.collect { |row| row.cells }).to eq(table_rows)
+  expect(@result.rows.collect { |row| row.cells.collect { |cell| cell.value } }).to eq(table_rows)
 end
 
 Then(/^the model returns a model for the following doc string:$/) do |string_text|
@@ -125,4 +125,10 @@ Then(/^the model returns models for the following (?:scenario|outline|tag|exampl
   model_names = model_names.raw.flatten
 
   expect(@result.collect { |model| model.name }).to eq(model_names)
+end
+
+Then(/^the model returns models for the following cells:$/) do |model_values|
+  model_values = model_values.raw.flatten
+
+  expect(@result.collect { |model| model.value }).to eq(model_values)
 end

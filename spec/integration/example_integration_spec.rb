@@ -57,6 +57,7 @@ describe 'Example, Integration' do
       expect(raw_data['keyword']).to eq('Examples')
     end
 
+
     describe 'model population' do
 
       context 'from source text' do
@@ -85,9 +86,9 @@ describe 'Example, Integration' do
 
 
           it "models the example's rows" do
-            example_names = example.rows.collect { |row| row.cells }
+            row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-            expect(example_names).to eq([['param'], ['value']])
+            expect(row_cell_values).to eq([['param'], ['value']])
           end
 
           it "models the example's tags" do
@@ -140,8 +141,9 @@ describe 'Example, Integration' do
       example = clazz.new(source)
 
       rows = example.argument_rows
+      row_cell_values = rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-      expect(rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4']])
+      expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
     end
 
     it 'does not include argument rows when accessing the parameter row' do
@@ -149,8 +151,9 @@ describe 'Example, Integration' do
       example = clazz.new(source)
 
       row = example.parameter_row
+      row_cell_values = row.cells.collect { |cell| cell.value }
 
-      expect(row.cells).to eq(['param1', 'param2'])
+      expect(row_cell_values).to eq(['param1', 'param2'])
     end
 
 
@@ -162,8 +165,9 @@ describe 'Example, Integration' do
 
         new_row = {'param1' => 'value3', 'param2' => 'value4'}
         example.add_row(new_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4']])
+        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
 
       it 'can add a new row as a hash, non-string values' do
@@ -172,8 +176,9 @@ describe 'Example, Integration' do
 
         new_row = {:param1 => 'value3', 'param2' => 4}
         example.add_row(new_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', '4']])
+        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', '4']])
       end
 
       it 'can add a new row as a hash, random key order' do
@@ -182,8 +187,9 @@ describe 'Example, Integration' do
 
         new_row = {'param2' => 'value4', 'param1' => 'value3'}
         example.add_row(new_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4']])
+        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
 
       it 'can add a new row as an array, string values' do
@@ -192,8 +198,9 @@ describe 'Example, Integration' do
 
         new_row = ['value3', 'value4']
         example.add_row(new_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4']])
+        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
 
       it 'can add a new row as an array, non-string values' do
@@ -202,8 +209,9 @@ describe 'Example, Integration' do
 
         new_row = [:value4, 5, 'value6']
         example.add_row(new_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2', 'value3'], ['value4', '5', 'value6']])
+        expect(row_cell_values).to eq([['value1', 'value2', 'value3'], ['value4', '5', 'value6']])
       end
 
       it 'can only use a Hash or an Array to add a new row' do
@@ -223,8 +231,9 @@ describe 'Example, Integration' do
         array_row = ['value5', ' value6 ']
         example.add_row(hash_row)
         example.add_row(array_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2'], ['value3', 'value4'], ['value5', 'value6']])
+        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4'], ['value5', 'value6']])
       end
 
       it 'will complain if a row is added and no parameters have been set' do
@@ -260,8 +269,9 @@ describe 'Example, Integration' do
 
         old_row = {'param1' => 'value3', 'param2' => 'value4'}
         example.remove_row(old_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
+        expect(row_cell_values).to eq([['value1', 'value2']])
       end
 
       it 'can remove an existing row as a hash, random key order' do
@@ -270,8 +280,9 @@ describe 'Example, Integration' do
 
         old_row = {'param2' => 'value4', 'param1' => 'value3'}
         example.remove_row(old_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
+        expect(row_cell_values).to eq([['value1', 'value2']])
       end
 
       it 'can remove an existing row as an array' do
@@ -280,8 +291,9 @@ describe 'Example, Integration' do
 
         old_row = ['value3', 'value4']
         example.remove_row(old_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
+        expect(row_cell_values).to eq([['value1', 'value2']])
       end
 
       it 'can only use a Hash or an Array to remove an existing row' do
@@ -300,8 +312,9 @@ describe 'Example, Integration' do
 
         example.remove_row(hash_row)
         example.remove_row(array_row)
+        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
-        expect(example.argument_rows.collect { |row| row.cells }).to eq([['value1', 'value2']])
+        expect(row_cell_values).to eq([['value1', 'value2']])
       end
 
       it 'can gracefully remove a row from an example that has no rows' do
@@ -320,10 +333,14 @@ describe 'Example, Integration' do
         array_row = ['param1', ' param2 ']
 
         example.remove_row(hash_row)
-        expect(example.rows.collect { |row| row.cells }).to eq([['param1', 'param2'], ['value1', 'value2']])
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
 
         example.remove_row(array_row)
-        expect(example.rows.collect { |row| row.cells }).to eq([['param1', 'param2'], ['value1', 'value2']])
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
       end
 
     end
@@ -425,9 +442,9 @@ describe 'Example, Integration' do
       end
 
 
-      # This behavior should already be taken care of by the row object's output method, but
+      # This behavior should already be taken care of by the cell object's output method, but
       # the example object has to adjust that output in order to properly buffer column width
-      # and it is possible that during that process it messes up the row's output.
+      # and it is possible that during that process it messes up the cell's output.
 
       it 'can correctly output a row that has vertical bars in it', :wip => true do
         source = ['Examples:',

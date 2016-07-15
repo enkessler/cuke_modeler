@@ -62,14 +62,14 @@ module CukeModeler
       row_text = '|'
 
       row.cells.count.times do |count|
-        row_text << " #{row.cells[count].ljust(determine_buffer_size(count))} |"
+        row_text << " #{row.cells[count].to_s.ljust(determine_buffer_size(count))} |"
       end
 
       row_text
     end
 
     def determine_buffer_size(index)
-      rows.collect { |row| row.cells[index].length }.max || 0
+      rows.collect { |row| row.cells[index].to_s.length }.max || 0
     end
 
   end

@@ -4,6 +4,9 @@ update readme
 
 Show less boilerplate code in the documentation
 
+Fix 'from/for' typo in adapters
+Allow 'background/scenario/outline' as alternative ancestor types to 'test'
+Add special character output examples to documentation for doc strings and cells
 typo 'parsed_background' in Stepped module
 move Containing module into base model class
 actual assertions in executable documentation instead of just explosino checks

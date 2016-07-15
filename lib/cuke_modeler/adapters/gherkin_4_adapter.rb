@@ -154,7 +154,8 @@ module CukeModeler
       parsed_example['rows'] = []
 
       if parsed_example[:tableHeader]
-        parsed_example['rows'] << adapt_table_row!(parsed_example.delete(:tableHeader))
+        adapt_table_row!(parsed_example[:tableHeader])
+        parsed_example['rows'] << parsed_example.delete(:tableHeader)
       end
 
       if parsed_example[:tableBody]
@@ -237,12 +238,25 @@ module CukeModeler
       # Saving off the original data
       parsed_table_row['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_table_row))
 
+      # Removing raw data for child models in order to avoid duplicating data which the child models will themselves include
+      parsed_table_row['cuke_modeler_raw_adapter_output'][:cells] = nil
+
+
       parsed_table_row['line'] = parsed_table_row.delete(:location)[:line]
 
-      parsed_table_row['cells'] = parsed_table_row.delete(:cells).collect { |cell| cell[:value] }
+      parsed_table_row['cells'] = []
+      parsed_table_row[:cells].each do |row|
+        adapt_table_cell!(row)
+      end
+      parsed_table_row['cells'].concat(parsed_table_row.delete(:cells))
+    end
 
+    def adapt_table_cell!(parsed_cell)
+      # Saving off the original data
+      parsed_cell['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_cell))
 
-      parsed_table_row
+      parsed_cell['value'] = parsed_cell.delete(:value)
+      parsed_cell['line'] = parsed_cell.delete(:location)[:line]
     end
 
   end

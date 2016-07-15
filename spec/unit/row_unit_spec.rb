@@ -25,7 +25,8 @@ describe 'Row, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
 
       # Sanity check in case instantiation failed in a non-explosive manner
-      @element.cells.should == ['a', 'row']
+      cell_values = @element.cells.collect { |cell| cell.value }
+      expect(cell_values).to eq(['a', 'row'])
     end
 
     it 'can be instantiated with the minimum viable Gherkin' do
@@ -61,7 +62,7 @@ describe 'Row, Unit' do
       raw_data = example_row.raw_element
 
       expect(raw_data.keys).to match_array(['cells', 'line', 'id'])
-      expect(raw_data['cells']).to eq(['a', 'row'])
+      expect(raw_data['line']).to eq(6)
     end
 
     it 'has cells' do
@@ -86,8 +87,13 @@ describe 'Row, Unit' do
         let(:row) { clazz.new(source_text) }
 
 
-        it "models the row's columns" do
-          expect(row.cells).to match_array(['some value', 'some other value'])
+        it "models the row's cells" do
+          source_text = ' | cell 1 | cell 2 |'
+          row = clazz.new(source_text)
+
+          cell_values = row.cells.collect { |cell| cell.value }
+
+          expect(cell_values).to match_array(['cell 1', 'cell 2'])
         end
 
       end
@@ -129,7 +135,7 @@ describe 'Row, Unit' do
           expect(row_output).to eq(['| some value |'])
         end
 
-        it 'can output a row with multiple columns' do
+        it 'can output a row with multiple cells' do
           source = ['| some value | some other value |']
           source = source.join("\n")
           row = clazz.new(source)
@@ -137,20 +143,6 @@ describe 'Row, Unit' do
           row_output = row.to_s.split("\n")
 
           expect(row_output).to eq(['| some value | some other value |'])
-        end
-
-        #  Since vertical bars mark the beginning and end of a table cell, any vertical bars
-        #  inside of the row (which would have had to have been escaped to get inside of the
-        #  row in the first place) will be escaped when outputted so as to retain the quality
-        #  of being able to use the output directly as gherkin.
-
-        it 'can output a row that has vertical bars in it' do
-          source = '| 123\|abc |'
-          row = clazz.new(source)
-
-          row_output = row.to_s
-
-          expect(row_output).to eq('| 123\|abc |')
         end
 
       end

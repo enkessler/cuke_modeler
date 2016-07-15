@@ -6,7 +6,7 @@ module CukeModeler
 
     include Sourceable
     include Raw
-
+    include Containing
 
     # The cells that make up the row
     attr_accessor :cells
@@ -24,9 +24,9 @@ module CukeModeler
 
     # Returns a gherkin representation of the row.
     def to_s
-      escaped_cells = cells.collect { |cell| cell.gsub('|', '\|') }
+      text_cells = cells.collect { |cell| cell.to_s }
 
-      "| #{escaped_cells.join(' | ')} |"
+      "| #{text_cells.join(' | ')} |"
     end
 
 
@@ -49,7 +49,9 @@ module CukeModeler
     end
 
     def populate_row_cells(parsed_row)
-      @cells = parsed_row['cells']
+      parsed_row['cells'].each do |cell|
+        @cells << build_child_element(Cell, cell)
+      end
     end
 
   end

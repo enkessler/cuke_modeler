@@ -23,6 +23,7 @@ require 'cuke_modeler/table'
 require 'cuke_modeler/row'
 require 'cuke_modeler/table_row'
 require 'cuke_modeler/tag'
+require 'cuke_modeler/cell'
 
 
 module CukeModeler

@@ -66,12 +66,12 @@ module CukeModeler
 
       case
         when row_removed.is_a?(Array)
-          location = argument_rows.index { |row| row.cells == row_removed.collect { |value| value.strip } }
+          location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == row_removed.collect { |value| value.strip } }
         when row_removed.is_a?(Hash)
           # Note: the hash value order has to be manually calculated because Ruby 1.8.7 does not have ordered 
           # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead 
           # of being built up in order according to the parameter order.
-          location = argument_rows.index { |row| row.cells == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
+          location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
       end
 
       @rows.delete_at(location + 1) if location
@@ -135,7 +135,7 @@ module CukeModeler
     end
 
     def determine_buffer_size(index)
-      rows.collect { |row| row.cells[index].length }.max || 0
+      rows.collect { |row| row.cells[index].to_s.length }.max || 0
     end
 
     def parameters_output_string
@@ -167,11 +167,11 @@ module CukeModeler
     end
 
     def string_for(cells, index)
-      cells[index] ? cells[index].ljust(determine_buffer_size(index)) : ''
+      cells[index] ? cells[index].to_s.ljust(determine_buffer_size(index)) : ''
     end
 
     def ordered_row_values(row_hash)
-      parameter_row.cells.collect { |parameter| row_hash[parameter] }
+      parameter_row.cells.collect { |cell| cell.value }.collect { |parameter| row_hash[parameter] }
     end
 
   end

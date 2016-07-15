@@ -8,7 +8,7 @@ Then /^(?:the )?(?:feature "([^"]*)" )?test(?: "([^"]*)")? example block(?: "([^
 
   expected = rows.collect { |row| row.split(',') }
 
-  actual = example.argument_rows.collect { |row| row.cells }
+  actual = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
   assert(actual == expected, "Expected: #{expected}\n but was: #{actual}")
 end
 

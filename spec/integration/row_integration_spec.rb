@@ -15,6 +15,18 @@ describe 'Row, Integration' do
 
   describe 'unique behavior' do
 
+    it 'properly sets its child elements' do
+      source = '| cell 1 | cell 2 |'
+
+      row = clazz.new(source)
+      cell_1 = row.cells.first
+      cell_2 = row.cells.last
+
+      expect(cell_1.parent_model).to equal(row)
+      expect(cell_2.parent_model).to equal(row)
+    end
+
+
     describe 'getting ancestors' do
 
       before(:each) do

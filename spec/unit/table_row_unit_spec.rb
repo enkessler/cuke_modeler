@@ -16,7 +16,7 @@ describe 'TableRow, Unit' do
 
   end
 
-
+  # todo - move some of these test because they are now integration tests due to using the Cell class
   describe 'unique behavior' do
 
     it 'can be parsed from stand alone text' do
@@ -25,7 +25,8 @@ describe 'TableRow, Unit' do
       expect { @element = clazz.new(source) }.to_not raise_error
 
       # Sanity check in case instantiation failed in a non-explosive manner
-      @element.cells.should == ['a', 'row']
+      cell_values = @element.cells.collect { |cell| cell.value }
+      expect(cell_values).to eq(['a', 'row'])
     end
 
     it 'can be instantiated with the minimum viable Gherkin' do
@@ -61,7 +62,7 @@ describe 'TableRow, Unit' do
       raw_data = table_row.raw_element
 
       expect(raw_data.keys).to match_array(['cells', 'line'])
-      expect(raw_data['cells']).to eq(['a', 'row'])
+      expect(raw_data['line']).to eq(4)
     end
 
     it 'has cells' do
@@ -86,8 +87,10 @@ describe 'TableRow, Unit' do
         let(:row) { clazz.new(source_text) }
 
 
-        it "models the table row's columns" do
-          expect(row.cells).to match_array(['some value', 'some other value'])
+        it "models the row's cells" do
+          cell_values = row.cells.collect { |cell| cell.value }
+
+          expect(cell_values).to match_array(['some value', 'some other value'])
         end
 
       end
@@ -137,20 +140,6 @@ describe 'TableRow, Unit' do
           row_output = row.to_s.split("\n")
 
           expect(row_output).to eq(['| some value | some other value |'])
-        end
-
-        #  Since vertical bars mark the beginning and end of a table cell, any vertical bars
-        #  inside of the row (which would have had to have been escaped to get inside of the
-        #  row in the first place) will be escaped when outputted so as to retain the quality
-        #  of being able to use the output directly as gherkin.
-
-        it 'can output a row that has vertical bars in it' do
-          source = '| 123\|abc |'
-          row = clazz.new(source)
-
-          row_output = row.to_s
-
-          expect(row_output).to eq('| 123\|abc |')
         end
 
       end

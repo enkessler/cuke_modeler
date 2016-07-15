@@ -20,7 +20,7 @@ Feature: Row modeling
       """
         @model.cells
       """
-    Then the model returns the following values:
+    Then the model returns models for the following cells:
       | foo |
       | bar |
 

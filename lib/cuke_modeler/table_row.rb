@@ -6,6 +6,7 @@ module CukeModeler
 
     include Sourceable
     include Raw
+    include Containing
 
 
     # The cells that make up the row
@@ -24,9 +25,9 @@ module CukeModeler
 
     # Returns a gherkin representation of the table row.
     def to_s
-      escaped_cells = cells.collect { |cell| cell.gsub('|', '\|') }
+      text_cells = cells.collect { |cell| cell.to_s }
 
-      "| #{escaped_cells.join(' | ')} |"
+      "| #{text_cells.join(' | ')} |"
     end
 
 
@@ -39,6 +40,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_table_row.feature')
 
+      #todo - rename the first 'rows' to 'table' so that it is more clear what is going on
       parsed_file.first['elements'].first['steps'].first['rows']['rows'].first
     end
 
@@ -49,7 +51,9 @@ module CukeModeler
     end
 
     def populate_row_cells(parsed_row)
-      @cells = parsed_row['cells']
+      parsed_row['cells'].each do |cell|
+        @cells << build_child_element(Cell, cell)
+      end
     end
 
   end
