@@ -83,8 +83,8 @@ module CukeModeler
 
     def build_block(step)
       case
-        when step['rows']
-          @block = build_child_element(Table, step['rows'])
+        when step['table']
+          @block = build_child_element(Table, step['table'])
         when step['doc_string']
           @block = build_child_element(DocString, step['doc_string'])
         else

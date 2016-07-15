@@ -191,7 +191,7 @@ module CukeModeler
             parsed_step['doc_string'] = parsed_step.delete(:argument)
           when :DataTable
             adapt_step_table!(step_argument)
-            parsed_step['rows'] = parsed_step.delete(:argument)
+            parsed_step['table'] = parsed_step.delete(:argument)
           else
             raise(ArgumentError, "Unknown step argument type: #{step_argument[:type]}")
         end

@@ -146,8 +146,8 @@ module CukeModeler
       adapt_doc_string!(parsed_step['doc_string']) if parsed_step['doc_string']
 
       if parsed_step['rows']
-        parsed_step['rows'] = {'rows' => parsed_step['rows']}
-        adapt_step_table!(parsed_step['rows'])
+        parsed_step['table'] = {'rows' => parsed_step['rows']}
+        adapt_step_table!(parsed_step['table'])
       end
     end
 
