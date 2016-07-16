@@ -2,13 +2,14 @@
 # will be with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated.
 
 
-# todo - add this back in so that we know the gherkin gem has actually been loaded before trying to check which version has been loaded
-# # The 'gherkin' gem loads differently depending across versions. Try the old one first and then the new one
-# begin
-#   require 'gherkin'
-# rescue LoadError => e
-#   require 'gherkin/parser'
-# end
+# Have to at least load some version of the gem before which version of the gem has been loaded can
+# be determined and the rest of the needed files can be loaded. Try the old one first and then the
+# new one.
+begin
+  require 'gherkin'
+rescue LoadError
+  require 'gherkin/parser'
+end
 
 
 case
