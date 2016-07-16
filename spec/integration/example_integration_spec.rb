@@ -446,20 +446,20 @@ describe 'Example, Integration' do
       # the example object has to adjust that output in order to properly buffer column width
       # and it is possible that during that process it messes up the cell's output.
 
-      it 'can correctly output a row that has vertical bars in it', :wip => true do
+      it 'can correctly output a row that has special characters in it', :wip => true do
         source = ['Examples:',
                   '  | param with \| |',
-                  '  | a value with \| |',
-                  '  | another value with \| |']
+                  '  | a value with \| and \\\\ |',
+                  '  | a value with \\\\ |']
         source = source.join("\n")
         example = clazz.new(source)
 
         example_output = example.to_s.split("\n")
 
         expect(example_output).to eq(['Examples:',
-                                      '  | param with \|         |',
-                                      '  | a value with \|       |',
-                                      '  | another value with \| |'])
+                                      '  | param with \|          |',
+                                      '  | a value with \| and \\\\ |',
+                                      '  | a value with \\\\        |'])
       end
 
 

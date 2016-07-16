@@ -22,8 +22,8 @@ module CukeModeler
 
     # Returns a gherkin representation of the cell.
     def to_s
-      # Vertical bars are special characters that need to be escaped
-      @value.gsub('|', '\|')
+      # Vertical bars and backslashes are special characters that need to be escaped
+      @value.gsub('\\', '\\\\\\').gsub('|', '\|')
     end
 
 

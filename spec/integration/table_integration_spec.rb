@@ -253,16 +253,18 @@ describe 'Table, Integration' do
       # the table object has to adjust that output in order to properly buffer column width
       # and it is possible that during that process it messes up the cell's output.
 
-      it 'can correctly output a row that has vertical bars in it', :wip => true do
-        source = ['  | a value with \| |',
-                  '  | another value with \| |']
+      it 'can correctly output a row that has special characters in it', :wip => true do
+        source = ['| a value with \| |',
+                  '| a value with \\\\ |',
+                  '| a value with \\\\ and \| |']
         source = source.join("\n")
         table = clazz.new(source)
 
         table_output = table.to_s.split("\n")
 
-        expect(table_output).to eq(['| a value with \|       |',
-                                    '| another value with \| |'])
+        expect(table_output).to eq(['| a value with \|        |',
+                                    '| a value with \\\\        |',
+                                    '| a value with \\\\ and \| |'])
       end
 
       context 'from source text' do
