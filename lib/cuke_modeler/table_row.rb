@@ -40,7 +40,6 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_table_row.feature')
 
-      #todo - rename the first 'rows' to 'table' so that it is more clear what is going on
       parsed_file.first['elements'].first['steps'].first['table']['rows'].first
     end
 

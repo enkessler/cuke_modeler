@@ -1,4 +1,7 @@
-require 'simplecov' unless RUBY_VERSION.to_s < '1.9.0'
+unless RUBY_VERSION.to_s < '1.9.0'
+  require 'simplecov'
+  SimpleCov.command_name('rspec_tests')
+end
 
 
 this_dir = File.dirname(__FILE__)

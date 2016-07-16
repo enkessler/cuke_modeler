@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('Gherkin2Adapter') unless RUBY_VERSION.to_s < '1.9.0'
-
 
 describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
 

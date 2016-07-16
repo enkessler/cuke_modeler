@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('ModelElement') unless RUBY_VERSION.to_s < '1.9.0'
-
 
 describe 'ModelElement, Integration' do
 

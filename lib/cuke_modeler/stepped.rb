@@ -11,9 +11,9 @@ module CukeModeler
     private
 
 
-    def populate_steps(parsed_background)
-      if parsed_background['steps']
-        parsed_background['steps'].each do |step|
+    def populate_steps(parsed_model)
+      if parsed_model['steps']
+        parsed_model['steps'].each do |step|
           @steps << build_child_element(Step, step)
         end
       end

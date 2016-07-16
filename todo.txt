@@ -4,12 +4,9 @@ update readme
 
 Show less boilerplate code in the documentation
 
-Fix 'from/for' typo in adapters
-Allow 'background/scenario/outline' as alternative ancestor types to 'test'
 Add special character output examples to documentation for doc strings and cells
-typo 'parsed_background' in Stepped module
 move Containing module into base model class
-actual assertions in executable documentation instead of just explosino checks
+actual assertions in executable documentation instead of just explosion checks
 verbiage update 'element' -> 'model'
 verbiage update 'can get and set' -> 'can change'
 
@@ -28,7 +25,6 @@ rename #raw_element to #parsing_data
 replace 'element' verbiage with 'model' verbiage in high level documentation
 
 replace joined array source text with single string source text/heredocs
-reduce duplication in parsing module
 
 
 rewrite Cucumber features so that they are documentation instead of just tests (post remodel)
@@ -71,10 +67,8 @@ parsing module needs json/multijson require line?
 
 Fix transient test failures (permission denied file access problems)
 
-replace File.dir(__FILE__), etc. with 'here' varaible
 @default_file_directory -> @test_directory
 
-rewrite verification steps that use #send for properties
 make sure that all classes and tests are covered and attaches to code coverage
 requirement (model_input).feature) that models only take strings as input (raise exception otherwise)
 
@@ -82,6 +76,5 @@ requirement (model_input).feature) that models only take strings as input (raise
 
 
 # todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
-# todo - rename simplecov datasets (cuke_modeler-cucumber/cuke_modeler-rspec)
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models

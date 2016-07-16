@@ -2,6 +2,15 @@
 # will be with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated.
 
 
+# todo - add this back in so that we know the gherkin gem has actually been loaded before trying to check which version has been loaded
+# # The 'gherkin' gem loads differently depending across versions. Try the old one first and then the new one
+# begin
+#   require 'gherkin'
+# rescue LoadError => e
+#   require 'gherkin/parser'
+# end
+
+
 case
   when Gem.loaded_specs['gherkin'].version.version[/^4/]
     require 'gherkin/parser'

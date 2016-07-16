@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('TableRow') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'TableRow, Unit' do
 

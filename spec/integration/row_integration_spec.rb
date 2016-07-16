@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('Row') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Row, Integration' do
 

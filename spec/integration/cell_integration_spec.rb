@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('Cell') unless RUBY_VERSION.to_s < '1.9.0'
-
 
 describe 'Cell, Integration' do
 

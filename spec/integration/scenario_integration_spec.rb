@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-SimpleCov.command_name('Scenario') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'Scenario, Integration' do
 
