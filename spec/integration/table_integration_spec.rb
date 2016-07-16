@@ -160,7 +160,7 @@ describe 'Table, Integration' do
 
 
         it 'can get its scenario' do
-          ancestor = table.get_ancestor(:test)
+          ancestor = table.get_ancestor(:scenario)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -188,7 +188,7 @@ describe 'Table, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = table.get_ancestor(:test)
+          ancestor = table.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -213,7 +213,7 @@ describe 'Table, Integration' do
 
 
         it 'can get its background' do
-          ancestor = table.get_ancestor(:test)
+          ancestor = table.get_ancestor(:background)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end

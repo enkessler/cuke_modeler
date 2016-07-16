@@ -404,7 +404,7 @@ describe 'Example, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = example.get_ancestor(:test)
+          ancestor = example.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end

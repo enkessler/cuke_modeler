@@ -206,7 +206,7 @@ describe 'Step, Integration' do
 
 
         it 'can get its scenario' do
-          ancestor = step.get_ancestor(:test)
+          ancestor = step.get_ancestor(:scenario)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -233,7 +233,7 @@ describe 'Step, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = step.get_ancestor(:test)
+          ancestor = step.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -257,7 +257,7 @@ describe 'Step, Integration' do
 
 
         it 'can get its background' do
-          ancestor = step.get_ancestor(:test)
+          ancestor = step.get_ancestor(:background)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end

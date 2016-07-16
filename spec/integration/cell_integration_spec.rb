@@ -73,7 +73,7 @@ describe 'Cell, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = cell.get_ancestor(:test)
+          ancestor = cell.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -111,7 +111,7 @@ describe 'Cell, Integration' do
 
 
         it 'can get its scenario' do
-          ancestor = cell.get_ancestor(:test)
+          ancestor = cell.get_ancestor(:scenario)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -136,7 +136,7 @@ describe 'Cell, Integration' do
 
 
         it 'can get its background' do
-          ancestor = cell.get_ancestor(:test)
+          ancestor = cell.get_ancestor(:background)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end

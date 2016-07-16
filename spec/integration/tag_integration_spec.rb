@@ -75,7 +75,7 @@ describe 'Tag, Integration' do
 
 
         it 'can get its scenario' do
-          ancestor = tag.get_ancestor(:test)
+          ancestor = tag.get_ancestor(:scenario)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -103,7 +103,7 @@ describe 'Tag, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = tag.get_ancestor(:test)
+          ancestor = tag.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end

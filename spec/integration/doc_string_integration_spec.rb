@@ -77,7 +77,7 @@ describe 'DocString, Integration' do
 
 
         it 'can get its scenario' do
-          ancestor = doc_string.get_ancestor(:test)
+          ancestor = doc_string.get_ancestor(:scenario)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -109,7 +109,7 @@ describe 'DocString, Integration' do
 
 
         it 'can get its outline' do
-          ancestor = doc_string.get_ancestor(:test)
+          ancestor = doc_string.get_ancestor(:outline)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
         end
@@ -138,7 +138,7 @@ describe 'DocString, Integration' do
 
 
         it 'can get its background' do
-          ancestor = doc_string.get_ancestor(:test)
+          ancestor = doc_string.get_ancestor(:background)
 
           expect(ancestor).to equal(directory.feature_files.first.feature.background)
         end
