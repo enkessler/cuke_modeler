@@ -210,7 +210,7 @@ describe 'Cell, Integration' do
     describe 'cell output' do
 
       it 'can be remade from its own output' do
-        source = 'a complex \| cell'
+        source = 'a \\\\ complex \| cell'
         cell = clazz.new(source)
 
         cell_output = cell.to_s
