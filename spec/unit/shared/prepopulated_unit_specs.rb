@@ -7,8 +7,12 @@ shared_examples_for 'a prepopulated element' do
   let(:element) { clazz.new }
 
 
-  it 'can take an argument' do
+  it 'can take text from which to populate itself' do
     expect(clazz.instance_method(:initialize).arity).to_not eq(0)
+  end
+
+  it 'will complain if given non-text input' do
+    expect { clazz.new(:not_a_string) }.to raise_error(ArgumentError, 'Can only create models from Strings but was given a Symbol.')
   end
 
 end

@@ -21,15 +21,6 @@ describe 'Background, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = 'Background: test background'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      @element.name.should == 'test background'
-    end
-
     it 'can be instantiated with the minimum viable Gherkin' do
       source = 'Background:'
 

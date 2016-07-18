@@ -9,23 +9,23 @@ module CukeModeler
     include Described
     include Stepped
     include Sourceable
-    include Containing
     include Taggable
 
 
     # Creates a new Scenario object and, if *source* is provided, populates the
     # object.
-    def initialize(source = nil)
-      parsed_scenario = process_source(source)
-
-      super(parsed_scenario)
-
+    def initialize(source_text = nil)
       @name = ''
       @description = ''
       @steps = []
       @tags = []
 
-      build_scenario(parsed_scenario) if parsed_scenario
+      super(source_text)
+
+      if source_text
+        parsed_scenario_data = parse_source(source_text)
+        populate_scenario(self, parsed_scenario_data)
+      end
     end
 
     # Returns true if the two elements have equivalent steps and false otherwise.
@@ -57,22 +57,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_scenario.feature')
 
       parsed_file.first['elements'].first
-    end
-
-    def build_scenario(parsed_scenario)
-      populate_raw_element(parsed_scenario)
-      populate_source_line(parsed_scenario)
-      populate_name(parsed_scenario)
-      populate_description(parsed_scenario)
-      populate_steps(parsed_scenario)
-      populate_tags(parsed_scenario)
     end
 
   end

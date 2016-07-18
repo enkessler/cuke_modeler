@@ -18,15 +18,6 @@ describe 'Cell, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = 'a cell'
-
-      expect { @model = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      expect(@model.value).to eq('a cell')
-    end
-
     it 'can be instantiated with the minimum viable Gherkin' do
       source = ''
 

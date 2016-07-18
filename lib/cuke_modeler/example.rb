@@ -8,7 +8,6 @@ module CukeModeler
     include Named
     include Described
     include Sourceable
-    include Containing
     include Taggable
 
 
@@ -18,17 +17,18 @@ module CukeModeler
 
     # Creates a new Example object and, if *source* is provided,
     # populates the object.
-    def initialize(source = nil)
-      parsed_example = process_source(source)
-
-      super(parsed_example)
-
+    def initialize(source_text = nil)
       @name = ''
       @description = ''
       @tags = []
       @rows = []
 
-      build_example(parsed_example) if parsed_example
+      super(source_text)
+
+      if source_text
+        parsed_example_data = parse_source(source_text)
+        populate_example(self, parsed_example_data)
+      end
     end
 
     # Adds a row to the example table. The row can be given as a Hash of
@@ -110,28 +110,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
 
       parsed_file.first['elements'].first['examples'].first
-    end
-
-    def build_example(parsed_example)
-      populate_raw_element(parsed_example)
-      populate_source_line(parsed_example)
-      populate_name(parsed_example)
-      populate_description(parsed_example)
-      populate_tags(parsed_example)
-      populate_example_rows(parsed_example)
-    end
-
-    def populate_example_rows(parsed_example)
-      parsed_example['rows'].each do |row|
-        @rows << build_child_element(Row, row)
-      end
     end
 
     def determine_buffer_size(index)

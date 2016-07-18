@@ -22,15 +22,6 @@ describe 'Scenario, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = 'Scenario: test scenario'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      @element.name.should == 'test scenario'
-    end
-
     it 'can be instantiated with the minimum viable Gherkin' do
       source = 'Scenario:'
 

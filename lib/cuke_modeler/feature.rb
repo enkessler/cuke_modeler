@@ -9,7 +9,6 @@ module CukeModeler
     include Described
     include Taggable
     include Sourceable
-    include Containing
 
 
     # The Background object contained by the Feature
@@ -21,17 +20,18 @@ module CukeModeler
 
     # Creates a new Feature object and, if *source* is provided, populates the
     # object.
-    def initialize(source = nil)
-      parsed_feature = process_source(source)
-
-      super(parsed_feature)
-
+    def initialize(source_text = nil)
       @name = ''
       @description = ''
       @tags = []
       @tests = []
 
-      build_feature(parsed_feature) if parsed_feature
+      super(source_text)
+
+      if source_text
+        parsed_feature_data = parse_source(source_text)
+        populate_feature(self, parsed_feature_data)
+      end
     end
 
     # Returns true if the feature contains a background, false otherwise.
@@ -83,38 +83,10 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file.first
-    end
-
-    def build_feature(parsed_feature)
-      populate_raw_element(parsed_feature)
-      populate_source_line(parsed_feature)
-      populate_name(parsed_feature)
-      populate_description(parsed_feature)
-      populate_tags(parsed_feature)
-      populate_children(parsed_feature)
-    end
-
-    def populate_children(parsed_feature)
-      elements = parsed_feature['elements']
-
-      if elements
-        elements.each do |element|
-          case element['keyword']
-            when 'Scenario'
-              @tests << build_child_element(Scenario, element)
-            when 'Scenario Outline'
-              @tests << build_child_element(Outline, element)
-            when 'Background'
-              @background = build_child_element(Background, element)
-            else
-              raise(ArgumentError, "Unknown keyword: #{element['keyword']}")
-          end
-        end
-      end
     end
 
     def background_output_string

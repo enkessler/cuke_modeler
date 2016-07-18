@@ -20,19 +20,6 @@ describe 'Example, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = ['Examples: test example',
-                '|param| ',
-                '|value|']
-
-      source = source.join("\n")
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      @element.name.should == 'test example'
-    end
-
     it 'can be instantiated with the minimum viable Gherkin', :gherkin4 => true do
       source = ['Examples:']
       source = source.join("\n")

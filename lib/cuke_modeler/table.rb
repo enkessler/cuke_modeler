@@ -4,7 +4,6 @@ module CukeModeler
 
   class Table < ModelElement
 
-    include Containing
     include Raw
     include Sourceable
 
@@ -15,12 +14,15 @@ module CukeModeler
 
     # Creates a new Table object and, if *source* is provided, populates
     # the object.
-    def initialize(source = nil)
+    def initialize(source_text = nil)
       @rows = []
 
-      parsed_table = process_source(source)
+      super(source_text)
 
-      build_table(parsed_table) if parsed_table
+      if source_text
+        parsed_table_data = parse_source(source_text)
+        populate_table(self, parsed_table_data)
+      end
     end
 
     # Returns the model objects that belong to this model.
@@ -37,25 +39,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_table.feature')
 
       parsed_file.first['elements'].first['steps'].first['table']
-    end
-
-    def build_table(table)
-      populate_row_elements(table)
-      populate_raw_element(table)
-      populate_source_line(table)
-    end
-
-    def populate_row_elements(table)
-      table['rows'].each do |row|
-        @rows << build_child_element(TableRow, row)
-      end
     end
 
     def row_output_string(row)

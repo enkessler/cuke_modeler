@@ -18,16 +18,6 @@ describe 'TableRow, Unit' do
   # todo - move some of these test because they are now integration tests due to using the Cell class
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = '| a | row |'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      cell_values = @element.cells.collect { |cell| cell.value }
-      expect(cell_values).to eq(['a', 'row'])
-    end
-
     it 'can be instantiated with the minimum viable Gherkin' do
       source = '| a | row |'
 

@@ -11,14 +11,6 @@ module CukeModeler
     private
 
 
-    def populate_steps(parsed_model)
-      if parsed_model['steps']
-        parsed_model['steps'].each do |step|
-          @steps << build_child_element(Step, step)
-        end
-      end
-    end
-
     def steps_output_string
       steps.collect { |step| indented_step_text(step) }.join("\n")
     end

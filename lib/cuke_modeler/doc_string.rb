@@ -17,12 +17,15 @@ module CukeModeler
 
     # Creates a new DocString object and, if *source* is provided, populates
     # the object.
-    def initialize(source = nil)
+    def initialize(source_text = nil)
       @contents = ''
 
-      parsed_doc_string = process_source(source)
+      super(source_text)
 
-      build_doc_string(parsed_doc_string) if parsed_doc_string
+      if source_text
+        parsed_doc_string_data = parse_source(source_text)
+        populate_docstring(self, parsed_doc_string_data)
+      end
     end
 
     # Returns a gherkin representation of the doc string.
@@ -36,28 +39,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature:\nScenario:\n* step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_doc_string.feature')
 
       parsed_file.first['elements'].first['steps'].first['doc_string']
-    end
-
-    def build_doc_string(doc_string)
-      populate_content_type(doc_string)
-      populate_contents(doc_string)
-      populate_raw_element(doc_string)
-      populate_source_line(doc_string)
-    end
-
-    def populate_content_type(doc_string)
-      @content_type = doc_string['content_type'] == "" ? nil : doc_string['content_type']
-    end
-
-    def populate_contents(doc_string)
-      @contents = doc_string['value']
     end
 
     def content_type_output_string

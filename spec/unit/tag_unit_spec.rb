@@ -18,13 +18,6 @@ describe 'Tag, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be parsed from stand alone text' do
-      source = '@a_tag'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-      @element.name.should == '@a_tag'
-    end
-
     it 'can be instantiated with the minimum viable Gherkin' do
       source = '@a_tag'
 

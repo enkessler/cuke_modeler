@@ -4,7 +4,6 @@ module CukeModeler
 
   class Step < ModelElement
 
-    include Containing
     include Sourceable
     include Raw
 
@@ -21,10 +20,13 @@ module CukeModeler
 
     # Creates a new Step object and, if *source* is provided, populates the
     # object.
-    def initialize(source = nil)
-      parsed_step = process_source(source)
+    def initialize(source_text = nil)
+      super(source_text)
 
-      build_step(parsed_step) if parsed_step
+      if source_text
+        parsed_step_data = parse_source(source_text)
+        populate_step(self, parsed_step_data)
+      end
     end
 
     # Returns true if the two steps have the same base text (i.e. minus any keyword, 
@@ -52,46 +54,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\nScenario:\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
 
       parsed_file.first['elements'].first['steps'].first
-    end
-
-    def build_step(step)
-      populate_base(step)
-      populate_block(step)
-      populate_keyword(step)
-      populate_source_line(step)
-      populate_raw_element(step)
-    end
-
-    def populate_base(step)
-      @base = step['name']
-    end
-
-    def populate_block(step)
-      @block = build_block(step)
-    end
-
-    def populate_keyword(step)
-      @keyword = step['keyword'].strip
-    end
-
-    def build_block(step)
-      case
-        when step['table']
-          @block = build_child_element(Table, step['table'])
-        when step['doc_string']
-          @block = build_child_element(DocString, step['doc_string'])
-        else
-          @block = nil
-      end
-
-      @block
     end
 
   end

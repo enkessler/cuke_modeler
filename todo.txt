@@ -70,7 +70,6 @@ Fix transient test failures (permission denied file access problems)
 @default_file_directory -> @test_directory
 
 make sure that all classes and tests are covered and attaches to code coverage
-requirement (model_input).feature) that models only take strings as input (raise exception otherwise)
 
                                 use 'here doc' for source text construction in rspec tests
 

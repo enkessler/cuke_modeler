@@ -9,7 +9,6 @@ module CukeModeler
     include Described
     include Stepped
     include Sourceable
-    include Containing
     include Taggable
 
 
@@ -19,19 +18,19 @@ module CukeModeler
 
     # Creates a new Outline object and, if *source* is provided, populates the
     # object.
-    def initialize(source = nil)
-      parsed_outline = process_source(source)
-
-      super(parsed_outline)
-
-
+    def initialize(source_text = nil)
       @name = ''
       @description = ''
       @steps = []
       @tags = []
       @examples = []
 
-      build_outline(parsed_outline) if parsed_outline
+      super(source_text)
+
+      if source_text
+        parsed_outline_data = parse_source(source_text)
+        populate_outline(self, parsed_outline_data)
+      end
     end
 
     # Returns true if the two elements have equivalent steps and false otherwise.
@@ -64,29 +63,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_outline.feature')
 
       parsed_file.first['elements'].first
-    end
-
-    def build_outline(parsed_outline)
-      populate_raw_element(parsed_outline)
-      populate_source_line(parsed_outline)
-      populate_name(parsed_outline)
-      populate_description(parsed_outline)
-      populate_steps(parsed_outline)
-      populate_tags(parsed_outline)
-      populate_outline_examples(parsed_outline['examples']) if parsed_outline['examples']
-    end
-
-    def populate_outline_examples(parsed_examples)
-      parsed_examples.each do |example|
-        @examples << build_child_element(Example, example)
-      end
     end
 
     def examples_output_string

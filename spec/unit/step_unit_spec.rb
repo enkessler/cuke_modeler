@@ -81,14 +81,6 @@ describe 'Step, Unit' do
 
     end
 
-    it 'can be parsed from stand alone text' do
-      source = '* test step'
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-
-      # Sanity check in case instantiation failed in a non-explosive manner
-      @element.base.should == 'test step'
-    end
 
     it 'can be instantiated with the minimum viable Gherkin' do
       source = '* a step'

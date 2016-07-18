@@ -6,7 +6,6 @@ module CukeModeler
 
     include Sourceable
     include Raw
-    include Containing
 
 
     # The cells that make up the row
@@ -15,12 +14,15 @@ module CukeModeler
 
     # Creates a new TableRow object and, if *source* is provided, populates
     # the object.
-    def initialize(source = nil)
-      parsed_row = process_source(source)
-
+    def initialize(source_text = nil)
       @cells = []
 
-      build_row(parsed_row) if parsed_row
+      super(source_text)
+
+      if source_text
+        parsed_row_data = parse_source(source_text)
+        populate_row(self, parsed_row_data)
+      end
     end
 
     # Returns a gherkin representation of the table row.
@@ -34,25 +36,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\nScenario:\n* fake step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_table_row.feature')
 
       parsed_file.first['elements'].first['steps'].first['table']['rows'].first
-    end
-
-    def build_row(parsed_row)
-      populate_source_line(parsed_row)
-      populate_row_cells(parsed_row)
-      populate_raw_element(parsed_row)
-    end
-
-    def populate_row_cells(parsed_row)
-      parsed_row['cells'].each do |cell|
-        @cells << build_child_element(Cell, cell)
-      end
     end
 
   end

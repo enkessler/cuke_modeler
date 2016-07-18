@@ -4,8 +4,6 @@ module CukeModeler
 
   class FeatureFile < ModelElement
 
-    include Containing
-
 
     # The feature object contained by the modeled feature file
     attr_accessor :feature
@@ -16,16 +14,18 @@ module CukeModeler
 
     # Creates a new FeatureFile object and, if *file_parsed* is provided,
     # populates the object.
-    def initialize(file = nil)
-      @path = file
+    def initialize(file_path = nil)
+      @path = file_path
 
-      if file
-        raise(ArgumentError, "Unknown file: #{file.inspect}") unless File.exists?(file)
+      super(file_path)
 
-        parsed_file = parse_file(file)
+      if file_path
+        raise(ArgumentError, "Unknown file: #{file_path.inspect}") unless File.exists?(file_path)
 
-        build_file(parsed_file)
+        processed_feature_file_data = process_feature_file(file_path)
+        populate_featurefile(self, processed_feature_file_data)
       end
+
     end
 
     # Returns the name of the modeled feature file.
@@ -47,14 +47,16 @@ module CukeModeler
     private
 
 
-    def parse_file(file_to_parse)
-      source_text = IO.read(file_to_parse)
+    def process_feature_file(file_path)
+      feature_file_data = {'path' => file_path}
 
-      Parsing::parse_text(source_text, file_to_parse)
-    end
+      source_text = IO.read(file_path)
+      feature = Parsing::parse_text(source_text, file_path).first
 
-    def build_file(parsed_file)
-      @feature = build_child_element(Feature, parsed_file.first) unless parsed_file.empty?
+      feature_file_data['feature'] = feature
+
+
+      feature_file_data
     end
 
   end

@@ -9,21 +9,21 @@ module CukeModeler
     include Described
     include Stepped
     include Sourceable
-    include Containing
 
 
     # Creates a new Background object and, if *source* is provided, populates
     # the object.
-    def initialize(source = nil)
-      parsed_background = process_source(source)
-
-      super(parsed_background)
-
+    def initialize(source_text = nil)
       @name = ''
       @description = ''
       @steps = []
 
-      build_background(parsed_background) if parsed_background
+      super(source_text)
+
+      if source_text
+        parsed_background_data = parse_source(source_text)
+        populate_background(self, parsed_background_data)
+      end
     end
 
     # Returns true if the two models have equivalent steps and false otherwise.
@@ -54,21 +54,13 @@ module CukeModeler
     private
 
 
-    def parse_model(source_text)
+    def parse_source(source_text)
       base_file_string = "Feature: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_background.feature')
 
       parsed_file.first['elements'].first
-    end
-
-    def build_background(parsed_background)
-      populate_raw_element(parsed_background)
-      populate_name(parsed_background)
-      populate_description(parsed_background)
-      populate_source_line(parsed_background)
-      populate_steps(parsed_background)
     end
 
   end
