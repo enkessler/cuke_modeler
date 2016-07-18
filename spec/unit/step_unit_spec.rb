@@ -19,42 +19,42 @@ describe 'Step, Unit' do
   describe 'unique behavior' do
 
     it 'has text' do
-      step.should respond_to(:text)
+      expect(step).to respond_to(:text)
     end
 
     it 'can change its text' do
       expect(step).to respond_to(:text=)
 
       step.text = :some_text
-      step.text.should == :some_text
+      expect(step.text).to eq(:some_text)
       step.text = :some_other_text
-      step.text.should == :some_other_text
+      expect(step.text).to eq(:some_other_text)
     end
 
     it 'has a block' do
-      step.should respond_to(:block)
+      expect(step).to respond_to(:block)
     end
 
     it 'can change its block' do
       expect(step).to respond_to(:block=)
 
       step.block = :some_block
-      step.block.should == :some_block
+      expect(step.block).to eq(:some_block)
       step.block = :some_other_block
-      step.block.should == :some_other_block
+      expect(step.block).to eq(:some_other_block)
     end
 
     it 'has a keyword' do
-      step.should respond_to(:keyword)
+      expect(step).to respond_to(:keyword)
     end
 
     it 'can change its keyword' do
       expect(step).to respond_to(:keyword=)
 
       step.keyword = :some_keyword
-      step.keyword.should == :some_keyword
+      expect(step.keyword).to eq(:some_keyword)
       step.keyword = :some_other_keyword
-      step.keyword.should == :some_other_keyword
+      expect(step.keyword).to eq(:some_other_keyword)
     end
 
 
@@ -141,7 +141,7 @@ describe 'Step, Unit' do
     describe 'step output' do
 
       it 'is a String' do
-        step.to_s.should be_a(String)
+        expect(step.to_s).to be_a(String)
       end
 
 

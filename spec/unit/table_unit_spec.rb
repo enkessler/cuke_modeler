@@ -66,7 +66,7 @@ describe 'Table, Unit' do
     describe 'table output' do
 
       it 'is a String' do
-        table.to_s.should be_a(String)
+        expect(table.to_s).to be_a(String)
       end
 
 

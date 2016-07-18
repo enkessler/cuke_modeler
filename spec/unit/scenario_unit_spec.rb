@@ -134,7 +134,7 @@ describe 'Scenario, Unit' do
     describe 'scenario output' do
 
       it 'is a String' do
-        scenario.to_s.should be_a(String)
+        expect(scenario.to_s).to be_a(String)
       end
 
 

@@ -67,16 +67,16 @@ describe 'Outline, Unit' do
     end
 
     it 'has examples' do
-      outline.should respond_to(:examples)
+      expect(outline).to respond_to(:examples)
     end
 
     it 'can change its examples' do
       expect(outline).to respond_to(:examples=)
 
       outline.examples = :some_examples
-      outline.examples.should == :some_examples
+      expect(outline.examples).to eq(:some_examples)
       outline.examples = :some_other_examples
-      outline.examples.should == :some_other_examples
+      expect(outline.examples).to eq(:some_other_examples)
     end
 
 
@@ -178,7 +178,7 @@ describe 'Outline, Unit' do
     describe 'outline output' do
 
       it 'is a String' do
-        outline.to_s.should be_a(String)
+        expect(outline.to_s).to be_a(String)
       end
 
 

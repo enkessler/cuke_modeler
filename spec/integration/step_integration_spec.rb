@@ -130,8 +130,8 @@ describe 'Step, Integration' do
       doc_string = step_1.block
       table = step_2.block
 
-      doc_string.parent_model.should equal step_1
-      table.parent_model.should equal step_2
+      expect(doc_string.parent_model).to equal(step_1)
+      expect(table.parent_model).to equal(step_2)
     end
 
     it 'can determine its equality with another Step' do
@@ -172,19 +172,19 @@ describe 'Step, Integration' do
       it 'can get its directory' do
         ancestor = step.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = step.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = step.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
 
@@ -266,7 +266,7 @@ describe 'Step, Integration' do
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = step.get_ancestor(:example)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
     end

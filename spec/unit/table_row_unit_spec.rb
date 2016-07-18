@@ -55,16 +55,16 @@ describe 'TableRow, Unit' do
     end
 
     it 'has cells' do
-      row.should respond_to(:cells)
+      expect(row).to respond_to(:cells)
     end
 
     it 'can get and set its cells' do
       expect(row).to respond_to(:cells=)
 
       row.cells = :some_cells
-      row.cells.should == :some_cells
+      expect(row.cells).to eq(:some_cells)
       row.cells = :some_other_cells
-      row.cells.should == :some_other_cells
+      expect(row.cells).to eq(:some_other_cells)
     end
 
 
@@ -106,7 +106,7 @@ describe 'TableRow, Unit' do
     describe 'table row output' do
 
       it 'is a String' do
-        row.to_s.should be_a(String)
+        expect(row.to_s).to be_a(String)
       end
 
       context 'from source text' do

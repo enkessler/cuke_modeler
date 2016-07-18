@@ -10,7 +10,7 @@ describe 'Sourceable, Unit' do
   describe 'unique behavior' do
 
     it 'has a source line' do
-      element.should respond_to(:source_line)
+      expect(element).to respond_to(:source_line)
     end
 
   end

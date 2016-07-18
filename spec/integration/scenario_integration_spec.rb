@@ -48,8 +48,8 @@ describe 'Scenario, Integration' do
       step = scenario.steps.first
       tag = scenario.tags.first
 
-      step.parent_model.should equal scenario
-      tag.parent_model.should equal scenario
+      expect(step.parent_model).to equal(scenario)
+      expect(tag.parent_model).to equal(scenario)
     end
 
 
@@ -73,25 +73,25 @@ describe 'Scenario, Integration' do
       it 'can get its directory' do
         ancestor = scenario.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = scenario.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = scenario.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = scenario.get_ancestor(:test)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
 

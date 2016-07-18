@@ -11,7 +11,7 @@ end
 Then(/^the following text is provided:$/) do |expected_text|
   expected_text.sub!('<path_to>', @default_file_directory)
 
-  @output.should == expected_text
+  expect(@output).to eq(expected_text)
 end
 
 Then(/^all of them can be contained inside of another model$/) do |code_text|

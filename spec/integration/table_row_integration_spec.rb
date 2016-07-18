@@ -48,19 +48,19 @@ describe 'TableRow, Integration' do
       it 'can get its directory' do
         ancestor = table_row.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = table_row.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = table_row.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'a table row that is part of a scenario' do
@@ -144,19 +144,19 @@ describe 'TableRow, Integration' do
       it 'can get its step' do
         ancestor = table_row.get_ancestor(:step)
 
-        ancestor.should equal directory.feature_files.first.feature.tests.first.steps.first
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
       end
 
       it 'can get its table' do
         ancestor = table_row.get_ancestor(:table)
 
-        ancestor.should equal directory.feature_files.first.feature.tests.first.steps.first.block
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first.block)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = table_row.get_ancestor(:example)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
     end

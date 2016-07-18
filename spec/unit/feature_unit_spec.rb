@@ -64,36 +64,36 @@ describe 'Feature, Unit' do
     end
 
     it 'has a background' do
-      feature.should respond_to(:background)
+      expect(feature).to respond_to(:background)
     end
 
     it 'can change its background' do
       expect(feature).to respond_to(:background=)
 
       feature.background = :some_background
-      feature.background.should == :some_background
+      expect(feature.background).to eq(:some_background)
       feature.background = :some_other_background
-      feature.background.should == :some_other_background
+      expect(feature.background).to eq(:some_other_background)
     end
 
     it 'knows whether or not it presently has a background - has_background?' do
       feature.background = :a_background
-      feature.has_background?.should be_true
+      expect(feature).to have_background
       feature.background = nil
-      feature.has_background?.should be_false
+      expect(feature).to_not have_background
     end
 
     it 'has tests' do
-      feature.should respond_to(:tests)
+      expect(feature).to respond_to(:tests)
     end
 
     it 'can change its tests' do
       expect(feature).to respond_to(:tests=)
 
       feature.tests = :some_tests
-      feature.tests.should == :some_tests
+      expect(feature.tests).to eq(:some_tests)
       feature.tests = :some_other_tests
-      feature.tests.should == :some_other_tests
+      expect(feature.tests).to eq(:some_other_tests)
     end
 
     it 'can selectively access its scenarios' do
@@ -132,7 +132,7 @@ describe 'Feature, Unit' do
       feature.background = background
       feature.tests = tests
 
-      feature.children.should =~ everything
+      expect(feature.children).to match_array(everything)
     end
 
 
@@ -205,7 +205,7 @@ describe 'Feature, Unit' do
     describe 'feature output' do
 
       it 'is a String' do
-        feature.to_s.should be_a(String)
+        expect(feature.to_s).to be_a(String)
       end
 
 

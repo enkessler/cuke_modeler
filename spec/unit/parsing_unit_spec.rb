@@ -9,7 +9,7 @@ describe 'Parsing, Unit' do
   describe 'unique behavior' do
 
     it 'can parse text' do
-      nodule.should respond_to(:parse_text)
+      expect(nodule).to respond_to(:parse_text)
     end
 
     it 'raises and error if given something to parse besides a string' do
@@ -23,7 +23,7 @@ describe 'Parsing, Unit' do
 
     it 'returns an Array' do
       result = nodule.parse_text('Feature:')
-      result.is_a?(Array).should be_true
+      expect(result).to be_a(Array)
     end
 
     it 'takes the text that is to be parsed and an optional file name' do

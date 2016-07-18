@@ -131,7 +131,7 @@ describe 'Background, Unit' do
     describe 'background output' do
 
       it 'is a String' do
-        background.to_s.should be_a(String)
+        expect(background.to_s).to be_a(String)
       end
 
 

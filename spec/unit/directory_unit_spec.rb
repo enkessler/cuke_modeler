@@ -37,35 +37,35 @@ describe 'Directory, Unit' do
         expect(directory).to respond_to(:path=)
 
         directory.path = :some_path
-        directory.path.should == :some_path
+        expect(directory.path).to eq(:some_path)
         directory.path = :some_other_path
-        directory.path.should == :some_other_path
+        expect(directory.path).to eq(:some_other_path)
       end
 
       it 'has feature files' do
-        directory.should respond_to(:feature_files)
+        expect(directory).to respond_to(:feature_files)
       end
 
       it 'can change its feature files' do
         expect(directory).to respond_to(:feature_files=)
 
         directory.feature_files = :some_feature_files
-        directory.feature_files.should == :some_feature_files
+        expect(directory.feature_files).to eq(:some_feature_files)
         directory.feature_files = :some_other_feature_files
-        directory.feature_files.should == :some_other_feature_files
+        expect(directory.feature_files).to eq(:some_other_feature_files)
       end
 
       it 'has directories' do
-        directory.should respond_to(:directories)
+        expect(directory).to respond_to(:directories)
       end
 
       it 'can change its directories' do
         expect(directory).to respond_to(:directories=)
 
         directory.directories = :some_directories
-        directory.directories.should == :some_directories
+        expect(directory.directories).to eq(:some_directories)
         directory.directories = :some_other_directories
-        directory.directories.should == :some_other_directories
+        expect(directory.directories).to eq(:some_other_directories)
       end
 
     end
@@ -103,14 +103,14 @@ describe 'Directory, Unit' do
       directory.directories = directories
       directory.feature_files = files
 
-      directory.children.should =~ everything
+      expect(directory.children).to match_array(everything)
     end
 
 
     describe 'directory output' do
 
       it 'is a String' do
-        directory.to_s.should be_a(String)
+        expect(directory.to_s).to be_a(String)
       end
 
 

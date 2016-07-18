@@ -24,9 +24,9 @@ describe 'FeatureFile, Unit' do
       expect(feature_file).to respond_to(:path=)
 
       feature_file.path = :some_path
-      feature_file.path.should == :some_path
+      expect(feature_file.path).to eq(:some_path)
       feature_file.path = :some_other_path
-      feature_file.path.should == :some_other_path
+      expect(feature_file.path).to eq(:some_other_path)
     end
 
     it 'has a feature' do
@@ -90,7 +90,7 @@ describe 'FeatureFile, Unit' do
     describe 'feature file output' do
 
       it 'is a String' do
-        feature_file.to_s.should be_a(String)
+        expect(feature_file.to_s).to be_a(String)
       end
 
 

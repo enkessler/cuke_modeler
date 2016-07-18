@@ -57,7 +57,7 @@ describe 'Example, Unit' do
     end
 
     it 'has rows' do
-      example.should respond_to(:rows)
+      expect(example).to respond_to(:rows)
     end
 
     it 'can change its rows' do
@@ -103,11 +103,11 @@ describe 'Example, Unit' do
 
 
     it 'can add a new example row' do
-      clazz.new.should respond_to(:add_row)
+      expect(clazz.new).to respond_to(:add_row)
     end
 
     it 'can remove an existing example row' do
-      clazz.new.should respond_to(:remove_row)
+      expect(clazz.new).to respond_to(:remove_row)
     end
 
     it 'contains rows and tags' do
@@ -178,7 +178,7 @@ describe 'Example, Unit' do
     describe 'example output' do
 
       it 'is a String' do
-        example.to_s.should be_a(String)
+        expect(example.to_s).to be_a(String)
       end
 
 

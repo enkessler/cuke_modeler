@@ -41,19 +41,19 @@ describe 'Tag, Integration' do
       it 'can get its directory' do
         ancestor = tag.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = tag.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = tag.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'a tag that is part of a scenario' do
@@ -139,7 +139,7 @@ describe 'Tag, Integration' do
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = high_level_tag.get_ancestor(:example)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
     end

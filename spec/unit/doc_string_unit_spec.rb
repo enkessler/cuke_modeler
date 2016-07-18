@@ -54,29 +54,29 @@ describe 'DocString, Unit' do
     end
 
     it 'has a content type' do
-      doc_string.should respond_to(:content_type)
+      expect(doc_string).to respond_to(:content_type)
     end
 
     it 'can change its content type' do
       expect(doc_string).to respond_to(:content_type=)
 
       doc_string.content_type = :some_content_type
-      doc_string.content_type.should == :some_content_type
+      expect(doc_string.content_type).to eq(:some_content_type)
       doc_string.content_type = :some_other_content_type
-      doc_string.content_type.should == :some_other_content_type
+      expect(doc_string.content_type).to eq(:some_other_content_type)
     end
 
     it 'has contents' do
-      doc_string.should respond_to(:contents)
+      expect(doc_string).to respond_to(:contents)
     end
 
     it 'can get and set its contents' do
       expect(doc_string).to respond_to(:contents=)
 
       doc_string.contents = :some_contents
-      doc_string.contents.should == :some_contents
+      expect(doc_string.contents).to eq(:some_contents)
       doc_string.contents = :some_other_contents
-      doc_string.contents.should == :some_other_contents
+      expect(doc_string.contents).to eq(:some_other_contents)
     end
 
     it 'stores its contents as a String' do
@@ -85,7 +85,7 @@ describe 'DocString, Unit' do
 
       contents = doc_string.contents
 
-      contents.is_a?(String).should be_true
+      expect(contents).to be_a(String)
     end
 
 
@@ -238,7 +238,7 @@ describe 'DocString, Unit' do
       context 'from abstract instantiation' do
 
         it 'is a String' do
-          doc_string.to_s.should be_a(String)
+          expect(doc_string.to_s).to be_a(String)
         end
 
 

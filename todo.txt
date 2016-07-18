@@ -46,7 +46,6 @@ More definition around element creation input arguments and parsing results
 Single featyure or collection of features for feature file elements?
 All specs stem from an acceptance test?
 Double check/review class level documentation
-Switch to RSpec 'expect' syntax instead of 'should' syntax
 All elements share common superclass for easy identification/behavior sharing?
 All specs must come from a documented feature/behavior?
 Still need behavior modules if only included in the super parent class?

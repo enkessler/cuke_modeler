@@ -90,8 +90,8 @@ describe 'Table, Integration' do
       row_1 = table.rows[0]
       row_2 = table.rows[1]
 
-      row_1.parent_model.should equal table
-      row_2.parent_model.should equal table
+      expect(row_1.parent_model).to equal(table)
+      expect(row_2.parent_model).to equal(table)
     end
 
     describe 'getting ancestors' do
@@ -115,19 +115,19 @@ describe 'Table, Integration' do
       it 'can get its directory' do
         ancestor = table.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = table.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = table.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'a table that is part of a scenario' do
@@ -211,13 +211,13 @@ describe 'Table, Integration' do
       it 'can get its step' do
         ancestor = table.get_ancestor(:step)
 
-        ancestor.should equal directory.feature_files.first.feature.tests.first.steps.first
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = table.get_ancestor(:example)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
     end

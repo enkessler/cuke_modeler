@@ -49,19 +49,19 @@ describe 'Row, Integration' do
       it 'can get its directory' do
         ancestor = row.get_ancestor(:directory)
 
-        ancestor.should equal directory
+        expect(ancestor).to equal(directory)
       end
 
       it 'can get its feature file' do
         ancestor = row.get_ancestor(:feature_file)
 
-        ancestor.should equal directory.feature_files.first
+        expect(ancestor).to equal(directory.feature_files.first)
       end
 
       it 'can get its feature' do
         ancestor = row.get_ancestor(:feature)
 
-        ancestor.should equal directory.feature_files.first.feature
+        expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
       context 'a row that is part of an outline' do
@@ -92,7 +92,7 @@ describe 'Row, Integration' do
         it 'can get its example' do
           ancestor = row.get_ancestor(:example)
 
-          ancestor.should equal directory.feature_files.first.feature.tests.first.examples.first
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first)
         end
 
       end
@@ -100,7 +100,7 @@ describe 'Row, Integration' do
       it 'returns nil if it does not have the requested type of ancestor' do
         ancestor = row.get_ancestor(:table)
 
-        ancestor.should be_nil
+        expect(ancestor).to be_nil
       end
 
     end

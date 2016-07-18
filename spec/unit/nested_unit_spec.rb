@@ -25,11 +25,11 @@ describe 'Nested, Unit' do
       end
 
       it 'has access to its ancestors' do
-        nested_element.should respond_to(:get_ancestor)
+        expect(nested_element).to respond_to(:get_ancestor)
       end
 
       it 'gets an ancestor based on type' do
-        (nodule.instance_method(:get_ancestor).arity == 1).should be_true
+        expect(nodule.instance_method(:get_ancestor).arity).to eq(1)
       end
 
       it 'raises and exception if an unknown ancestor type is requested' do
