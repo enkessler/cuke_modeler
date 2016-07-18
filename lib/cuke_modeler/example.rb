@@ -4,7 +4,7 @@ module CukeModeler
 
   class Example < ModelElement
 
-    include Raw
+    include Parsed
     include Named
     include Described
     include Sourceable

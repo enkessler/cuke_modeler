@@ -1,25 +1,25 @@
 require 'spec_helper'
 
 
-describe 'Raw, Unit' do
+describe 'Parsed, Unit' do
 
-  let(:nodule) { CukeModeler::Raw }
+  let(:nodule) { CukeModeler::Parsed }
   let(:element) { Object.new.extend(nodule) }
 
 
   describe 'unique behavior' do
 
-    it 'has a raw element' do
-      element.should respond_to(:raw_element)
+    it 'can access its original parsing data' do
+      element.should respond_to(:parsing_data)
     end
 
-    it 'can change its raw element' do
-      expect(element).to respond_to(:raw_element=)
+    it 'can change its parsing data' do
+      expect(element).to respond_to(:parsing_data=)
 
-      element.raw_element = :some_raw_element
-      element.raw_element.should == :some_raw_element
-      element.raw_element = :some_other_raw_element
-      element.raw_element.should == :some_other_raw_element
+      element.parsing_data = :some_parsing_data
+      element.parsing_data.should == :some_parsing_data
+      element.parsing_data = :some_other_parsing_data
+      element.parsing_data.should == :some_other_parsing_data
     end
 
   end

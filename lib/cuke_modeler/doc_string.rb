@@ -4,7 +4,7 @@ module CukeModeler
 
   class DocString < ModelElement
 
-    include Raw
+    include Parsed
     include Sourceable
 
 

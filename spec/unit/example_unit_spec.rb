@@ -13,7 +13,7 @@ describe 'Example, Unit' do
     it_should_behave_like 'a described element'
     it_should_behave_like 'a tagged element'
     it_should_behave_like 'a sourced element'
-    it_should_behave_like 'a raw element'
+    it_should_behave_like 'a parsed element'
 
   end
 

@@ -4,7 +4,7 @@ module CukeModeler
 
   class Feature < ModelElement
 
-    include Raw
+    include Parsed
     include Named
     include Described
     include Taggable

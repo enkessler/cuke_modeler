@@ -11,24 +11,24 @@ describe 'Step, Unit' do
 
     it_should_behave_like 'a modeled element'
     it_should_behave_like 'a sourced element'
-    it_should_behave_like 'a raw element'
+    it_should_behave_like 'a parsed element'
 
   end
 
 
   describe 'unique behavior' do
 
-    it 'has a base' do
-      step.should respond_to(:base)
+    it 'has text' do
+      step.should respond_to(:text)
     end
 
-    it 'can change its base' do
-      expect(step).to respond_to(:base=)
+    it 'can change its text' do
+      expect(step).to respond_to(:text=)
 
-      step.base = :some_base
-      step.base.should == :some_base
-      step.base = :some_other_base
-      step.base.should == :some_other_base
+      step.text = :some_text
+      step.text.should == :some_text
+      step.text = :some_other_text
+      step.text.should == :some_other_text
     end
 
     it 'has a block' do
@@ -65,8 +65,8 @@ describe 'Step, Unit' do
         let(:step) { clazz.new }
 
 
-        it 'starts with no base' do
-          expect(step.base).to be_nil
+        it 'starts with no text' do
+          expect(step.text).to be_nil
         end
 
         it 'starts with no block' do
@@ -116,8 +116,8 @@ describe 'Step, Unit' do
           expect(step.keyword).to eq('*')
         end
 
-        it "models the step's base" do
-          expect(step.base).to eq('a step')
+        it "models the step's text" do
+          expect(step.text).to eq('a step')
         end
 
 
@@ -175,8 +175,8 @@ describe 'Step, Unit' do
           expect { step.to_s }.to_not raise_error
         end
 
-        it 'can output a step that has only a base' do
-          step.base = 'step base'
+        it 'can output a step that has only a text' do
+          step.text = 'step text'
 
           expect { step.to_s }.to_not raise_error
         end

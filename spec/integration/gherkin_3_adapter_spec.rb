@@ -57,68 +57,68 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
   it "does not store parsing data for a feature's children" do
     model = feature
 
-    expect(model.raw_element[:tags]).to be_nil
-    expect(model.raw_element[:scenarioDefinitions]).to be_nil
-    expect(model.raw_element[:background]).to be_nil
+    expect(model.parsing_data[:tags]).to be_nil
+    expect(model.parsing_data[:scenarioDefinitions]).to be_nil
+    expect(model.parsing_data[:background]).to be_nil
   end
 
   it "does not store parsing data for a background's children" do
     model = feature.background
 
-    expect(model.raw_element[:steps]).to be_nil
+    expect(model.parsing_data[:steps]).to be_nil
   end
 
   it "does not store parsing data for a scenario's children" do
     model = feature.scenarios.first
 
-    expect(model.raw_element[:tags]).to be_nil
-    expect(model.raw_element[:steps]).to be_nil
+    expect(model.parsing_data[:tags]).to be_nil
+    expect(model.parsing_data[:steps]).to be_nil
   end
 
   it "does not store parsing data for an outline's children" do
     model = feature.outlines.first
 
-    expect(model.raw_element[:tags]).to be_nil
-    expect(model.raw_element[:steps]).to be_nil
-    expect(model.raw_element[:examples]).to be_nil
+    expect(model.parsing_data[:tags]).to be_nil
+    expect(model.parsing_data[:steps]).to be_nil
+    expect(model.parsing_data[:examples]).to be_nil
   end
 
   it "does not store parsing data for an example's children" do
     model = feature.outlines.first.examples.first
 
-    expect(model.raw_element[:tags]).to be_nil
-    expect(model.raw_element[:tableHeader]).to be_nil
-    expect(model.raw_element[:tableBody]).to be_nil
+    expect(model.parsing_data[:tags]).to be_nil
+    expect(model.parsing_data[:tableHeader]).to be_nil
+    expect(model.parsing_data[:tableBody]).to be_nil
   end
 
   it "does not store parsing data for an example row's children" do
     model = feature.outlines.first.examples.first.rows.first
 
-    expect(model.raw_element[:cells]).to be_nil
+    expect(model.parsing_data[:cells]).to be_nil
   end
 
   it "does not store parsing data for a step's children, table" do
     model = feature.outlines.first.steps.first
 
-    expect(model.raw_element[:argument]).to be_nil
+    expect(model.parsing_data[:argument]).to be_nil
   end
 
   it "does not store parsing data for a step's children, doc string" do
     model = feature.outlines.first.steps.last
 
-    expect(model.raw_element[:argument]).to be_nil
+    expect(model.parsing_data[:argument]).to be_nil
   end
 
   it "does not store parsing data for a table's children" do
     model = feature.outlines.first.steps.first.block
 
-    expect(model.raw_element[:rows]).to be_nil
+    expect(model.parsing_data[:rows]).to be_nil
   end
 
   it "does not store parsing data for a table row's children" do
     model = feature.outlines.first.steps.first.block.rows.first
 
-    expect(model.raw_element[:cells]).to be_nil
+    expect(model.parsing_data[:cells]).to be_nil
   end
 
 

@@ -44,5 +44,5 @@ being populated dynamically based on an actual test suite.
       """
         model = <model_class>.new(<source_text>)
 
-        model.raw_element
+        model.parsing_data
       """

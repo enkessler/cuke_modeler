@@ -4,7 +4,7 @@ module CukeModeler
 
   class Outline < ModelElement
 
-    include Raw
+    include Parsed
     include Named
     include Described
     include Stepped

@@ -1,35 +1,35 @@
 require 'spec_helper'
 
-shared_examples_for 'a raw element' do
+shared_examples_for 'a parsed element' do
 
   # clazz must be defined by the calling file
 
   let(:element) { clazz.new }
 
 
-  it 'has an underlying implementation representation' do
-    expect(element).to respond_to(:raw_element)
+  it 'can access its original parsing data' do
+    expect(element).to respond_to(:parsing_data)
   end
 
-  it 'can change its underlying implementation representation' do
-    expect(element).to respond_to(:raw_element=)
+  it 'can change its parsing data' do
+    expect(element).to respond_to(:parsing_data=)
 
-    element.raw_element = :some_raw_element
-    expect(element.raw_element).to eq(:some_raw_element)
-    element.raw_element = :some_other_raw_element
-    expect(element.raw_element).to eq(:some_other_raw_element)
+    element.parsing_data = :some_parsing_data
+    expect(element.parsing_data).to eq(:some_parsing_data)
+    element.parsing_data = :some_other_parsing_data
+    expect(element.parsing_data).to eq(:some_other_parsing_data)
   end
 
 
   describe 'abstract instantiation' do
 
-    context 'a new raw object' do
+    context 'a new parsed object' do
 
       let(:element) { clazz.new }
 
 
-      it 'starts with no underlying implementation representation' do
-        expect(element.raw_element).to be_nil
+      it 'starts with no parsing data' do
+        expect(element.parsing_data).to be_nil
       end
 
     end

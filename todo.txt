@@ -10,8 +10,6 @@ actual assertions in executable documentation instead of just explosion checks
 verbiage update 'element' -> 'model'
 verbiage update 'can get and set' -> 'can change'
 
-rename Step#base to Step#text
-
 Example table and step table share common functionality via module
 Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row)
 
@@ -21,7 +19,6 @@ have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
 Have tags use the Named module?
 
-rename #raw_element to #parsing_data
 replace 'element' verbiage with 'model' verbiage in high level documentation
 
 replace joined array source text with single string source text/heredocs

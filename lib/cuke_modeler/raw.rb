@@ -1,12 +1,11 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that store their
-  # underlying implementation
+  # A mix-in module containing methods used by models that are parsed from source text.
 
-  module Raw
+  module Parsed
 
     # The raw representation of the element (i.e. the output of the gherkin gem)
-    attr_accessor :raw_element
+    attr_accessor :parsing_data
 
   end
 end

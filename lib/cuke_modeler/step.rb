@@ -5,14 +5,14 @@ module CukeModeler
   class Step < ModelElement
 
     include Sourceable
-    include Raw
+    include Parsed
 
 
     # The step's keyword
     attr_accessor :keyword
 
     # The base text of the step
-    attr_accessor :base
+    attr_accessor :text
 
     # The step's passed block
     attr_accessor :block
@@ -32,9 +32,9 @@ module CukeModeler
     # Returns true if the two steps have the same base text (i.e. minus any keyword, 
     # table, or doc string
     def ==(other_step)
-      return false unless other_step.respond_to?(:base)
+      return false unless other_step.respond_to?(:text)
 
-      base == other_step.base
+      text == other_step.text
     end
 
     # Returns the model objects that belong to this model.
@@ -44,7 +44,7 @@ module CukeModeler
 
     # Returns a gherkin representation of the step.
     def to_s
-      text = "#{keyword} #{base}"
+      text = "#{keyword} #{self.text}"
       text << "\n" + block.to_s.split("\n").collect { |line| "  #{line}" }.join("\n") if block
 
       text

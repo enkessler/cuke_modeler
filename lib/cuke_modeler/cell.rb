@@ -3,7 +3,7 @@ module CukeModeler
   class Cell < ModelElement
 
     include Sourceable
-    include Raw
+    include Parsed
 
 
     # The value of the cell

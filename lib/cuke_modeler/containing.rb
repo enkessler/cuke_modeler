@@ -19,7 +19,7 @@ module CukeModeler
     end
 
     def populate_scenario(scenario_object, parsed_scenario_data)
-      populate_raw_element(scenario_object, parsed_scenario_data)
+      populate_parsing_data(scenario_object, parsed_scenario_data)
       populate_source_line(scenario_object, parsed_scenario_data)
       populate_name(scenario_object, parsed_scenario_data)
       populate_description(scenario_object, parsed_scenario_data)
@@ -28,7 +28,7 @@ module CukeModeler
     end
 
     def populate_outline(outline_object, parsed_outline_data)
-      populate_raw_element(outline_object, parsed_outline_data)
+      populate_parsing_data(outline_object, parsed_outline_data)
       populate_source_line(outline_object, parsed_outline_data)
       populate_name(outline_object, parsed_outline_data)
       populate_description(outline_object, parsed_outline_data)
@@ -38,7 +38,7 @@ module CukeModeler
     end
 
     def populate_background(background_object, parsed_background_data)
-      populate_raw_element(background_object, parsed_background_data)
+      populate_parsing_data(background_object, parsed_background_data)
       populate_name(background_object, parsed_background_data)
       populate_description(background_object, parsed_background_data)
       populate_source_line(background_object, parsed_background_data)
@@ -46,11 +46,11 @@ module CukeModeler
     end
 
     def populate_step(step_object, parsed_step_data)
-      populate_base(step_object, parsed_step_data)
+      populate_text(step_object, parsed_step_data)
       populate_block(step_object, parsed_step_data)
       populate_keyword(step_object, parsed_step_data)
       populate_source_line(step_object, parsed_step_data)
-      populate_raw_element(step_object, parsed_step_data)
+      populate_parsing_data(step_object, parsed_step_data)
     end
 
     def populate_block(step_object, parsed_step_data)
@@ -66,31 +66,31 @@ module CukeModeler
 
     def populate_table(table_object, parsed_table_data)
       populate_row_elements(table_object, parsed_table_data)
-      populate_raw_element(table_object, parsed_table_data)
+      populate_parsing_data(table_object, parsed_table_data)
       populate_source_line(table_object, parsed_table_data)
     end
 
     def populate_tablerow(row_object, parsed_row_data)
       populate_source_line(row_object, parsed_row_data)
       populate_row_cells(row_object, parsed_row_data)
-      populate_raw_element(row_object, parsed_row_data)
+      populate_parsing_data(row_object, parsed_row_data)
     end
 
     def populate_cell(cell_object, parsed_cell_data)
       populate_cell_value(cell_object, parsed_cell_data)
       populate_source_line(cell_object, parsed_cell_data)
-      populate_raw_element(cell_object, parsed_cell_data)
+      populate_parsing_data(cell_object, parsed_cell_data)
     end
 
     def populate_docstring(doc_string_object, parsed_doc_string_data)
       populate_content_type(doc_string_object, parsed_doc_string_data)
       populate_contents(doc_string_object, parsed_doc_string_data)
-      populate_raw_element(doc_string_object, parsed_doc_string_data)
+      populate_parsing_data(doc_string_object, parsed_doc_string_data)
       populate_source_line(doc_string_object, parsed_doc_string_data)
     end
 
     def populate_example(example_object, parsed_example_data)
-      populate_raw_element(example_object, parsed_example_data)
+      populate_parsing_data(example_object, parsed_example_data)
       populate_source_line(example_object, parsed_example_data)
       populate_name(example_object, parsed_example_data)
       populate_description(example_object, parsed_example_data)
@@ -101,11 +101,11 @@ module CukeModeler
     def populate_row(row_object, parsed_row_data)
       populate_source_line(row_object, parsed_row_data)
       populate_row_cells(row_object, parsed_row_data)
-      populate_raw_element(row_object, parsed_row_data)
+      populate_parsing_data(row_object, parsed_row_data)
     end
 
     def populate_feature(feature_object, parsed_feature_data)
-      populate_raw_element(feature_object, parsed_feature_data)
+      populate_parsing_data(feature_object, parsed_feature_data)
       populate_source_line(feature_object, parsed_feature_data)
       populate_name(feature_object, parsed_feature_data)
       populate_description(feature_object, parsed_feature_data)
@@ -133,12 +133,12 @@ module CukeModeler
 
     def populate_tag(tag_object, processed_tag_data)
       populate_name(tag_object, processed_tag_data)
-      populate_raw_element(tag_object, processed_tag_data)
+      populate_parsing_data(tag_object, processed_tag_data)
       populate_source_line(tag_object, processed_tag_data)
     end
 
-    def populate_base(step_model, parsed_step_data)
-      step_model.base = parsed_step_data['name']
+    def populate_text(step_model, parsed_step_data)
+      step_model.text = parsed_step_data['name']
     end
 
     def populate_keyword(step_model, parsed_step_data)
@@ -200,8 +200,8 @@ module CukeModeler
       end
     end
 
-    def populate_raw_element(model, parsed_model_data)
-      model.raw_element = parsed_model_data['cuke_modeler_raw_adapter_output']
+    def populate_parsing_data(model, parsed_model_data)
+      model.parsing_data = parsed_model_data['cuke_modeler_raw_adapter_output']
     end
 
     def populate_source_line(model, parsed_model_data)

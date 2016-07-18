@@ -5,7 +5,7 @@ module CukeModeler
   class Row < ModelElement
 
     include Sourceable
-    include Raw
+    include Parsed
 
     # The cells that make up the row
     attr_accessor :cells

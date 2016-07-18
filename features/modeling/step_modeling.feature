@@ -25,7 +25,7 @@ Feature: Step modeling
   Scenario: Modeling a step's base text
     When the step's base text is requested
       """
-        @model.base
+        @model.text
       """
     Then the model returns "a step"
 

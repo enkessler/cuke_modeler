@@ -4,7 +4,7 @@ module CukeModeler
 
   class Tag < ModelElement
 
-    include Raw
+    include Parsed
     include Sourceable
 
 

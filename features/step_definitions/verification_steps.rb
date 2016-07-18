@@ -86,7 +86,7 @@ end
 Then(/^the model returns models for the following steps:$/) do |step_names|
   step_names = step_names.raw.flatten
 
-  expect(@result.collect { |step_model| step_model.base }).to eq(step_names)
+  expect(@result.collect { |step_model| step_model.text }).to eq(step_names)
 end
 
 Then(/^the model returns models for the following rows:$/) do |rows|

@@ -50,7 +50,7 @@ and setting their attributes afterward.
 
     step = CukeModeler::Step.new
     step.keyword = 'Given'
-    step.base = 'some step'
+    step.text = 'some step'
 
     test = CukeModeler::Scenario.new
     test.steps = [step]

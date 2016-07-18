@@ -5,7 +5,7 @@ module CukeModeler
   class TableRow < ModelElement
 
     include Sourceable
-    include Raw
+    include Parsed
 
 
     # The cells that make up the row
