@@ -28,7 +28,7 @@ describe 'Table, Unit' do
       expect(table).to respond_to(:rows)
     end
 
-    it 'can get and set its row elements' do
+    it 'can change its row elements' do
       expect(table).to respond_to(:rows=)
 
       table.rows = :some_row_elements

@@ -11,7 +11,7 @@ shared_examples_for 'a tagged element' do
     expect(element).to respond_to(:tags)
   end
 
-  it 'can get and set its tags' do
+  it 'can change its tags' do
     expect(element).to respond_to(:tags=)
 
     element.tags = :some_tags

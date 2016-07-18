@@ -58,7 +58,7 @@ describe 'TableRow, Unit' do
       expect(row).to respond_to(:cells)
     end
 
-    it 'can get and set its cells' do
+    it 'can change its cells' do
       expect(row).to respond_to(:cells=)
 
       row.cells = :some_cells

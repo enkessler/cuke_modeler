@@ -70,7 +70,7 @@ describe 'DocString, Unit' do
       expect(doc_string).to respond_to(:contents)
     end
 
-    it 'can get and set its contents' do
+    it 'can change its contents' do
       expect(doc_string).to respond_to(:contents=)
 
       doc_string.contents = :some_contents

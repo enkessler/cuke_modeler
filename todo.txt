@@ -8,7 +8,6 @@ Add special character output examples to documentation for doc strings and cells
 move Containing module into base model class
 actual assertions in executable documentation instead of just explosion checks
 verbiage update 'element' -> 'model'
-verbiage update 'can get and set' -> 'can change'
 
 Example table and step table share common functionality via module
 Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row)
