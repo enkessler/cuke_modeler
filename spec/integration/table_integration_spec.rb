@@ -241,7 +241,7 @@ describe 'Table, Integration' do
       # the table object has to adjust that output in order to properly buffer column width
       # and it is possible that during that process it messes up the cell's output.
 
-      it 'can correctly output a row that has special characters in it', :wip => true do
+      it 'can correctly output a row that has special characters in it' do
         source = ['| a value with \| |',
                   '| a value with \\\\ |',
                   '| a value with \\\\ and \| |']
