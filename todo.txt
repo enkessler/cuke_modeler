@@ -1,74 +1,48 @@
 Priority
 -------------
-update readme
+
+update readme (pre-release)
 
 Show less boilerplate code in the documentation
-
 Add special character output examples to documentation for doc strings and cells
-move Containing module into base model class
 actual assertions in executable documentation instead of just explosion checks
-verbiage update 'element' -> 'model'
-
-Example table and step table share common functionality via module
-Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row)
-
-
+verbiage update 'element' -> 'model'(pre-release)
+Example table and step table share common functionality via module (maybe?)
+Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row) (maybe?)
 have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
-
-Have tags use the Named module?
-
-replace 'element' verbiage with 'model' verbiage in high level documentation
-
-replace joined array source text with single string source text/heredocs
-
+Have tags use the Named module? (maybe?)
 
 rewrite Cucumber features so that they are documentation instead of just tests (post remodel)
 
-document helper modules as not part of the public API
+document helper modules as not part of the public API (pre-release)
 
-
-Make sure that unit specs don't have file I/O in them
-Make sure that specs use clazz instead of fully specifying the class under test
-Don't bother to test directory create/destroy around unit tests
-
+Named, Tagged, etc. --> Nameable, Tagable, etc.? (pre-release)
+#feature or #features for feature files? (and including both in test verificaitons)
+Single featyure or collection of features for feature file elements?
+Double check/review class level documentation (pre-release)
+Still need behavior modules if only included in the super parent class? (pre-release)
+See if the 'stringio' require is really needed. (pre-release)
+See if the 'version' require is really needed. (pre-release)
+parsing module needs json/multijson require line? (pre-release)
+# todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
+# todo - incorporate cuke_modeler extensions from other projects (pre-release)
+# todo - add plenty of testing around weird and minimal gherkin text for all models
 
 
 Backlog
 -------------
 
-Named, Tagged, etc. --> Nameable, Tagable, etc.?
-
-#feature or #features for feature files? (and including both in test verificaitons)
-
-More definition around element creation input arguments and parsing results
-Single featyure or collection of features for feature file elements?
-All specs stem from an acceptance test?
-Double check/review class level documentation
-All elements share common superclass for easy identification/behavior sharing?
-All specs must come from a documented feature/behavior?
-Still need behavior modules if only included in the super parent class?
+replace joined array source text with single string source text/heredocs
+Make sure that unit specs don't have file I/O in them
+Make sure that specs use clazz instead of fully specifying the class under test
+Don't bother to test directory create/destroy around unit tests
 unit testing around parsing cases (whitespace, indentation, minimalistic feature elements, etc.)
-
-              replace "\n" usages with the currently set record separator (i.e "\$" )
-Example table and step table share common functionality via module
-Row and TableRow use superclass for common functionality
+replace "\n" usages with the currently set record separator (i.e "\$" )
 Clean up step verifications
 Remove dead steps
 Figure out why using empty files for directory_modeling.feature doesn't work
-See if the 'stringio' require is really needed.
-See if the 'version' require is really needed.
-parsing module needs json/multijson require line?
-
 Fix transient test failures (permission denied file access problems)
-
 @default_file_directory -> @test_directory
-
 make sure that all classes and tests are covered and attaches to code coverage
-
-                                use 'here doc' for source text construction in rspec tests
-
-
-# todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
-# todo - incorporate cuke_modeler extensions from other projects
-# todo - add plenty of testing around weird and minimal gherkin text for all models
+use 'here doc' for source text construction in rspec tests
