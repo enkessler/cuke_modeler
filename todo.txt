@@ -5,7 +5,6 @@ update readme (pre-release)
 
 Show less boilerplate code in the documentation
 Add special character output examples to documentation for doc strings and cells
-actual assertions in executable documentation instead of just explosion checks
 verbiage update 'element' -> 'model'(pre-release)
 Example table and step table share common functionality via module (maybe?)
 Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row) (maybe?)

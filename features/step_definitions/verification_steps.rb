@@ -4,6 +4,7 @@ Then(/^all of them can be output as text appropriate to the model type$/) do |co
 
     expect(clazz.instance_method(:to_s).owner).to equal(clazz), "#{clazz} does not override #to_s"
 
+    # Make sure that the example code is valid
     expect { eval(code_text) }.to_not raise_error
   end
 end
@@ -18,6 +19,9 @@ Then(/^all of them can be contained inside of another model$/) do |code_text|
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
 
+    expect(clazz.new).to respond_to(:parent_model)
+
+    # Make sure that the example code is valid
     expect { eval(code_text) }.to_not raise_error
   end
 end
@@ -26,6 +30,9 @@ And(/^all of them can contain other models$/) do |code_text|
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
 
+    expect(clazz.new).to respond_to(:children)
+
+    # Make sure that the example code is valid
     expect { eval(code_text) }.to_not raise_error
   end
 end
@@ -34,6 +41,9 @@ Then(/^all of them can be created without further context$/) do |code_text|
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
 
+    expect { clazz.new }.to_not raise_error
+
+    # Make sure that the example code is valid
     expect { eval(code_text) }.to_not raise_error
   end
 end
@@ -66,6 +76,10 @@ And(/^the output can be used to make an equivalent model$/) do |code_text|
   @available_model_classes.each do |clazz|
     code_text.gsub!('<model_class>', clazz.to_s)
 
+    # More specific verification can't be done for this step because every model has a different
+    # populated shape and abstract shape isn't enough to be useful input to the model again.
+
+    # Make sure that the example code is valid
     expect { eval(code_text) }.to_not raise_error
   end
 end
@@ -76,6 +90,9 @@ Then(/^all of them provide access to the parsing data that was used to create th
   @available_model_classes.each do |clazz|
     next if unparsed_models.include?(clazz)
 
+    expect(clazz.new).to respond_to(:parsing_data)
+
+    # Make sure that the example code is valid
     code_text.gsub!('<model_class>', clazz.to_s)
     code_text.gsub!('<source_text>', '')
 
