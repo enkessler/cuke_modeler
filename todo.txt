@@ -2,12 +2,11 @@ Priority
 -------------
 
 update readme (pre-release)
-
+update source code documentation (pre-release)
 Show less boilerplate code in the documentation
 Add special character output examples to documentation for doc strings and cells
 verbiage update 'element' -> 'model'(pre-release)
 Example table and step table share common functionality via module (maybe?)
-Row and TableRow use superclass for common functionality (e.g. ExampleRow, TableRow, Row) (maybe?)
 have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
 Have tags use the Named module? (maybe?)

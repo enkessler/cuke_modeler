@@ -147,7 +147,7 @@ module CukeModeler
 
     def populate_row_elements(table_model, parsed_table_data)
       parsed_table_data['rows'].each do |row_data|
-        table_model.rows << build_child_model(TableRow, row_data)
+        table_model.rows << build_child_model(Row, row_data)
       end
     end
 

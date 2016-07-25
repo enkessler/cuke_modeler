@@ -31,11 +31,9 @@ describe 'Row, Integration' do
       before(:each) do
         source = ['Feature: Test feature',
                   '',
-                  '  Scenario Outline: Test test',
-                  '    * a step',
-                  '  Examples: Test example',
-                  '    | a param |',
-                  '    | a value |']
+                  '  Scenario: Test test',
+                  '    * a step:',
+                  '      | a | table |']
         source = source.join("\n")
 
         file_path = "#{@default_file_directory}/row_test_file.feature"
@@ -43,7 +41,7 @@ describe 'Row, Integration' do
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:row) { directory.feature_files.first.feature.tests.first.examples.first.rows.first }
+      let(:row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
       it 'can get its directory' do
@@ -64,6 +62,69 @@ describe 'Row, Integration' do
         expect(ancestor).to equal(directory.feature_files.first.feature)
       end
 
+      it 'can get its step' do
+        ancestor = row.get_ancestor(:step)
+
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
+      end
+
+      it 'can get its table' do
+        ancestor = row.get_ancestor(:table)
+
+        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first.block)
+      end
+
+      context 'a row that is part of a scenario' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+
+                      Scenario: Test test
+                        * a step:
+                          | a | table |'
+
+          file_path = "#{@default_file_directory}/row_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
+
+
+        it 'can get its scenario' do
+          ancestor = row.get_ancestor(:scenario)
+
+          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+        end
+
+      end
+
+
+      context 'a row that is part of a background' do
+
+        before(:each) do
+          source = 'Feature: Test feature
+
+                      Background: Test background
+                        * a step:
+                          | a | table |'
+
+          file_path = "#{@default_file_directory}/row_test_file.feature"
+          File.open(file_path, 'w') { |file| file.write(source) }
+        end
+
+        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
+        let(:row) { directory.feature_files.first.feature.background.steps.first.block.rows.first }
+
+
+        it 'can get its background' do
+          ancestor = row.get_ancestor(:background)
+
+          expect(ancestor).to equal(directory.feature_files.first.feature.background)
+        end
+
+      end
+
       context 'a row that is part of an outline' do
 
         before(:each) do
@@ -75,7 +136,7 @@ describe 'Row, Integration' do
                         | param |
                         | value |'
 
-          file_path = "#{@default_file_directory}/step_test_file.feature"
+          file_path = "#{@default_file_directory}/row_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
 
@@ -98,7 +159,7 @@ describe 'Row, Integration' do
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = row.get_ancestor(:table)
+        ancestor = row.get_ancestor(:outline)
 
         expect(ancestor).to be_nil
       end

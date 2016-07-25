@@ -16,6 +16,7 @@ describe 'Row, Unit' do
   end
 
 
+  # todo - move some of these test because they are now integration tests due to using the Cell class
   describe 'unique behavior' do
 
     it 'can be instantiated with the minimum viable Gherkin' do
@@ -72,14 +73,11 @@ describe 'Row, Unit' do
 
       context 'from source text' do
 
-        let(:source_text) { '| some value | some other value |' }
+        let(:source_text) { '| cell 1 | cell 2 |' }
         let(:row) { clazz.new(source_text) }
 
 
         it "models the row's cells" do
-          source_text = ' | cell 1 | cell 2 |'
-          row = clazz.new(source_text)
-
           cell_values = row.cells.collect { |cell| cell.value }
 
           expect(cell_values).to match_array(['cell 1', 'cell 2'])

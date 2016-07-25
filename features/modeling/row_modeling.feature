@@ -1,6 +1,6 @@
 Feature: Row modeling
 
-  Row models represent an individual row in an examples table. They expose several attributes of the row
+  Row models represent an individual row in a step or example table. They expose several attributes of the row
   that they represent.
 
 
@@ -29,11 +29,9 @@ Feature: Row modeling
       """
       Feature:
 
-        Scenario Outline:
+        Scenario:
           * a step
-        Examples:
-          | param | row |
-          | value | row |
+            | foo |
       """
     And a feature model based on that gherkin
       """
@@ -41,10 +39,10 @@ Feature: Row modeling
       """
     And the row model inside of that feature model
       """
-        @model = @model.tests.first.examples.first.rows.first
+        @model = @model.tests.first.steps.first.block.rows.first
       """
     When the rows's source line is requested
       """
         @model.source_line
       """
-    Then the model returns "6"
+    Then the model returns "5"

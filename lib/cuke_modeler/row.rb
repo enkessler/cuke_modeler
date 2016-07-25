@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Examples table row.
+  # A class modeling a table row.
 
   class Row < ModelElement
 
@@ -11,7 +11,7 @@ module CukeModeler
     attr_accessor :cells
 
 
-    # Creates a new Row object and, if *source* is provided, populates
+    # Creates a new Row object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
       @cells = []
@@ -36,12 +36,12 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "Feature: Fake feature to parse\nScenario Outline:\n* fake step\nExamples: fake examples\n#{source_text}\n"
+      base_file_string = "Feature: Fake feature to parse\nScenario:\n* fake step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_row.feature')
 
-      parsed_file.first['elements'].first['examples'].first['rows'].last
+      parsed_file.first['elements'].first['steps'].first['table']['rows'].first
     end
 
   end

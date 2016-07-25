@@ -302,7 +302,7 @@ describe 'Table, Integration' do
 
 
         it 'can output a table that only has row elements' do
-          table.rows = [CukeModeler::TableRow.new]
+          table.rows = [CukeModeler::Row.new]
 
           expect { table.to_s }.to_not raise_error
         end
