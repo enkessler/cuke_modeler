@@ -6,7 +6,6 @@ update source code documentation (pre-release)
 Show less boilerplate code in the documentation
 Add special character output examples to documentation for doc strings and cells
 verbiage update 'element' -> 'model'(pre-release)
-Example table and step table share common functionality via module (maybe?)
 have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
 Have tags use the Named module? (maybe?)
@@ -16,8 +15,6 @@ rewrite Cucumber features so that they are documentation instead of just tests (
 document helper modules as not part of the public API (pre-release)
 
 Named, Tagged, etc. --> Nameable, Tagable, etc.? (pre-release)
-#feature or #features for feature files? (and including both in test verificaitons)
-Single featyure or collection of features for feature file elements?
 Double check/review class level documentation (pre-release)
 Still need behavior modules if only included in the super parent class? (pre-release)
 See if the 'stringio' require is really needed. (pre-release)
