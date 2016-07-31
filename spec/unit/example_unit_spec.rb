@@ -77,6 +77,10 @@ describe 'Example, Unit' do
       expect(example).to respond_to(:argument_rows)
     end
 
+    it 'can determine its parameters' do
+      expect(example).to respond_to(:parameters)
+    end
+
 
     describe 'abstract instantiation' do
 
@@ -95,6 +99,10 @@ describe 'Example, Unit' do
 
         it 'starts with no parameter row' do
           expect(example.parameter_row).to be_nil
+        end
+
+        it 'starts with no parameters' do
+          expect(example.parameters).to eq([])
         end
 
       end

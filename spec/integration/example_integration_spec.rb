@@ -96,6 +96,10 @@ describe 'Example, Integration' do
             expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
           end
 
+          it "models the example's parameters" do
+            expect(example.parameters).to eq(['param'])
+          end
+
         end
 
         # gherkin 2.x/3.x does not accept incomplete examples
