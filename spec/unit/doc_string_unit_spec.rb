@@ -193,15 +193,15 @@ describe 'DocString, Unit' do
                                            '"""'])
         end
 
-        #  Since triple quotes mark the beginning and end of a doc string, any triple
-        #  quotes inside of the doc string (which would have had to have been escaped
+        #  Since triple double quotes mark the beginning and end of a doc string, any triple
+        #  double quotes inside of the doc string (which would have had to have been escaped
         #  to get inside in the first place) will be escaped when outputted so as to
         #  retain the quality of being able to use the output directly as gherkin.
 
-        it 'can output a doc_string that has triple quotes in the contents' do
+        it 'can output a doc_string that has triple double quotes in the contents' do
           source = ['"""',
-                    '\"\"\"',
-                    '\"\"\"',
+                    'a \"\"\"',
+                    '\"\"\" again',
                     '"""']
           source = source.join("\n")
           doc_string = clazz.new(source)
@@ -209,8 +209,26 @@ describe 'DocString, Unit' do
           doc_string_output = doc_string.to_s.split("\n")
 
           expect(doc_string_output).to eq(['"""',
-                                           '\"\"\"',
-                                           '\"\"\"',
+                                           'a \"\"\"',
+                                           '\"\"\" again',
+                                           '"""'])
+        end
+
+        # Double quotes that are not three (or more) in a row do not seem to need and special escaping when
+        # used in Gherkin. Therefore they should be left alone.
+        it 'only escapes triple double quotes' do
+          source = ['"""',
+                    'change these \"\"\"\"\"\"',
+                    'but leave " and "" alone',
+                    '"""']
+          source = source.join("\n")
+          doc_string = clazz.new(source)
+
+          doc_string_output = doc_string.to_s.split("\n")
+
+          expect(doc_string_output).to eq(['"""',
+                                           'change these \"\"\"\"\"\"',
+                                           'but leave " and "" alone',
                                            '"""'])
         end
 
