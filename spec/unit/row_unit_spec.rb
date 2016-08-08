@@ -51,8 +51,8 @@ describe 'Row, Unit' do
       example_row = clazz.new("| a | row |")
       raw_data = example_row.parsing_data
 
-      expect(raw_data.keys).to match_array(['cells', 'line', 'id'])
-      expect(raw_data['line']).to eq(6)
+      expect(raw_data.keys).to match_array(['cells', 'line'])
+      expect(raw_data['line']).to eq(4)
     end
 
     it 'has cells' do
