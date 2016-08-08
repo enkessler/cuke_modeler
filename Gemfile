@@ -10,9 +10,11 @@ if RUBY_VERSION =~ /^1\.8/
   gem 'mime-types', '<2.0.0'
   gem 'rest-client', '<1.7.0'
   gem 'rake', '< 11.0' # Rake dropped 1.8.x support after this version
-  gem 'tins', '< 1.7' # The 'tins' gem requires Ruby 2.x on/after this version
 elsif RUBY_VERSION =~ /^1\./
   gem 'cucumber', '<2.0.0'
+end
+
+if RUBY_VERSION =~ /^1\./
   gem 'tins', '< 1.7' # The 'tins' gem requires Ruby 2.x on/after this version
 end
 
