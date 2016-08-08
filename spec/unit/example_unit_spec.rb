@@ -20,42 +20,6 @@ describe 'Example, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be instantiated with the minimum viable Gherkin', :gherkin4 => true do
-      source = ['Examples:']
-      source = source.join("\n")
-
-      expect { @element = clazz.new(source) }.to_not raise_error
-    end
-
-    it 'provides a descriptive filename when being parsed from stand alone text' do
-      source = 'bad example text'
-
-      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_example\.feature'/)
-    end
-
-    it 'trims whitespace from its source description' do
-      source = ['Examples:',
-                '  ',
-                '        description line 1',
-                '',
-                '   description line 2',
-                '     description line 3               ',
-                '',
-                '',
-                '',
-                '|param|',
-                '|value|']
-      source = source.join("\n")
-
-      example = clazz.new(source)
-      description = example.description.split("\n")
-
-      expect(description).to eq(['     description line 1',
-                                 '',
-                                 'description line 2',
-                                 '  description line 3'])
-    end
-
     it 'has rows' do
       expect(example).to respond_to(:rows)
     end
@@ -130,106 +94,10 @@ describe 'Example, Unit' do
     end
 
 
-    describe 'model population' do
-
-      context 'from source text' do
-
-        context 'a filled example' do
-
-          let(:source_text) { "Examples: test example
-
-                                   Some example description.
-
-                                 Some more.
-                                     Even more." }
-          let(:example) { clazz.new(source_text) }
-
-
-          # gherkin 2.x/3.x does not accept incomplete examples
-          it "models the example's name", :gherkin2 => false, :gherkin3 => false do
-            expect(example.name).to eq('test example')
-          end
-
-          # gherkin 2.x/3.x does not accept incomplete examples
-          it "models the example's description", :gherkin2 => false, :gherkin3 => false do
-            description = example.description.split("\n")
-
-            expect(description).to eq(['  Some example description.',
-                                       '',
-                                       'Some more.',
-                                       '    Even more.'])
-          end
-
-        end
-
-        # gherkin 2.x/3.x does not accept incomplete examples
-        context 'an empty example', :gherkin2 => false, :gherkin3 => false do
-
-          let(:source_text) { 'Examples:' }
-          let(:example) { clazz.new(source_text) }
-
-          it "models the example's name" do
-            expect(example.name).to eq('')
-          end
-
-          it "models the example's description" do
-            expect(example.description).to eq('')
-          end
-
-        end
-
-      end
-
-    end
-
-
     describe 'example output' do
 
       it 'is a String' do
         expect(example.to_s).to be_a(String)
-      end
-
-
-      context 'from source text' do
-
-        # gherkin 2.x/3.x does not accept incomplete examples
-        it 'can output an empty example', :gherkin2 => false, :gherkin3 => false do
-          source = ['Examples:']
-          source = source.join("\n")
-          example = clazz.new(source)
-
-          example_output = example.to_s.split("\n")
-
-          expect(example_output).to eq(['Examples:'])
-        end
-
-        # gherkin 2.x/3.x does not accept incomplete examples
-        it 'can output an example that has a name', :gherkin2 => false, :gherkin3 => false do
-          source = ['Examples: test example']
-          source = source.join("\n")
-          example = clazz.new(source)
-
-          example_output = example.to_s.split("\n")
-
-          expect(example_output).to eq(['Examples: test example'])
-        end
-
-        # gherkin 2.x/3.x does not accept incomplete examples
-        it 'can output an example that has a description', :gherkin2 => false, :gherkin3 => false do
-          source = ['Examples:',
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          example = clazz.new(source)
-
-          example_output = example.to_s.split("\n")
-
-          expect(example_output).to eq(['Examples:',
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
-
       end
 
 

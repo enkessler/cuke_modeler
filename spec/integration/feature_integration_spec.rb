@@ -15,6 +15,18 @@ describe 'Feature, Integration' do
 
   describe 'unique behavior' do
 
+    it 'can be instantiated with the minimum viable Gherkin' do
+      source = 'Feature:'
+
+      expect { clazz.new(source) }.to_not raise_error
+    end
+
+    it 'provides a descriptive filename when being parsed from stand alone text' do
+      source = 'bad feature text'
+
+      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_feature\.feature'/)
+    end
+
     it 'properly sets its child elements' do
       source = ['@a_tag',
                 'Feature: Test feature',
@@ -62,6 +74,28 @@ describe 'Feature, Integration' do
 
       expect(raw_data.keys).to match_array(['keyword', 'name', 'line', 'description', 'id', 'uri', 'elements', 'tags'])
       expect(raw_data['keyword']).to eq('Feature')
+    end
+
+    it 'trims whitespace from its source description' do
+      source = ['Feature:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  Scenario:']
+      source = source.join("\n")
+
+      feature = clazz.new(source)
+      description = feature.description.split("\n")
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
     end
 
     it 'can selectively access its scenarios and outlines' do
@@ -120,6 +154,19 @@ describe 'Feature, Integration' do
           let(:feature) { clazz.new(source_text) }
 
 
+          it "models the feature's name" do
+            expect(feature.name).to eq('Feature Foo')
+          end
+
+          it "models the feature's description" do
+            description = feature.description.split("\n")
+
+            expect(description).to eq(['  Some feature description.',
+                                       '',
+                                       'Some more.',
+                                       '    And some more.'])
+          end
+
           it "models the feature's background" do
             expect(feature.background.name).to eq('The background')
           end
@@ -144,11 +191,20 @@ describe 'Feature, Integration' do
 
         end
 
+
         context 'an empty feature' do
 
           let(:source_text) { 'Feature:' }
           let(:feature) { clazz.new(source_text) }
 
+
+          it "models the feature's name" do
+            expect(feature.name).to eq('')
+          end
+
+          it "models the feature's description" do
+            expect(feature.description).to eq('')
+          end
 
           it "models the feature's background" do
             expect(feature.background).to be_nil
@@ -293,6 +349,41 @@ describe 'Feature, Integration' do
 
 
       context 'from source text' do
+
+        it 'can output an empty feature' do
+          source = ['Feature:']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:'])
+        end
+
+        it 'can output a feature that has a name' do
+          source = ['Feature: test feature']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature: test feature'])
+        end
+
+        it 'can output a feature that has a description' do
+          source = ['Feature:',
+                    'Some description.',
+                    'Some more description.']
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n")
+
+          expect(feature_output).to eq(['Feature:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.'])
+        end
 
         it 'can output a feature that has tags' do
           source = ['@tag1 @tag2',

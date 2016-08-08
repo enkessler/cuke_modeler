@@ -22,50 +22,6 @@ describe 'Outline, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be instantiated with the minimum viable Gherkin', :gherkin4 => true do
-      source = "Scenario Outline:"
-
-      expect { clazz.new(source) }.to_not raise_error
-    end
-
-    it 'can be instantiated with the minimum viable Gherkin', :gherkin2 => true do
-      source = "Scenario Outline:"
-
-      expect { clazz.new(source) }.to_not raise_error
-    end
-
-    it 'provides a descriptive filename when being parsed from stand alone text' do
-      source = "bad outline text \n Scenario Outline:\n And a step\n @foo "
-
-      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_outline\.feature'/)
-    end
-
-    it 'trims whitespace from its source description' do
-      source = ['Scenario Outline:',
-                '  ',
-                '        description line 1',
-                '',
-                '   description line 2',
-                '     description line 3               ',
-                '',
-                '',
-                '',
-                '  * a step',
-                '',
-                'Examples:',
-                '|param|',
-                '|value|']
-      source = source.join("\n")
-
-      outline = clazz.new(source)
-      description = outline.description.split("\n")
-
-      expect(description).to eq(['     description line 1',
-                                 '',
-                                 'description line 2',
-                                 '  description line 3'])
-    end
-
     it 'has examples' do
       expect(outline).to respond_to(:examples)
     end
@@ -109,59 +65,6 @@ describe 'Outline, Unit' do
     end
 
 
-    describe 'model population' do
-
-      context 'from source text' do
-
-        # gherkin 3.x does not accept incomplete outlines
-        context 'a filled outline', :gherkin3 => false do
-
-          let(:source_text) { 'Scenario Outline: Outline name
-
-                                 Scenario description.
-
-                               Some more.
-                                   Even more.' }
-          let(:outline) { clazz.new(source_text) }
-
-
-          it "models the outline's name" do
-            expect(outline.name).to eq('Outline name')
-          end
-
-          # gherkin 3.x does not accept incomplete outlines
-          it "models the outline's description", :gherkin3 => false do
-            description = outline.description.split("\n")
-
-            expect(description).to eq(['  Scenario description.',
-                                       '',
-                                       'Some more.',
-                                       '    Even more.'])
-          end
-
-        end
-
-        # gherkin 3.x does not accept incomplete outlines
-        context 'an empty outline', :gherkin3 => false do
-
-          let(:source_text) { 'Scenario Outline:' }
-          let(:outline) { clazz.new(source_text) }
-
-          it "models the outline's name" do
-            expect(outline.name).to eq('')
-          end
-
-          it "models the outline's description" do
-            expect(outline.description).to eq('')
-          end
-
-        end
-
-      end
-
-    end
-
-
     describe 'comparison' do
 
       it 'can gracefully be compared to other types of objects' do
@@ -179,49 +82,6 @@ describe 'Outline, Unit' do
 
       it 'is a String' do
         expect(outline.to_s).to be_a(String)
-      end
-
-
-      context 'from source text' do
-
-        # gherkin 3.x does not accept incomplete outlines
-        it 'can output an empty outline', :gherkin3 => false do
-          source = ['Scenario Outline:']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n")
-
-          expect(outline_output).to eq(['Scenario Outline:'])
-        end
-
-        # gherkin 3.x does not accept incomplete outlines
-        it 'can output a outline that has a name', :gherkin3 => false do
-          source = ['Scenario Outline: test outline']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n")
-
-          expect(outline_output).to eq(['Scenario Outline: test outline'])
-        end
-
-        # gherkin 3.x does not accept incomplete outlines
-        it 'can output a outline that has a description', :gherkin3 => false do
-          source = ['Scenario Outline:',
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n")
-
-          expect(outline_output).to eq(['Scenario Outline:',
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
-
       end
 
 

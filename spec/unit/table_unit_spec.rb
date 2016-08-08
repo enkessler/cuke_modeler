@@ -18,12 +18,6 @@ describe 'Table, Unit' do
 
   describe 'unique behavior' do
 
-    it 'provides a descriptive filename when being parsed from stand alone text' do
-      source = 'bad table text'
-
-      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_table\.feature'/)
-    end
-
     it 'has rows' do
       expect(table).to respond_to(:rows)
     end

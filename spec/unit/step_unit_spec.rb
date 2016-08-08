@@ -81,19 +81,6 @@ describe 'Step, Unit' do
 
     end
 
-
-    it 'can be instantiated with the minimum viable Gherkin' do
-      source = '* a step'
-
-      expect { clazz.new(source) }.to_not raise_error
-    end
-
-    it 'provides a descriptive filename when being parsed from stand alone text' do
-      source = "bad step text\n And a step\n @foo"
-
-      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_step\.feature'/)
-    end
-
     it 'contains some kind of block' do
       block = :block
       everything = [block]
@@ -104,59 +91,10 @@ describe 'Step, Unit' do
     end
 
 
-    describe 'model population' do
-
-      context 'from source text' do
-
-        let(:source_text) { '* a step' }
-        let(:step) { clazz.new(source_text) }
-
-
-        it "models the step's keyword" do
-          expect(step.keyword).to eq('*')
-        end
-
-        it "models the step's text" do
-          expect(step.text).to eq('a step')
-        end
-
-
-        context 'with no block' do
-
-          let(:source_text) { '* a step' }
-          let(:step) { clazz.new(source_text) }
-
-
-          it "models the step's block" do
-            expect(step.block).to be_nil
-          end
-
-        end
-
-      end
-
-    end
-
-
     describe 'step output' do
 
       it 'is a String' do
         expect(step.to_s).to be_a(String)
-      end
-
-
-      context 'from source text' do
-
-        it 'can output a step' do
-          source = ['* a step']
-          source = source.join("\n")
-          step = clazz.new(source)
-
-          step_output = step.to_s.split("\n")
-
-          expect(step_output).to eq(['* a step'])
-        end
-
       end
 
 

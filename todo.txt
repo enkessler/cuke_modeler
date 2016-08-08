@@ -7,7 +7,7 @@ Show less boilerplate code in the documentation
 verbiage update 'element' -> 'model'(pre-release)
 have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
-Have tags use the Named module? (maybe?)
+Have tags use the Named module? (maybe?)(no)
 
 rewrite Cucumber features so that they are documentation instead of just tests (post remodel)
 
@@ -28,13 +28,12 @@ Backlog
 -------------
 
 replace joined array source text with single string source text/heredocs
-Make sure that unit specs don't have file I/O in them
 Make sure that specs use clazz instead of fully specifying the class under test
 Don't bother to test directory create/destroy around unit tests
-unit testing around parsing cases (whitespace, indentation, minimalistic feature elements, etc.)
+unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
 Clean up step verifications
-Remove dead steps
+Remove dead steps (done)
 Figure out why using empty files for directory_modeling.feature doesn't work
 Fix transient test failures (permission denied file access problems)
 @default_file_directory -> @test_directory

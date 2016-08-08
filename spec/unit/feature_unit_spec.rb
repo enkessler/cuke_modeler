@@ -21,46 +21,12 @@ describe 'Feature, Unit' do
 
   describe 'unique behavior' do
 
-    it 'can be instantiated with the minimum viable Gherkin' do
-      source = 'Feature:'
-
-      expect { clazz.new(source) }.to_not raise_error
-    end
-
-    it 'provides a descriptive filename when being parsed from stand alone text' do
-      source = 'bad feature text'
-
-      expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_feature\.feature'/)
-    end
-
     it 'will complain about unknown element types' do
       parsed_element = {'description' => '',
                         'elements' => [{'keyword' => 'Scenario', 'description' => ''},
                                        {'keyword' => 'New Type', 'description' => ''}]}
 
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
-    end
-
-    it 'trims whitespace from its source description' do
-      source = ['Feature:',
-                '  ',
-                '        description line 1',
-                '',
-                '   description line 2',
-                '     description line 3               ',
-                '',
-                '',
-                '',
-                '  Scenario:']
-      source = source.join("\n")
-
-      feature = clazz.new(source)
-      description = feature.description.split("\n")
-
-      expect(description).to eq(['     description line 1',
-                                 '',
-                                 'description line 2',
-                                 '  description line 3'])
     end
 
     it 'has a background' do
@@ -136,56 +102,6 @@ describe 'Feature, Unit' do
     end
 
 
-    describe 'model population' do
-
-      context 'from source text' do
-
-        context 'a filled feature' do
-
-          let(:source_text) { "Feature: Feature name
-
-                               Feature description.
-
-                             Some more.
-                                 Even more." }
-          let(:feature) { clazz.new(source_text) }
-
-
-          it "models the feature's name" do
-            expect(feature.name).to eq('Feature name')
-          end
-
-          it "models the feature's description" do
-            description = feature.description.split("\n")
-
-            expect(description).to eq(['  Feature description.',
-                                       '',
-                                       'Some more.',
-                                       '    Even more.'])
-          end
-
-        end
-
-        context 'an empty feature' do
-
-          let(:source_text) { 'Feature:' }
-          let(:feature) { clazz.new(source_text) }
-
-          it "models the feature's name" do
-            expect(feature.name).to eq('')
-          end
-
-          it "models the feature's description" do
-            expect(feature.description).to eq('')
-          end
-
-        end
-
-      end
-
-    end
-
-
     context 'from abstract instantiation' do
 
       let(:feature) { clazz.new }
@@ -206,46 +122,6 @@ describe 'Feature, Unit' do
 
       it 'is a String' do
         expect(feature.to_s).to be_a(String)
-      end
-
-
-      context 'from source text' do
-
-        it 'can output an empty feature' do
-          source = ['Feature:']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n")
-
-          expect(feature_output).to eq(['Feature:'])
-        end
-
-        it 'can output a feature that has a name' do
-          source = ['Feature: test feature']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n")
-
-          expect(feature_output).to eq(['Feature: test feature'])
-        end
-
-        it 'can output a feature that has a description' do
-          source = ['Feature:',
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n")
-
-          expect(feature_output).to eq(['Feature:',
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
-
       end
 
 
