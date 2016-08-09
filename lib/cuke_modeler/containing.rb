@@ -205,8 +205,7 @@ module CukeModeler
     end
 
     def populate_source_line(model, parsed_model_data)
-      #todo - make this a mutable instance variable
-      model.instance_variable_set(:@source_line, parsed_model_data['line'])
+      model.source_line = parsed_model_data['line']
     end
 
     def populate_name(model, parsed_model_data)

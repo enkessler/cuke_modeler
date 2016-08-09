@@ -6,7 +6,7 @@ module CukeModeler
   module Sourceable
 
     # The line number where the element began in the source code
-    attr_reader :source_line
+    attr_accessor :source_line
 
   end
 end
