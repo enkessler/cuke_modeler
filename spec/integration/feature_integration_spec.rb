@@ -126,10 +126,10 @@ describe 'Feature, Integration' do
           let(:source_text) { '@tag_1 @tag_2
                                Feature: Feature Foo
 
-                                 Some feature description.
+                                   Some feature description.
 
-                               Some more.
-                                   And some more.
+                                 Some more.
+                                     And some more.
 
                                  Background: The background
                                    * some setup step

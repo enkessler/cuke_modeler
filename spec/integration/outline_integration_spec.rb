@@ -153,10 +153,10 @@ describe 'Outline, Integration' do
 
             let(:source_text) { '@tag1 @tag2 @tag3
                                  Scenario Outline: Foo
-                                   Scenario description.
+                                     Scenario description.
 
-                                 Some more.
-                                     Even more.
+                                   Some more.
+                                       Even more.
 
                                    Given a <setup> step
                                    When an action step

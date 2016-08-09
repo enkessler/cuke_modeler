@@ -146,16 +146,16 @@ describe 'Scenario, Integration' do
 
           context 'a filled scenario' do
 
-            let(:source_text) { "@tag1 @tag2 @tag3
+            let(:source_text) { '@tag1 @tag2 @tag3
                                  Scenario: Scenario name
 
-                               Scenario description.
+                                     Scenario description.
 
-                             Some more.
-                                 Even more.
+                                   Some more.
+                                       Even more.
 
                                  * a step
-                                 * another step" }
+                                 * another step' }
             let(:scenario) { clazz.new(source_text) }
 
 
