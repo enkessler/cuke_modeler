@@ -13,7 +13,7 @@ module CukeModeler
       # Saving off the original data
       parsed_feature['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_feature))
 
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_feature['cuke_modeler_raw_adapter_output'][:tags] = nil
       parsed_feature['cuke_modeler_raw_adapter_output'][:scenarioDefinitions] = nil
       parsed_feature['cuke_modeler_raw_adapter_output'][:background] = nil
@@ -43,7 +43,7 @@ module CukeModeler
       # Saving off the original data
       parsed_background['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_background))
 
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_background['cuke_modeler_raw_adapter_output'][:steps] = nil
 
       parsed_background['keyword'] = parsed_background.delete(:type).to_s
@@ -82,7 +82,7 @@ module CukeModeler
     end
 
     def adapt_scenario!(parsed_test)
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_test['cuke_modeler_raw_adapter_output'][:tags] = nil
       parsed_test['cuke_modeler_raw_adapter_output'][:steps] = nil
 
@@ -105,7 +105,7 @@ module CukeModeler
     end
 
     def adapt_outline!(parsed_test)
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_test['cuke_modeler_raw_adapter_output'][:tags] = nil
       parsed_test['cuke_modeler_raw_adapter_output'][:steps] = nil
       parsed_test['cuke_modeler_raw_adapter_output'][:examples] = nil
@@ -137,7 +137,7 @@ module CukeModeler
       # Saving off the original data
       parsed_example['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_example))
 
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_example['cuke_modeler_raw_adapter_output'][:tags] = nil
       parsed_example['cuke_modeler_raw_adapter_output'][:tableHeader] = nil
       parsed_example['cuke_modeler_raw_adapter_output'][:tableBody] = nil
@@ -174,7 +174,7 @@ module CukeModeler
       # Saving off the original data
       parsed_step['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step))
 
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_step['cuke_modeler_raw_adapter_output'][:argument] = nil
 
       parsed_step['keyword'] = parsed_step.delete(:keyword)
@@ -211,7 +211,7 @@ module CukeModeler
       # Saving off the original data
       parsed_step_table['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step_table))
 
-      # Removing raw data for child models in order to avoid duplicating data
+      # Removing raw data for child elements in order to avoid duplicating data
       parsed_step_table['cuke_modeler_raw_adapter_output'][:rows] = nil
 
       parsed_step_table['rows'] = []
@@ -226,7 +226,7 @@ module CukeModeler
       # Saving off the original data
       parsed_table_row['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_table_row))
 
-      # Removing raw data for child models in order to avoid duplicating data which the child models will themselves include
+      # Removing raw data for child elements in order to avoid duplicating data which the child elements will themselves include
       parsed_table_row['cuke_modeler_raw_adapter_output'][:cells] = nil
 
 

@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 
-describe 'ModelElement, Unit' do
+describe 'Model, Unit' do
 
-  let(:clazz) { CukeModeler::ModelElement }
+  let(:clazz) { CukeModeler::Model }
 
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a model'
 
   end
 

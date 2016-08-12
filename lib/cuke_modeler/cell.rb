@@ -1,6 +1,6 @@
 module CukeModeler
 
-  class Cell < ModelElement
+  class Cell < Model
 
     include Sourceable
     include Parsed

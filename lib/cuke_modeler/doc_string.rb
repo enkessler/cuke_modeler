@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling the Doc String of a Step.
 
-  class DocString < ModelElement
+  class DocString < Model
 
     include Parsed
     include Sourceable

@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber Scenario Outline.
 
-  class Outline < ModelElement
+  class Outline < Model
 
     include Parsed
     include Named
@@ -33,11 +33,11 @@ module CukeModeler
       end
     end
 
-    # Returns true if the two elements have equivalent steps and false otherwise.
-    def ==(other_element)
-      return false unless other_element.respond_to?(:steps)
+    # Returns true if the two models have equivalent steps and false otherwise.
+    def ==(other_model)
+      return false unless other_model.respond_to?(:steps)
 
-      steps == other_element.steps
+      steps == other_model.steps
     end
 
     # Returns the model objects that belong to this model.

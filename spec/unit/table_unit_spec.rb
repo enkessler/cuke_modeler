@@ -9,9 +9,9 @@ describe 'Table, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element'
-    it_should_behave_like 'a parsed element'
-    it_should_behave_like 'a sourced element'
+    it_should_behave_like 'a model'
+    it_should_behave_like 'a parsed model'
+    it_should_behave_like 'a sourced model'
 
   end
 
@@ -22,13 +22,13 @@ describe 'Table, Unit' do
       expect(table).to respond_to(:rows)
     end
 
-    it 'can change its row elements' do
+    it 'can change its rows' do
       expect(table).to respond_to(:rows=)
 
-      table.rows = :some_row_elements
-      expect(table.rows).to eq(:some_row_elements)
-      table.rows = :some_other_row_elements
-      expect(table.rows).to eq(:some_other_row_elements)
+      table.rows = :some_rows
+      expect(table.rows).to eq(:some_rows)
+      table.rows = :some_other_rows
+      expect(table.rows).to eq(:some_other_rows)
     end
 
 

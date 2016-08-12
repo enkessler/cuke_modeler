@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber feature's Background.
 
-  class Background < ModelElement
+  class Background < Model
 
     include Parsed
     include Named

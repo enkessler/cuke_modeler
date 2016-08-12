@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber Feature.
 
-  class Step < ModelElement
+  class Step < Model
 
     include Sourceable
     include Parsed

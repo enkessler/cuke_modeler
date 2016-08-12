@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber Feature.
 
-  class Feature < ModelElement
+  class Feature < Model
 
     include Parsed
     include Named
@@ -90,15 +90,15 @@ module CukeModeler
     end
 
     def background_output_string
-      test_element_output_string(background)
+      test_output_string(background)
     end
 
     def tests_output_string
-      tests.collect { |test| test_element_output_string(test) }.join("\n\n")
+      tests.collect { |test| test_output_string(test) }.join("\n\n")
     end
 
-    def test_element_output_string(test_element)
-      test_element.to_s.split("\n").collect { |line| line.empty? ? '' : "  #{line}" }.join("\n")
+    def test_output_string(model)
+      model.to_s.split("\n").collect { |line| line.empty? ? '' : "  #{line}" }.join("\n")
     end
 
   end

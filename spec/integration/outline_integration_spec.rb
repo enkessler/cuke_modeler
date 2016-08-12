@@ -8,7 +8,7 @@ describe 'Outline, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -66,7 +66,7 @@ describe 'Outline, Integration' do
       expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_outline\.feature'/)
     end
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       source = ['@a_tag',
                 '  Scenario Outline:',
                 '    * a step',

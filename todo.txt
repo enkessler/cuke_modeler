@@ -4,7 +4,7 @@ Priority
 update readme (pre-release)
 update source code documentation (pre-release)
 Show less boilerplate code in the documentation
-verbiage update 'element' -> 'model'(pre-release)
+file rename 'element' -> 'model'(pre-release)
 have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
 Have tags use the Named module? (maybe?)(no)

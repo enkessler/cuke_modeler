@@ -65,7 +65,7 @@ module CukeModeler
     end
 
     def populate_table(table_object, parsed_table_data)
-      populate_row_elements(table_object, parsed_table_data)
+      populate_row_models(table_object, parsed_table_data)
       populate_parsing_data(table_object, parsed_table_data)
       populate_source_line(table_object, parsed_table_data)
     end
@@ -145,7 +145,7 @@ module CukeModeler
       step_model.keyword = parsed_step_data['keyword'].strip
     end
 
-    def populate_row_elements(table_model, parsed_table_data)
+    def populate_row_models(table_model, parsed_table_data)
       parsed_table_data['rows'].each do |row_data|
         table_model.rows << build_child_model(Row, row_data)
       end

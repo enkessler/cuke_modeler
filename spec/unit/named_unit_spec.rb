@@ -4,20 +4,20 @@ require 'spec_helper'
 describe 'Named, Unit' do
 
   let(:nodule) { CukeModeler::Named }
-  let(:named_element) { Object.new.extend(nodule) }
+  let(:named_model) { Object.new.extend(nodule) }
 
 
   it 'has a name' do
-    expect(named_element).to respond_to(:name)
+    expect(named_model).to respond_to(:name)
   end
 
   it 'can change its name' do
-    expect(named_element).to respond_to(:name=)
+    expect(named_model).to respond_to(:name=)
 
-    named_element.name = :some_name
-    expect(named_element.name).to eq(:some_name)
-    named_element.name = :some_other_name
-    expect(named_element.name).to eq(:some_other_name)
+    named_model.name = :some_name
+    expect(named_model.name).to eq(:some_name)
+    named_model.name = :some_other_name
+    expect(named_model.name).to eq(:some_other_name)
   end
 
 end

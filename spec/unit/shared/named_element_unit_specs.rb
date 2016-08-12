@@ -1,23 +1,23 @@
 require 'spec_helper'
 
-shared_examples_for 'a named element' do
+shared_examples_for 'a named model' do
 
   # clazz must be defined by the calling file
 
-  let(:element) { clazz.new }
+  let(:model) { clazz.new }
 
 
   it 'has a name' do
-    expect(element).to respond_to(:name)
+    expect(model).to respond_to(:name)
   end
 
   it 'can change its name' do
-    expect(element).to respond_to(:name=)
+    expect(model).to respond_to(:name=)
 
-    element.name = :some_name
-    expect(element.name).to eq(:some_name)
-    element.name = :some_other_name
-    expect(element.name).to eq(:some_other_name)
+    model.name = :some_name
+    expect(model.name).to eq(:some_name)
+    model.name = :some_other_name
+    expect(model.name).to eq(:some_other_name)
   end
 
 
@@ -25,11 +25,11 @@ shared_examples_for 'a named element' do
 
     context 'a new named object' do
 
-      let(:element) { clazz.new }
+      let(:model) { clazz.new }
 
 
       it 'starts with no name' do
-        expect(element.name).to eq('')
+        expect(model.name).to eq('')
       end
 
     end

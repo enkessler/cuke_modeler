@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber .feature file.
 
-  class FeatureFile < ModelElement
+  class FeatureFile < Model
 
 
     # The feature object contained by the modeled feature file

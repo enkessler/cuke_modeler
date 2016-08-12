@@ -8,7 +8,7 @@ describe 'Directory, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -147,7 +147,7 @@ describe 'Directory, Integration' do
     end
 
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       nested_directory = "#{@default_file_directory}/nested_directory"
       file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
 

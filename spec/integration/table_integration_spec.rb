@@ -8,7 +8,7 @@ describe 'Table, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -88,7 +88,7 @@ describe 'Table, Integration' do
     end
 
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       source = ['| cell 1 |',
                 '| cell 2 |']
       source = source.join("\n")
@@ -308,7 +308,7 @@ describe 'Table, Integration' do
         let(:table) { clazz.new }
 
 
-        it 'can output a table that only has row elements' do
+        it 'can output a table that only has rows' do
           table.rows = [CukeModeler::Row.new]
 
           expect { table.to_s }.to_not raise_error

@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that have a steps.
+  # A mix-in module containing methods used by models that represent an element that has steps.
 
   module Stepped
 

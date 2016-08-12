@@ -8,7 +8,7 @@ describe 'Step, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -151,7 +151,7 @@ describe 'Step, Integration' do
     end
 
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       source_1 = ['* a step',
                   '"""',
                   'a doc string',

@@ -85,7 +85,7 @@ And(/^the output can be used to make an equivalent model$/) do |code_text|
 end
 
 Then(/^all of them provide access to the parsing data that was used to create them$/) do |code_text|
-  unparsed_models = [CukeModeler::ModelElement, CukeModeler::FeatureFile, CukeModeler::Directory]
+  unparsed_models = [CukeModeler::Model, CukeModeler::FeatureFile, CukeModeler::Directory]
 
   @available_model_classes.each do |clazz|
     next if unparsed_models.include?(clazz)

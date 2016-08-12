@@ -1,6 +1,6 @@
 Feature: Model structure
 
-When modeling an existing test suite, that suite is parsed and models are created for each piece of the
+When modeling an existing test suite, that suite is parsed and models are created for each element of the
 suite. These models form a nested structure of parent and child models which has the same shape as whatever
 portion of the suite that they represent (see the documentation for specific models for details).
 

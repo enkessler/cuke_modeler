@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling the table of a Step.
 
-  class Table < ModelElement
+  class Table < Model
 
     include Parsed
     include Sourceable

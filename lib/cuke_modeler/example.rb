@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a Cucumber Examples table.
 
-  class Example < ModelElement
+  class Example < Model
 
     include Parsed
     include Named

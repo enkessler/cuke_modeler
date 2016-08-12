@@ -2,7 +2,7 @@ module CukeModeler
 
   # A class modeling a table row.
 
-  class Row < ModelElement
+  class Row < Model
 
     include Sourceable
     include Parsed

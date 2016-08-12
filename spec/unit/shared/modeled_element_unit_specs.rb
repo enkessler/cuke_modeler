@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-shared_examples_for 'a modeled element' do
+shared_examples_for 'a model' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
-    it_should_behave_like 'a stringifiable element'
+    it_should_behave_like 'a bare bones model'
+    it_should_behave_like 'a prepopulated model'
+    it_should_behave_like 'a nested model'
+    it_should_behave_like 'a containing model'
+    it_should_behave_like 'a stringifiable model'
 
   end
 

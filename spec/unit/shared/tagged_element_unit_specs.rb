@@ -1,23 +1,23 @@
 require 'spec_helper'
 
-shared_examples_for 'a tagged element' do
+shared_examples_for 'a tagged model' do
 
   # clazz must be defined by the calling file
 
-  let(:element) { clazz.new }
+  let(:model) { clazz.new }
 
 
   it 'has tags' do
-    expect(element).to respond_to(:tags)
+    expect(model).to respond_to(:tags)
   end
 
   it 'can change its tags' do
-    expect(element).to respond_to(:tags=)
+    expect(model).to respond_to(:tags=)
 
-    element.tags = :some_tags
-    expect(element.tags).to eq(:some_tags)
-    element.tags = :some_other_tags
-    expect(element.tags).to eq(:some_other_tags)
+    model.tags = :some_tags
+    expect(model.tags).to eq(:some_tags)
+    model.tags = :some_other_tags
+    expect(model.tags).to eq(:some_other_tags)
   end
 
 
@@ -25,11 +25,11 @@ shared_examples_for 'a tagged element' do
 
     context 'a new tagged object' do
 
-      let(:element) { clazz.new }
+      let(:model) { clazz.new }
 
 
       it 'starts with no tags' do
-        expect(element.tags).to eq([])
+        expect(model.tags).to eq([])
       end
 
     end
@@ -37,16 +37,16 @@ shared_examples_for 'a tagged element' do
   end
 
   it 'has applied tags' do
-    expect(element).to respond_to(:applied_tags)
+    expect(model).to respond_to(:applied_tags)
   end
 
   it 'inherits its applied tags from its ancestors' do
     all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
     parent = double(:all_tags => all_parent_tags)
 
-    element.parent_model = parent
+    model.parent_model = parent
 
-    expect(element.applied_tags).to match_array(all_parent_tags)
+    expect(model.applied_tags).to match_array(all_parent_tags)
   end
 
   it 'knows all of its applicable tags' do
@@ -55,10 +55,10 @@ shared_examples_for 'a tagged element' do
 
     parent = double(:all_tags => all_parent_tags)
 
-    element.parent_model = parent
-    element.tags = own_tags
+    model.parent_model = parent
+    model.tags = own_tags
 
-    expect(element.all_tags).to match_array(all_parent_tags + own_tags)
+    expect(model.all_tags).to match_array(all_parent_tags + own_tags)
   end
 
 end

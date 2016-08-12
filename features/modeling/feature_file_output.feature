@@ -4,7 +4,7 @@ Feature: Feature file output
 
 
   Scenario: Outputting a feature file model
-    Given a feature file element based on "some_feature_file.feature"
+    Given a feature file model based on "some_feature_file.feature"
     When it is outputted
     Then the following text is provided:
       """

@@ -1,7 +1,7 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that are nested inside
-  # of other elements.
+  # A mix-in module containing methods used by models that are nested inside
+  # of other models.
 
   module Nested
 

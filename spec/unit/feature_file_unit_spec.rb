@@ -9,7 +9,7 @@ describe 'FeatureFile, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element'
+    it_should_behave_like 'a model'
 
   end
 

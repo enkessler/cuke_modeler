@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-shared_examples_for 'a prepopulated element' do
+shared_examples_for 'a prepopulated model' do
 
   # clazz must be defined by the calling file
 
-  let(:element) { clazz.new }
+  let(:model) { clazz.new }
 
 
   it 'can take text from which to populate itself' do

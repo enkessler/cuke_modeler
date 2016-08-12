@@ -8,7 +8,7 @@ describe 'Scenario, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -50,7 +50,7 @@ describe 'Scenario, Integration' do
       expect(raw_data['keyword']).to eq('Scenario')
     end
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       source = ['@a_tag',
                 'Scenario: Test scenario',
                 '  * a step']

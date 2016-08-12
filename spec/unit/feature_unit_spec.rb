@@ -9,12 +9,12 @@ describe 'Feature, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element'
-    it_should_behave_like 'a named element'
-    it_should_behave_like 'a described element'
-    it_should_behave_like 'a tagged element'
-    it_should_behave_like 'a sourced element'
-    it_should_behave_like 'a parsed element'
+    it_should_behave_like 'a model'
+    it_should_behave_like 'a named model'
+    it_should_behave_like 'a described model'
+    it_should_behave_like 'a tagged model'
+    it_should_behave_like 'a sourced model'
+    it_should_behave_like 'a parsed model'
 
   end
 

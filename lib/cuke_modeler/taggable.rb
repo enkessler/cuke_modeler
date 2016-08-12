@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that can be tagged.
+  # A mix-in module containing methods used by models that represent an element that can be tagged.
 
   module Taggable
 
@@ -9,7 +9,7 @@ module CukeModeler
 
 
     # Returns the tags which are indirectly assigned to the element (i.e. they
-    # have been inherited from a parent model).
+    # have been inherited from a parent element).
     def applied_tags
       parent_model.respond_to?(:all_tags) ? parent_model.all_tags : []
     end

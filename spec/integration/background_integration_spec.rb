@@ -8,7 +8,7 @@ describe 'Background, Integration' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element, integration'
+    it_should_behave_like 'a model, integration'
 
   end
 
@@ -50,7 +50,7 @@ describe 'Background, Integration' do
       expect { clazz.new(source) }.to raise_error(/'cuke_modeler_stand_alone_background\.feature'/)
     end
 
-    it 'properly sets its child elements' do
+    it 'properly sets its child models' do
       source = ['  Background: Test background',
                 '    * a step']
       source = source.join("\n")

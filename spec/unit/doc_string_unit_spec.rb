@@ -8,9 +8,9 @@ describe 'DocString, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a modeled element'
-    it_should_behave_like 'a parsed element'
-    it_should_behave_like 'a sourced element'
+    it_should_behave_like 'a model'
+    it_should_behave_like 'a parsed model'
+    it_should_behave_like 'a sourced model'
 
   end
 
