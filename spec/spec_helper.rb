@@ -8,19 +8,19 @@ this_dir = File.dirname(__FILE__)
 
 require "#{this_dir}/../lib/cuke_modeler"
 
-require "#{this_dir}/unit/shared/modeled_element_unit_specs"
-require "#{this_dir}/integration/shared/modeled_element_integration_specs"
-require "#{this_dir}/unit/shared/named_element_unit_specs"
-require "#{this_dir}/unit/shared/described_element_unit_specs"
-require "#{this_dir}/unit/shared/stepped_element_unit_specs"
-require "#{this_dir}/unit/shared/stringifiable_unit_specs"
-require "#{this_dir}/unit/shared/nested_element_unit_specs"
-require "#{this_dir}/unit/shared/tagged_element_unit_specs"
-require "#{this_dir}/unit/shared/containing_element_unit_specs"
-require "#{this_dir}/unit/shared/bare_bones_unit_specs"
-require "#{this_dir}/unit/shared/prepopulated_unit_specs"
-require "#{this_dir}/unit/shared/sourced_element_unit_specs"
-require "#{this_dir}/unit/shared/raw_element_unit_specs"
+require "#{this_dir}/unit/shared/models_unit_specs"
+require "#{this_dir}/integration/shared/models_integration_specs"
+require "#{this_dir}/unit/shared/named_models_unit_specs"
+require "#{this_dir}/unit/shared/described_models_unit_specs"
+require "#{this_dir}/unit/shared/stepped_models_unit_specs"
+require "#{this_dir}/unit/shared/stringifiable_models_unit_specs"
+require "#{this_dir}/unit/shared/nested_models_unit_specs"
+require "#{this_dir}/unit/shared/tagged_models_unit_specs"
+require "#{this_dir}/unit/shared/containing_models_unit_specs"
+require "#{this_dir}/unit/shared/bare_bones_models_unit_specs"
+require "#{this_dir}/unit/shared/prepopulated_models_unit_specs"
+require "#{this_dir}/unit/shared/sourced_models_unit_specs"
+require "#{this_dir}/unit/shared/parsed_models_unit_specs"
 
 
 RSpec.configure do |config|
