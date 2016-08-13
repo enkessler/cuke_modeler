@@ -1,74 +1,74 @@
-# The 'gherkin' gem loads differently and has different grammar rules across major versions. Parsing 
-# will be with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated.
-
-
-# Have to at least load some version of the gem before which version of the gem has been loaded can
-# be determined and the rest of the needed files can be loaded. Try the old one first and then the
-# new one.
-begin
-  require 'gherkin'
-rescue LoadError
-  require 'gherkin/parser'
-end
-
-
-case
-  when Gem.loaded_specs['gherkin'].version.version[/^4/]
-    require 'gherkin/parser'
-    require 'cuke_modeler/adapters/gherkin_4_adapter'
-
-
-    def parsing_method(source_text, _filename)
-      Gherkin::Parser.new.parse(source_text)
-    end
-
-    def adapter_class
-      CukeModeler::Gherkin4Adapter
-    end
-
-  when Gem.loaded_specs['gherkin'].version.version[/^3/]
-    require 'gherkin/parser'
-    require 'cuke_modeler/adapters/gherkin_3_adapter'
-
-
-    def parsing_method(source_text, _filename)
-      Gherkin::Parser.new.parse(source_text)
-    end
-
-    def adapter_class
-      CukeModeler::Gherkin3Adapter
-    end
-
-  else # Assume version 2.x
-    require 'stringio'
-    require 'gherkin/formatter/json_formatter'
-    require 'gherkin'
-    require 'json'
-    require 'multi_json'
-    require 'cuke_modeler/adapters/gherkin_2_adapter'
-
-
-    def parsing_method(source_text, filename)
-      io = StringIO.new
-      formatter = Gherkin::Formatter::JSONFormatter.new(io)
-      parser = Gherkin::Parser::Parser.new(formatter)
-      parser.parse(source_text, filename, 0)
-      formatter.done
-      MultiJson.load(io.string)
-    end
-
-    def adapter_class
-      CukeModeler::Gherkin2Adapter
-    end
-
-end
-
-
 module CukeModeler
 
   # A module providing source text parsing functionality.
 
   module Parsing
+
+
+    # Have to at least load some version of the gem before which version of the gem has been loaded can
+    # be determined and the rest of the needed files can be loaded. Try the old one first and then the
+    # new one.
+    begin
+      require 'gherkin'
+    rescue LoadError
+      require 'gherkin/parser'
+    end
+
+
+    # The 'gherkin' gem loads differently and has different grammar rules across major versions. Parsing
+    # will be done with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated.
+
+    case
+      when Gem.loaded_specs['gherkin'].version.version[/^4/]
+        require 'gherkin/parser'
+        require 'cuke_modeler/adapters/gherkin_4_adapter'
+
+
+        def self.parsing_method(source_text, _filename)
+          Gherkin::Parser.new.parse(source_text)
+        end
+
+        def self.adapter_class
+          CukeModeler::Gherkin4Adapter
+        end
+
+      when Gem.loaded_specs['gherkin'].version.version[/^3/]
+        require 'gherkin/parser'
+        require 'cuke_modeler/adapters/gherkin_3_adapter'
+
+
+        def self.parsing_method(source_text, _filename)
+          Gherkin::Parser.new.parse(source_text)
+        end
+
+        def self.adapter_class
+          CukeModeler::Gherkin3Adapter
+        end
+
+      else # Assume version 2.x
+        require 'stringio'
+        require 'gherkin/formatter/json_formatter'
+        require 'gherkin'
+        require 'json'
+        require 'multi_json'
+        require 'cuke_modeler/adapters/gherkin_2_adapter'
+
+
+        def self.parsing_method(source_text, filename)
+          io = StringIO.new
+          formatter = Gherkin::Formatter::JSONFormatter.new(io)
+          parser = Gherkin::Parser::Parser.new(formatter)
+          parser.parse(source_text, filename, 0)
+          formatter.done
+          MultiJson.load(io.string)
+        end
+
+        def self.adapter_class
+          CukeModeler::Gherkin2Adapter
+        end
+
+    end
+
 
     class << self
 
