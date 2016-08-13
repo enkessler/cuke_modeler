@@ -11,11 +11,11 @@ module CukeModeler
 
     def adapt_feature!(parsed_feature)
       # Saving off the original data
-      parsed_feature['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_feature))
+      parsed_feature['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_feature))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_feature['cuke_modeler_raw_adapter_output']['tags'] = nil
-      parsed_feature['cuke_modeler_raw_adapter_output']['elements'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_feature['cuke_modeler_parsing_data']['tags'] = nil
+      parsed_feature['cuke_modeler_parsing_data']['elements'] = nil
 
 
       adapt_child_elements!(parsed_feature)
@@ -46,10 +46,10 @@ module CukeModeler
 
     def adapt_background!(parsed_background)
       # Saving off the original data
-      parsed_background['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_background))
+      parsed_background['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_background))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_background['cuke_modeler_raw_adapter_output']['steps'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_background['cuke_modeler_parsing_data']['steps'] = nil
 
       if parsed_background['steps']
         parsed_background['steps'].each do |step|
@@ -60,11 +60,11 @@ module CukeModeler
 
     def adapt_scenario!(parsed_scenario)
       # Saving off the original data
-      parsed_scenario['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_scenario))
+      parsed_scenario['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_scenario))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_scenario['cuke_modeler_raw_adapter_output']['tags'] = nil
-      parsed_scenario['cuke_modeler_raw_adapter_output']['steps'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_scenario['cuke_modeler_parsing_data']['tags'] = nil
+      parsed_scenario['cuke_modeler_parsing_data']['steps'] = nil
 
 
       if parsed_scenario['tags']
@@ -82,12 +82,12 @@ module CukeModeler
 
     def adapt_outline!(parsed_outline)
       # Saving off the original data
-      parsed_outline['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_outline))
+      parsed_outline['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_outline))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_outline['cuke_modeler_raw_adapter_output']['tags'] = nil
-      parsed_outline['cuke_modeler_raw_adapter_output']['steps'] = nil
-      parsed_outline['cuke_modeler_raw_adapter_output']['examples'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_outline['cuke_modeler_parsing_data']['tags'] = nil
+      parsed_outline['cuke_modeler_parsing_data']['steps'] = nil
+      parsed_outline['cuke_modeler_parsing_data']['examples'] = nil
 
 
       if parsed_outline['tags']
@@ -111,11 +111,11 @@ module CukeModeler
 
     def adapt_example!(parsed_example)
       # Saving off the original data
-      parsed_example['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_example))
+      parsed_example['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_example))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_example['cuke_modeler_raw_adapter_output']['tags'] = nil
-      parsed_example['cuke_modeler_raw_adapter_output']['rows'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_example['cuke_modeler_parsing_data']['tags'] = nil
+      parsed_example['cuke_modeler_parsing_data']['rows'] = nil
 
 
       parsed_example['rows'].each do |row|
@@ -131,16 +131,16 @@ module CukeModeler
 
     def adapt_tag!(parsed_tag)
       # Saving off the original data
-      parsed_tag['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_tag))
+      parsed_tag['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_tag))
     end
 
     def adapt_step!(parsed_step)
       # Saving off the original data
-      parsed_step['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step))
+      parsed_step['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_step))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_step['cuke_modeler_raw_adapter_output']['rows'] = nil if parsed_step['cuke_modeler_raw_adapter_output']['rows']
-      parsed_step['cuke_modeler_raw_adapter_output']['doc_string'] = nil if parsed_step['cuke_modeler_raw_adapter_output']['doc_string']
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_step['cuke_modeler_parsing_data']['rows'] = nil if parsed_step['cuke_modeler_parsing_data']['rows']
+      parsed_step['cuke_modeler_parsing_data']['doc_string'] = nil if parsed_step['cuke_modeler_parsing_data']['doc_string']
 
 
       adapt_doc_string!(parsed_step['doc_string']) if parsed_step['doc_string']
@@ -153,15 +153,15 @@ module CukeModeler
 
     def adapt_doc_string!(parsed_doc_string)
       # Saving off the original data
-      parsed_doc_string['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_doc_string))
+      parsed_doc_string['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_doc_string))
     end
 
     def adapt_step_table!(parsed_step_table)
       # Saving off the original data
-      parsed_step_table['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step_table['rows']))
+      parsed_step_table['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_step_table['rows']))
 
-      # Removing raw data for child elements in order to avoid duplicating data
-      parsed_step_table['cuke_modeler_raw_adapter_output'].clear
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_step_table['cuke_modeler_parsing_data'].clear
 
 
       parsed_step_table['line'] = parsed_step_table['rows'].first['line']
@@ -173,10 +173,10 @@ module CukeModeler
 
     def adapt_table_row!(parsed_table_row)
       # Saving off the original data
-      parsed_table_row['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_table_row))
+      parsed_table_row['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_table_row))
 
-      # Removing raw data for child elements in order to avoid duplicating data which the child elements will themselves include
-      parsed_table_row['cuke_modeler_raw_adapter_output']['cells'] = nil
+      # Removing parsed data for child elements in order to avoid duplicating data which the child elements will themselves include
+      parsed_table_row['cuke_modeler_parsing_data']['cells'] = nil
 
       parsed_table_row['cells'].collect! do |cell|
         create_cell_for(cell, parsed_table_row['line'])
@@ -187,7 +187,7 @@ module CukeModeler
       cell = {}
 
       # Saving off the original data
-      cell['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_cell))
+      cell['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_cell))
 
       cell['value'] = parsed_cell
       cell['line'] = line_number

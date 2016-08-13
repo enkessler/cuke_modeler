@@ -201,7 +201,7 @@ module CukeModeler
     end
 
     def populate_parsing_data(model, parsed_model_data)
-      model.parsing_data = parsed_model_data['cuke_modeler_raw_adapter_output']
+      model.parsing_data = parsed_model_data['cuke_modeler_parsing_data']
     end
 
     def populate_source_line(model, parsed_model_data)
