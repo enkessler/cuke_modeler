@@ -1,20 +1,3 @@
-Given /^the following(?: feature)? file(?: "([^"]*)")?:$/ do |file_name, file_text|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_feature_file_name
-
-  File.open("#{@test_directory}/#{file_name}", 'w') { |file|
-    file.write(file_text)
-  }
-end
-
-When /^the file(?: "([^"]*)")? is read$/ do |file_name|
-  @parsed_files ||= []
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_feature_file_name
-
-  @parsed_files << CukeModeler::FeatureFile.new("#{@test_directory}/#{file_name}")
-end
-
 Given /^(?:a|the) directory "([^"]*)"$/ do |directory_name|
   @test_directory = "#{@default_file_directory}/#{directory_name}"
 

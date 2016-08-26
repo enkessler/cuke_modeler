@@ -1,7 +1,7 @@
 Feature: Doc string modeling
 
 
-  Doc string models represent represent the doc string argument to a step. They expose several attributes of the doc string
+  Doc string models represent the doc string argument to a step. They expose several attributes of the doc string
   that they represent.
 
 

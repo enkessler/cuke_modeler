@@ -118,12 +118,6 @@ Then(/^the model returns a model for the following feature:$/) do |feature_name|
   expect(@result.name).to eq(feature_name)
 end
 
-Then(/^the model returns the following values:$/) do |cell_values|
-  cell_values = cell_values.raw.flatten
-
-  expect(@result).to eq(cell_values)
-end
-
 Then(/^the model returns a model for the following table:$/) do |table_rows|
   table_rows = table_rows.raw
 
@@ -148,4 +142,16 @@ Then(/^the model returns models for the following cells:$/) do |model_values|
   model_values = model_values.raw.flatten
 
   expect(@result.collect { |model| model.value }).to eq(model_values)
+end
+
+Then(/^all of them are equivalent$/) do
+  expect(@results).to_not include(false)
+end
+
+But(/^none of the models are equivalent with a model for the following scenario:$/) do |gherkin_text|
+  model = CukeModeler::Scenario.new(gherkin_text)
+
+  @models.each do |other_model|
+    expect(model == other_model).to_not be_true
+  end
 end

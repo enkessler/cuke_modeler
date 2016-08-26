@@ -170,21 +170,57 @@ describe 'Step, Integration' do
       expect(table.parent_model).to equal(step_2)
     end
 
-    it 'can determine its equality with another Step' do
-      source_1 = "Given a step"
-      source_2 = "When  a step\n|with a table|"
-      source_3 = "Then  a step\n\"\"\"\nwith a doc string\n\"\"\""
-      source_4 = 'And   a different step'
 
-      step_1 = clazz.new(source_1)
-      step_2 = clazz.new(source_2)
-      step_3 = clazz.new(source_3)
-      step_4 = clazz.new(source_4)
+    describe 'step comparison' do
+
+      it 'is equal to another Step that has the same text' do
+        source_1 = '* a step'
+        source_2 = '* a step'
+        source_3 = '* a different step'
+
+        step_1 = clazz.new(source_1)
+        step_2 = clazz.new(source_2)
+        step_3 = clazz.new(source_3)
 
 
-      expect(step_1).to eq(step_2)
-      expect(step_2).to eq(step_3)
-      expect(step_3).to_not eq(step_4)
+        expect(step_1).to eq(step_2)
+        expect(step_1).to_not eq(step_3)
+      end
+
+      it 'ignores steps keywords when comparing steps' do
+        source_1 = 'Given a step'
+        source_2 = 'Then  a step'
+
+        step_1 = clazz.new(source_1)
+        step_2 = clazz.new(source_2)
+
+
+        expect(step_1).to eq(step_2)
+      end
+
+      it 'ignores step tables when comparing steps' do
+        source_1 = '* a step'
+        source_2 = "* a step\n|with a table|"
+
+        step_1 = clazz.new(source_1)
+        step_2 = clazz.new(source_2)
+
+
+        expect(step_1).to eq(step_2)
+      end
+
+      it 'ignores step doc strings when comparing steps' do
+        source_1 = '* a step'
+        source_2 = "* a step\n\"\"\"\nwith a doc string\n\"\"\""
+
+
+        step_1 = clazz.new(source_1)
+        step_2 = clazz.new(source_2)
+
+
+        expect(step_1).to eq(step_2)
+      end
+
     end
 
 

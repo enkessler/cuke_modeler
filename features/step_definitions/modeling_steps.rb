@@ -27,3 +27,18 @@ end
 When(/^the \w+(?: \w+)?'s \w+(?: \w+)? (?:is|are) requested$/) do |code_text|
   @result = eval(code_text)
 end
+
+Given(/^a model for the following background:$/) do |gherkin_text|
+  @models ||= []
+  @models << CukeModeler::Background.new(gherkin_text)
+end
+
+Given(/^a model for the following scenario:$/) do |gherkin_text|
+  @models ||= []
+  @models << CukeModeler::Scenario.new(gherkin_text)
+end
+
+Given(/^a model for the following outline:$/) do |gherkin_text|
+  @models ||= []
+  @models << CukeModeler::Outline.new(gherkin_text)
+end

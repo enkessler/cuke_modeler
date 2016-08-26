@@ -8,7 +8,6 @@ have abstract models start with 'minimum viable gherkin' values (e.g. '' and [])
 
 Have tags use the Named module? (maybe?)(no)
 
-rewrite Cucumber features so that they are documentation instead of just tests (post remodel)
 
 document helper modules as not part of the public API (pre-release)
 
@@ -32,7 +31,6 @@ Don't bother to test directory create/destroy around unit tests
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
 Clean up step verifications
-Remove dead steps (done)
 Figure out why using empty files for directory_modeling.feature doesn't work
 Fix transient test failures (permission denied file access problems)
 @default_file_directory -> @test_directory
