@@ -141,7 +141,7 @@ describe 'Step, Integration' do
           it "models the step's doc string" do
             doc_string = step.block
 
-            expect(doc_string.contents).to eq('some text')
+            expect(doc_string.content).to eq('some text')
           end
 
         end

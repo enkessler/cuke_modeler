@@ -21,8 +21,6 @@ module CukeModeler
     # Creates a new Feature object and, if *source* is provided, populates the
     # object.
     def initialize(source_text = nil)
-      @name = ''
-      @description = ''
       @tags = []
       @tests = []
 
@@ -72,7 +70,7 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Feature:#{name_output_string}"
-      text << "\n" + description_output_string unless description.empty?
+      text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n\n" + background_output_string if background
       text << "\n\n" + tests_output_string unless tests.empty?
 

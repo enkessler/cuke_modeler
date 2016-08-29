@@ -30,17 +30,17 @@ describe 'DocString, Unit' do
       expect(doc_string.content_type).to eq(:some_other_content_type)
     end
 
-    it 'has contents' do
-      expect(doc_string).to respond_to(:contents)
+    it 'has content' do
+      expect(doc_string).to respond_to(:content)
     end
 
-    it 'can change its contents' do
-      expect(doc_string).to respond_to(:contents=)
+    it 'can change its content' do
+      expect(doc_string).to respond_to(:content=)
 
-      doc_string.contents = :some_contents
-      expect(doc_string.contents).to eq(:some_contents)
-      doc_string.contents = :some_other_contents
-      expect(doc_string.contents).to eq(:some_other_contents)
+      doc_string.content = :some_content
+      expect(doc_string.content).to eq(:some_content)
+      doc_string.content = :some_other_content
+      expect(doc_string.content).to eq(:some_other_content)
     end
 
 
@@ -55,8 +55,8 @@ describe 'DocString, Unit' do
           expect(doc_string.content_type).to be_nil
         end
 
-        it 'starts with no contents' do
-          expect(doc_string.contents).to eq('')
+        it 'starts with no content' do
+          expect(doc_string.content).to be_nil
         end
 
       end
@@ -88,8 +88,8 @@ describe 'DocString, Unit' do
             expect { doc_string.to_s }.to_not raise_error
           end
 
-          it 'can output a doc string that has only contents' do
-            doc_string.contents = 'foo'
+          it 'can output a doc string that has only content' do
+            doc_string.content = 'foo'
 
             expect { doc_string.to_s }.to_not raise_error
           end

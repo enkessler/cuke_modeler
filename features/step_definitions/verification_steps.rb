@@ -125,7 +125,7 @@ Then(/^the model returns a model for the following table:$/) do |table_rows|
 end
 
 Then(/^the model returns a model for the following doc string:$/) do |string_text|
-  expect(@result.contents).to eq(string_text)
+  expect(@result.content).to eq(string_text)
 end
 
 Then(/^the model returns a model for the background "([^"]*)"$/) do |background_name|

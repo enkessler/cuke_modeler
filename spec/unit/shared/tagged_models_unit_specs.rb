@@ -32,6 +32,14 @@ shared_examples_for 'a tagged model' do
         expect(model.tags).to eq([])
       end
 
+      it 'starts with no inherited tags' do
+        expect(model.applied_tags).to eq([])
+      end
+
+      it 'starts with no tags at all' do
+        expect(model.all_tags).to eq([])
+      end
+
     end
 
   end

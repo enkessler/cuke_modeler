@@ -40,7 +40,7 @@ describe 'Cell, Unit' do
 
 
         it 'starts with no value' do
-          expect(cell.value).to eq('')
+          expect(cell.value).to be_nil
         end
 
       end

@@ -28,7 +28,7 @@ shared_examples_for 'a described model' do
       let(:model) { clazz.new }
 
       it 'starts with no description' do
-        expect(model.description).to eq('')
+        expect(model.description).to be_nil
       end
 
     end

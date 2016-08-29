@@ -29,7 +29,7 @@ shared_examples_for 'a named model' do
 
 
       it 'starts with no name' do
-        expect(model.name).to eq('')
+        expect(model.name).to be_nil
       end
 
     end

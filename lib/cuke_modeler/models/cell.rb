@@ -13,8 +13,6 @@ module CukeModeler
     # Creates a new Cell object and, if *source* is provided, populates
     # the object.
     def initialize(source_text = nil)
-      @value = ''
-
       super(source_text)
 
       if source_text
@@ -26,7 +24,7 @@ module CukeModeler
     # Returns a gherkin representation of the cell.
     def to_s
       # Vertical bars and backslashes are special characters that need to be escaped
-      @value.gsub('\\', '\\\\\\').gsub('|', '\|')
+      @value ? @value.gsub('\\', '\\\\\\').gsub('|', '\|') : ''
     end
 
 

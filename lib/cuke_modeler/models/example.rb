@@ -18,8 +18,6 @@ module CukeModeler
     # Creates a new Example object and, if *source* is provided,
     # populates the object.
     def initialize(source_text = nil)
-      @name = ''
-      @description = ''
       @tags = []
       @rows = []
 
@@ -60,8 +58,6 @@ module CukeModeler
     # parameters and their corresponding values or as an Array of values
     # which will be assigned in order.
     def remove_row(row_removed)
-      raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}") unless row_removed.is_a?(Array) or row_removed.is_a?(Hash)
-
       return unless argument_rows
 
       case
@@ -72,6 +68,8 @@ module CukeModeler
           # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead 
           # of being built up in order according to the parameter order.
           location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
+        else
+          raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}")
       end
 
       @rows.delete_at(location + 1) if location
@@ -103,8 +101,8 @@ module CukeModeler
 
       text << tag_output_string + "\n" unless tags.empty?
       text << "Examples:#{name_output_string}"
-      text << "\n" + description_output_string unless description.empty?
-      text << "\n" unless description.empty?
+      text << "\n" + description_output_string unless (description.nil? || description.empty?)
+      text << "\n" unless (description.nil? || description.empty?)
       text << "\n" + parameters_output_string
       text << "\n" + rows_output_string unless argument_rows.empty?
 

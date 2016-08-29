@@ -12,14 +12,12 @@ module CukeModeler
     attr_accessor :content_type
 
     # The contents of the doc string
-    attr_accessor :contents
+    attr_accessor :content
 
 
     # Creates a new DocString object and, if *source* is provided, populates
     # the object.
     def initialize(source_text = nil)
-      @contents = ''
-
       super(source_text)
 
       if source_text
@@ -53,7 +51,7 @@ module CukeModeler
     end
 
     def contents_output_string
-      contents.empty? ? '' : contents.gsub('"""', '\"\"\"') + "\n"
+      (content.nil? || content.empty?) ? '' : content.gsub('"""', '\"\"\"') + "\n"
     end
 
   end

@@ -84,7 +84,7 @@ module CukeModeler
 
     def populate_docstring(doc_string_object, parsed_doc_string_data)
       populate_content_type(doc_string_object, parsed_doc_string_data)
-      populate_contents(doc_string_object, parsed_doc_string_data)
+      populate_content(doc_string_object, parsed_doc_string_data)
       populate_parsing_data(doc_string_object, parsed_doc_string_data)
       populate_source_line(doc_string_object, parsed_doc_string_data)
     end
@@ -165,8 +165,8 @@ module CukeModeler
       doc_string_model.content_type = parsed_doc_string_data['content_type'] == "" ? nil : parsed_doc_string_data['content_type']
     end
 
-    def populate_contents(doc_string_model, parsed_doc_string_data)
-      doc_string_model.contents = parsed_doc_string_data['value']
+    def populate_content(doc_string_model, parsed_doc_string_data)
+      doc_string_model.content = parsed_doc_string_data['value']
     end
 
     def populate_outline_examples(outline_model, parsed_examples)

@@ -50,13 +50,13 @@ describe 'DocString, Integration' do
       expect(data['value']).to eq('some doc string')
     end
 
-    it 'stores its contents as a String' do
+    it 'stores its content as a String' do
       source = "\"\"\"\nsome text\nsome more text\n\"\"\""
       doc_string = clazz.new(source)
 
-      contents = doc_string.contents
+      content = doc_string.content
 
-      expect(contents).to be_a(String)
+      expect(content).to be_a(String)
     end
 
 
@@ -221,8 +221,8 @@ describe 'DocString, Integration' do
             expect(doc_string.content_type).to eq('type foo')
           end
 
-          it "models the doc_string's contents" do
-            expect(doc_string.contents).to eq('bar')
+          it "models the doc_string's content" do
+            expect(doc_string.content).to eq('bar')
           end
 
         end
@@ -238,7 +238,7 @@ describe 'DocString, Integration' do
           end
 
           it "models the doc_string's content" do
-            expect(doc_string.contents).to eq('')
+            expect(doc_string.content).to eq('')
           end
 
         end

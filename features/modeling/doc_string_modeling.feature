@@ -28,7 +28,7 @@ Feature: Doc string modeling
   Scenario: Modeling a doc string's content
     When the doc string's content is requested
       """
-        @model.contents
+        @model.content
       """
     Then the model returns
       """

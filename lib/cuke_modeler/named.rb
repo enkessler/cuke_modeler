@@ -12,7 +12,7 @@ module CukeModeler
 
 
     def name_output_string
-      name.empty? ? '' : " #{name}"
+      (name.nil? || name.empty?) ? '' : " #{name}"
     end
 
   end
