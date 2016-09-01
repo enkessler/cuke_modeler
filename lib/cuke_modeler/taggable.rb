@@ -4,17 +4,17 @@ module CukeModeler
 
   module Taggable
 
-    # The tags which are directly assigned to the element
+    # The models for tags which are directly assigned to the element
     attr_accessor :tags
 
 
-    # Returns the tags which are indirectly assigned to the element (i.e. they
+    # Returns the models for tags which are indirectly assigned to the element (i.e. they
     # have been inherited from a parent element).
     def applied_tags
       parent_model.respond_to?(:all_tags) ? parent_model.all_tags : []
     end
 
-    # Returns all of the tags which are applicable to the element.
+    # Returns models for all of the tags which are applicable to the element.
     def all_tags
       applied_tags + @tags
     end

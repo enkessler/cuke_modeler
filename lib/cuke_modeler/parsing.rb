@@ -15,8 +15,8 @@ module CukeModeler
     end
 
 
-    # The 'gherkin' gem loads differently and has different grammar rules across major versions. Parsing
-    # will be done with an 'adapter' appropriate to the version of the 'gherkin' gem that has been activated.
+    # The *gherkin* gem loads differently and has different grammar rules across major versions. Parsing
+    # will be done with an 'adapter' appropriate to the version of the *gherkin* gem that has been activated.
 
     case
       when Gem.loaded_specs['gherkin'].version.version[/^4/]
@@ -24,6 +24,7 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_4_adapter'
 
 
+        # todo - make these methods private?
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end

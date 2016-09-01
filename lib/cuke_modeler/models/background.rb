@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber feature's Background.
+  # A class modeling a feature's background.
 
   class Background < Model
 
@@ -11,7 +11,7 @@ module CukeModeler
     include Sourceable
 
 
-    # Creates a new Background object and, if *source* is provided, populates
+    # Creates a new Background object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
       @steps = []
@@ -24,7 +24,7 @@ module CukeModeler
       end
     end
 
-    # Returns true if the two models have equivalent steps and false otherwise.
+    # Returns *true* if the two models have equivalent steps and *false* otherwise.
     def ==(other_model)
       return false unless other_model.respond_to?(:steps)
 
@@ -36,7 +36,8 @@ module CukeModeler
       steps
     end
 
-    # Returns gherkin representation of the background.
+    # Returns a string representation of this model. For a background model,
+    # this will be Gherkin text that is equivalent to the background being modeled.
     def to_s
       text = ''
 

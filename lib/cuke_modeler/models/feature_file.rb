@@ -1,18 +1,18 @@
 module CukeModeler
 
-  # A class modeling a Cucumber .feature file.
+  # A class modeling a feature file in a Cucumber suite.
 
   class FeatureFile < Model
 
 
-    # The feature object contained by the modeled feature file
+    # The feature model contained by the modeled feature file
     attr_accessor :feature
 
     # The file path of the modeled feature file
     attr_accessor :path
 
 
-    # Creates a new FeatureFile object and, if *file_parsed* is provided,
+    # Creates a new FeatureFile object and, if *file_path* is provided,
     # populates the object.
     def initialize(file_path = nil)
       @path = file_path
@@ -38,7 +38,8 @@ module CukeModeler
       [@feature]
     end
 
-    # Returns the path of the modeled feature file.
+    # Returns a string representation of this model. For a feature file
+    # model, this will be the path of the modeled feature file.
     def to_s
       path.to_s
     end

@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling an element of a test suite.
+  # A class modeling an element of a Cucumber suite.
 
   class Model
 
@@ -16,6 +16,7 @@ module CukeModeler
       # This should be overridden by a child class
     end
 
+    # Returns a string representation of this model.
     def to_s
       # This should be overridden by a child class
       super

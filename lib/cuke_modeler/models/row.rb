@@ -1,13 +1,13 @@
 module CukeModeler
 
-  # A class modeling a table row.
+  # A class modeling a single row of a step table or example table.
 
   class Row < Model
 
     include Sourceable
     include Parsed
 
-    # The cells that make up the row
+    # The cell models that make up the row
     attr_accessor :cells
 
 
@@ -24,7 +24,8 @@ module CukeModeler
       end
     end
 
-    # Returns a gherkin representation of the row.
+    # Returns a string representation of this model. For a row model,
+    # this will be Gherkin text that is equivalent to the row being modeled.
     def to_s
       text_cells = cells.collect { |cell| cell.to_s }
 

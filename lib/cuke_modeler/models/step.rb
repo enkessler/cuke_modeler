@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Feature.
+  # A class modeling a single step of a background, scenario, or outline.
 
   class Step < Model
 
@@ -18,7 +18,7 @@ module CukeModeler
     attr_accessor :block
 
 
-    # Creates a new Step object and, if *source* is provided, populates the
+    # Creates a new Step object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
       super(source_text)
@@ -29,8 +29,8 @@ module CukeModeler
       end
     end
 
-    # Returns true if the two steps have the same base text (i.e. minus any keyword, 
-    # table, or doc string
+    # Returns *true* if the two steps have the same base text (i.e. minus any keyword,
+    # table, or doc string and *false* otherwise.
     def ==(other_step)
       return false unless other_step.respond_to?(:text)
 
@@ -42,7 +42,8 @@ module CukeModeler
       [block]
     end
 
-    # Returns a gherkin representation of the step.
+    # Returns a string representation of this model. For a step model,
+    # this will be Gherkin text that is equivalent to the step being modeled.
     def to_s
       text = "#{keyword} #{self.text}"
       text << "\n" + block.to_s.split("\n").collect { |line| "  #{line}" }.join("\n") if block

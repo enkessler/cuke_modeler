@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Examples table.
+  # A class modeling an example table of an outline.
 
   class Example < Model
 
@@ -11,11 +11,11 @@ module CukeModeler
     include Taggable
 
 
-    # The row objects in the example table
+    # The row models in the example table
     attr_accessor :rows
 
 
-    # Creates a new Example object and, if *source* is provided,
+    # Creates a new Example object and, if *source_text* is provided,
     # populates the object.
     def initialize(source_text = nil)
       @tags = []
@@ -95,7 +95,8 @@ module CukeModeler
       rows + tags
     end
 
-    # Returns a gherkin representation of the example.
+    # Returns a string representation of this model. For an example model,
+    # this will be Gherkin text that is equivalent to the example being modeled.
     def to_s
       text = ''
 

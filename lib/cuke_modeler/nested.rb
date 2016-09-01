@@ -5,11 +5,11 @@ module CukeModeler
 
   module Nested
 
-    # The parent object that contains *self*
+    # The parent model that contains this model
     attr_accessor :parent_model
 
 
-    # Returns the ancestor of *self* that matches the given type.
+    # Returns the ancestor model of this model that matches the given type.
     def get_ancestor(ancestor_type)
       target_type = {:directory => [Directory],
                      :feature_file => [FeatureFile],

@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling the table of a Step.
+  # A class modeling a step's table.
 
   class Table < Model
 
@@ -8,11 +8,11 @@ module CukeModeler
     include Sourceable
 
 
-    # The row objects that make up the table
+    # The row models that make up the table
     attr_accessor :rows
 
 
-    # Creates a new Table object and, if *source* is provided, populates
+    # Creates a new Table object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
       @rows = []
@@ -30,7 +30,8 @@ module CukeModeler
       rows
     end
 
-    # Returns a gherkin representation of the table.
+    # Returns a string representation of this model. For a table model,
+    # this will be Gherkin text that is equivalent to the table being modeled.
     def to_s
       rows.empty? ? '' : rows.collect { |row| row_output_string(row) }.join("\n")
     end

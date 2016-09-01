@@ -1,5 +1,7 @@
 module CukeModeler
 
+  # A class modeling a single cell of a row.
+
   class Cell < Model
 
     include Sourceable
@@ -10,7 +12,7 @@ module CukeModeler
     attr_accessor :value
 
 
-    # Creates a new Cell object and, if *source* is provided, populates
+    # Creates a new Cell object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
       super(source_text)
@@ -21,7 +23,8 @@ module CukeModeler
       end
     end
 
-    # Returns a gherkin representation of the cell.
+    # Returns a string representation of this model. For a cell model,
+    # this will be Gherkin text that is equivalent to the cell being modeled.
     def to_s
       # Vertical bars and backslashes are special characters that need to be escaped
       @value ? @value.gsub('\\', '\\\\\\').gsub('|', '\|') : ''

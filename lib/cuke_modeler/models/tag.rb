@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Tag.
+  # A class modeling a tag.
 
   class Tag < Model
 
@@ -8,11 +8,11 @@ module CukeModeler
     include Sourceable
 
 
-    # The name of the Tag
+    # The name of the tag
     attr_accessor :name
 
 
-    # Creates a new Tag object and, if *source* is provided, populates the
+    # Creates a new Tag object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
       super(source_text)
@@ -23,7 +23,8 @@ module CukeModeler
       end
     end
 
-    # Returns gherkin representation of the tag.
+    # Returns a string representation of this model. For a tag model,
+    # this will be Gherkin text that is equivalent to the tag being modeled.
     def to_s
       name || ''
     end

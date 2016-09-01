@@ -1,21 +1,21 @@
 module CukeModeler
 
-  # A class modeling a directory containing .feature files.
+  # A class modeling a directory in a Cucumber suite.
 
   class Directory < Model
 
 
-    # The feature file objects contained by the modeled directory
+    # The feature file models contained by the modeled directory
     attr_accessor :feature_files
 
-    # The directory objects contained by the modeled directory
+    # The directory models contained by the modeled directory
     attr_accessor :directories
 
     # The file path of the modeled directory
     attr_accessor :path
 
 
-    # Creates a new Directory object and, if *directory_parsed* is provided,
+    # Creates a new Directory object and, if *directory_path* is provided,
     # populates the object.
     def initialize(directory_path = nil)
       @path = directory_path
@@ -42,7 +42,8 @@ module CukeModeler
       @feature_files + @directories
     end
 
-    # Returns the path of the modeled directory.
+    # Returns a string representation of this model. For a directory
+    # model, this will be the path of the modeled directory.
     def to_s
       path.to_s
     end

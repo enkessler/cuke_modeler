@@ -1,7 +1,6 @@
 Priority
 -------------
 
-update source code documentation (pre-release)
 Show less boilerplate code in the documentation
 
 Have tags use the Named module? (maybe?)(no)
@@ -10,7 +9,6 @@ Have tags use the Named module? (maybe?)(no)
 document helper modules as not part of the public API (pre-release)
 
 Named, Tagged, etc. --> Nameable, Tagable, etc.? (pre-release)
-Double check/review class level documentation (pre-release)
 Still need behavior modules if only included in the super parent class? (pre-release)
 See if the 'stringio' require is really needed. (pre-release)
 See if the 'version' require is really needed. (pre-release)

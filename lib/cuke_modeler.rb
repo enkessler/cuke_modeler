@@ -1,3 +1,9 @@
+# The top level namespace used by this gem
+
+module CukeModeler
+end
+
+
 require "cuke_modeler/version"
 
 require 'cuke_modeler/parsing'
@@ -23,8 +29,3 @@ require 'cuke_modeler/models/table'
 require 'cuke_modeler/models/row'
 require 'cuke_modeler/models/tag'
 require 'cuke_modeler/models/cell'
-
-
-module CukeModeler
-  # Your code goes here...
-end

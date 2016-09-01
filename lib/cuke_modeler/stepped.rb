@@ -5,6 +5,7 @@ module CukeModeler
   module Stepped
 
 
+    # The step models contained by this model
     attr_accessor :steps
 
 

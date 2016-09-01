@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Scenario.
+  # A class modeling an individual scenario of a Cucumber suite.
 
   class Scenario < Model
 
@@ -12,7 +12,7 @@ module CukeModeler
     include Taggable
 
 
-    # Creates a new Scenario object and, if *source* is provided, populates the
+    # Creates a new Scenario object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
       @steps = []
@@ -26,7 +26,7 @@ module CukeModeler
       end
     end
 
-    # Returns true if the two models have equivalent steps and false otherwise.
+    # Returns *true* if the two models have equivalent steps and *false* otherwise.
     def ==(other_model)
       return false unless other_model.respond_to?(:steps)
 
@@ -38,7 +38,8 @@ module CukeModeler
       steps + tags
     end
 
-    # Returns gherkin representation of the scenario.
+    # Returns a string representation of this model. For a scenario model,
+    # this will be Gherkin text that is equivalent to the scenario being modeled.
     def to_s
       text = ''
 

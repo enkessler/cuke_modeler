@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Scenario Outline.
+  # A class modeling an individual outline in a Cucumber suite.
 
   class Outline < Model
 
@@ -16,7 +16,7 @@ module CukeModeler
     attr_accessor :examples
 
 
-    # Creates a new Outline object and, if *source* is provided, populates the
+    # Creates a new Outline object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
       @steps = []
@@ -31,7 +31,7 @@ module CukeModeler
       end
     end
 
-    # Returns true if the two models have equivalent steps and false otherwise.
+    # Returns *true* if the two models have equivalent steps and *false* otherwise.
     def ==(other_model)
       return false unless other_model.respond_to?(:steps)
 
@@ -43,7 +43,8 @@ module CukeModeler
       examples + steps + tags
     end
 
-    # Returns a gherkin representation of the outline.
+    # Returns a string representation of this model. For an outline model,
+    # this will be Gherkin text that is equivalent to the outline being modeled.
     def to_s
       text = ''
 

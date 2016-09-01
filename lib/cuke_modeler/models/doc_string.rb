@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling the Doc String of a Step.
+  # A class modeling a step's doc string.
 
   class DocString < Model
 
@@ -11,11 +11,11 @@ module CukeModeler
     # The content type associated with the doc string
     attr_accessor :content_type
 
-    # The contents of the doc string
+    # The content of the doc string
     attr_accessor :content
 
 
-    # Creates a new DocString object and, if *source* is provided, populates
+    # Creates a new DocString object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
       super(source_text)
@@ -26,10 +26,11 @@ module CukeModeler
       end
     end
 
-    # Returns a gherkin representation of the doc string.
+    # Returns a string representation of this model. For a doc string model,
+    # this will be Gherkin text that is equivalent to the doc string being modeled.
     def to_s
       text = "\"\"\"#{content_type_output_string}\n"
-      text << contents_output_string
+      text << content_output_string
       text << '"""'
     end
 
@@ -50,7 +51,7 @@ module CukeModeler
       content_type ? " #{content_type}" : ''
     end
 
-    def contents_output_string
+    def content_output_string
       (content.nil? || content.empty?) ? '' : content.gsub('"""', '\"\"\"') + "\n"
     end
 

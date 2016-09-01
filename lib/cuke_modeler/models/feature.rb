@@ -1,6 +1,6 @@
 module CukeModeler
 
-  # A class modeling a Cucumber Feature.
+  # A class modeling a feature in a Cucumber suite.
 
   class Feature < Model
 
@@ -18,7 +18,7 @@ module CukeModeler
     attr_accessor :tests
 
 
-    # Creates a new Feature object and, if *source* is provided, populates the
+    # Creates a new Feature object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
       @tags = []
@@ -32,22 +32,24 @@ module CukeModeler
       end
     end
 
-    # Returns true if the feature contains a background, false otherwise.
+    # Returns *true* if the feature contains a background, *false* otherwise.
     def has_background?
       !@background.nil?
     end
 
-    # Returns the scenarios contained in the feature.
+    # Returns the scenario models contained in the feature.
     def scenarios
       @tests.select { |test| test.is_a? Scenario }
     end
 
-    # Returns the outlines contained in the feature.
+    # Returns the outline models contained in the feature.
     def outlines
       @tests.select { |test| test.is_a? Outline }
     end
 
-    # Returns the number of test cases contained in the feature.
+    # Returns the number of test cases contained in the feature. A test case is a
+    # single set of test values, such as an individual scenario or one example row
+    # of an outline.
     def test_case_count
       scenarios.count + outlines.reduce(0) { |outline_sum, outline|
         outline_sum += outline.examples.reduce(0) { |example_sum, example|
@@ -64,7 +66,8 @@ module CukeModeler
       models
     end
 
-    # Returns gherkin representation of the feature.
+    # Returns a string representation of this model. For a feature model,
+    # this will be Gherkin text that is equivalent to the feature being modeled.
     def to_s
       text = ''
 
