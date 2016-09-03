@@ -15,10 +15,6 @@ Before do
   begin
     @default_file_directory = "#{this_dir}/../temp_files"
     @default_feature_file_name = 'test_feature.feature'
-    @default_step_file_name = 'test_steps.rb'
-    @test_file_directory = "#{this_dir}/../test_files"
-    @test_step_file_location = "#{@default_file_directory}/#{@default_step_file_name}"
-    @spec_directory = "#{this_dir}/../../spec"
 
     FileUtils.mkdir(@default_file_directory)
   rescue => e

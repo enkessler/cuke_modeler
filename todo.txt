@@ -19,13 +19,12 @@ Backlog
 -------------
 
 replace joined array source text with single string source text/heredocs
-Make sure that specs use clazz instead of fully specifying the class under test
+Make sure that specs use clazz instead of fully specifying the class under test (done)
 Don't bother to test directory create/destroy around unit tests
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
-Clean up step verifications
-Figure out why using empty files for directory_modeling.feature doesn't work
+Clean up step verifications (done)
+Figure out why using empty files for directory_modeling.feature doesn't work (done)
 Fix transient test failures (permission denied file access problems)
-@default_file_directory -> @test_directory
 make sure that all classes and tests are covered and attaches to code coverage
 use 'here doc' for source text construction in rspec tests
