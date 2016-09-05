@@ -152,6 +152,6 @@ But(/^none of the models are equivalent with a model for the following scenario:
   model = CukeModeler::Scenario.new(gherkin_text)
 
   @models.each do |other_model|
-    expect(model == other_model).to_not be_true
+    expect(model == other_model).to_not be true
   end
 end
