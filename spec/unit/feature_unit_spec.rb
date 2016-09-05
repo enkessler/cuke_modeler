@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Feature, Unit' do
+describe 'Feature, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Feature }
   let(:feature) { clazz.new }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Scenario, Unit' do
+describe 'Scenario, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Scenario }
   let(:scenario) { clazz.new }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Table, Unit' do
+describe 'Table, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Table }
   let(:table) { clazz.new }

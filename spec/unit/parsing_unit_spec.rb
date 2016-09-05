@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Parsing, Unit' do
+describe 'Parsing, Unit', :unit_test => true do
 
   let(:nodule) { CukeModeler::Parsing }
 

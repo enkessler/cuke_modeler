@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'FeatureFile, Unit' do
+describe 'FeatureFile, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::FeatureFile }
   let(:feature_file) { clazz.new }

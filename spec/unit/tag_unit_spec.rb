@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Tag, Unit' do
+describe 'Tag, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Tag }
   let(:model) { clazz.new }

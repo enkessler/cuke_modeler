@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Taggable, Unit' do
+describe 'Taggable, Unit', :unit_test => true do
 
   let(:nodule) { CukeModeler::Taggable }
   let(:model) { o = Object.new.extend(nodule)

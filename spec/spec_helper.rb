@@ -44,14 +44,18 @@ RSpec.configure do |config|
     @default_feature_file_name = 'test_feature.feature'
   end
 
-  config.before(:each) do
-    FileUtils.remove_dir(@default_file_directory, true) if File.exists?(@default_file_directory)
+  config.before(:each) do |spec|
+    unless spec.metadata[:unit_test]
+      FileUtils.remove_dir(@default_file_directory, true) if File.exists?(@default_file_directory)
 
-    FileUtils.mkdir(@default_file_directory)
+      FileUtils.mkdir(@default_file_directory)
+    end
   end
 
-  config.after(:each) do
-    FileUtils.remove_dir(@default_file_directory, true)
+  config.after(:each) do |spec|
+    unless spec.metadata[:unit_test]
+      FileUtils.remove_dir(@default_file_directory, true)
+    end
   end
+
 end
-

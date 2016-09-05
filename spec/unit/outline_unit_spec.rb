@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Outline, Unit' do
+describe 'Outline, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Outline }
   let(:outline) { clazz.new }

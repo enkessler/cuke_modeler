@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'DocString, Unit' do
+describe 'DocString, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::DocString }
   let(:doc_string) { clazz.new }

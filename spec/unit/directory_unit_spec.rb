@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Directory, Unit' do
+describe 'Directory, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Directory }
   let(:directory) { clazz.new }

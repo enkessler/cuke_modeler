@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Background, Unit' do
+describe 'Background, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::Background }
   let(:background) { clazz.new }

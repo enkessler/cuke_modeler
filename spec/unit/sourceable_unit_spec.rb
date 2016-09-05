@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Sourceable, Unit' do
+describe 'Sourceable, Unit', :unit_test => true do
 
   let(:nodule) { CukeModeler::Sourceable }
   let(:model) { Object.new.extend(nodule) }

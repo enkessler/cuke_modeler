@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Named, Unit' do
+describe 'Named, Unit', :unit_test => true do
 
   let(:nodule) { CukeModeler::Named }
   let(:named_model) { Object.new.extend(nodule) }

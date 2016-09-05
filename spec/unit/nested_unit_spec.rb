@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 
-describe 'Nested, Unit' do
+describe 'Nested, Unit', :unit_test => true do
 
   let(:nodule) { CukeModeler::Nested }
   let(:nested_model) { Object.new.extend(nodule) }
