@@ -1,7 +1,10 @@
 module CukeModeler
+
+  # An adapter that can convert the output of version 3.x of the *gherkin* gem into input that is consumable by this gem.
+
   class Gherkin3Adapter
 
-
+    # Adapts the given AST into the shape that this gem expects
     def adapt(parsed_ast)
       # An AST is just one feature
       adapt_feature!(parsed_ast)
@@ -9,9 +12,15 @@ module CukeModeler
       [parsed_ast]
     end
 
+    # Adapts the AST sub-tree that is rooted at the given feature node.
     def adapt_feature!(parsed_feature)
       # Saving off the original data
-      parsed_feature['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_feature))
+      parsed_feature['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_feature))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_feature['cuke_modeler_parsing_data'][:tags] = nil
+      parsed_feature['cuke_modeler_parsing_data'][:scenarioDefinitions] = nil
+      parsed_feature['cuke_modeler_parsing_data'][:background] = nil
 
       parsed_feature['name'] = parsed_feature.delete(:name)
       parsed_feature['description'] = parsed_feature.delete(:description) || ''
@@ -29,14 +38,13 @@ module CukeModeler
       parsed_feature['tags'].concat(parsed_feature.delete(:tags))
     end
 
-    def adapt_child_elements!(parsed_feature)
-      adapt_background!(parsed_feature[:background]) if parsed_feature[:background]
-      adapt_tests!(parsed_feature)
-    end
-
+    # Adapts the AST sub-tree that is rooted at the given background node.
     def adapt_background!(parsed_background)
       # Saving off the original data
-      parsed_background['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_background))
+      parsed_background['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_background))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_background['cuke_modeler_parsing_data'][:steps] = nil
 
       parsed_background['keyword'] = parsed_background.delete(:type).to_s
       parsed_background['name'] = parsed_background.delete(:name)
@@ -50,30 +58,13 @@ module CukeModeler
       parsed_background['steps'].concat(parsed_background.delete(:steps))
     end
 
-    def adapt_tests!(parsed_feature)
-      parsed_feature[:scenarioDefinitions].each do |test|
-        adapt_test!(test)
-      end
-    end
-
-    def adapt_test!(parsed_test)
-      # Saving off the original data
-      parsed_test['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_test))
-
-      parsed_test['keyword'] = parsed_test.delete(:type).to_s
-
-      case parsed_test['keyword']
-        when 'Scenario'
-          adapt_scenario!(parsed_test)
-        when 'ScenarioOutline'
-          parsed_test['keyword'] = 'Scenario Outline'
-          adapt_outline!(parsed_test)
-        else
-          raise(ArgumentError, "Unknown test type: #{parsed_test['keyword']}")
-      end
-    end
-
+    # Adapts the AST sub-tree that is rooted at the given scenario node.
     def adapt_scenario!(parsed_test)
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_test['cuke_modeler_parsing_data'][:tags] = nil
+      parsed_test['cuke_modeler_parsing_data'][:steps] = nil
+
+
       parsed_test['name'] = parsed_test.delete(:name)
       parsed_test['description'] = parsed_test.delete(:description) || ''
       parsed_test['line'] = parsed_test.delete(:location)[:line]
@@ -91,7 +82,13 @@ module CukeModeler
       parsed_test['steps'].concat(parsed_test.delete(:steps))
     end
 
+    # Adapts the AST sub-tree that is rooted at the given outline node.
     def adapt_outline!(parsed_test)
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_test['cuke_modeler_parsing_data'][:tags] = nil
+      parsed_test['cuke_modeler_parsing_data'][:steps] = nil
+      parsed_test['cuke_modeler_parsing_data'][:examples] = nil
+
       parsed_test['name'] = parsed_test.delete(:name)
       parsed_test['description'] = parsed_test.delete(:description) || ''
       parsed_test['line'] = parsed_test.delete(:location)[:line]
@@ -115,16 +112,23 @@ module CukeModeler
       parsed_test['examples'].concat(parsed_test.delete(:examples))
     end
 
+    # Adapts the AST sub-tree that is rooted at the given example node.
     def adapt_example!(parsed_example)
       # Saving off the original data
-      parsed_example['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_example))
+      parsed_example['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_example))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_example['cuke_modeler_parsing_data'][:tags] = nil
+      parsed_example['cuke_modeler_parsing_data'][:tableHeader] = nil
+      parsed_example['cuke_modeler_parsing_data'][:tableBody] = nil
 
       parsed_example['name'] = parsed_example.delete(:name)
       parsed_example['line'] = parsed_example.delete(:location)[:line]
       parsed_example['description'] = parsed_example.delete(:description) || ''
 
       parsed_example['rows'] = []
-      parsed_example['rows'] << adapt_table_row!(parsed_example.delete(:tableHeader))
+      adapt_table_row!(parsed_example[:tableHeader])
+      parsed_example['rows'] << parsed_example.delete(:tableHeader)
 
       parsed_example[:tableBody].each do |row|
         adapt_table_row!(row)
@@ -138,17 +142,22 @@ module CukeModeler
       parsed_example['tags'].concat(parsed_example.delete(:tags))
     end
 
+    # Adapts the AST sub-tree that is rooted at the given tag node.
     def adapt_tag!(parsed_tag)
       # Saving off the original data
-      parsed_tag['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_tag))
+      parsed_tag['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_tag))
 
       parsed_tag['name'] = parsed_tag.delete(:name)
       parsed_tag['line'] = parsed_tag.delete(:location)[:line]
     end
 
+    # Adapts the AST sub-tree that is rooted at the given step node.
     def adapt_step!(parsed_step)
       # Saving off the original data
-      parsed_step['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step))
+      parsed_step['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_step))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_step['cuke_modeler_parsing_data'][:argument] = nil
 
       parsed_step['keyword'] = parsed_step.delete(:keyword)
       parsed_step['name'] = parsed_step.delete(:text)
@@ -164,42 +173,96 @@ module CukeModeler
             parsed_step['doc_string'] = parsed_step.delete(:argument)
           when :DataTable
             adapt_step_table!(step_argument)
-            parsed_step['rows'] = parsed_step.delete(:argument)
+            parsed_step['table'] = parsed_step.delete(:argument)
           else
             raise(ArgumentError, "Unknown step argument type: #{step_argument[:type]}")
         end
       end
     end
 
+    # Adapts the AST sub-tree that is rooted at the given doc string node.
     def adapt_doc_string!(parsed_doc_string)
       # Saving off the original data
-      parsed_doc_string['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_doc_string))
+      parsed_doc_string['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_doc_string))
 
       parsed_doc_string['value'] = parsed_doc_string.delete(:content)
       parsed_doc_string['content_type'] = parsed_doc_string.delete(:contentType)
+      parsed_doc_string['line'] = parsed_doc_string.delete(:location)[:line]
     end
 
+    # Adapts the AST sub-tree that is rooted at the given table node.
     def adapt_step_table!(parsed_step_table)
       # Saving off the original data
-      parsed_step_table['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_step_table))
+      parsed_step_table['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_step_table))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_step_table['cuke_modeler_parsing_data'][:rows] = nil
 
       parsed_step_table['rows'] = []
       parsed_step_table[:rows].each do |row|
         adapt_table_row!(row)
       end
       parsed_step_table['rows'].concat(parsed_step_table.delete(:rows))
+      parsed_step_table['line'] = parsed_step_table.delete(:location)[:line]
     end
 
+    # Adapts the AST sub-tree that is rooted at the given row node.
     def adapt_table_row!(parsed_table_row)
       # Saving off the original data
-      parsed_table_row['cuke_modeler_raw_adapter_output'] = Marshal::load(Marshal.dump(parsed_table_row))
+      parsed_table_row['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_table_row))
+
+      # Removing parsed data for child elements in order to avoid duplicating data which the child elements will themselves include
+      parsed_table_row['cuke_modeler_parsing_data'][:cells] = nil
+
 
       parsed_table_row['line'] = parsed_table_row.delete(:location)[:line]
 
-      parsed_table_row['cells'] = parsed_table_row.delete(:cells).collect { |cell| cell[:value] }
+      parsed_table_row['cells'] = []
+      parsed_table_row[:cells].each do |row|
+        adapt_table_cell!(row)
+      end
+      parsed_table_row['cells'].concat(parsed_table_row.delete(:cells))
+    end
+
+    # Adapts the AST sub-tree that is rooted at the given cell node.
+    def adapt_table_cell!(parsed_cell)
+      # Saving off the original data
+      parsed_cell['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_cell))
+
+      parsed_cell['value'] = parsed_cell.delete(:value)
+      parsed_cell['line'] = parsed_cell.delete(:location)[:line]
+    end
 
 
-      parsed_table_row
+    private
+
+
+    def adapt_child_elements!(parsed_feature)
+      adapt_background!(parsed_feature[:background]) if parsed_feature[:background]
+      adapt_tests!(parsed_feature)
+    end
+
+    def adapt_tests!(parsed_feature)
+      parsed_feature[:scenarioDefinitions].each do |test|
+        adapt_test!(test)
+      end
+    end
+
+    def adapt_test!(parsed_test)
+      # Saving off the original data
+      parsed_test['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_test))
+
+      parsed_test['keyword'] = parsed_test.delete(:type).to_s
+
+      case parsed_test['keyword']
+        when 'Scenario'
+          adapt_scenario!(parsed_test)
+        when 'ScenarioOutline'
+          parsed_test['keyword'] = 'Scenario Outline'
+          adapt_outline!(parsed_test)
+        else
+          raise(ArgumentError, "Unknown test type: #{parsed_test['keyword']}")
+      end
     end
 
   end

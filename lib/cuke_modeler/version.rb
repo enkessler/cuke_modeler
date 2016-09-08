@@ -1,3 +1,4 @@
 module CukeModeler
-  VERSION = "0.4.1"
+  # The gem version
+  VERSION = "1.0.0"
 end

@@ -14,6 +14,10 @@ elsif RUBY_VERSION =~ /^1\./
   gem 'cucumber', '<2.0.0'
 end
 
+if RUBY_VERSION =~ /^1\./
+  gem 'tins', '< 1.7' # The 'tins' gem requires Ruby 2.x on/after this version
+end
+
 if RUBY_VERSION =~ /^2\./
   gem 'gherkin', '~> 4.0'
 end

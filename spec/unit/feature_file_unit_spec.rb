@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-SimpleCov.command_name('FeatureFile') unless RUBY_VERSION.to_s < '1.9.0'
 
-describe 'FeatureFile, Unit' do
+describe 'FeatureFile, Unit', :unit_test => true do
 
   let(:clazz) { CukeModeler::FeatureFile }
   let(:feature_file) { clazz.new }
@@ -10,90 +9,92 @@ describe 'FeatureFile, Unit' do
 
   describe 'common behavior' do
 
-    it_should_behave_like 'a nested element'
-    it_should_behave_like 'a containing element'
-    it_should_behave_like 'a bare bones element'
-    it_should_behave_like 'a prepopulated element'
+    it_should_behave_like 'a model'
 
   end
 
 
   describe 'unique behavior' do
 
-    it 'provides its own filename when being parsed' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts 'bad feature text' }
+    it 'has a path' do
+      expect(feature_file).to respond_to(:path)
+    end
 
-      expect { clazz.new(path) }.to raise_error(/'#{path}'/)
+    it 'can change its path' do
+      expect(feature_file).to respond_to(:path=)
+
+      feature_file.path = :some_path
+      expect(feature_file.path).to eq(:some_path)
+      feature_file.path = :some_other_path
+      expect(feature_file.path).to eq(:some_other_path)
+    end
+
+    it 'has a feature' do
+      expect(feature_file).to respond_to(:feature)
+    end
+
+    it 'can change its feature' do
+      expect(feature_file).to respond_to(:feature=)
+
+      feature_file.feature = :some_features
+      expect(feature_file.feature).to eq(:some_features)
+      feature_file.feature = :some_other_features
+      expect(feature_file.feature).to eq(:some_other_features)
     end
 
     it 'knows the name of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
-
-      feature = clazz.new(path)
-
-      feature.name.should == @default_feature_file_name
+      expect(feature_file).to respond_to(:name)
     end
 
-    it 'knows the path of the file that it is modeling' do
-      path = "#{@default_file_directory}/#{@default_feature_file_name}"
-      File.open(path, "w") { |file| file.puts "Feature:" }
 
-      file = clazz.new(path)
+    it 'derives its file name from its path' do
+      feature_file.path = 'path/to/foo'
 
-      file.path.should == path
+      expect(feature_file.name).to eq('foo')
     end
 
-    it 'has features' do
-      feature_file.should respond_to(:features)
+
+    describe 'abstract instantiation' do
+
+      context 'a new feature file object' do
+
+        let(:feature_file) { clazz.new }
+
+
+        it 'starts with no path' do
+          expect(feature_file.path).to be_nil
+        end
+
+        it 'starts with no name' do
+          expect(feature_file.name).to be_nil
+        end
+
+        it 'starts with no feature' do
+          expect(feature_file.feature).to be_nil
+        end
+
+      end
+
     end
 
-    it 'can change its features' do
-      expect(feature_file).to respond_to(:features=)
+    it 'contains a feature' do
+      feature = :a_feature
+      everything = [feature]
 
-      feature_file.features = :some_features
-      feature_file.features.should == :some_features
-      feature_file.features = :some_other_features
-      feature_file.features.should == :some_other_features
+      feature_file.feature = feature
+
+      expect(feature_file.children).to match_array(everything)
     end
 
-    it 'knows how many features it has' do
-      feature_file.features = [:a_feature]
-      feature_file.feature_count.should == 1
-      feature_file.features = []
-      feature_file.feature_count.should == 0
-    end
 
-    it 'starts with no features' do
-      feature_file.features.should == []
-    end
-
-    it 'contains features' do
-      features = [:a_feature]
-      everything = features
-
-      feature_file.features = features
-
-      feature_file.contains.should =~ everything
-    end
-
-    it 'can easily access its sole feature' do
-      feature_file.features = []
-      feature_file.feature.should be_nil
-
-      feature_file.features = [:a_feature]
-      feature_file.feature.should == :a_feature
-    end
-
-    describe 'feature file output edge cases' do
+    describe 'feature file output' do
 
       it 'is a String' do
-        feature_file.to_s.should be_a(String)
+        expect(feature_file.to_s).to be_a(String)
       end
 
 
-      context 'a new feature file object' do
+      context 'from abstract instantiation' do
 
         let(:feature_file) { clazz.new }
 

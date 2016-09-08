@@ -1,20 +1,12 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that know their
-  # source code line.
+  # A mix-in module containing methods used by models that know from which line of
+  # source code they originate.
 
   module Sourceable
 
     # The line number where the element began in the source code
-    attr_reader :source_line
-
-
-    private
-
-
-    def populate_element_source_line(parsed_element)
-      @source_line = parsed_element['line']
-    end
+    attr_accessor :source_line
 
   end
 end

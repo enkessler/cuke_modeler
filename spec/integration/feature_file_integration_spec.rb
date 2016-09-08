@@ -1,13 +1,25 @@
 require 'spec_helper'
 
-SimpleCov.command_name('FeatureFile') unless RUBY_VERSION.to_s < '1.9.0'
 
 describe 'FeatureFile, Integration' do
 
   let(:clazz) { CukeModeler::FeatureFile }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a model, integration'
+
+  end
+
   describe 'unique behavior' do
+
+    it 'provides its own filename when being parsed' do
+      path = "#{@default_file_directory}/#{@default_feature_file_name}"
+      File.open(path, "w") { |file| file.puts 'bad feature text' }
+
+      expect { clazz.new(path) }.to raise_error(/'#{path}'/)
+    end
 
     it 'cannot model a non-existent feature file' do
       path = "#{@default_file_directory}/missing_file.txt"
@@ -15,7 +27,52 @@ describe 'FeatureFile, Integration' do
       expect { clazz.new(path) }.to raise_error(ArgumentError)
     end
 
-    it 'properly sets its child elements' do
+
+    describe 'model population' do
+
+      let(:source_text) { "Feature: Test feature" }
+      let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+      let(:feature_file) { clazz.new(feature_file_path) }
+
+      before(:each) do
+        File.open(feature_file_path, "w") { |file| file.puts source_text }
+      end
+
+      it "models the feature file's name" do
+        expect(feature_file.name).to eq(@default_feature_file_name)
+      end
+
+      it "models the feature file's path" do
+        expect(feature_file.path).to eq(feature_file_path)
+      end
+
+      it "models the feature file's feature" do
+        feature_name = feature_file.feature.name
+
+        expect(feature_name).to eq('Test feature')
+      end
+
+      # gherkin 3.x does not accept empty feature files
+      context 'an empty feature file', :gherkin3 => false do
+
+        let(:source_text) { '' }
+        let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+        let(:feature_file) { clazz.new(feature_file_path) }
+
+        before(:each) do
+          File.open(feature_file_path, "w") { |file| file.puts source_text }
+        end
+
+
+        it "models the feature file's feature" do
+          expect(feature_file.feature).to be_nil
+        end
+
+      end
+
+    end
+
+    it 'properly sets its child models' do
       file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
 
       File.open(file_path, "w") { |file|
@@ -25,8 +82,9 @@ describe 'FeatureFile, Integration' do
       file = clazz.new(file_path)
       feature = file.feature
 
-      expect(feature.parent_element).to equal(file)
+      expect(feature.parent_model).to equal(file)
     end
+
 
     describe 'getting ancestors' do
 
@@ -49,6 +107,43 @@ describe 'FeatureFile, Integration' do
         ancestor = feature_file.get_ancestor(:example)
 
         expect(ancestor).to be_nil
+      end
+
+    end
+
+
+    describe 'feature file output' do
+
+      context 'from source text' do
+
+        let(:source_text) { "Feature: Test feature" }
+        let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
+        let(:feature_file) { clazz.new(feature_file_path) }
+
+        before(:each) do
+          File.open(feature_file_path, "w") { |file| file.puts source_text }
+        end
+
+
+        it 'can output a feature file' do
+          feature_file_output = feature_file.to_s
+
+          expect(feature_file_output).to eq(feature_file_path)
+        end
+
+      end
+
+      it 'can be remade from its own output' do
+        path = "#{@default_file_directory}/#{@default_feature_file_name}"
+        File.open(path, "w") { |file| file.puts "Feature:" }
+
+        source = path
+        feature_file = clazz.new(source)
+
+        feature_file_output = feature_file.to_s
+        remade_feature_file_output = clazz.new(feature_file_output).to_s
+
+        expect(remade_feature_file_output).to eq(feature_file_output)
       end
 
     end

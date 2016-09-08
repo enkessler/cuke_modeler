@@ -1,31 +1,38 @@
 module CukeModeler
 
-  # A mix-in module containing methods used by elements that are nested inside
-  # of other elements.
+  # A mix-in module containing methods used by models that are nested inside
+  # of other models.
 
   module Nested
 
-    # The parent object that contains *self*
-    attr_accessor :parent_element
+    # The parent model that contains this model
+    attr_accessor :parent_model
 
 
-    # Returns the ancestor of *self* that matches the given type.
+    # Returns the ancestor model of this model that matches the given type.
     def get_ancestor(ancestor_type)
-      ancestor = self.parent_element
-      target_type = {:directory => Directory,
-                     :feature_file => FeatureFile,
-                     :feature => Feature,
-                     :test => TestElement,
-                     :step => Step,
-                     :table => Table,
-                     :example => Example
+      target_type = {:directory => [Directory],
+                     :feature_file => [FeatureFile],
+                     :feature => [Feature],
+                     :test => [Scenario, Outline, Background],
+                     :background => [Background],
+                     :scenario => [Scenario],
+                     :outline => [Outline],
+                     :step => [Step],
+                     :table => [Table],
+                     :example => [Example],
+                     :row => [Row]
       }[ancestor_type]
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_type.nil?
 
-      until ancestor.is_a?(target_type) || ancestor.nil?
-        ancestor = ancestor.parent_element
+
+      ancestor = self.parent_model
+
+      until target_type.include?(ancestor.class) || ancestor.nil?
+        ancestor = ancestor.parent_model
       end
+
 
       ancestor
     end

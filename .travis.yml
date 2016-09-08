@@ -7,7 +7,7 @@ rvm:
   - 2.2.2
 
 gemfile:
-  - gemfiles/gherkin.gemfile
+  - gemfiles/gherkin2.gemfile
   - gemfiles/gherkin3.gemfile
   - gemfiles/gherkin4.gemfile
 

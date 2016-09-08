@@ -1,50 +1,28 @@
-Given /^the following(?: feature)? file(?: "([^"]*)")?:$/ do |file_name, file_text|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_feature_file_name
-
-  File.open("#{@test_directory}/#{file_name}", 'w') { |file|
-    file.write(file_text)
-  }
-end
-
-When /^the file(?: "([^"]*)")? is read$/ do |file_name|
-  @parsed_files ||= []
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_feature_file_name
-
-  @parsed_files << CukeModeler::FeatureFile.new("#{@test_directory}/#{file_name}")
-end
-
-When /^the step definition file "([^"]*)" is read$/ do |file_name|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_step_file_name
-
-  CukeModeler::World.load_step_file("#{@test_directory}/#{file_name}")
-end
-
-When /^parameter delimiters of "([^"]*)" and "([^"]*)"$/ do |left_delimiter, right_delimiter|
-  CukeModeler::World.left_delimiter = left_delimiter
-  CukeModeler::World.right_delimiter = right_delimiter
-end
-
-Given /^a directory "([^"]*)"$/ do |directory_name|
+Given /^(?:a|the) directory "([^"]*)"$/ do |directory_name|
   @test_directory = "#{@default_file_directory}/#{directory_name}"
 
   FileUtils.mkdir(@test_directory) unless File.exists?(@test_directory)
 end
 
-When /^the directory(?: "([^"]*)")? is read$/ do |directory_name|
-  @parsed_directories ||= []
-  @test_directory = "#{@default_file_directory}/#{directory_name}" if directory_name
+And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
+  file_path = "#{@default_file_directory}/#{file_name}"
 
-  @parsed_directories << CukeModeler::Directory.new(@test_directory)
+  # Some versions of Gherkin require feature content to be present in feature files
+  if file_name =~ /\.feature/
+    File.open(file_path, 'w') { |file|
+      file.write('Feature:')
+    }
+  else
+    FileUtils.touch(file_path)
+  end
 end
 
-When /^the following step definition file(?: "([^"]*)")?:$/ do |file_name, file_text|
-  @test_directory ||= @default_file_directory
-  file_name ||= @default_step_file_name
+And(/^the file "([^"]*)":$/) do |file_name, file_text|
+  file_path = "#{@default_file_directory}/#{file_name}"
 
-  File.open("#{@test_directory}/#{file_name}", 'w') { |file|
-    file.write(file_text)
-  }
+  File.open(file_path, 'w') { |file| file.write(file_text) }
+end
+
+Given(/^the following gherkin:$/) do |text|
+  @source_text = text
 end
