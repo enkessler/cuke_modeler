@@ -87,7 +87,7 @@ module CukeModeler
 
     # Returns the parameters of the example table
     def parameters
-      rows.empty? ? [] : rows.first.cells.collect { |cell| cell.value }
+      parameter_row ? parameter_row.cells.collect { |cell| cell.value } : []
     end
 
     # Returns the model objects that belong to this model.
