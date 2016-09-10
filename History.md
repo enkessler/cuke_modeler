@@ -1,3 +1,8 @@
+### Version 1.0.1 / 2016-09-10
+
+* In the Readme file, added a link to the published documentation.
+
+
 ### Version 1.0.0 / 2016-09-08
 
 * All modeled elements of a Cucumber test suite are now modeled with actual 
