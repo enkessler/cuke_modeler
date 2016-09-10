@@ -14,7 +14,6 @@ parsing module needs json/multijson require line?
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models
 
-convert hitory file to .md format
 restructure project into new way that I did the other one
 
 Backlog
