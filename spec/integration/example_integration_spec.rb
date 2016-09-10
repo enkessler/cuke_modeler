@@ -462,7 +462,7 @@ describe 'Example, Integration' do
                         | param |
                         | value |'
 
-          file_path = "#{@default_file_directory}/step_test_file.feature"
+          file_path = "#{@default_file_directory}/example_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
 

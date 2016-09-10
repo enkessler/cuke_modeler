@@ -111,7 +111,7 @@ describe 'Table, Integration' do
                   '      | a | table |']
         source = source.join("\n")
 
-        file_path = "#{@default_file_directory}/table_row_test_file.feature"
+        file_path = "#{@default_file_directory}/table_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
       end
 
@@ -146,7 +146,7 @@ describe 'Table, Integration' do
                         * a step:
                           | a | table |'
 
-          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
 
@@ -174,7 +174,7 @@ describe 'Table, Integration' do
                         | param |
                         | value |'
 
-          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
 
@@ -199,7 +199,7 @@ describe 'Table, Integration' do
                         * a step:
                           | a | table |'
 
-          file_path = "#{@default_file_directory}/doc_string_test_file.feature"
+          file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
 
