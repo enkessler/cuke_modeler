@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gemspec :path => "../"
+gemspec :path => "../../"
 gem "gherkin", "< 3.0.0"
 
 # cuke_modeler can play with pretty much any version of these but they all play differently with Ruby
