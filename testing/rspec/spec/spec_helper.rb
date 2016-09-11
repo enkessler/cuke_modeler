@@ -4,8 +4,8 @@ unless RUBY_VERSION.to_s < '1.9.0'
 end
 
 
-this_dir = File.dirname(__FILE__)
-
+# Ruby 1.8.x seems to have trouble if relative paths get too nested, so resolving the path before using it here
+this_dir = File.expand_path(File.dirname(__FILE__))
 require "#{this_dir}/../../../lib/cuke_modeler"
 
 require "#{this_dir}/unit/shared/models_unit_specs"
