@@ -1,3 +1,12 @@
+### Version 1.0.2 / 2016-09-12
+
+* A more detailed gem description and summary have been added to the gemspec.
+
+* The gem now declares version limits on its dependencies.
+ 
+* Badges for the current status of the project have been added to the Readme.
+
+
 ### Version 1.0.1 / 2016-09-10
 
 * In the Readme file, added a link to the published documentation.
