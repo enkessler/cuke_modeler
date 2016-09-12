@@ -1,3 +1,8 @@
+### Version 1.0.3 / 2016-09-12
+
+* Fixed a gem dependency that was accidentally declared with '<=' instead of '<'.
+
+
 ### Version 1.0.2 / 2016-09-12
 
 * A more detailed gem description and summary have been added to the gemspec.
