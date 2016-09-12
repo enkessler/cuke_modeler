@@ -1,3 +1,9 @@
+[![Gem Version](https://badge.fury.io/rb/cuke_modeler.svg)](https://rubygems.org/gems/cuke_modeler)
+[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=dev)](https://travis-ci.org/enkessler/cuke_modeler)
+[![Dependency Status](https://gemnasium.com/enkessler/cuke_modeler.svg)](https://gemnasium.com/enkessler/cuke_modeler)
+
+
+
 # CukeModeler
 
 There comes a time in every programmer's adventures with Cucumber when they 
