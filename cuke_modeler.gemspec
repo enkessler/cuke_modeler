@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = CukeModeler::VERSION
   spec.authors       = ["Eric Kessler"]
   spec.email         = ["morrow748@gmail.com"]
-  spec.summary       = %q{A gem providing functionality to model a Cucumber test suite.}
+  spec.summary       = %q{A gem providing functionality to model Gherkin based test suites.}
+  spec.description   = %q{This gem facilitates modeling a test suite that is written in Gherkin (e.g. Cucumber, SpecFlow, Lettuce, etc.). It does this by providing an abstraction layer on top of the Abstract Syntax Tree that the 'gherkin' gem generates when parsing features, as well as providing models for feature files and directories in order to be able to have a fully traversable model tree of a test suite's structure. These models can then be analyzed or manipulated more easily than the underlying AST layer.}
   spec.homepage      = 'https://github.com/enkessler/cuke_modeler'
   spec.license       = "MIT"
 
@@ -18,14 +19,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'gherkin', '< 5.0'
-  spec.add_runtime_dependency('json', '~> 1.0')
+  spec.add_runtime_dependency('json', '>= 1.0', '<= 3.0')
   spec.add_runtime_dependency('multi_json', '~> 1.0')
 
   spec.add_development_dependency "bundler", "~> 1.5"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency 'cucumber'
+  spec.add_development_dependency "rake", '< 12.0.0'
+  spec.add_development_dependency 'cucumber', '< 3.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'simplecov', '< 1.0.0'
   spec.add_development_dependency 'racatt', '~> 1.0'
-  spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'coveralls', '< 1.0.0'
 end
