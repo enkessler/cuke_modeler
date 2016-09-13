@@ -7,9 +7,6 @@ Show less boilerplate code in the documentation
 
 document helper modules as not part of the public API
 
-See if the 'stringio' require is really needed.
-See if the 'version' require is really needed.
-parsing module needs json/multijson require line?
 # todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models
@@ -19,12 +16,9 @@ Backlog
 -------------
 
 replace joined array source text with single string source text/heredocs
-Make sure that specs use clazz instead of fully specifying the class under test (done)
 Don't bother to test directory create/destroy around unit tests
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
-Clean up step verifications (done)
-Figure out why using empty files for directory_modeling.feature doesn't work (done)
 Fix transient test failures (permission denied file access problems)
 make sure that all classes and tests are covered and attaches to code coverage
 use 'here doc' for source text construction in rspec tests
