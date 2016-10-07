@@ -1,3 +1,9 @@
+### Version 1.0.4 / 2016-10-07
+
+* Bug Fix - Fixed a bug that caused some models to include nil objects in their 
+  children collection if they did not have the relevant child object.
+
+
 ### Version 1.0.3 / 2016-09-12
 
 * Fixed a gem dependency that was accidentally declared with '<=' instead of '<'.
