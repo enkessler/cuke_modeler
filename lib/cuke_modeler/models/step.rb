@@ -39,7 +39,7 @@ module CukeModeler
 
     # Returns the model objects that belong to this model.
     def children
-      [block]
+      block ? [block] : []
     end
 
     # Returns a string representation of this model. For a step model,
