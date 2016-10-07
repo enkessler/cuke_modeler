@@ -15,4 +15,11 @@ shared_examples_for 'a containing model' do
     expect(model.children).to be_an(Array)
   end
 
+  it 'does not return objects for children that it does not have' do
+    # Ensuring an empty, childless model
+    model = clazz.new
+
+    expect(model.children).to_not include(nil)
+  end
+
 end
