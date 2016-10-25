@@ -22,6 +22,7 @@ module CukeModeler
       parsed_feature['cuke_modeler_parsing_data'][:scenarioDefinitions] = nil
       parsed_feature['cuke_modeler_parsing_data'][:background] = nil
 
+      parsed_feature['keyword'] = parsed_feature.delete(:keyword)
       parsed_feature['name'] = parsed_feature.delete(:name)
       parsed_feature['description'] = parsed_feature.delete(:description) || ''
       parsed_feature['line'] = parsed_feature.delete(:location)[:line]
@@ -122,6 +123,7 @@ module CukeModeler
       parsed_example['cuke_modeler_parsing_data'][:tableHeader] = nil
       parsed_example['cuke_modeler_parsing_data'][:tableBody] = nil
 
+      parsed_example['keyword'] = parsed_example.delete(:keyword)
       parsed_example['name'] = parsed_example.delete(:name)
       parsed_example['line'] = parsed_example.delete(:location)[:line]
       parsed_example['description'] = parsed_example.delete(:description) || ''

@@ -132,6 +132,14 @@ describe 'Background, Integration' do
 
       context 'from source text' do
 
+        let(:source_text) { 'Background:' }
+        let(:background) { clazz.new(source_text) }
+
+
+        it "models the background's keyword" do
+          expect(background.keyword).to eq('Background')
+        end
+
         it "models the background's source line" do
           source_text = "Feature:
 

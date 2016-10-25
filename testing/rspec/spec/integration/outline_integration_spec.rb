@@ -85,7 +85,7 @@ describe 'Outline, Integration' do
       expect(tag.parent_model).to equal(outline)
     end
 
-
+    # todo - fix nesting level
     describe 'getting ancestors' do
 
       before(:each) do
@@ -134,6 +134,15 @@ describe 'Outline, Integration' do
       describe 'model population' do
 
         context 'from source text' do
+
+          let(:source_text) { 'Scenario Outline:' }
+          let(:outline) { clazz.new(source_text) }
+
+
+          # gherkin 3.x does not accept incomplete outlines
+          it "models the outline's keyword", :gherkin3 => false do
+            expect(outline.keyword).to eq('Scenario Outline')
+          end
 
           it "models the outline's source line" do
             source_text = 'Feature:

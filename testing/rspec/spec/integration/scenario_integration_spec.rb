@@ -87,6 +87,7 @@ describe 'Scenario, Integration' do
     end
 
 
+    # todo - fix nesting level
     describe 'getting ancestors' do
 
       before(:each) do
@@ -132,6 +133,14 @@ describe 'Scenario, Integration' do
       describe 'model population' do
 
         context 'from source text' do
+
+          let(:source_text) { 'Scenario:' }
+          let(:scenario) { clazz.new(source_text) }
+
+
+          it "models the scenario's keyword" do
+            expect(scenario.keyword).to eq('Scenario')
+          end
 
           it "models the scenario's source line" do
             source_text = "Feature:

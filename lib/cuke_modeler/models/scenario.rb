@@ -12,6 +12,10 @@ module CukeModeler
     include Taggable
 
 
+    # The scenario's keyword
+    attr_accessor :keyword
+
+
     # Creates a new Scenario object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
@@ -44,7 +48,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Scenario:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (steps.empty? || description.nil? || description.empty?)
       text << "\n" + steps_output_string unless steps.empty?

@@ -25,6 +25,13 @@ Feature: Example modeling
       """
 
 
+  Scenario: Modeling an example's keyword
+    When the example's keyword is requested
+      """
+        @model.keyword
+      """
+    Then the model returns "Examples"
+
   Scenario: Modeling an example's name
     When the example's name is requested
       """

@@ -12,6 +12,9 @@ module CukeModeler
     include Taggable
 
 
+    # The outline's keyword
+    attr_accessor :keyword
+
     # The Example objects contained by the Outline
     attr_accessor :examples
 
@@ -49,7 +52,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Scenario Outline:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (steps.empty? || description.nil? || description.empty?)
       text << "\n" + steps_output_string unless steps.empty?

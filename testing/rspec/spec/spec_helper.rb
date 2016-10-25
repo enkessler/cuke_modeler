@@ -21,6 +21,7 @@ require "#{this_dir}/unit/shared/bare_bones_models_unit_specs"
 require "#{this_dir}/unit/shared/prepopulated_models_unit_specs"
 require "#{this_dir}/unit/shared/sourced_models_unit_specs"
 require "#{this_dir}/unit/shared/parsed_models_unit_specs"
+require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 
 
 RSpec.configure do |config|

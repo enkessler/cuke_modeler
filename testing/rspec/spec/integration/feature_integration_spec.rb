@@ -113,6 +113,13 @@ describe 'Feature, Integration' do
 
       context 'from source text' do
 
+        it "models the feature's keyword" do
+          source_text = 'Feature:'
+          feature = CukeModeler::Feature.new(source_text)
+
+          expect(feature.keyword).to eq('Feature')
+        end
+
         it "models the feature's source line" do
           source_text = "Feature:"
           feature = CukeModeler::Feature.new(source_text)

@@ -97,6 +97,15 @@ describe 'Example, Integration' do
 
       context 'from source text' do
 
+        let(:source_text) { 'Examples:' }
+        let(:example) { clazz.new(source_text) }
+
+
+        # gherkin 2.x/3.x does not accept incomplete examples
+        it "models the example's keyword", :gherkin2 => false, :gherkin3 => false do
+          expect(example.keyword).to eq('Examples')
+        end
+
         it "models the example's source line" do
           source_text = "Feature:
 

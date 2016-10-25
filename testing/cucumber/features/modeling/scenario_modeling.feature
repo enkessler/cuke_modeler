@@ -24,6 +24,13 @@ Feature: Scenario modeling
       """
 
 
+  Scenario: Modeling a scenario's keyword
+    When the scenario's keyword is requested
+      """
+        @model.keyword
+      """
+    Then the model returns "Scenario"
+
   Scenario: Modeling a scenario's name
     When the scenario's name is requested
       """

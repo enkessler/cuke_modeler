@@ -11,6 +11,9 @@ module CukeModeler
     include Taggable
 
 
+    # The example's keyword
+    attr_accessor :keyword
+
     # The row models in the example table
     attr_accessor :rows
 
@@ -101,7 +104,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Examples:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (rows.empty? || description.nil? || description.empty?)
       text << "\n" + parameters_output_string if parameter_row

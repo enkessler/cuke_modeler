@@ -11,6 +11,10 @@ module CukeModeler
     include Sourceable
 
 
+    # The background's keyword
+    attr_accessor :keyword
+
+
     # Creates a new Background object and, if *source_text* is provided, populates
     # the object.
     def initialize(source_text = nil)
@@ -41,7 +45,7 @@ module CukeModeler
     def to_s
       text = ''
 
-      text << "Background:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (steps.empty? || description.nil? || description.empty?)
       text << "\n" + steps_output_string unless steps.empty?
