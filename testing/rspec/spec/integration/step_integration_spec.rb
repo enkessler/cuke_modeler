@@ -350,14 +350,20 @@ describe 'Step, Integration' do
 
         context 'with no block' do
 
-          it 'can output a step' do
-            source = ['* a step']
-            source = source.join("\n")
-            step = clazz.new(source)
+          let(:source_text) { ['* a step'].join("\n") }
+          let(:step) { clazz.new(source_text) }
 
+          it 'can output a step' do
             step_output = step.to_s.split("\n", -1)
 
             expect(step_output).to eq(['* a step'])
+          end
+
+          it 'can be remade from its own output' do
+            step_output = step.to_s
+            remade_step_output = clazz.new(step_output).to_s
+
+            expect(remade_step_output).to eq(step_output)
           end
 
         end

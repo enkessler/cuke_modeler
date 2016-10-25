@@ -1,6 +1,7 @@
 Feature: Outline output
 
-  An outline model's string output is a Gherkin representation of itself.
+  An outline model's string output is a Gherkin representation of itself. As such, output from an outline model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting an outline model
@@ -66,4 +67,8 @@ Feature: Outline output
       Examples:
         | value |
         | y     |
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Outline.new(@model.to_s)
       """

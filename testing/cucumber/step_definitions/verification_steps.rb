@@ -1,6 +1,8 @@
 Then(/^all of them can be output as text appropriate to the model type$/) do |code_text|
+  original_text = code_text
+
   @available_model_classes.each do |clazz|
-    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
 
     expect(clazz.instance_method(:to_s).owner).to equal(clazz), "#{clazz} does not override #to_s"
 
@@ -16,8 +18,10 @@ Then(/^the following text is provided:$/) do |expected_text|
 end
 
 Then(/^all of them can be contained inside of another model$/) do |code_text|
+  original_text = code_text
+
   @available_model_classes.each do |clazz|
-    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
 
     expect(clazz.new).to respond_to(:parent_model)
 
@@ -27,8 +31,10 @@ Then(/^all of them can be contained inside of another model$/) do |code_text|
 end
 
 And(/^all of them can contain other models$/) do |code_text|
+  original_text = code_text
+
   @available_model_classes.each do |clazz|
-    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
 
     expect(clazz.new).to respond_to(:children)
 
@@ -38,8 +44,10 @@ And(/^all of them can contain other models$/) do |code_text|
 end
 
 Then(/^all of them can be created without further context$/) do |code_text|
+  original_text = code_text
+
   @available_model_classes.each do |clazz|
-    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
 
     expect { clazz.new }.to_not raise_error
 
@@ -73,18 +81,19 @@ Then(/^the model returns models for the following directories:$/) do |directory_
 end
 
 And(/^the output can be used to make an equivalent model$/) do |code_text|
-  @available_model_classes.each do |clazz|
-    code_text.gsub!('<model_class>', clazz.to_s)
+  clazz = @model.class
 
-    # More specific verification can't be done for this step because every model has a different
-    # populated shape and abstract shape isn't enough to be useful input to the model again.
+  base_output = @model.to_s
+  remodeled_output = clazz.new(base_output).to_s
 
-    # Make sure that the example code is valid
-    expect { eval(code_text) }.to_not raise_error
-  end
+  expect(remodeled_output).to eq(base_output)
+
+  # Make sure that the example code is valid
+  expect { eval(code_text) }.to_not raise_error
 end
 
 Then(/^all of them provide access to the parsing data that was used to create them$/) do |code_text|
+  original_text = code_text
   unparsed_models = [CukeModeler::Model, CukeModeler::FeatureFile, CukeModeler::Directory]
 
   @available_model_classes.each do |clazz|
@@ -93,7 +102,7 @@ Then(/^all of them provide access to the parsing data that was used to create th
     expect(clazz.new).to respond_to(:parsing_data)
 
     # Make sure that the example code is valid
-    code_text.gsub!('<model_class>', clazz.to_s)
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
     code_text.gsub!('<source_text>', '')
 
     expect { eval(code_text) }.to_not raise_error

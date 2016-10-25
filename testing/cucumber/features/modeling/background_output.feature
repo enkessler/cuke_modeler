@@ -1,6 +1,7 @@
 Feature: Background output
 
-  A background model's string output is a Gherkin representation of itself.
+  A background model's string output is a Gherkin representation of itself. As such, output from a background model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting a background model
@@ -39,4 +40,8 @@ Feature: Background output
           \"\"\"
             some string
           \"\"\"
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Background.new(@model.to_s)
       """

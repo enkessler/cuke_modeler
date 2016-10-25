@@ -1,6 +1,7 @@
 Feature: Example output
 
-  An example model's string output is a Gherkin representation of itself.
+  An example model's string output is a Gherkin representation of itself. As such, output from an example model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting an example model
@@ -36,4 +37,8 @@ Feature: Example output
         | param1 | param2 |
         | value1 | value2 |
         | value3 | value4 |
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Example.new(@model.to_s)
       """
