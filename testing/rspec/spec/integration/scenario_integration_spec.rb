@@ -78,7 +78,7 @@ describe 'Scenario, Integration' do
       source = source.join("\n")
 
       scenario = clazz.new(source)
-      description = scenario.description.split("\n")
+      description = scenario.description.split("\n", -1)
 
       expect(description).to eq(['     description line 1',
                                  '',
@@ -164,7 +164,7 @@ describe 'Scenario, Integration' do
             end
 
             it "models the scenario's description" do
-              description = scenario.description.split("\n")
+              description = scenario.description.split("\n", -1)
 
               expect(description).to eq(['  Scenario description.',
                                          '',
@@ -321,7 +321,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['Scenario:'])
           end
@@ -331,7 +331,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['Scenario: test scenario'])
           end
@@ -343,7 +343,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['Scenario:',
                                            '',
@@ -362,7 +362,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['Scenario:',
                                            '  * a step',
@@ -380,7 +380,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
                                            'Scenario:'])
@@ -400,7 +400,7 @@ describe 'Scenario, Integration' do
             source = source.join("\n")
             scenario = clazz.new(source)
 
-            scenario_output = scenario.to_s.split("\n")
+            scenario_output = scenario.to_s.split("\n", -1)
 
             expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
                                            'Scenario: A scenario with everything it could have',

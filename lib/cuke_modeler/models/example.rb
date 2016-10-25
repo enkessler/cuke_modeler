@@ -103,8 +103,8 @@ module CukeModeler
       text << tag_output_string + "\n" unless tags.empty?
       text << "Examples:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
-      text << "\n" unless (description.nil? || description.empty?)
-      text << "\n" + parameters_output_string
+      text << "\n" unless (rows.empty? || description.nil? || description.empty?)
+      text << "\n" + parameters_output_string if parameter_row
       text << "\n" + rows_output_string unless argument_rows.empty?
 
       text

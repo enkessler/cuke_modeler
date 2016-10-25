@@ -255,7 +255,7 @@ describe 'Table, Integration' do
         source = source.join("\n")
         table = clazz.new(source)
 
-        table_output = table.to_s.split("\n")
+        table_output = table.to_s.split("\n", -1)
 
         expect(table_output).to eq(['| a value with \|        |',
                                     '| a value with \\\\        |',
@@ -269,7 +269,7 @@ describe 'Table, Integration' do
           source = source.join("\n")
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value1 | value2 |'])
         end
@@ -280,7 +280,7 @@ describe 'Table, Integration' do
           source = source.join("\n")
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value1 | value2 |',
                                       '| value3 | value4 |'])
@@ -293,7 +293,7 @@ describe 'Table, Integration' do
           source = source.join("\n")
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value 1 | x       |',
                                       '| y       | value 2 |',

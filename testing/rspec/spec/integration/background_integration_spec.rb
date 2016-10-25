@@ -75,7 +75,7 @@ describe 'Background, Integration' do
       source = source.join("\n")
 
       background = clazz.new(source)
-      description = background.description.split("\n")
+      description = background.description.split("\n", -1)
 
       expect(description).to eq(['     description line 1',
                                  '',
@@ -161,7 +161,7 @@ describe 'Background, Integration' do
           end
 
           it "models the background's description" do
-            description = background.description.split("\n")
+            description = background.description.split("\n", -1)
 
             expect(description).to eq(['  Background description.',
                                        '',
@@ -307,7 +307,7 @@ describe 'Background, Integration' do
           source = source.join("\n")
           background = clazz.new(source)
 
-          background_output = background.to_s.split("\n")
+          background_output = background.to_s.split("\n", -1)
 
           expect(background_output).to eq(['Background:'])
         end
@@ -317,7 +317,7 @@ describe 'Background, Integration' do
           source = source.join("\n")
           background = clazz.new(source)
 
-          background_output = background.to_s.split("\n")
+          background_output = background.to_s.split("\n", -1)
 
           expect(background_output).to eq(['Background: test background'])
         end
@@ -329,7 +329,7 @@ describe 'Background, Integration' do
           source = source.join("\n")
           background = clazz.new(source)
 
-          background_output = background.to_s.split("\n")
+          background_output = background.to_s.split("\n", -1)
 
           expect(background_output).to eq(['Background:',
                                            '',
@@ -348,7 +348,7 @@ describe 'Background, Integration' do
           source = source.join("\n")
           background = clazz.new(source)
 
-          background_output = background.to_s.split("\n")
+          background_output = background.to_s.split("\n", -1)
 
           expect(background_output).to eq(['Background:',
                                            '  * a step',
@@ -372,7 +372,7 @@ describe 'Background, Integration' do
           source = source.join("\n")
           background = clazz.new(source)
 
-          background_output = background.to_s.split("\n")
+          background_output = background.to_s.split("\n", -1)
 
           expect(background_output).to eq(['Background: A background with everything it could have',
                                            '',

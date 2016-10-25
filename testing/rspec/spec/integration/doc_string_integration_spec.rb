@@ -288,7 +288,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['"""', '"""'])
         end
@@ -299,7 +299,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['""" foo',
                                            '"""'])
@@ -312,7 +312,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['"""',
                                            'foo',
@@ -332,7 +332,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['"""',
                                            'a \"\"\"',
@@ -350,7 +350,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['"""',
                                            'change these \"\"\"\"\"\"',
@@ -367,7 +367,7 @@ describe 'DocString, Integration' do
           source = source.join("\n")
           doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n")
+          doc_string_output = doc_string.to_s.split("\n", -1)
 
           expect(doc_string_output).to eq(['""" type foo',
                                            '\"\"\"',

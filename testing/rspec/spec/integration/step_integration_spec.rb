@@ -355,7 +355,7 @@ describe 'Step, Integration' do
             source = source.join("\n")
             step = clazz.new(source)
 
-            step_output = step.to_s.split("\n")
+            step_output = step.to_s.split("\n", -1)
 
             expect(step_output).to eq(['* a step'])
           end
@@ -371,7 +371,7 @@ describe 'Step, Integration' do
 
 
           it 'can output a step that has a table' do
-            step_output = step.to_s.split("\n")
+            step_output = step.to_s.split("\n", -1)
 
             expect(step_output).to eq(['* a step',
                                        '  | value1 | value2 |',
@@ -398,7 +398,7 @@ describe 'Step, Integration' do
 
 
           it 'can output a step that has a doc string' do
-            step_output = step.to_s.split("\n")
+            step_output = step.to_s.split("\n", -1)
 
             expect(step_output).to eq(['* a step',
                                        '  """',

@@ -176,7 +176,7 @@ describe 'Outline, Integration' do
             end
 
             it "models the outline's description" do
-              description = outline.description.split("\n")
+              description = outline.description.split("\n", -1)
 
               expect(description).to eq(['  Scenario description.',
                                          '',
@@ -254,7 +254,7 @@ describe 'Outline, Integration' do
           source = source.join("\n")
 
           outline = clazz.new(source)
-          description = outline.description.split("\n")
+          description = outline.description.split("\n", -1)
 
           expect(description).to eq(['     description line 1',
                                      '',
@@ -394,7 +394,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['Scenario Outline:'])
           end
@@ -405,7 +405,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['Scenario Outline: test outline'])
           end
@@ -418,7 +418,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['Scenario Outline:',
                                           '',
@@ -438,7 +438,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['Scenario Outline:',
                                           '  * a step',
@@ -457,7 +457,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['@tag1 @tag2 @tag3',
                                           'Scenario Outline:'])
@@ -475,7 +475,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['Scenario Outline:',
                                           '  * a step',
@@ -516,7 +516,7 @@ describe 'Outline, Integration' do
             source = source.join("\n")
             outline = clazz.new(source)
 
-            outline_output = outline.to_s.split("\n")
+            outline_output = outline.to_s.split("\n", -1)
 
             expect(outline_output).to eq(['@tag1 @tag2 @tag3',
                                           'Scenario Outline: A outline with everything it could have',

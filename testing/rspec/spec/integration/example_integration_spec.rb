@@ -84,7 +84,7 @@ describe 'Example, Integration' do
       source = source.join("\n")
 
       example = clazz.new(source)
-      description = example.description.split("\n")
+      description = example.description.split("\n", -1)
 
       expect(description).to eq(['     description line 1',
                                  '',
@@ -131,7 +131,7 @@ describe 'Example, Integration' do
           end
 
           it "models the example's description" do
-            description = example.description.split("\n")
+            description = example.description.split("\n", -1)
 
             expect(description).to eq(['  Some example description.',
                                        '',
@@ -521,7 +521,7 @@ describe 'Example, Integration' do
         source = source.join("\n")
         example = clazz.new(source)
 
-        example_output = example.to_s.split("\n")
+        example_output = example.to_s.split("\n", -1)
 
         expect(example_output).to eq(['Examples:',
                                       '  | param with \|          |',
@@ -538,7 +538,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples:'])
         end
@@ -549,7 +549,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples: test example'])
         end
@@ -562,7 +562,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples:',
                                         '',
@@ -578,7 +578,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples:',
                                         '  | param1 | param2 |'])
@@ -592,7 +592,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples:',
                                         '  | param1 | param2 |',
@@ -610,7 +610,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['@tag1 @tag2 @tag3',
                                         'Examples:',
@@ -631,7 +631,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['@tag1 @tag2 @tag3',
                                         'Examples: with everything it could have',
@@ -652,7 +652,7 @@ describe 'Example, Integration' do
           source = source.join("\n")
           example = clazz.new(source)
 
-          example_output = example.to_s.split("\n")
+          example_output = example.to_s.split("\n", -1)
 
           expect(example_output).to eq(['Examples:',
                                         '  | parameter 1 | x       |',

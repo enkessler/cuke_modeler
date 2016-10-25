@@ -90,7 +90,7 @@ describe 'Feature, Integration' do
       source = source.join("\n")
 
       feature = clazz.new(source)
-      description = feature.description.split("\n")
+      description = feature.description.split("\n", -1)
 
       expect(description).to eq(['     description line 1',
                                  '',
@@ -159,7 +159,7 @@ describe 'Feature, Integration' do
           end
 
           it "models the feature's description" do
-            description = feature.description.split("\n")
+            description = feature.description.split("\n", -1)
 
             expect(description).to eq(['  Some feature description.',
                                        '',
@@ -355,7 +355,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature:'])
         end
@@ -365,7 +365,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature: test feature'])
         end
@@ -377,7 +377,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature:',
                                         '',
@@ -392,7 +392,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['@tag1 @tag2 @tag3',
                                         'Feature:'])
@@ -405,7 +405,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature:',
                                         '',
@@ -420,7 +420,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature:',
                                         '',
@@ -438,7 +438,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['Feature:',
                                         '',
@@ -489,7 +489,7 @@ describe 'Feature, Integration' do
           source = source.join("\n")
           feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n")
+          feature_output = feature.to_s.split("\n", -1)
 
           expect(feature_output).to eq(['@tag1 @tag2 @tag3',
                                         'Feature: A feature with everything it could have',
