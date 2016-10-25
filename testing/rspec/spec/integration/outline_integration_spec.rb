@@ -85,7 +85,6 @@ describe 'Outline, Integration' do
       expect(tag.parent_model).to equal(outline)
     end
 
-    # todo - fix nesting level
     describe 'getting ancestors' do
 
       before(:each) do
@@ -130,37 +129,39 @@ describe 'Outline, Integration' do
         expect(ancestor).to be_nil
       end
 
-
-      describe 'model population' do
-
-        context 'from source text' do
-
-          let(:source_text) { 'Scenario Outline:' }
-          let(:outline) { clazz.new(source_text) }
+    end
 
 
-          # gherkin 3.x does not accept incomplete outlines
-          it "models the outline's keyword", :gherkin3 => false do
-            expect(outline.keyword).to eq('Scenario Outline')
-          end
+    describe 'model population' do
 
-          it "models the outline's source line" do
-            source_text = 'Feature:
+      context 'from source text' do
+
+        let(:source_text) { 'Scenario Outline:' }
+        let(:outline) { clazz.new(source_text) }
+
+
+        # gherkin 3.x does not accept incomplete outlines
+        it "models the outline's keyword", :gherkin3 => false do
+          expect(outline.keyword).to eq('Scenario Outline')
+        end
+
+        it "models the outline's source line" do
+          source_text = 'Feature:
 
                              Scenario Outline: foo
                                * step
                              Examples:
                                | param |
                                | value |'
-            outline = CukeModeler::Feature.new(source_text).tests.first
+          outline = CukeModeler::Feature.new(source_text).tests.first
 
-            expect(outline.source_line).to eq(3)
-          end
+          expect(outline.source_line).to eq(3)
+        end
 
 
-          context 'a filled outline' do
+        context 'a filled outline' do
 
-            let(:source_text) { '@tag1 @tag2 @tag3
+          let(:source_text) { '@tag1 @tag2 @tag3
                                  Scenario Outline: Foo
                                      Scenario description.
 
@@ -177,409 +178,407 @@ describe 'Outline, Integration' do
                                  Examples: example 2
                                    | setup | verification |
                                    | a     | b            |' }
-            let(:outline) { clazz.new(source_text) }
+          let(:outline) { clazz.new(source_text) }
 
 
-            it "models the outline's name" do
-              expect(outline.name).to eq('Foo')
-            end
-
-            it "models the outline's description" do
-              description = outline.description.split("\n", -1)
-
-              expect(description).to eq(['  Scenario description.',
-                                         '',
-                                         'Some more.',
-                                         '    Even more.'])
-            end
-
-            it "models the outline's steps" do
-              step_names = outline.steps.collect { |step| step.text }
-
-              expect(step_names).to eq(['a <setup> step', 'an action step', 'a <verification> step'])
-            end
-
-            it "models the outline's tags" do
-              tag_names = outline.tags.collect { |tag| tag.name }
-
-              expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
-            end
-
-            it "models the outline's examples" do
-              example_names = outline.examples.collect { |example| example.name }
-
-              expect(example_names).to eq(['example 1', 'example 2'])
-            end
-
+          it "models the outline's name" do
+            expect(outline.name).to eq('Foo')
           end
 
+          it "models the outline's description" do
+            description = outline.description.split("\n", -1)
 
-          # gherkin 3.x does not accept incomplete outlines
-          context 'an empty outline', :gherkin3 => false do
+            expect(description).to eq(['  Scenario description.',
+                                       '',
+                                       'Some more.',
+                                       '    Even more.'])
+          end
 
-            let(:source_text) { 'Scenario Outline:' }
-            let(:outline) { clazz.new(source_text) }
+          it "models the outline's steps" do
+            step_names = outline.steps.collect { |step| step.text }
 
+            expect(step_names).to eq(['a <setup> step', 'an action step', 'a <verification> step'])
+          end
 
-            it "models the outline's name" do
-              expect(outline.name).to eq('')
-            end
+          it "models the outline's tags" do
+            tag_names = outline.tags.collect { |tag| tag.name }
 
-            it "models the outline's description" do
-              expect(outline.description).to eq('')
-            end
+            expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
+          end
 
-            it "models the outline's steps" do
-              expect(outline.steps).to eq([])
-            end
+          it "models the outline's examples" do
+            example_names = outline.examples.collect { |example| example.name }
 
-            it "models the outline's tags" do
-              expect(outline.tags).to eq([])
-            end
-
-            it "models the outline's examples" do
-              expect(outline.examples).to eq([])
-            end
-
+            expect(example_names).to eq(['example 1', 'example 2'])
           end
 
         end
 
-        it 'trims whitespace from its source description' do
-          source = ['Scenario Outline:',
-                    '  ',
-                    '        description line 1',
-                    '',
-                    '   description line 2',
-                    '     description line 3               ',
-                    '',
-                    '',
-                    '',
-                    '  * a step',
-                    '',
-                    'Examples:',
-                    '|param|',
-                    '|value|']
+
+        # gherkin 3.x does not accept incomplete outlines
+        context 'an empty outline', :gherkin3 => false do
+
+          let(:source_text) { 'Scenario Outline:' }
+          let(:outline) { clazz.new(source_text) }
+
+
+          it "models the outline's name" do
+            expect(outline.name).to eq('')
+          end
+
+          it "models the outline's description" do
+            expect(outline.description).to eq('')
+          end
+
+          it "models the outline's steps" do
+            expect(outline.steps).to eq([])
+          end
+
+          it "models the outline's tags" do
+            expect(outline.tags).to eq([])
+          end
+
+          it "models the outline's examples" do
+            expect(outline.examples).to eq([])
+          end
+
+        end
+
+      end
+
+    end
+
+    it 'trims whitespace from its source description' do
+      source = ['Scenario Outline:',
+                '  ',
+                '        description line 1',
+                '',
+                '   description line 2',
+                '     description line 3               ',
+                '',
+                '',
+                '',
+                '  * a step',
+                '',
+                'Examples:',
+                '|param|',
+                '|value|']
+      source = source.join("\n")
+
+      outline = clazz.new(source)
+      description = outline.description.split("\n", -1)
+
+      expect(description).to eq(['     description line 1',
+                                 '',
+                                 'description line 2',
+                                 '  description line 3'])
+    end
+
+
+    describe 'comparison' do
+
+      it 'is equal to a background with the same steps' do
+        source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+        outline = clazz.new(source)
+
+        source = "Background:
+                      * step 1
+                      * step 2"
+        background_1 = CukeModeler::Background.new(source)
+
+        source = "Background:
+                      * step 2
+                      * step 1"
+        background_2 = CukeModeler::Background.new(source)
+
+
+        expect(outline).to eq(background_1)
+        expect(outline).to_not eq(background_2)
+      end
+
+      it 'is equal to a scenario with the same steps' do
+        source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+        outline = clazz.new(source)
+
+        source = "Scenario:
+                      * step 1
+                      * step 2"
+        scenario_1 = CukeModeler::Scenario.new(source)
+
+        source = "Scenario:
+                      * step 2
+                      * step 1"
+        scenario_2 = CukeModeler::Scenario.new(source)
+
+
+        expect(outline).to eq(scenario_1)
+        expect(outline).to_not eq(scenario_2)
+      end
+
+      it 'is equal to an outline with the same steps' do
+        source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+        outline_1 = clazz.new(source)
+
+        source = "Scenario Outline:
+                      * step 1
+                      * step 2
+                    Examples:
+                      | param |
+                      | value |"
+        outline_2 = clazz.new(source)
+
+        source = "Scenario Outline:
+                      * step 2
+                      * step 1
+                    Examples:
+                      | param |
+                      | value |"
+        outline_3 = clazz.new(source)
+
+
+        expect(outline_1).to eq(outline_2)
+        expect(outline_1).to_not eq(outline_3)
+      end
+
+    end
+
+
+    describe 'outline output' do
+
+      it 'can be remade from its own output' do
+        source = ['@tag1 @tag2 @tag3',
+                  'Scenario Outline: An outline with everything it could have',
+                  '',
+                  'Some description.',
+                  'Some more description.',
+                  '',
+                  '  * a step',
+                  '    | value |',
+                  '  * a <value> step',
+                  '    """',
+                  '      some string',
+                  '    """',
+                  '',
+                  'Examples:',
+                  '',
+                  'Some description.',
+                  'Some more description.',
+                  '',
+                  '  | value |',
+                  '  | x     |',
+                  '',
+                  '@example_tag',
+                  'Examples:',
+                  '  | value |',
+                  '  | y     |']
+        source = source.join("\n")
+        outline = clazz.new(source)
+
+        outline_output = outline.to_s
+        remade_outline_output = clazz.new(outline_output).to_s
+
+        expect(remade_outline_output).to eq(outline_output)
+      end
+
+
+      context 'from source text' do
+
+        # gherkin 3.x does not accept incomplete outlines
+        it 'can output an empty outline', :gherkin3 => false do
+          source = ['Scenario Outline:']
           source = source.join("\n")
-
-          outline = clazz.new(source)
-          description = outline.description.split("\n", -1)
-
-          expect(description).to eq(['     description line 1',
-                                     '',
-                                     'description line 2',
-                                     '  description line 3'])
-        end
-
-      end
-
-
-      describe 'comparison' do
-
-        it 'is equal to a background with the same steps' do
-          source = "Scenario Outline:
-                      * step 1
-                      * step 2
-                    Examples:
-                      | param |
-                      | value |"
           outline = clazz.new(source)
 
-          source = "Background:
-                      * step 1
-                      * step 2"
-          background_1 = CukeModeler::Background.new(source)
+          outline_output = outline.to_s.split("\n", -1)
 
-          source = "Background:
-                      * step 2
-                      * step 1"
-          background_2 = CukeModeler::Background.new(source)
-
-
-          expect(outline).to eq(background_1)
-          expect(outline).to_not eq(background_2)
+          expect(outline_output).to eq(['Scenario Outline:'])
         end
 
-        it 'is equal to a scenario with the same steps' do
-          source = "Scenario Outline:
-                      * step 1
-                      * step 2
-                    Examples:
-                      | param |
-                      | value |"
+        # gherkin 3.x does not accept incomplete outlines
+        it 'can output a outline that has a name', :gherkin3 => false do
+          source = ['Scenario Outline: test outline']
+          source = source.join("\n")
           outline = clazz.new(source)
 
-          source = "Scenario:
-                      * step 1
-                      * step 2"
-          scenario_1 = CukeModeler::Scenario.new(source)
+          outline_output = outline.to_s.split("\n", -1)
 
-          source = "Scenario:
-                      * step 2
-                      * step 1"
-          scenario_2 = CukeModeler::Scenario.new(source)
-
-
-          expect(outline).to eq(scenario_1)
-          expect(outline).to_not eq(scenario_2)
+          expect(outline_output).to eq(['Scenario Outline: test outline'])
         end
 
-        it 'is equal to an outline with the same steps' do
-          source = "Scenario Outline:
-                      * step 1
-                      * step 2
-                    Examples:
-                      | param |
-                      | value |"
-          outline_1 = clazz.new(source)
-
-          source = "Scenario Outline:
-                      * step 1
-                      * step 2
-                    Examples:
-                      | param |
-                      | value |"
-          outline_2 = clazz.new(source)
-
-          source = "Scenario Outline:
-                      * step 2
-                      * step 1
-                    Examples:
-                      | param |
-                      | value |"
-          outline_3 = clazz.new(source)
-
-
-          expect(outline_1).to eq(outline_2)
-          expect(outline_1).to_not eq(outline_3)
-        end
-
-      end
-
-
-      describe 'outline output' do
-
-        it 'can be remade from its own output' do
-          source = ['@tag1 @tag2 @tag3',
-                    'Scenario Outline: An outline with everything it could have',
-                    '',
+        # gherkin 3.x does not accept incomplete outlines
+        it 'can output a outline that has a description', :gherkin3 => false do
+          source = ['Scenario Outline:',
                     'Some description.',
-                    'Some more description.',
-                    '',
+                    'Some more description.']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n", -1)
+
+          expect(outline_output).to eq(['Scenario Outline:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.'])
+        end
+
+        # gherkin 3.x does not accept incomplete outlines
+        it 'can output a outline that has steps', :gherkin3 => false do
+          source = ['Scenario Outline:',
                     '  * a step',
                     '    | value |',
-                    '  * a <value> step',
+                    '  * another step',
                     '    """',
-                    '      some string',
-                    '    """',
+                    '    some string',
+                    '    """']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n", -1)
+
+          expect(outline_output).to eq(['Scenario Outline:',
+                                        '  * a step',
+                                        '    | value |',
+                                        '  * another step',
+                                        '    """',
+                                        '    some string',
+                                        '    """'])
+        end
+
+        # gherkin 3.x does not accept incomplete outlines
+        it 'can output a outline that has tags', :gherkin3 => false do
+          source = ['@tag1 @tag2',
+                    '@tag3',
+                    'Scenario Outline:']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n", -1)
+
+          expect(outline_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Scenario Outline:'])
+        end
+
+        it 'can output a outline that has examples' do
+          source = ['Scenario Outline:',
+                    '* a step',
+                    'Examples:',
+                    '| value |',
+                    '| x     |',
+                    'Examples:',
+                    '| value |',
+                    '| y     |']
+          source = source.join("\n")
+          outline = clazz.new(source)
+
+          outline_output = outline.to_s.split("\n", -1)
+
+          expect(outline_output).to eq(['Scenario Outline:',
+                                        '  * a step',
+                                        '',
+                                        'Examples:',
+                                        '  | value |',
+                                        '  | x     |',
+                                        '',
+                                        'Examples:',
+                                        '  | value |',
+                                        '  | y     |'])
+        end
+
+        it 'can output a outline that has everything' do
+          source = ['@tag1 @tag2 @tag3',
+                    'Scenario Outline: A outline with everything it could have',
+                    'Including a description',
+                    'and then some.',
+                    '* a step',
+                    '|value|',
+                    '* another step',
+                    '"""',
+                    'some string',
+                    '"""',
                     '',
                     'Examples:',
                     '',
                     'Some description.',
                     'Some more description.',
                     '',
-                    '  | value |',
-                    '  | x     |',
+                    '| value |',
+                    '| x     |',
                     '',
                     '@example_tag',
                     'Examples:',
-                    '  | value |',
-                    '  | y     |']
+                    '| value |',
+                    '| y     |']
           source = source.join("\n")
           outline = clazz.new(source)
 
-          outline_output = outline.to_s
-          remade_outline_output = clazz.new(outline_output).to_s
+          outline_output = outline.to_s.split("\n", -1)
 
-          expect(remade_outline_output).to eq(outline_output)
+          expect(outline_output).to eq(['@tag1 @tag2 @tag3',
+                                        'Scenario Outline: A outline with everything it could have',
+                                        '',
+                                        'Including a description',
+                                        'and then some.',
+                                        '',
+                                        '  * a step',
+                                        '    | value |',
+                                        '  * another step',
+                                        '    """',
+                                        '    some string',
+                                        '    """',
+                                        '',
+                                        'Examples:',
+                                        '',
+                                        'Some description.',
+                                        'Some more description.',
+                                        '',
+                                        '  | value |',
+                                        '  | x     |',
+                                        '',
+                                        '@example_tag',
+                                        'Examples:',
+                                        '  | value |',
+                                        '  | y     |'])
         end
 
+      end
 
-        context 'from source text' do
 
-          # gherkin 3.x does not accept incomplete outlines
-          it 'can output an empty outline', :gherkin3 => false do
-            source = ['Scenario Outline:']
-            source = source.join("\n")
-            outline = clazz.new(source)
+      context 'from abstract instantiation' do
 
-            outline_output = outline.to_s.split("\n", -1)
+        let(:outline) { clazz.new }
 
-            expect(outline_output).to eq(['Scenario Outline:'])
-          end
 
-          # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has a name', :gherkin3 => false do
-            source = ['Scenario Outline: test outline']
-            source = source.join("\n")
-            outline = clazz.new(source)
+        it 'can output an outline that has only tags' do
+          outline.tags = [CukeModeler::Tag.new]
 
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['Scenario Outline: test outline'])
-          end
-
-          # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has a description', :gherkin3 => false do
-            source = ['Scenario Outline:',
-                      'Some description.',
-                      'Some more description.']
-            source = source.join("\n")
-            outline = clazz.new(source)
-
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['Scenario Outline:',
-                                          '',
-                                          'Some description.',
-                                          'Some more description.'])
-          end
-
-          # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has steps', :gherkin3 => false do
-            source = ['Scenario Outline:',
-                      '  * a step',
-                      '    | value |',
-                      '  * another step',
-                      '    """',
-                      '    some string',
-                      '    """']
-            source = source.join("\n")
-            outline = clazz.new(source)
-
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['Scenario Outline:',
-                                          '  * a step',
-                                          '    | value |',
-                                          '  * another step',
-                                          '    """',
-                                          '    some string',
-                                          '    """'])
-          end
-
-          # gherkin 3.x does not accept incomplete outlines
-          it 'can output a outline that has tags', :gherkin3 => false do
-            source = ['@tag1 @tag2',
-                      '@tag3',
-                      'Scenario Outline:']
-            source = source.join("\n")
-            outline = clazz.new(source)
-
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['@tag1 @tag2 @tag3',
-                                          'Scenario Outline:'])
-          end
-
-          it 'can output a outline that has examples' do
-            source = ['Scenario Outline:',
-                      '* a step',
-                      'Examples:',
-                      '| value |',
-                      '| x     |',
-                      'Examples:',
-                      '| value |',
-                      '| y     |']
-            source = source.join("\n")
-            outline = clazz.new(source)
-
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['Scenario Outline:',
-                                          '  * a step',
-                                          '',
-                                          'Examples:',
-                                          '  | value |',
-                                          '  | x     |',
-                                          '',
-                                          'Examples:',
-                                          '  | value |',
-                                          '  | y     |'])
-          end
-
-          it 'can output a outline that has everything' do
-            source = ['@tag1 @tag2 @tag3',
-                      'Scenario Outline: A outline with everything it could have',
-                      'Including a description',
-                      'and then some.',
-                      '* a step',
-                      '|value|',
-                      '* another step',
-                      '"""',
-                      'some string',
-                      '"""',
-                      '',
-                      'Examples:',
-                      '',
-                      'Some description.',
-                      'Some more description.',
-                      '',
-                      '| value |',
-                      '| x     |',
-                      '',
-                      '@example_tag',
-                      'Examples:',
-                      '| value |',
-                      '| y     |']
-            source = source.join("\n")
-            outline = clazz.new(source)
-
-            outline_output = outline.to_s.split("\n", -1)
-
-            expect(outline_output).to eq(['@tag1 @tag2 @tag3',
-                                          'Scenario Outline: A outline with everything it could have',
-                                          '',
-                                          'Including a description',
-                                          'and then some.',
-                                          '',
-                                          '  * a step',
-                                          '    | value |',
-                                          '  * another step',
-                                          '    """',
-                                          '    some string',
-                                          '    """',
-                                          '',
-                                          'Examples:',
-                                          '',
-                                          'Some description.',
-                                          'Some more description.',
-                                          '',
-                                          '  | value |',
-                                          '  | x     |',
-                                          '',
-                                          '@example_tag',
-                                          'Examples:',
-                                          '  | value |',
-                                          '  | y     |'])
-          end
-
+          expect { outline.to_s }.to_not raise_error
         end
 
+        it 'can output an outline that has only steps' do
+          outline.steps = [CukeModeler::Step.new]
 
-        context 'from abstract instantiation' do
+          expect { outline.to_s }.to_not raise_error
+        end
 
-          let(:outline) { clazz.new }
+        it 'can output an outline that has only examples' do
+          outline.examples = [CukeModeler::Example.new]
 
-
-          it 'can output an outline that has only tags' do
-            outline.tags = [CukeModeler::Tag.new]
-
-            expect { outline.to_s }.to_not raise_error
-          end
-
-          it 'can output an outline that has only steps' do
-            outline.steps = [CukeModeler::Step.new]
-
-            expect { outline.to_s }.to_not raise_error
-          end
-
-          it 'can output an outline that has only examples' do
-            outline.examples = [CukeModeler::Example.new]
-
-            expect { outline.to_s }.to_not raise_error
-          end
-
+          expect { outline.to_s }.to_not raise_error
         end
 
       end
