@@ -55,12 +55,11 @@ describe 'Cell, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@scenario_keyword}: Test test",
-                  "    #{@step_keyword} a step",
-                  '      | a value |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step
+                        | a value |"
 
         file_path = "#{@default_file_directory}/cell_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }

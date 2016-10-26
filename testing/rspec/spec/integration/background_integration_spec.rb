@@ -285,18 +285,17 @@ describe 'Background, Integration' do
     describe 'background output' do
 
       it 'can be remade from its own output' do
-        source = ["#{@background_keyword}: A background with everything it could have",
-                  '',
-                  'Including a description',
-                  'and then some.',
-                  '',
-                  "  #{@step_keyword} a step",
-                  '    | value |',
-                  "  #{@step_keyword} another step",
-                  '    """',
-                  '    some string',
-                  '    """']
-        source = source.join("\n")
+        source = "#{@background_keyword}: A background with everything it could have
+
+                  Including a description
+                  and then some.
+
+                    #{@step_keyword} a step
+                      | value |
+                    #{@step_keyword} another step
+                      \"\"\"
+                      some string
+                      \"\"\""
         background = clazz.new(source)
 
         background_output = background.to_s

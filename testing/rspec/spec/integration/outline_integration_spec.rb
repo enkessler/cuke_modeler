@@ -67,13 +67,12 @@ describe 'Outline, Integration' do
     end
 
     it 'properly sets its child models' do
-      source = ['@a_tag',
-                "  #{@outline_keyword}:",
-                "    #{@step_keyword} a step",
-                "  #{@example_keyword}:",
-                '    | param |',
-                '    | value |']
-      source = source.join("\n")
+      source = "@a_tag
+                  #{@outline_keyword}:
+                    #{@step_keyword} a step
+                  #{@example_keyword}:
+                    | param |
+                    | value |"
 
       outline = clazz.new(source)
       example = outline.examples.first
@@ -88,14 +87,13 @@ describe 'Outline, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@outline_keyword}: Test test",
-                  "    #{@step_keyword} a step",
-                  "  #{@example_keyword}: Test example",
-                  '    | a param |',
-                  '    | a value |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@outline_keyword}: Test test
+                      #{@step_keyword} a step
+                    #{@example_keyword}: Test example
+                      | a param |
+                      | a value |"
 
         file_path = "#{@default_file_directory}/outline_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -361,32 +359,31 @@ describe 'Outline, Integration' do
     describe 'outline output' do
 
       it 'can be remade from its own output' do
-        source = ['@tag1 @tag2 @tag3',
-                  "#{@outline_keyword}: An outline with everything it could have",
-                  '',
-                  'Some description.',
-                  'Some more description.',
-                  '',
-                  "  #{@step_keyword} a step",
-                  '    | value |',
-                  "  #{@step_keyword} a <value> step",
-                  '    """',
-                  '      some string',
-                  '    """',
-                  '',
-                  "#{@example_keyword}:",
-                  '',
-                  'Some description.',
-                  'Some more description.',
-                  '',
-                  '  | value |',
-                  '  | x     |',
-                  '',
-                  '@example_tag',
-                  "#{@example_keyword}:",
-                  '  | value |',
-                  '  | y     |']
-        source = source.join("\n")
+        source = "@tag1 @tag2 @tag3
+                  #{@outline_keyword}: An outline with everything it could have
+
+                  Some description.
+                  Some more description.
+
+                    #{@step_keyword} a step
+                      | value |
+                    #{@step_keyword} a <value> step
+                      \"\"\"
+                        some string
+                      \"\"\"
+
+        #{@example_keyword}:
+
+                  Some description.
+                  Some more description.
+
+                    | value |
+                    | x     |
+
+                  @example_tag
+                  #{@example_keyword}:
+                    | value |
+                    | y     |"
         outline = clazz.new(source)
 
         outline_output = outline.to_s

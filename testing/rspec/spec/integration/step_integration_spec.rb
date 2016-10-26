@@ -152,15 +152,15 @@ describe 'Step, Integration' do
 
 
     it 'properly sets its child models' do
-      source_1 = ["#{@step_keyword} a step",
-                  '"""',
-                  'a doc string',
-                  '"""']
-      source_2 = ["#{@step_keyword} a step",
-                  '| a block|']
+      source_1 = "#{@step_keyword} a step
+                  \"\"\"
+                  a doc string
+                  \"\"\""
+      source_2 = "#{@step_keyword} a step
+                  | a block|"
 
-      step_1 = clazz.new(source_1.join("\n"))
-      step_2 = clazz.new(source_2.join("\n"))
+      step_1 = clazz.new(source_1)
+      step_2 = clazz.new(source_2)
 
 
       doc_string = step_1.block
@@ -227,11 +227,10 @@ describe 'Step, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@scenario_keyword}: Test test",
-                  "    #{@step_keyword} a step:"]
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step:"
 
         file_path = "#{@default_file_directory}/step_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }

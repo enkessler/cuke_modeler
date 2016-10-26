@@ -54,17 +54,16 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['@feature_tag',
-                  "#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@outline_keyword}: Test test",
-                  "    #{@step_keyword} a step",
-                  '',
-                  '  @example_tag',
-                  "  #{@example_keyword}: Test example",
-                  '    | a param |',
-                  '    | a value |']
-        source = source.join("\n")
+        source = "@feature_tag
+                  #{@feature_keyword}: Test feature
+
+                    #{@outline_keyword}: Test test
+                      #{@step_keyword} a step
+
+                    @example_tag
+                    #{@example_keyword}: Test example
+                      | a param |
+                      | a value |"
 
         file_path = "#{@default_file_directory}/tag_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }

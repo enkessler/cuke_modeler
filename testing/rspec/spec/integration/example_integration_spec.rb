@@ -16,25 +16,22 @@ describe 'Example, Integration' do
   describe 'unique behavior' do
 
     it 'can be instantiated with the minimum viable Gherkin', :gherkin4 => true do
-      source = ["#{@example_keyword}:"]
-      source = source.join("\n")
+      source = "#{@example_keyword}:"
 
       expect { @model = clazz.new(source) }.to_not raise_error
     end
 
     it 'can be instantiated with the minimum viable Gherkin', :gherkin3 => true do
-      source = ["#{@example_keyword}:",
-                '|param|',
-                '|value|']
-      source = source.join("\n")
+      source = "#{@example_keyword}:
+                |param|
+                |value|"
 
       expect { @model = clazz.new(source) }.to_not raise_error
     end
 
     it 'can be instantiated with the minimum viable Gherkin', :gherkin2 => true do
-      source = ["#{@example_keyword}:",
-                '|param|']
-      source = source.join("\n")
+      source = "#{@example_keyword}:
+                |param|"
 
       expect { @model = clazz.new(source) }.to_not raise_error
     end
@@ -197,11 +194,10 @@ describe 'Example, Integration' do
 
 
     it 'properly sets its child models' do
-      source = ['@a_tag',
-                "#{@example_keyword}:",
-                '  | param   |',
-                '  | value 1 |']
-      source = source.join("\n")
+      source = "@a_tag
+                #{@example_keyword}:
+                  | param   |
+                  | value 1 |"
 
       example = clazz.new(source)
       rows = example.rows
@@ -425,14 +421,13 @@ describe 'Example, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@outline_keyword}: Test test",
-                  "    #{@step_keyword} a step",
-                  "  #{@example_keyword}: Test example",
-                  '    | a param |',
-                  '    | a value |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@outline_keyword}: Test test
+                      #{@step_keyword} a step
+                    #{@example_keyword}: Test example
+                      | a param |
+                      | a value |"
 
         file_path = "#{@default_file_directory}/example_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -499,16 +494,15 @@ describe 'Example, Integration' do
     describe 'example output' do
 
       it 'can be remade from its own output' do
-        source = ['@tag1 @tag2 @tag3',
-                  "#{@example_keyword}: with everything it could have",
-                  '',
-                  'Some description.',
-                  'Some more description.',
-                  '',
-                  '  | param1 | param2 |',
-                  '  | value1 | value2 |',
-                  '  | value3 | value4 |']
-        source = source.join("\n")
+        source = "@tag1 @tag2 @tag3
+                  #{@example_keyword}: with everything it could have
+
+                  Some description.
+                  Some more description.
+
+                    | param1 | param2 |
+                    | value1 | value2 |
+                    | value3 | value4 |"
         example = clazz.new(source)
 
         example_output = example.to_s
@@ -654,11 +648,10 @@ describe 'Example, Integration' do
         end
 
         it 'buffers row cells based on the longest value in a column' do
-          source = ["#{@example_keyword}:",
-                    '|parameter 1| x|',
-                    '|y|value 1|',
-                    '|a|b|']
-          source = source.join("\n")
+          source = "#{@example_keyword}:
+                    |parameter 1| x|
+                    |y|value 1|
+                    |a|b|"
           example = clazz.new(source)
 
           example_output = example.to_s.split("\n", -1)

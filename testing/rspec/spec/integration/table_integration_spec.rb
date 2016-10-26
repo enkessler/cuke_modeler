@@ -89,9 +89,8 @@ describe 'Table, Integration' do
 
 
     it 'properly sets its child models' do
-      source = ['| cell 1 |',
-                '| cell 2 |']
-      source = source.join("\n")
+      source = "| cell 1 |
+                | cell 2 |"
 
       table = clazz.new(source)
       row_1 = table.rows[0]
@@ -104,12 +103,11 @@ describe 'Table, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@scenario_keyword}: Test test",
-                  "    #{@step_keyword} a step:",
-                  '      | a | table |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step:
+                        | a | table |"
 
         file_path = "#{@default_file_directory}/table_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -233,9 +231,8 @@ describe 'Table, Integration' do
     describe 'table output' do
 
       it 'can be remade from its own output' do
-        source = ['| value1 | value2 |',
-                  '| value3 | value4 |']
-        source = source.join("\n")
+        source = "| value1 | value2 |
+                  | value3 | value4 |"
         table = clazz.new(source)
 
         table_output = table.to_s
@@ -287,10 +284,9 @@ describe 'Table, Integration' do
         end
 
         it 'buffers row cells based on the longest value in a column' do
-          source = ['|value 1| x|',
-                    '|y|value 2|',
-                    '|a|b|']
-          source = source.join("\n")
+          source = "|value 1| x|
+                    |y|value 2|
+                    |a|b|"
           table = clazz.new(source)
 
           table_output = table.to_s.split("\n", -1)

@@ -238,8 +238,7 @@ describe 'Row, Integration' do
     describe 'row output' do
 
       it 'can be remade from its own output' do
-        source = ['| value1 | value2 |']
-        source = source.join("\n")
+        source = "| value1 | value2 |"
         row = clazz.new(source)
 
         row_output = row.to_s

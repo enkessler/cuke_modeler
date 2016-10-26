@@ -51,10 +51,9 @@ describe 'Scenario, Integration' do
     end
 
     it 'properly sets its child models' do
-      source = ['@a_tag',
-                "#{@scenario_keyword}: Test scenario",
-                "  #{@step_keyword} a step"]
-      source = source.join("\n")
+      source = "@a_tag
+                #{@scenario_keyword}: Test scenario
+                  #{@step_keyword} a step"
 
       scenario = clazz.new(source)
       step = scenario.steps.first
@@ -90,11 +89,10 @@ describe 'Scenario, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@scenario_keyword}: Test test",
-                  "    #{@step_keyword} a step"]
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step"
 
         file_path = "#{@default_file_directory}/scenario_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -302,19 +300,18 @@ describe 'Scenario, Integration' do
     describe 'scenario output' do
 
       it 'can be remade from its own output' do
-        source = ['@tag1 @tag2 @tag3',
-                  "#{@scenario_keyword}: A scenario with everything it could have",
-                  '',
-                  'Including a description',
-                  'and then some.',
-                  '',
-                  "  #{@step_keyword} a step",
-                  '    | value |',
-                  "  #{@step_keyword} another step",
-                  '    """',
-                  '    some string',
-                  '    """']
-        source = source.join("\n")
+        source = "@tag1 @tag2 @tag3
+                  #{@scenario_keyword}: A scenario with everything it could have
+
+                  Including a description
+                  and then some.
+
+                    #{@step_keyword} a step
+                      | value |
+                    #{@step_keyword} another step
+                      \"\"\"
+                      some string
+                      \"\"\""
         scenario = clazz.new(source)
 
         scenario_output = scenario.to_s

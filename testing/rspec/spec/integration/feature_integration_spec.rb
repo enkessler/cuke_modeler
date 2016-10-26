@@ -236,8 +236,7 @@ describe 'Feature, Integration' do
 
 
     it 'knows how many test cases it has' do
-      source_1 = ["#{@feature_keyword}: Test feature"]
-      source_1 = source_1.join("\n")
+      source_1 = "#{@feature_keyword}: Test feature"
 
       source_2 = "#{@feature_keyword}: Test feature
                     #{@scenario_keyword}: Test scenario
@@ -260,8 +259,7 @@ describe 'Feature, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature"]
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature"
 
         file_path = "#{@default_file_directory}/feature_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -295,55 +293,54 @@ describe 'Feature, Integration' do
     describe 'feature output' do
 
       it 'can be remade from its own output' do
-        source = ['@tag1 @tag2 @tag3',
-                  "#{@feature_keyword}: A feature with everything it could have",
-                  '',
-                  'Including a description',
-                  'and then some.',
-                  '',
-                  "  #{@background_keyword}:",
-                  '',
-                  '  Background',
-                  '  description',
-                  '',
-                  "    #{@step_keyword} a step",
-                  '      | value1 |',
-                  "    #{@step_keyword} another step ",
-                  '',
-                  '  @scenario_tag ',
-                  "  #{@scenario_keyword}:",
-                  '',
-                  '  Scenario ',
-                  '  description ',
-                  '',
-                  "    #{@step_keyword} a step ",
-                  "    #{@step_keyword} another step ",
-                  '      """"',
-                  '      some text ',
-                  '      """',
-                  '',
-                  '  @outline_tag ',
-                  "  #{@outline_keyword}: ",
-                  '',
-                  '  Outline ',
-                  '  description ',
-                  '',
-                  "    #{@step_keyword} a step ",
-                  '      | value2 |',
-                  "    #{@step_keyword} another step ",
-                  '      """',
-                  '      some text ',
-                  '      """',
-                  '',
-                  '  @example_tag ',
-                  "  #{@example_keyword}:",
-                  '',
-                  '  Example ',
-                  '  description',
-                  '',
-                  '    | param |',
-                  '    | value |']
-        source = source.join(" \n")
+        source = "@tag1 @tag2 @tag3
+                  #{@feature_keyword}: A feature with everything it could have
+
+                  Including a description
+                  and then some.
+
+                    #{@background_keyword}:
+
+                    Background
+                    description
+
+                      #{@step_keyword} a step
+                        | value1 |
+                      #{@step_keyword} another step
+
+                    @scenario_tag
+                    #{@scenario_keyword}:
+
+                    Scenario
+                    description
+
+                      #{@step_keyword} a step
+                      #{@step_keyword} another step
+                        \"\"\"
+                        some text
+                        \"\"\"
+
+                    @outline_tag
+                    #{@outline_keyword}:
+
+                    Outline
+                    description
+
+                      #{@step_keyword} a step
+                        | value2 |
+                      #{@step_keyword} another step
+                        \"\"\"
+                        some text
+                        \"\"\"
+
+                    @example_tag
+                    #{@example_keyword}:
+
+                    Example
+                    description
+
+                      | param |
+                      | value |"
         feature = clazz.new(source)
 
         feature_output = feature.to_s

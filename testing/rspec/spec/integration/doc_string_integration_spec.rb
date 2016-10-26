@@ -63,16 +63,15 @@ describe 'DocString, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ["#{@feature_keyword}: Test feature",
-                  '',
-                  "  #{@scenario_keyword}: Test test",
-                  "    #{@step_keyword} a big step:",
-                  '  """',
-                  '  a',
-                  '  doc',
-                  '  string',
-                  '  """']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a big step:
+                    \"\"\"
+                    a
+                    doc
+                    string
+                    \"\"\""
 
         file_path = "#{@default_file_directory}/doc_string_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
