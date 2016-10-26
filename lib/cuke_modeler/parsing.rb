@@ -73,6 +73,21 @@ module CukeModeler
 
     class << self
 
+      # The dialect that will be used to parse snippets of Gherkin text
+      attr_writer :dialect
+
+
+      # The dialect that will be used to parse snippets of Gherkin text
+      def dialect
+        @dialect || 'en'
+      end
+
+      # The dialects currently known by the gherkin gem
+      def dialects
+        # todo - save this off so that it doesn't have to be recalculated evey time
+        Gem.loaded_specs['gherkin'].version.version[/^2/] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
+      end
+
       # Parses the Cucumber feature given in *source_text* and returns an array
       # containing the hash representation of its logical structure.
       def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
@@ -92,5 +107,32 @@ module CukeModeler
       end
 
     end
+
+
+    private
+
+
+    def dialect_feature_keyword
+      get_word(Parsing.dialects[Parsing.dialect]['feature'])
+    end
+
+    def dialect_scenario_keyword
+      get_word(Parsing.dialects[Parsing.dialect]['scenario'])
+    end
+
+    def dialect_outline_keyword
+      get_word(Parsing.dialects[Parsing.dialect]['scenarioOutline'] || Parsing.dialects[Parsing.dialect]['scenario_outline'])
+    end
+
+    def dialect_step_keyword
+      get_word(Parsing.dialects[Parsing.dialect]['given'])
+    end
+
+    def get_word(word_set)
+      word_set = word_set.is_a?(Array) ? word_set : word_set.split('|')
+
+      word_set.first
+    end
+
   end
 end

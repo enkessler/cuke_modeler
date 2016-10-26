@@ -5,6 +5,7 @@ module CukeModeler
   class Step < Model
 
     include Sourceable
+    include Parsing
     include Parsed
 
 
@@ -56,7 +57,7 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "Feature: Fake feature to parse\nScenario:\n"
+      base_file_string = "#{dialect_feature_keyword}: Fake feature to parse\n#{dialect_scenario_keyword}:\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')

@@ -30,7 +30,7 @@ describe 'FeatureFile, Integration' do
 
     describe 'model population' do
 
-      let(:source_text) { "Feature: Test feature" }
+      let(:source_text) { "#{@feature_keyword}: Test feature" }
       let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
       let(:feature_file) { clazz.new(feature_file_path) }
 
@@ -76,7 +76,7 @@ describe 'FeatureFile, Integration' do
       file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
 
       File.open(file_path, "w") { |file|
-        file.puts('Feature: Test feature')
+        file.puts("#{@feature_keyword}: Test feature")
       }
 
       file = clazz.new(file_path)
@@ -90,7 +90,7 @@ describe 'FeatureFile, Integration' do
 
       before(:each) do
         file_path = "#{@default_file_directory}/feature_file_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write('Feature: Test feature') }
+        File.open(file_path, 'w') { |file| file.write("#{@feature_keyword}: Test feature") }
       end
 
       let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
@@ -116,7 +116,7 @@ describe 'FeatureFile, Integration' do
 
       context 'from source text' do
 
-        let(:source_text) { "Feature: Test feature" }
+        let(:source_text) { "#{@feature_keyword}: Test feature" }
         let(:feature_file_path) { "#{@default_file_directory}/#{@default_feature_file_name}" }
         let(:feature_file) { clazz.new(feature_file_path) }
 
@@ -135,7 +135,7 @@ describe 'FeatureFile, Integration' do
 
       it 'can be remade from its own output' do
         path = "#{@default_file_directory}/#{@default_feature_file_name}"
-        File.open(path, "w") { |file| file.puts "Feature:" }
+        File.open(path, "w") { |file| file.puts "#{@feature_keyword}:" }
 
         source = path
         feature_file = clazz.new(source)

@@ -57,10 +57,10 @@ describe 'Table, Integration' do
       context 'from source text' do
 
         it "models the table's source line" do
-          source_text = "Feature:
+          source_text = "#{@feature_keyword}:
 
-                           Scenario:
-                             * step
+                           #{@scenario_keyword}:
+                             #{@step_keyword} step
                                | value |"
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
@@ -104,10 +104,10 @@ describe 'Table, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['Feature: Test feature',
+        source = ["#{@feature_keyword}: Test feature",
                   '',
-                  '  Scenario: Test test',
-                  '    * a step:',
+                  "  #{@scenario_keyword}: Test test",
+                  "    #{@step_keyword} a step:",
                   '      | a | table |']
         source = source.join("\n")
 
@@ -140,11 +140,11 @@ describe 'Table, Integration' do
       context 'a table that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario: Test test
-                        * a step:
-                          | a | table |'
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -165,14 +165,14 @@ describe 'Table, Integration' do
       context 'a table that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario Outline: Test outline
-                        * a step:
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step:
                           | a | table |
-                      Examples:
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -193,11 +193,11 @@ describe 'Table, Integration' do
       context 'a table that is part of a background' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Background: Test background
-                        * a step:
-                          | a | table |'
+                      #{@background_keyword}: Test background
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }

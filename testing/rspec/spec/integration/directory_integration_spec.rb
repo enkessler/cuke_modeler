@@ -49,7 +49,7 @@ describe 'Directory, Integration' do
             feature_files.each do |file_name|
               # Some versions of Gherkin require feature content to be present in feature files
               File.open("#{directory_path}/#{file_name}", "w") { |file|
-                file.puts('Feature: Test feature')
+                file.puts("#{@feature_keyword}: Test feature")
               }
             end
 
@@ -79,7 +79,7 @@ describe 'Directory, Integration' do
         context 'with no feature files' do
 
           before(:each) do
-            FileUtils.rm(Dir.glob("#{directory_path}/*"))
+            FileUtils.rm(Dir.glob("#{directory_path}/#{@step_keyword}"))
           end
 
 
@@ -114,7 +114,7 @@ describe 'Directory, Integration' do
         context 'with no directories' do
 
           before(:each) do
-            FileUtils.rm_r(Dir.glob("#{directory_path}/*"))
+            FileUtils.rm_r(Dir.glob("#{directory_path}/#{@step_keyword}"))
           end
 
 
@@ -153,7 +153,7 @@ describe 'Directory, Integration' do
 
       FileUtils.mkdir(nested_directory)
       File.open(file_path, "w") { |file|
-        file.puts('Feature: Test feature')
+        file.puts("#{@feature_keyword}: Test feature")
       }
 
       directory = clazz.new(@default_file_directory)

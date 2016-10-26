@@ -193,15 +193,15 @@ module CukeModeler
 
       if elements
         elements.each do |element|
-          case element['keyword']
-            when 'Scenario'
+          case element['type']
+            when 'Scenario', 'scenario'
               feature_model.tests << build_child_model(Scenario, element)
-            when 'Scenario Outline'
+            when 'ScenarioOutline', 'scenario_outline'
               feature_model.tests << build_child_model(Outline, element)
-            when 'Background'
+            when 'Background', 'background'
               feature_model.background = build_child_model(Background, element)
             else
-              raise(ArgumentError, "Unknown keyword: #{element['keyword']}")
+              raise(ArgumentError, "Unknown element type: #{element['type']}")
           end
         end
       end

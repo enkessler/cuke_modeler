@@ -63,10 +63,10 @@ describe 'DocString, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['Feature: Test feature',
+        source = ["#{@feature_keyword}: Test feature",
                   '',
-                  '  Scenario: Test test',
-                  '    * a big step:',
+                  "  #{@scenario_keyword}: Test test",
+                  "    #{@step_keyword} a big step:",
                   '  """',
                   '  a',
                   '  doc',
@@ -103,15 +103,15 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario: Test test
-                        * a big step:
-                          """
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a big step:
+                          \"\"\"
                           a
                           doc
                           string
-                          """'
+                          \"\"\""
 
           file_path = "#{@default_file_directory}/doc_string_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -132,18 +132,18 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario Outline: Test outline
-                        * a big step:
-                          """
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a big step:
+                          \"\"\"
                           a
                           doc
                           string
-                          """
-                      Examples:
+                          \"\"\"
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/doc_string_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -164,15 +164,15 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a background' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Background: Test background
-                        * a big step:
-                          """
+                      #{@background_keyword}: Test background
+                        #{@step_keyword} a big step:
+                          \"\"\"
                           a
                           doc
                           string
-                          """'
+                          \"\"\""
 
           file_path = "#{@default_file_directory}/doc_string_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -244,13 +244,13 @@ describe 'DocString, Integration' do
         end
 
         it "models the doc string's source line" do
-          source_text = 'Feature:
+          source_text = "#{@feature_keyword}:
 
-                           Scenario:
-                             * step
-                               """
+                           #{@scenario_keyword}:
+                             #{@step_keyword} step
+                               \"\"\"
                                foo
-                               """'
+                               \"\"\""
           doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
           expect(doc_string.source_line).to eq(5)
@@ -265,7 +265,7 @@ describe 'DocString, Integration' do
 
       it 'can be remade from its own output' do
         source = ['"""" the type',
-                  '* a step',
+                  "#{@step_keyword} a step",
                   '  \"\"\"',
                   '  that also has a doc string',
                   '  \"\"\"',

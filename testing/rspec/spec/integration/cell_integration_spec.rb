@@ -55,10 +55,10 @@ describe 'Cell, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['Feature: Test feature',
+        source = ["#{@feature_keyword}: Test feature",
                   '',
-                  '  Scenario: Test test',
-                  '    * a step',
+                  "  #{@scenario_keyword}: Test test",
+                  "    #{@step_keyword} a step",
                   '      | a value |']
         source = source.join("\n")
 
@@ -91,13 +91,13 @@ describe 'Cell, Integration' do
       context 'a cell that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                       
-                      Scenario Outline: Test outline
-                        * a step
-                      Examples:
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/cell_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -131,11 +131,11 @@ describe 'Cell, Integration' do
       context 'a cell that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
 
-                      Scenario: Test test
-                        * a step:
-                          | a | table |'
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/cell_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -156,11 +156,11 @@ describe 'Cell, Integration' do
       context 'a cell that is part of a background' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
 
-                      Background: Test background
-                        * a step:
-                          | a | table |'
+                      #{@background_keyword}: Test background
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/cell_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -181,11 +181,11 @@ describe 'Cell, Integration' do
       context 'a cell that is part of a step' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
 
-                      Scenario: Test test
-                        * a step:
-                          | a | table |'
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/cell_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -237,11 +237,11 @@ describe 'Cell, Integration' do
         end
 
         it "models the cell's source line" do
-          source_text = 'Feature:
+          source_text = "#{@feature_keyword}:
 
-                           Scenario:
-                             * a step
-                               | value |'
+                           #{@scenario_keyword}:
+                             #{@step_keyword} a step
+                               | value |"
           cell = CukeModeler::Feature.new(source_text).tests.first.steps.first.block.rows.first.cells.first
 
           expect(cell.source_line).to eq(5)
