@@ -84,8 +84,11 @@ module CukeModeler
 
       # The dialects currently known by the gherkin gem
       def dialects
-        # todo - save this off so that it doesn't have to be recalculated evey time
-        Gem.loaded_specs['gherkin'].version.version[/^2/] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
+        unless @dialects
+          @dialects = Gem.loaded_specs['gherkin'].version.version[/^2/] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
+        end
+
+        @dialects
       end
 
       # Parses the Cucumber feature given in *source_text* and returns an array
