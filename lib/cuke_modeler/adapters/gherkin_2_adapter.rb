@@ -200,15 +200,15 @@ module CukeModeler
     def adapt_child_elements!(parsed_feature)
       if parsed_feature['elements']
         parsed_feature['elements'].each do |element|
-          case element['keyword']
-            when 'Background'
+          case element['type']
+            when 'background'
               adapt_background!(element)
-            when 'Scenario'
+            when 'scenario'
               adapt_scenario!(element)
-            when 'Scenario Outline'
+            when 'scenario_outline'
               adapt_outline!(element)
             else
-              raise("Unknown element keyword: #{element['keyword']}")
+              raise("Unknown element type: #{element['type']}")
           end
         end
       end

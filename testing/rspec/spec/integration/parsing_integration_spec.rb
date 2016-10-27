@@ -16,6 +16,27 @@ describe 'Parsing, Integration' do
       expect(nodule.dialects).to equal(Gherkin::I18n::LANGUAGES)
     end
 
+    it 'can parse text that uses a non-default dialect' do
+      source_text = "# language: en-au
+                     Pretty much:
+
+                       First off:
+                         Y'know foo
+
+                       Awww, look mate:
+                         It's just unbelievable that zip
+                         But at the end of the day I reckon bar
+
+                       Reckon it's like:
+                         Yeah nah zen
+                         Too right baz
+                         You'll wanna:
+                           | param |
+                           | value |"
+
+      expect { nodule.parse_text(source_text) }.to_not raise_error
+    end
+
     it 'raises and error if given something to parse besides a string' do
       expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Text to parse must be a String but got/)
       expect { nodule.parse_text("#{@feature_keyword}:") }.to_not raise_error

@@ -37,16 +37,18 @@ else
 
   Gherkin::DIALECTS.merge!(test_dialects)
 
-  module Gherkin
 
-    # Making the test dialect the default dialect so that language headers aren't
-    # needed for all of the test code.
-    class Dialect
-      def self.for(name)
-        spec = DIALECTS['cm-test']
-        return nil unless spec
-        new(spec)
+  # Making the test dialect the default dialect so that language headers aren't
+  # needed for all of the test code.
+  module Gherkin
+    class Parser
+
+      alias_method :original_parse, :parse
+
+      def parse(token_scanner, token_matcher = TokenMatcher.new('cm-test'))
+        original_parse(token_scanner, token_matcher)
       end
+
     end
   end
 
