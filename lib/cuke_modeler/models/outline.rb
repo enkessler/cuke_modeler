@@ -4,6 +4,7 @@ module CukeModeler
 
   class Outline < Model
 
+    include Parsing
     include Parsed
     include Named
     include Described
@@ -11,6 +12,9 @@ module CukeModeler
     include Sourceable
     include Taggable
 
+
+    # The outline's keyword
+    attr_accessor :keyword
 
     # The Example objects contained by the Outline
     attr_accessor :examples
@@ -49,7 +53,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Scenario Outline:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (steps.empty? || description.nil? || description.empty?)
       text << "\n" + steps_output_string unless steps.empty?
@@ -63,7 +67,7 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "Feature: Fake feature to parse\n"
+      base_file_string = "#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_outline.feature')

@@ -22,6 +22,7 @@ module CukeModeler
       parsed_feature['cuke_modeler_parsing_data'][:scenarioDefinitions] = nil
       parsed_feature['cuke_modeler_parsing_data'][:background] = nil
 
+      parsed_feature['keyword'] = parsed_feature.delete(:keyword)
       parsed_feature['name'] = parsed_feature.delete(:name)
       parsed_feature['description'] = parsed_feature.delete(:description) || ''
       parsed_feature['line'] = parsed_feature.delete(:location)[:line]
@@ -46,7 +47,8 @@ module CukeModeler
       # Removing parsed data for child elements in order to avoid duplicating data
       parsed_background['cuke_modeler_parsing_data'][:steps] = nil
 
-      parsed_background['keyword'] = parsed_background.delete(:type).to_s
+      parsed_background['type'] = parsed_background.delete(:type).to_s
+      parsed_background['keyword'] = parsed_background.delete(:keyword).to_s
       parsed_background['name'] = parsed_background.delete(:name)
       parsed_background['description'] = parsed_background.delete(:description) || ''
       parsed_background['line'] = parsed_background.delete(:location)[:line]
@@ -122,6 +124,7 @@ module CukeModeler
       parsed_example['cuke_modeler_parsing_data'][:tableHeader] = nil
       parsed_example['cuke_modeler_parsing_data'][:tableBody] = nil
 
+      parsed_example['keyword'] = parsed_example.delete(:keyword)
       parsed_example['name'] = parsed_example.delete(:name)
       parsed_example['line'] = parsed_example.delete(:location)[:line]
       parsed_example['description'] = parsed_example.delete(:description) || ''
@@ -252,16 +255,16 @@ module CukeModeler
       # Saving off the original data
       parsed_test['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_test))
 
-      parsed_test['keyword'] = parsed_test.delete(:type).to_s
+      parsed_test['keyword'] = parsed_test.delete(:keyword)
+      parsed_test['type'] = parsed_test.delete(:type).to_s
 
-      case parsed_test['keyword']
+      case parsed_test['type']
         when 'Scenario'
           adapt_scenario!(parsed_test)
         when 'ScenarioOutline'
-          parsed_test['keyword'] = 'Scenario Outline'
           adapt_outline!(parsed_test)
         else
-          raise(ArgumentError, "Unknown test type: #{parsed_test['keyword']}")
+          raise(ArgumentError, "Unknown test type: #{parsed_test['type']}")
       end
     end
 

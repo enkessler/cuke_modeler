@@ -43,6 +43,13 @@ present in that feature.
       """
 
 
+  Scenario: Modeling a feature's keyword
+    When the feature's keyword is requested
+      """
+        @model.keyword
+      """
+    Then the model returns "Feature"
+
   Scenario: Modeling a feature's name
     When the feature's name is requested
       """

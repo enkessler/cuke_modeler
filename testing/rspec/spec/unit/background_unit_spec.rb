@@ -10,6 +10,7 @@ describe 'Background, Unit', :unit_test => true do
   describe 'common behavior' do
 
     it_should_behave_like 'a model'
+    it_should_behave_like 'a keyworded model'
     it_should_behave_like 'a named model'
     it_should_behave_like 'a described model'
     it_should_behave_like 'a stepped model'
@@ -58,6 +59,12 @@ describe 'Background, Unit', :unit_test => true do
 
         it 'can output an empty background' do
           expect { background.to_s }.to_not raise_error
+        end
+
+        it 'can output a background that has only a keyword' do
+          background.keyword = 'foo'
+
+          expect(background.to_s).to eq('foo:')
         end
 
         it 'can output a background that has only a name' do

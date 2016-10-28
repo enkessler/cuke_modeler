@@ -54,17 +54,16 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['@feature_tag',
-                  'Feature: Test feature',
-                  '',
-                  '  Scenario Outline: Test test',
-                  '    * a step',
-                  '',
-                  '  @example_tag',
-                  '  Examples: Test example',
-                  '    | a param |',
-                  '    | a value |']
-        source = source.join("\n")
+        source = "@feature_tag
+                  #{@feature_keyword}: Test feature
+
+                    #{@outline_keyword}: Test test
+                      #{@step_keyword} a step
+
+                    @example_tag
+                    #{@example_keyword}: Test example
+                      | a param |
+                      | a value |"
 
         file_path = "#{@default_file_directory}/tag_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -96,11 +95,11 @@ describe 'Tag, Integration' do
       context 'a tag that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                       
                       @a_tag
-                      Scenario: Test scenario
-                        * a step'
+                      #{@scenario_keyword}: Test scenario
+                        #{@step_keyword} a step"
 
           file_path = "#{@default_file_directory}/tag_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -121,14 +120,14 @@ describe 'Tag, Integration' do
       context 'a tag that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                       
                       @a_tag
-                      Scenario Outline: Test outline
-                        * a step
-                      Examples:
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/tag_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -149,14 +148,14 @@ describe 'Tag, Integration' do
       context 'a tag that is part of an example' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                       
-                      Scenario Outline: Test outline
-                        * a step
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step
                       @a_tag
-                      Examples:
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
           file_path = "#{@default_file_directory}/tag_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
         end
@@ -195,11 +194,11 @@ describe 'Tag, Integration' do
         end
 
         it "models the tag's source line" do
-          source_text = "Feature:
+          source_text = "#{@feature_keyword}:
 
                            @a_tag
-                           Scenario:
-                             * step"
+                           #{@scenario_keyword}:
+                             #{@step_keyword} step"
           tag = CukeModeler::Feature.new(source_text).tests.first.tags.first
 
           expect(tag.source_line).to eq(3)

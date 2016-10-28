@@ -23,6 +23,7 @@ module CukeModeler
     def populate_scenario(scenario_object, parsed_scenario_data)
       populate_parsing_data(scenario_object, parsed_scenario_data)
       populate_source_line(scenario_object, parsed_scenario_data)
+      populate_keyword(scenario_object, parsed_scenario_data)
       populate_name(scenario_object, parsed_scenario_data)
       populate_description(scenario_object, parsed_scenario_data)
       populate_steps(scenario_object, parsed_scenario_data)
@@ -32,6 +33,7 @@ module CukeModeler
     def populate_outline(outline_object, parsed_outline_data)
       populate_parsing_data(outline_object, parsed_outline_data)
       populate_source_line(outline_object, parsed_outline_data)
+      populate_keyword(outline_object, parsed_outline_data)
       populate_name(outline_object, parsed_outline_data)
       populate_description(outline_object, parsed_outline_data)
       populate_steps(outline_object, parsed_outline_data)
@@ -41,6 +43,7 @@ module CukeModeler
 
     def populate_background(background_object, parsed_background_data)
       populate_parsing_data(background_object, parsed_background_data)
+      populate_keyword(background_object, parsed_background_data)
       populate_name(background_object, parsed_background_data)
       populate_description(background_object, parsed_background_data)
       populate_source_line(background_object, parsed_background_data)
@@ -93,6 +96,7 @@ module CukeModeler
 
     def populate_example(example_object, parsed_example_data)
       populate_parsing_data(example_object, parsed_example_data)
+      populate_keyword(example_object, parsed_example_data)
       populate_source_line(example_object, parsed_example_data)
       populate_name(example_object, parsed_example_data)
       populate_description(example_object, parsed_example_data)
@@ -109,6 +113,7 @@ module CukeModeler
     def populate_feature(feature_object, parsed_feature_data)
       populate_parsing_data(feature_object, parsed_feature_data)
       populate_source_line(feature_object, parsed_feature_data)
+      populate_keyword(feature_object, parsed_feature_data)
       populate_name(feature_object, parsed_feature_data)
       populate_description(feature_object, parsed_feature_data)
       populate_tags(feature_object, parsed_feature_data)
@@ -143,8 +148,8 @@ module CukeModeler
       step_model.text = parsed_step_data['name']
     end
 
-    def populate_keyword(step_model, parsed_step_data)
-      step_model.keyword = parsed_step_data['keyword'].strip
+    def populate_keyword(model, parsed_model_data)
+      model.keyword = parsed_model_data['keyword'].strip
     end
 
     def populate_row_models(table_model, parsed_table_data)
@@ -188,15 +193,15 @@ module CukeModeler
 
       if elements
         elements.each do |element|
-          case element['keyword']
-            when 'Scenario'
+          case element['type']
+            when 'Scenario', 'scenario'
               feature_model.tests << build_child_model(Scenario, element)
-            when 'Scenario Outline'
+            when 'ScenarioOutline', 'scenario_outline'
               feature_model.tests << build_child_model(Outline, element)
-            when 'Background'
+            when 'Background', 'background'
               feature_model.background = build_child_model(Background, element)
             else
-              raise(ArgumentError, "Unknown keyword: #{element['keyword']}")
+              raise(ArgumentError, "Unknown element type: #{element['type']}")
           end
         end
       end

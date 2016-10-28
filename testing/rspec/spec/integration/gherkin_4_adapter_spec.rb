@@ -3,54 +3,54 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 
 describe 'Gherkin4Adapter, Integration', :gherkin4 => true do
 
-  let(:source_text) { '@tag1 @tag2 @tag3
-                       Feature: A feature with everything it could have
+  let(:source_text) { "@tag1 @tag2 @tag3
+                       #{@feature_keyword}: A feature with everything it could have
 
                        Including a description
                        and then some.
 
-                         Background:
+                         #{@background_keyword}:
 
                          Background
                          description
 
-                           * a step
+                           #{@step_keyword} a step
                              | value1 |
-                           * another step
+                           #{@step_keyword} another step
 
                          @scenario_tag
-                         Scenario:
+                         #{@scenario_keyword}:
 
                          Scenario
                          description
 
-                           * a step
-                           * another step
-                             """"
+                           #{@step_keyword} a step
+                           #{@step_keyword} another step
+                             \"\"\"
                              some text
-                             """
+                             \"\"\"
 
                          @outline_tag
-                         Scenario Outline:
+                         #{@outline_keyword}:
 
                          Outline
                          description
 
-                           * a step
+                           #{@step_keyword} a step
                              | value2 |
-                           * another step
-                             """
+                           #{@step_keyword} another step
+                             \"\"\"
                              some text
-                             """
+                             \"\"\"
 
                          @example_tag
-                         Examples:
+                         #{@example_keyword}:
 
                          Example
                          description
 
                            | param |
-                           | value |' }
+                           | value |" }
   let(:feature) { CukeModeler::Feature.new(source_text) }
 
 

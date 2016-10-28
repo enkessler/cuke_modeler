@@ -32,6 +32,13 @@ Feature: Outline modeling
       """
 
 
+  Scenario: Modeling an outline's keyword
+    When the outline's keyword is requested
+      """
+        @model.keyword
+      """
+    Then the model returns "Scenario Outline"
+
   Scenario: Modeling an outline's name
     When the outline's name is requested
       """

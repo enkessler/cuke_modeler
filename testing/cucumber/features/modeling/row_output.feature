@@ -1,6 +1,7 @@
 Feature: Row output
 
-  A row model's string output is a Gherkin representation of itself.
+  A row model's string output is a Gherkin representation of itself. As such, output from a row model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting a row model
@@ -19,4 +20,8 @@ Feature: Row output
     Then the following text is provided:
       """
       | foo | bar |
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Row.new(@model.to_s)
       """

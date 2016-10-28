@@ -24,6 +24,13 @@ Feature: Background modeling
       """
 
 
+  Scenario: Modeling a backgrounds's keyword
+    When the backgrounds's keyword is requested
+      """
+        @model.keyword
+      """
+    Then the model returns "Background"
+
   Scenario: Modeling a backgrounds's name
     When the background's name is requested
       """

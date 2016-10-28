@@ -57,10 +57,10 @@ describe 'Table, Integration' do
       context 'from source text' do
 
         it "models the table's source line" do
-          source_text = "Feature:
+          source_text = "#{@feature_keyword}:
 
-                           Scenario:
-                             * step
+                           #{@scenario_keyword}:
+                             #{@step_keyword} step
                                | value |"
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
@@ -89,9 +89,8 @@ describe 'Table, Integration' do
 
 
     it 'properly sets its child models' do
-      source = ['| cell 1 |',
-                '| cell 2 |']
-      source = source.join("\n")
+      source = "| cell 1 |
+                | cell 2 |"
 
       table = clazz.new(source)
       row_1 = table.rows[0]
@@ -104,12 +103,11 @@ describe 'Table, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['Feature: Test feature',
-                  '',
-                  '  Scenario: Test test',
-                  '    * a step:',
-                  '      | a | table |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step:
+                        | a | table |"
 
         file_path = "#{@default_file_directory}/table_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -140,11 +138,11 @@ describe 'Table, Integration' do
       context 'a table that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario: Test test
-                        * a step:
-                          | a | table |'
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -165,14 +163,14 @@ describe 'Table, Integration' do
       context 'a table that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Scenario Outline: Test outline
-                        * a step:
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step:
                           | a | table |
-                      Examples:
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -193,11 +191,11 @@ describe 'Table, Integration' do
       context 'a table that is part of a background' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                     
-                      Background: Test background
-                        * a step:
-                          | a | table |'
+                      #{@background_keyword}: Test background
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/table_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -233,9 +231,8 @@ describe 'Table, Integration' do
     describe 'table output' do
 
       it 'can be remade from its own output' do
-        source = ['| value1 | value2 |',
-                  '| value3 | value4 |']
-        source = source.join("\n")
+        source = "| value1 | value2 |
+                  | value3 | value4 |"
         table = clazz.new(source)
 
         table_output = table.to_s
@@ -255,7 +252,7 @@ describe 'Table, Integration' do
         source = source.join("\n")
         table = clazz.new(source)
 
-        table_output = table.to_s.split("\n")
+        table_output = table.to_s.split("\n", -1)
 
         expect(table_output).to eq(['| a value with \|        |',
                                     '| a value with \\\\        |',
@@ -269,7 +266,7 @@ describe 'Table, Integration' do
           source = source.join("\n")
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value1 | value2 |'])
         end
@@ -280,20 +277,19 @@ describe 'Table, Integration' do
           source = source.join("\n")
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value1 | value2 |',
                                       '| value3 | value4 |'])
         end
 
         it 'buffers row cells based on the longest value in a column' do
-          source = ['|value 1| x|',
-                    '|y|value 2|',
-                    '|a|b|']
-          source = source.join("\n")
+          source = "|value 1| x|
+                    |y|value 2|
+                    |a|b|"
           table = clazz.new(source)
 
-          table_output = table.to_s.split("\n")
+          table_output = table.to_s.split("\n", -1)
 
           expect(table_output).to eq(['| value 1 | x       |',
                                       '| y       | value 2 |',

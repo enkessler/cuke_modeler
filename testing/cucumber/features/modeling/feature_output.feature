@@ -1,6 +1,7 @@
 Feature: Feature output
 
-  A feature model's string output is a Gherkin representation of itself.
+  A feature model's string output is a Gherkin representation of itself. As such, output from a feature model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting a feature model
@@ -101,4 +102,8 @@ Feature: Feature output
 
           | param |
           | value |
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Feature.new(@model.to_s)
       """

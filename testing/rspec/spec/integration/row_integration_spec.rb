@@ -66,12 +66,11 @@ describe 'Row, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = ['Feature: Test feature',
-                  '',
-                  '  Scenario: Test test',
-                  '    * a step:',
-                  '      | a | table |']
-        source = source.join("\n")
+        source = "#{@feature_keyword}: Test feature
+
+                    #{@scenario_keyword}: Test test
+                      #{@step_keyword} a step:
+                        | a | table |"
 
         file_path = "#{@default_file_directory}/row_test_file.feature"
         File.open(file_path, 'w') { |file| file.write(source) }
@@ -114,11 +113,11 @@ describe 'Row, Integration' do
       context 'a row that is part of a scenario' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
 
-                      Scenario: Test test
-                        * a step:
-                          | a | table |'
+                      #{@scenario_keyword}: Test test
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/row_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -140,11 +139,11 @@ describe 'Row, Integration' do
       context 'a row that is part of a background' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
 
-                      Background: Test background
-                        * a step:
-                          | a | table |'
+                      #{@background_keyword}: Test background
+                        #{@step_keyword} a step:
+                          | a | table |"
 
           file_path = "#{@default_file_directory}/row_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -165,13 +164,13 @@ describe 'Row, Integration' do
       context 'a row that is part of an outline' do
 
         before(:each) do
-          source = 'Feature: Test feature
+          source = "#{@feature_keyword}: Test feature
                       
-                      Scenario Outline: Test outline
-                        * a step
-                      Examples:
+                      #{@outline_keyword}: Test outline
+                        #{@step_keyword} a step
+                      #{@example_keyword}:
                         | param |
-                        | value |'
+                        | value |"
 
           file_path = "#{@default_file_directory}/row_test_file.feature"
           File.open(file_path, 'w') { |file| file.write(source) }
@@ -219,11 +218,11 @@ describe 'Row, Integration' do
         end
 
         it "models the row's source line" do
-          source_text = "Feature: Test feature
+          source_text = "#{@feature_keyword}: Test feature
 
-                           Scenario Outline: Test outline
-                             * a step
-                           Examples:
+                           #{@outline_keyword}: Test outline
+                             #{@step_keyword} a step
+                           #{@example_keyword}:
                              | param |
                              | value |"
           row = CukeModeler::Feature.new(source_text).tests.first.examples.first.rows.first
@@ -239,8 +238,7 @@ describe 'Row, Integration' do
     describe 'row output' do
 
       it 'can be remade from its own output' do
-        source = ['| value1 | value2 |']
-        source = source.join("\n")
+        source = "| value1 | value2 |"
         row = clazz.new(source)
 
         row_output = row.to_s

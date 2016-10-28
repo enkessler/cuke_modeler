@@ -1,6 +1,7 @@
 Feature: Scenario output
 
-  A scenario model's string output is a Gherkin representation of itself.
+  A scenario model's string output is a Gherkin representation of itself. As such, output from a scenario model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting a scenario model
@@ -42,4 +43,8 @@ Feature: Scenario output
           \"\"\"
             some string
           \"\"\"
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Scenario.new(@model.to_s)
       """

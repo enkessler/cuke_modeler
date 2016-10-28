@@ -4,12 +4,17 @@ module CukeModeler
 
   class Scenario < Model
 
+    include Parsing
     include Parsed
     include Named
     include Described
     include Stepped
     include Sourceable
     include Taggable
+
+
+    # The scenario's keyword
+    attr_accessor :keyword
 
 
     # Creates a new Scenario object and, if *source_text* is provided, populates the
@@ -44,7 +49,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Scenario:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n" unless (steps.empty? || description.nil? || description.empty?)
       text << "\n" + steps_output_string unless steps.empty?
@@ -57,7 +62,7 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "Feature: Fake feature to parse\n"
+      base_file_string = "#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_scenario.feature')

@@ -2,8 +2,7 @@ Feature: Model output
 
   All models can be output in text form. For models that represent parts of the file structure, this text
   will be a path and for models that represent parts of a feature file, this text will be Gherkin (see the
-  model output documentation for specific models for details). As such, output from a model can be used as
-  input for the same kind of model.
+  model output documentation for specific models for details).
 
 
   Scenario: Outputting a model
@@ -13,10 +12,4 @@ Feature: Model output
         model = <model_class>.new
         
         model.to_s
-      """
-    And the output can be used to make an equivalent model
-      """
-        model = <model_class>.new
-
-        <model_class>.new(model.to_s)
       """

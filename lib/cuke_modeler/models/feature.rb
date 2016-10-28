@@ -11,6 +11,9 @@ module CukeModeler
     include Sourceable
 
 
+    # The keyword for the feature
+    attr_accessor :keyword
+
     # The Background object contained by the Feature
     attr_accessor :background
 
@@ -72,7 +75,7 @@ module CukeModeler
       text = ''
 
       text << tag_output_string + "\n" unless tags.empty?
-      text << "Feature:#{name_output_string}"
+      text << "#{@keyword}:#{name_output_string}"
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n\n" + background_output_string if background
       text << "\n\n" + tests_output_string unless tests.empty?

@@ -1,6 +1,7 @@
 Feature: Tag output
 
-  A tag model's string output is a Gherkin representation of itself.
+  A tag model's string output is a Gherkin representation of itself. As such, output from a tag model can be used as
+  input for the same kind of model.
 
 
   Scenario: Outputting a tag model
@@ -19,4 +20,8 @@ Feature: Tag output
     Then the following text is provided:
       """
       @a_tag
+      """
+    And the output can be used to make an equivalent model
+      """
+        CukeModeler::Tag.new(@model.to_s)
       """

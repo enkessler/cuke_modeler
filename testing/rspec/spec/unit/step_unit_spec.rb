@@ -10,6 +10,7 @@ describe 'Step, Unit', :unit_test => true do
   describe 'common behavior' do
 
     it_should_behave_like 'a model'
+    it_should_behave_like 'a keyworded model'
     it_should_behave_like 'a sourced model'
     it_should_behave_like 'a parsed model'
 
@@ -44,19 +45,6 @@ describe 'Step, Unit', :unit_test => true do
       expect(step.block).to eq(:some_other_block)
     end
 
-    it 'has a keyword' do
-      expect(step).to respond_to(:keyword)
-    end
-
-    it 'can change its keyword' do
-      expect(step).to respond_to(:keyword=)
-
-      step.keyword = :some_keyword
-      expect(step.keyword).to eq(:some_keyword)
-      step.keyword = :some_other_keyword
-      expect(step.keyword).to eq(:some_other_keyword)
-    end
-
 
     describe 'abstract instantiation' do
 
@@ -71,10 +59,6 @@ describe 'Step, Unit', :unit_test => true do
 
         it 'starts with no block' do
           expect(step.block).to be_nil
-        end
-
-        it 'starts with no keyword' do
-          expect(step.keyword).to be_nil
         end
 
       end
@@ -104,12 +88,6 @@ describe 'Step, Unit', :unit_test => true do
 
 
         it 'can output an empty step' do
-          expect { step.to_s }.to_not raise_error
-        end
-
-        it 'can output a step that has only a keyword' do
-          step.keyword = '*'
-
           expect { step.to_s }.to_not raise_error
         end
 

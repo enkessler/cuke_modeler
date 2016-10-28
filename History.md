@@ -1,3 +1,15 @@
+### Version 1.1.0 / 2016-10-28
+
+* Support added for non-English dialects. This gem should now be able to model 
+  feature files using any dialect supported by the 'gherkin' gem.
+
+* Models for elements of Gherkin that have keywords (e.g. 'Feature', 'Scenario', 
+  'Examples') now keep track of the keyword used by the element that they model.
+
+* Bug fix - Fixed a bug that was causing example models to output extra newline 
+  characters under certain circumstances. 
+
+
 ### Version 1.0.4 / 2016-10-07
 
 * Bug Fix - Fixed a bug that caused some models to include nil objects in their 
