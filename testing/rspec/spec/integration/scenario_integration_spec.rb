@@ -20,6 +20,23 @@ describe 'Scenario, Integration' do
       expect { clazz.new(source) }.to_not raise_error
     end
 
+    it 'can parse text that uses a non-default dialect' do
+      original_dialect = CukeModeler::Parsing.dialect
+      CukeModeler::Parsing.dialect = 'en-au'
+
+      begin
+        source_text = 'Awww, look mate: Scenario name'
+
+        expect { @model = clazz.new(source_text) }.to_not raise_error
+
+        # Sanity check in case modeling failed in a non-explosive manner
+        expect(@model.name).to eq('Scenario name')
+      ensure
+        # Making sure that our changes don't escape a test and ruin the rest of the suite
+        CukeModeler::Parsing.dialect = original_dialect
+      end
+    end
+
     it 'provides a descriptive filename when being parsed from stand alone text' do
       source = "bad scenario text \n #{@scenario_keyword}:\n And a step\n @foo "
 

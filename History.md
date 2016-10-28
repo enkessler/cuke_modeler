@@ -1,3 +1,9 @@
+### Version 1.1.1 / 2016-10-28
+
+* Bug fix - Abstract instantiation of models when using a non-default dialect 
+  now works correctly.
+
+
 ### Version 1.1.0 / 2016-10-28
 
 * Support added for non-English dialects. This gem should now be able to model 

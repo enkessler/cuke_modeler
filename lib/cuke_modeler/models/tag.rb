@@ -36,7 +36,7 @@ module CukeModeler
 
     def parse_source(source_text)
       base_file_string = "\n#{dialect_feature_keyword}: Fake feature to parse"
-      source_text = source_text + base_file_string
+      source_text = "# language: #{Parsing.dialect}\n" + source_text + base_file_string
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_tag.feature')
 

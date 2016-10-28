@@ -73,6 +73,28 @@ an entire test suite!
 For more information on the different models and how to use them, see the 
 [documentation](http://www.relishapp.com/enkessler/CukeModeler/docs).
 
+## Modeling dialects other than English
+
+The modeling functionality provided by this gem will work with any dialect that 
+is supported by the **gherkin** gem. For modeling at the feature level or higher, 
+no additional effort is needed because the `# language` header at the top of a 
+feature already indicates that a non-default dialect is being used.
+
+    # language: en-au
+    Pretty much: An 'Australian' feature
+    
+      Aww, look mate: An 'Australian' scenario
+        * a step
+ 
+  In order to model smaller portions of Gherkin, however, the parser will need 
+  to be told what dialect is being used.
+
+    # Setting the dialect to 'Australian'
+    CukeModeler::Parsing.dialect = 'en-au'
+    
+    gherkin = "Awww, look mate: some test\n* a step"
+    test = CukeModeler::Scenario.new(gherkin)
+
 
 ## Modeling other versions of Cucumber
 
@@ -83,7 +105,7 @@ that feature is ultimately run with SpecFlow (Cucumber for C#), Lettuce
 (Cucumber for Python), or some other flavor of Cucumber. 
 
 
-### Other gems that are (or soon will be) powered by cuke_modeler
+### Other gems that are (or soon will be) powered by **cuke_modeler**
 
   * [cql](https://github.com/enkessler/cql)
   * [cuketagger](https://github.com/enkessler/cuketagger)
