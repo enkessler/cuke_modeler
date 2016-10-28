@@ -51,6 +51,23 @@ describe 'Table, Integration' do
       expect { clazz.new(source) }.to_not raise_error
     end
 
+    it 'can parse text that uses a non-default dialect' do
+      original_dialect = CukeModeler::Parsing.dialect
+      CukeModeler::Parsing.dialect = 'en-au'
+
+      begin
+        source_text = '| a table |'
+
+        expect { @model = clazz.new(source_text) }.to_not raise_error
+
+        # Sanity check in case modeling failed in a non-explosive manner
+        expect(@model.rows.first.cells.first.value).to eq('a table')
+      ensure
+        # Making sure that our changes don't escape a test and ruin the rest of the suite
+        CukeModeler::Parsing.dialect = original_dialect
+      end
+    end
+
 
     describe 'model population' do
 

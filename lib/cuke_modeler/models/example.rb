@@ -119,7 +119,7 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "#{dialect_feature_keyword}: Fake feature to parse\n#{dialect_outline_keyword}:\n#{dialect_step_keyword} fake step\n"
+      base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n#{dialect_outline_keyword}:\n#{dialect_step_keyword} fake step\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
