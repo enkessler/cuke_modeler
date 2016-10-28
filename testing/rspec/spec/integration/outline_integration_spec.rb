@@ -41,7 +41,11 @@ describe 'Outline, Integration' do
       CukeModeler::Parsing.dialect = 'en-au'
 
       begin
-        source_text = "Reckon it's like: Outline name"
+        source_text = "Reckon it's like: Outline name
+                         Yeah nah zen
+                         You'll wanna:
+                           | param |
+                           | value |"
 
         expect { @model = clazz.new(source_text) }.to_not raise_error
 

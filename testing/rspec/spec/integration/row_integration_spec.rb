@@ -65,7 +65,7 @@ describe 'Row, Integration' do
       data = example_row.parsing_data
 
       expect(data.keys).to match_array(['cells', 'line'])
-      expect(data['line']).to eq(4)
+      expect(data['line']).to eq(5)
     end
 
     it 'properly sets its child models' do
