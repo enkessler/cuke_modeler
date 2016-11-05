@@ -9,7 +9,7 @@ Feature: Tag output
       """
       @a_tag
       """
-    And a scenario model based on that gherkin
+    And a tag model based on that gherkin
       """
         @model = CukeModeler::Tag.new(<source_text>)
       """
