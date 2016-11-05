@@ -26,3 +26,9 @@ end
 Given(/^the following gherkin:$/) do |text|
   @source_text = text
 end
+
+Given(/^a feature file with the following gherkin:$/) do |file_text|
+  @file_path = "#{@default_file_directory}/#{@default_feature_file_name}"
+
+  File.open(@file_path, 'w') { |file| file.write(file_text) }
+end

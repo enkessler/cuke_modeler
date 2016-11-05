@@ -133,15 +133,30 @@ module CukeModeler
     end
 
     def populate_featurefile(feature_file_object, processed_feature_file_data)
+      populate_parsing_data(feature_file_object, processed_feature_file_data)
       feature_file_object.path = processed_feature_file_data['path']
 
       feature_file_object.feature = build_child_model(Feature, processed_feature_file_data['feature']) unless processed_feature_file_data['feature'].nil?
+
+      processed_feature_file_data['comments'].each do |comment_data|
+        feature_file_object.comments << build_child_model(Comment, comment_data)
+      end
     end
 
     def populate_tag(tag_object, processed_tag_data)
       populate_name(tag_object, processed_tag_data)
       populate_parsing_data(tag_object, processed_tag_data)
       populate_source_line(tag_object, processed_tag_data)
+    end
+
+    def populate_comment(comment_object, processed_comment_data)
+      populate_comment_text(comment_object, processed_comment_data)
+      populate_parsing_data(comment_object, processed_comment_data)
+      populate_source_line(comment_object, processed_comment_data)
+    end
+
+    def populate_comment_text(comment_model, parsed_comment_data)
+      comment_model.text = parsed_comment_data['text'].strip
     end
 
     def populate_text(step_model, parsed_step_data)

@@ -4,6 +4,11 @@ module CukeModeler
 
   class FeatureFile < Model
 
+    include Parsed
+
+
+    # The comment models contained by the modeled feature file
+    attr_accessor :comments
 
     # The feature model contained by the modeled feature file
     attr_accessor :feature
@@ -16,6 +21,7 @@ module CukeModeler
     # populates the object.
     def initialize(file_path = nil)
       @path = file_path
+      @comments = []
 
       super(file_path)
 
@@ -49,13 +55,10 @@ module CukeModeler
 
 
     def process_feature_file(file_path)
-      feature_file_data = {'path' => file_path}
-
       source_text = IO.read(file_path)
-      feature = Parsing::parse_text(source_text, file_path).first
 
-      feature_file_data['feature'] = feature
-
+      feature_file_data = Parsing::parse_text(source_text, file_path).first
+      feature_file_data = feature_file_data.merge({'path' => file_path})
 
       feature_file_data
     end

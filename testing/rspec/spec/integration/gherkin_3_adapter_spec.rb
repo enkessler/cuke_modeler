@@ -3,21 +3,27 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 
 describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
 
-  let(:source_text) { "@tag1 @tag2 @tag3
+  let(:source_text) { "# feature comment
+                       @tag1 @tag2 @tag3
                        #{@feature_keyword}: A feature with everything it could have
 
                        Including a description
                        and then some.
 
+                         # background comment
                          #{@background_keyword}:
 
                          Background
                          description
 
                            #{@step_keyword} a step
+                           # table comment
                              | value1 |
+                           # table row comment
+                             | value2 |
                            #{@step_keyword} another step
 
+                         # scenario comment
                          @scenario_tag
                          #{@scenario_keyword}:
 
@@ -30,33 +36,52 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
                              some text
                              \"\"\"
 
+                         # outline comment
                          @outline_tag
                          #{@outline_keyword}:
 
                          Outline
                          description
 
+                           # step comment
                            #{@step_keyword} a step
+                           # table comment
                              | value2 |
+                           # step comment
                            #{@step_keyword} another step
+                           # doc string comment
                              \"\"\"
                              some text
                              \"\"\"
 
+                         # example comment
                          @example_tag
                          #{@example_keyword}:
 
                          Example
                          description
 
+                           # row comment
                            | param |
-                           | value |" }
-  let(:feature) { CukeModeler::Feature.new(source_text) }
+                           | value |
+                       # final comment" }
+  let(:feature_file) { path = "#{@default_file_directory}/#{@default_feature_file_name}"
+  File.open(path, "w") { |file| file.puts source_text }
 
+  CukeModeler::FeatureFile.new(path) }
+  let(:feature) { feature_file.feature }
+
+
+  it "does not store parsing data for a feature file's children" do
+    model = feature_file
+
+    expect(model.parsing_data).to be_nil
+  end
 
   it "does not store parsing data for a feature's children" do
     model = feature
 
+    expect(model.parsing_data[:comments]).to be_nil
     expect(model.parsing_data[:tags]).to be_nil
     expect(model.parsing_data[:scenarioDefinitions]).to be_nil
     expect(model.parsing_data[:background]).to be_nil
@@ -120,6 +145,5 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
 
     expect(model.parsing_data[:cells]).to be_nil
   end
-
 
 end
