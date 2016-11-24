@@ -36,8 +36,8 @@ being populated dynamically based on an actual test suite.
 
   Scenario: Accessing the parsing data
 
-  Note: Directory and feature file models do not store any parsing data because parsing Gherkin source text
-  does not come into play until the feature level of modeling.
+  Note: Directory models do not store any parsing data because parsing Gherkin source text
+  does not come into play until the feature file level of modeling.
 
     Given the models provided by CukeModeler
     Then  all of them provide access to the parsing data that was used to create them

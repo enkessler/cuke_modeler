@@ -1,3 +1,8 @@
+### Version 1.2.0 / 2016-11-23
+
+* The comments in a feature file are now a modeled element.
+
+
 ### Version 1.1.1 / 2016-10-28
 
 * Bug fix - Abstract instantiation of models when using a non-default dialect 

@@ -6,9 +6,24 @@ module CukeModeler
 
     # Adapts the given AST into the shape that this gem expects
     def adapt(parsed_ast)
-      adapt_feature!(parsed_ast[:feature]) if parsed_ast[:feature]
+      # Saving off the original data
+      parsed_ast['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_ast))
 
-      [parsed_ast[:feature]].compact
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_ast['cuke_modeler_parsing_data'][:feature] = nil
+      parsed_ast['cuke_modeler_parsing_data'][:comments] = nil
+
+      # Comments are stored on the feature file in gherkin 4.x
+      parsed_ast['comments'] = []
+      parsed_ast[:comments].each do |comment|
+        adapt_comment!(comment)
+      end
+      parsed_ast['comments'].concat(parsed_ast.delete(:comments))
+
+      adapt_feature!(parsed_ast[:feature]) if parsed_ast[:feature]
+      parsed_ast['feature'] = parsed_ast.delete(:feature)
+
+      [parsed_ast]
     end
 
     # Adapts the AST sub-tree that is rooted at the given feature node.
@@ -155,6 +170,15 @@ module CukeModeler
 
       parsed_tag['name'] = parsed_tag.delete(:name)
       parsed_tag['line'] = parsed_tag.delete(:location)[:line]
+    end
+
+    # Adapts the AST sub-tree that is rooted at the given comment node.
+    def adapt_comment!(parsed_comment)
+      # Saving off the original data
+      parsed_comment['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_comment))
+
+      parsed_comment['text'] = parsed_comment.delete(:text)
+      parsed_comment['line'] = parsed_comment.delete(:location)[:line]
     end
 
     # Adapts the AST sub-tree that is rooted at the given step node.

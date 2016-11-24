@@ -124,7 +124,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
 
-      parsed_file.first['elements'].first['examples'].first
+      parsed_file.first['feature']['elements'].first['examples'].first
     end
 
     def determine_buffer_size(index)

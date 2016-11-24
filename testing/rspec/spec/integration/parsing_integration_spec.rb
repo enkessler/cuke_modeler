@@ -46,6 +46,7 @@ describe 'Parsing, Integration' do
       expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Fixnum/)
     end
 
+    # todo - Stop doing this. Just return a feature file rooted AST.
     it 'returns an Array' do
       result = nodule.parse_text("#{@feature_keyword}:")
       expect(result).to be_a(Array)

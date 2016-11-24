@@ -94,7 +94,7 @@ end
 
 Then(/^all of them provide access to the parsing data that was used to create them$/) do |code_text|
   original_text = code_text
-  unparsed_models = [CukeModeler::Model, CukeModeler::FeatureFile, CukeModeler::Directory]
+  unparsed_models = [CukeModeler::Model, CukeModeler::Directory]
 
   @available_model_classes.each do |clazz|
     next if unparsed_models.include?(clazz)
@@ -163,4 +163,10 @@ But(/^none of the models are equivalent with a model for the following scenario:
   @models.each do |other_model|
     expect(model == other_model).to_not be true
   end
+end
+
+Then(/^the model returns models for the following comments:$/) do |model_values|
+  model_values = model_values.raw.flatten
+
+  expect(@result.collect { |model| model.text }).to eq(model_values)
 end

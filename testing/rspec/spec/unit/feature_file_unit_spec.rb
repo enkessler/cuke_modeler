@@ -10,6 +10,7 @@ describe 'FeatureFile, Unit', :unit_test => true do
   describe 'common behavior' do
 
     it_should_behave_like 'a model'
+    it_should_behave_like 'a parsed model'
 
   end
 
@@ -42,6 +43,19 @@ describe 'FeatureFile, Unit', :unit_test => true do
       expect(feature_file.feature).to eq(:some_other_features)
     end
 
+    it 'has comments' do
+      expect(feature_file).to respond_to(:comments)
+    end
+
+    it 'can change its comments' do
+      expect(feature_file).to respond_to(:comments=)
+
+      feature_file.comments = :some_comments
+      expect(feature_file.comments).to eq(:some_comments)
+      feature_file.comments = :some_other_comments
+      expect(feature_file.comments).to eq(:some_other_comments)
+    end
+
     it 'knows the name of the file that it is modeling' do
       expect(feature_file).to respond_to(:name)
     end
@@ -71,6 +85,10 @@ describe 'FeatureFile, Unit', :unit_test => true do
 
         it 'starts with no feature' do
           expect(feature_file.feature).to be_nil
+        end
+
+        it 'starts with no comments' do
+          expect(feature_file.comments).to eq([])
         end
 
       end

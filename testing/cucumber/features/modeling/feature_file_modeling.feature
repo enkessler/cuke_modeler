@@ -9,6 +9,8 @@ Feature: Feature file modeling
     Given the directory "test_directory"
     And the file "test_directory/foo.feature":
       """
+      # A comment
+      # Another comment
       Feature: Bar
       """
     And the feature file is modeled
@@ -30,6 +32,15 @@ Feature: Feature file modeling
         @model.name
       """
     Then the model returns "foo.feature"
+
+  Scenario: Modeling a feature file's comments
+    When the feature file's comments are requested
+      """
+        @model.comments
+      """
+    Then the model returns models for the following comments:
+      | # A comment       |
+      | # Another comment |
 
   Scenario: Modeling a feature file's feature
     When the feature file's feature is requested
