@@ -139,7 +139,7 @@
   being populated if the instance was given a diretory to model.
 
 * Bug fix - Fixed a bug that occurred if a Directory object was asked for its 
-  #name when it was created as 'abstract' instead of modeling an existing 
+  \#name when it was created as 'abstract' instead of modeling an existing 
   directory.
 
 
