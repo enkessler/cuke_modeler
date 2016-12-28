@@ -5,7 +5,8 @@ rvm:
   - 2.0.0
   - 2.1.6
   - 2.2.2
-  - jruby
+  - jruby-18mode
+  - jruby-19mode
   - rbx-2
 
 gemfile:
@@ -19,6 +20,10 @@ matrix:
   - rvm: 1.8.7
     gemfile: testing/gemfiles/gherkin3.gemfile
   - rvm: 1.8.7
+    gemfile: testing/gemfiles/gherkin4.gemfile
+  - rvm: jruby-18mode
+    gemfile: testing/gemfiles/gherkin3.gemfile
+  - rvm: jruby-18mode
     gemfile: testing/gemfiles/gherkin4.gemfile
 
 # todo - Remove this once TravisCI fixes their bundler issue (https://github.com/alphagov/govuk_template/pull/186)
