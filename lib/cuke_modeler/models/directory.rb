@@ -53,8 +53,6 @@ module CukeModeler
 
 
     def process_directory(directory_path)
-puts "processing directory path: #{directory_path}"
-
       directory_data = {'path' => directory_path,
                         'directories' => [],
                         'feature_files' => []

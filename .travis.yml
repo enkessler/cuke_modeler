@@ -14,6 +14,9 @@ gemfile:
   - testing/gemfiles/gherkin3.gemfile
   - testing/gemfiles/gherkin4.gemfile
 
+env:
+  global:
+    - JRUBY_OPTS=-Xcompile.invokedynamic=false
 
 matrix:
   exclude:
