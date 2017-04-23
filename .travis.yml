@@ -14,10 +14,9 @@ gemfile:
   - testing/gemfiles/gherkin4.gemfile
 
 env:
-  global:
-    - JRUBY_OPTS=--2.0
-    - JRUBY_OPTS=--1.8
-    - JRUBY_OPTS=--1.9
+  - JRUBY_OPTS=--2.0
+  - JRUBY_OPTS=--1.8
+  - JRUBY_OPTS=--1.9
 
 matrix:
   exclude:
