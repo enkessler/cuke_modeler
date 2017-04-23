@@ -16,8 +16,8 @@ gemfile:
 env:
   - JRUBY_OPTS='--1.8'
   - JRUBY_OPTS='--1.9 -Xcompile.invokeynamic=false'
-  - JRUBY_OPTS='--1.9 -Xss4m'
-  - JRUBY_OPTS='--1.9 -Xcompile.invokeynamic=false -Xss4m'
+  - JRUBY_OPTS='--1.9 -J-Xss4m'
+  - JRUBY_OPTS='--1.9 -Xcompile.invokeynamic=false -J-Xss4m'
 #  - JRUBY_OPTS=--2.0
 
 matrix:
