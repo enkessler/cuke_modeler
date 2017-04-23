@@ -1,12 +1,12 @@
 language: ruby
 rvm:
-  - 1.8.7
-  - 1.9.3
-  - 2.0.0
-  - 2.1.6
-  - 2.2.2
+#  - 1.8.7
+#  - 1.9.3
+#  - 2.0.0
+#  - 2.1.6
+#  - 2.2.2
   - jruby
-  - rbx-2
+#  - rbx-2
 
 gemfile:
   - testing/gemfiles/gherkin2.gemfile
@@ -16,6 +16,8 @@ gemfile:
 env:
   global:
     - JRUBY_OPTS=--2.0
+    - JRUBY_OPTS=--1.8
+    - JRUBY_OPTS=--1.9
 
 matrix:
   exclude:
