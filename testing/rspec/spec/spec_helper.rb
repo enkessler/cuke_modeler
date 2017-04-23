@@ -25,6 +25,8 @@ require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 
 require "#{this_dir}/../../dialect_helper"
 
+{foo: bar}
+
 
 # Use a fake dialect for testing in order to avoid hard coded language assumptions in the
 # implementation. Only possible with newer versions of Gherkin.
