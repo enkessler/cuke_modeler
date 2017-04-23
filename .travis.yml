@@ -5,8 +5,6 @@ rvm:
   - 2.0.0
   - 2.1.6
   - 2.2.2
-  - jruby-18mode
-  - jruby-20mode
   - jruby
   - rbx-2
 
@@ -14,6 +12,10 @@ gemfile:
   - testing/gemfiles/gherkin2.gemfile
   - testing/gemfiles/gherkin3.gemfile
   - testing/gemfiles/gherkin4.gemfile
+
+env:
+  global:
+    - JRUBY_OPTS=--2.0
 
 matrix:
   exclude:
