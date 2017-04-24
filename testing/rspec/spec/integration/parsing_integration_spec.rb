@@ -43,7 +43,7 @@ describe 'Parsing, Integration' do
     end
 
     it 'includes the type of object provided when raising an non-string exception' do
-      expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Fixnum/)
+      expect { nodule.parse_text(:not_a_string) }.to raise_error(ArgumentError, /Symbol/)
     end
 
     # todo - Stop doing this. Just return a feature file rooted AST.
