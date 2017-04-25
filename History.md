@@ -1,3 +1,8 @@
+### Version 1.2.1 / 2017-04-25
+
+* Now officially compatible with Rake 12.x.
+
+
 ### Version 1.2.0 / 2016-11-23
 
 * The comments in a feature file are now a modeled element.
