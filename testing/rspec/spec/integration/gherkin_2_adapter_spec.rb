@@ -66,9 +66,9 @@ describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
                            | value |
                        # final comment" }
   let(:feature_file) { path = "#{@default_file_directory}/#{@default_feature_file_name}"
-  File.open(path, "w") { |file| file.puts source_text }
+                       File.open(path, "w") { |file| file.puts source_text }
 
-  CukeModeler::FeatureFile.new(path) }
+                       CukeModeler::FeatureFile.new(path) }
   let(:feature) { feature_file.feature }
 
 
