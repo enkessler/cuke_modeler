@@ -3,6 +3,8 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 
 describe 'Gherkin4Adapter, Integration', :gherkin4 => true do
 
+  let(:clazz) { CukeModeler::Gherkin4Adapter }
+  let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
                        #{@feature_keyword}: A feature with everything it could have
@@ -143,6 +145,23 @@ describe 'Gherkin4Adapter, Integration', :gherkin4 => true do
     model = feature.outlines.first.steps.first.block.rows.first
 
     expect(model.parsing_data[:cells]).to be_nil
+  end
+
+
+  describe 'stuff that is in no way part of the public API and entirely subject to change' do
+
+    it 'provides a useful explosion message if it encounters an entirely new type of test' do
+      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:type => :some_unknown_type}]}
+
+      expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+    end
+
+    it 'provides a useful explosion message if it encounters an entirely new type of step block' do
+      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:type => :Scenario, :tags => [], :location => {:line => 1, :column => 1}, :steps => [{:type => :Step, :location => {:line => 1, :column => 1}, :argument => {:type => :some_unknown_type, :location => {:line => 1, :column => 1}, :content => ""}}]}]}
+
+      expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+    end
+
   end
 
 end

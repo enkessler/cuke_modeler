@@ -3,6 +3,8 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 
 describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
 
+  let(:clazz) { CukeModeler::Gherkin2Adapter }
+  let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
                        #{@feature_keyword}: A feature with everything it could have
@@ -150,6 +152,17 @@ describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
 
     expect(model.parsing_data['comments']).to be_nil
     expect(model.parsing_data['cells']).to be_nil
+  end
+
+
+  describe 'stuff that is in no way part of the public API and entirely subject to change' do
+
+    it 'provides a useful explosion message if it encounters an entirely new type of test' do
+      partial_feature_ast = {"elements" => [{"type" => "some_unknown_type"}]}
+
+      expect { adapter.adapt_feature!(partial_feature_ast, []) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+    end
+
   end
 
 end
