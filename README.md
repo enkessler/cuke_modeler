@@ -1,7 +1,9 @@
 [![Gem Version](https://badge.fury.io/rb/cuke_modeler.svg)](https://rubygems.org/gems/cuke_modeler)
-[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=dev)](https://travis-ci.org/enkessler/cuke_modeler)
 [![Dependency Status](https://gemnasium.com/enkessler/cuke_modeler.svg)](https://gemnasium.com/enkessler/cuke_modeler)
-
+[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=dev)](https://travis-ci.org/enkessler/cuke_modeler)
+[![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0/branch/dev?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler/branch/dev)
+[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=dev)](https://coveralls.io/github/enkessler/cuke_modeler?branch=dev)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 
 # CukeModeler

@@ -1,3 +1,8 @@
+### Version 1.2.1 / 2017-04-25
+
+* Now officially compatible with Rake 12.x.
+
+
 ### Version 1.2.0 / 2016-11-23
 
 * The comments in a feature file are now a modeled element.
@@ -139,7 +144,7 @@
   being populated if the instance was given a diretory to model.
 
 * Bug fix - Fixed a bug that occurred if a Directory object was asked for its 
-  #name when it was created as 'abstract' instead of modeling an existing 
+  \#name when it was created as 'abstract' instead of modeling an existing 
   directory.
 
 

@@ -599,4 +599,43 @@ describe 'Feature, Integration' do
 
   end
 
+
+  describe 'stuff that is in no way part of the public API and entirely subject to change' do
+
+    it 'provides a useful explosion message if it encounters an entirely new type of feature child' do
+      begin
+        $old_method = CukeModeler::Parsing.method(:parse_text)
+
+
+        # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new types of language objects
+        module CukeModeler
+          module Parsing
+            class << self
+              def parse_text(source_text, filename)
+                result = $old_method.call(source_text, filename)
+
+                result.first['feature']['elements'].first['type'] = :some_unknown_type
+
+                result
+              end
+            end
+          end
+        end
+
+
+        expect { clazz.new("#{@feature_keyword}:\n#{@scenario_keyword}:\n#{@step_keyword} foo") }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+      ensure
+        # Making sure that our changes don't escape a test and ruin the rest of the suite
+        module CukeModeler
+          module Parsing
+            class << self
+              define_method(:parse_text, $old_method)
+            end
+          end
+        end
+      end
+    end
+
+  end
+
 end

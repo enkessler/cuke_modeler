@@ -75,12 +75,6 @@ module CukeModeler
       populate_source_line(table_object, parsed_table_data)
     end
 
-    def populate_tablerow(row_object, parsed_row_data)
-      populate_source_line(row_object, parsed_row_data)
-      populate_row_cells(row_object, parsed_row_data)
-      populate_parsing_data(row_object, parsed_row_data)
-    end
-
     def populate_cell(cell_object, parsed_cell_data)
       populate_cell_value(cell_object, parsed_cell_data)
       populate_source_line(cell_object, parsed_cell_data)

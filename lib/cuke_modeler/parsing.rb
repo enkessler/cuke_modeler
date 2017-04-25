@@ -18,8 +18,8 @@ module CukeModeler
     # The *gherkin* gem loads differently and has different grammar rules across major versions. Parsing
     # will be done with an 'adapter' appropriate to the version of the *gherkin* gem that has been activated.
 
-    case
-      when Gem.loaded_specs['gherkin'].version.version[/^4/]
+    case Gem.loaded_specs['gherkin'].version.version
+      when /^4\./
         require 'gherkin/parser'
         require 'cuke_modeler/adapters/gherkin_4_adapter'
 
@@ -33,7 +33,7 @@ module CukeModeler
           CukeModeler::Gherkin4Adapter
         end
 
-      when Gem.loaded_specs['gherkin'].version.version[/^3/]
+      when /^3\./
         require 'gherkin/parser'
         require 'cuke_modeler/adapters/gherkin_3_adapter'
 
@@ -85,7 +85,7 @@ module CukeModeler
       # The dialects currently known by the gherkin gem
       def dialects
         unless @dialects
-          @dialects = Gem.loaded_specs['gherkin'].version.version[/^2/] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
+          @dialects = Gem.loaded_specs['gherkin'].version.version[/^2\./] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
         end
 
         @dialects

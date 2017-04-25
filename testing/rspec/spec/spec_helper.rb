@@ -28,7 +28,7 @@ require "#{this_dir}/../../dialect_helper"
 
 # Use a fake dialect for testing in order to avoid hard coded language assumptions in the
 # implementation. Only possible with newer versions of Gherkin.
-if Gem.loaded_specs['gherkin'].version.version[/^2/]
+if Gem.loaded_specs['gherkin'].version.version[/^2\./]
   CukeModeler::DialectHelper.set_dialect(Gherkin::I18n::LANGUAGES['en'])
   CukeModeler::Parsing.dialect = 'en'
 else
@@ -58,12 +58,12 @@ end
 
 
 RSpec.configure do |config|
-  case
-    when Gem.loaded_specs['gherkin'].version.version[/^4/]
+  case Gem.loaded_specs['gherkin'].version.version
+    when /^4\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
                                   :gherkin4 => false
-    when Gem.loaded_specs['gherkin'].version.version[/^3/]
+    when /^3\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => false,
                                   :gherkin4 => true

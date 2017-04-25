@@ -1,3 +1,7 @@
+os:
+  - linux
+  - osx
+
 language: ruby
 rvm:
   - 1.8.7
@@ -5,19 +9,26 @@ rvm:
   - 2.0.0
   - 2.1.6
   - 2.2.2
+  - 2.3.3
+  - 2.4.0
+  - jruby-9.1.7.0
 
 gemfile:
   - testing/gemfiles/gherkin2.gemfile
   - testing/gemfiles/gherkin3.gemfile
   - testing/gemfiles/gherkin4.gemfile
 
-
 matrix:
   exclude:
+  # gherkin 3.x does not work with Ruby 1.8.x
   - rvm: 1.8.7
     gemfile: testing/gemfiles/gherkin3.gemfile
+  # gherkin 4.x does not work with Ruby 1.8.x
   - rvm: 1.8.7
     gemfile: testing/gemfiles/gherkin4.gemfile
+  # Travis does not provide 1.8.7 on OSX
+  - rvm: 1.8.7
+    os: osx
 
 # todo - Remove this once TravisCI fixes their bundler issue (https://github.com/alphagov/govuk_template/pull/186)
 before_install:

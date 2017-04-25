@@ -3,6 +3,8 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 
 describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
 
+  let(:clazz) { CukeModeler::Gherkin3Adapter }
+  let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
                        #{@feature_keyword}: A feature with everything it could have
@@ -66,9 +68,9 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
                            | value |
                        # final comment" }
   let(:feature_file) { path = "#{@default_file_directory}/#{@default_feature_file_name}"
-  File.open(path, "w") { |file| file.puts source_text }
+                       File.open(path, "w") { |file| file.puts source_text }
 
-  CukeModeler::FeatureFile.new(path) }
+                       CukeModeler::FeatureFile.new(path) }
   let(:feature) { feature_file.feature }
 
 
@@ -144,6 +146,23 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
     model = feature.outlines.first.steps.first.block.rows.first
 
     expect(model.parsing_data[:cells]).to be_nil
+  end
+
+
+  describe 'stuff that is in no way part of the public API and entirely subject to change' do
+
+    it 'provides a useful explosion message if it encounters an entirely new type of test' do
+      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :scenarioDefinitions => [{:type => :some_unknown_type}]}
+
+      expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+    end
+
+    it 'provides a useful explosion message if it encounters an entirely new type of step block' do
+      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :scenarioDefinitions => [{:type => :Scenario, :tags => [], :location => {:line => 1, :column => 1}, :steps => [{:type => :Step, :location => {:line => 1, :column => 1}, :argument => {:type => :some_unknown_type, :location => {:line => 1, :column => 1}, :content => ""}}]}]}
+
+      expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+    end
+
   end
 
 end

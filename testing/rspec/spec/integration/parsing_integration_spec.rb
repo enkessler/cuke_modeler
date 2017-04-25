@@ -43,7 +43,7 @@ describe 'Parsing, Integration' do
     end
 
     it 'includes the type of object provided when raising an non-string exception' do
-      expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Fixnum/)
+      expect { nodule.parse_text(:not_a_string) }.to raise_error(ArgumentError, /Symbol/)
     end
 
     # todo - Stop doing this. Just return a feature file rooted AST.
@@ -62,44 +62,35 @@ describe 'Parsing, Integration' do
 
     it 'includes the underlying error message in the error that it raises' do
       begin
+        $old_method = CukeModeler::Parsing.method(:parsing_method)
+
         # Custom error type in order to ensure that we are throwing the correct thing
         module CukeModeler
           class TestError < StandardError
           end
         end
 
-        # Monkey patch Gherkin to throw the error that we need for testing
-        if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
-          old_method = Gherkin::Parser.instance_method(:parse)
-
-          module Gherkin
-            class Parser
-              def parse(*args)
+        # Monkey patch the parsing method to throw the error that we need for testing
+        module CukeModeler
+          module Parsing
+            class << self
+              def parsing_method(*args)
                 raise(CukeModeler::TestError, 'something went wrong')
-              end
-            end
-          end
-        else
-          old_method = Gherkin::Parser::Parser.instance_method(:parse)
-
-          module Gherkin
-            module Parser
-              class Parser
-                def parse(*args)
-                  raise(CukeModeler::TestError, 'something went wrong')
-                end
               end
             end
           end
         end
 
+
         expect { nodule.parse_text('bad file') }.to raise_error(/CukeModeler::TestError.*something went wrong/)
       ensure
         # Making sure that our changes don't escape a test and ruin the rest of the suite
-        if Gem.loaded_specs['gherkin'].version.version[/^3|4/]
-          Gherkin::Parser.send(:define_method, :parse, old_method)
-        else
-          Gherkin::Parser::Parser.send(:define_method, :parse, old_method)
+        module CukeModeler
+          module Parsing
+            class << self
+              define_method(:parsing_method, $old_method)
+            end
+          end
         end
       end
 

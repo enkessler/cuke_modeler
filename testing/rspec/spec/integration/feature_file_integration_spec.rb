@@ -169,7 +169,7 @@ describe 'FeatureFile, Integration' do
                              '# row comment']
 
         # gherkin 2.x 'loses' comments that are not followed by some element
-        expected_comments << '# final comment' unless Gem.loaded_specs['gherkin'].version.version[/^2/]
+        expected_comments << '# final comment' unless Gem.loaded_specs['gherkin'].version.version[/^2\./]
 
 
         expect(comments).to match_array(expected_comments)

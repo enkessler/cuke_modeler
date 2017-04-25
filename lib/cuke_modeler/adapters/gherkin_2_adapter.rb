@@ -263,7 +263,7 @@ module CukeModeler
             when 'scenario_outline'
               adapt_outline!(element, gathered_comments)
             else
-              raise("Unknown element type: #{element['type']}")
+              raise(ArgumentError, "Unknown element type: #{element['type']}")
           end
         end
       end
