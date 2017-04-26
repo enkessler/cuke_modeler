@@ -81,11 +81,6 @@ describe 'Outline, Unit', :unit_test => true do
 
     describe 'outline output' do
 
-      it 'is a String' do
-        expect(outline.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:outline) { clazz.new }

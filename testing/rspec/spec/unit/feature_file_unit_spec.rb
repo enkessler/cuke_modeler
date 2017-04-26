@@ -107,11 +107,6 @@ describe 'FeatureFile, Unit', :unit_test => true do
 
     describe 'feature file output' do
 
-      it 'is a String' do
-        expect(feature_file.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:feature_file) { clazz.new }

@@ -66,11 +66,6 @@ describe 'DocString, Unit', :unit_test => true do
 
     describe 'doc string output' do
 
-      it 'is a String' do
-        expect(doc_string.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         context 'a new doc string object' do

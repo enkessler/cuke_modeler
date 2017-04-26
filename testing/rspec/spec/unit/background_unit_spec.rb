@@ -47,11 +47,6 @@ describe 'Background, Unit', :unit_test => true do
 
     describe 'background output' do
 
-      it 'is a String' do
-        expect(background.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:background) { clazz.new }

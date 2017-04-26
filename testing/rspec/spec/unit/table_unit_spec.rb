@@ -59,11 +59,6 @@ describe 'Table, Unit', :unit_test => true do
 
     describe 'table output' do
 
-      it 'is a String' do
-        expect(table.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:table) { clazz.new }

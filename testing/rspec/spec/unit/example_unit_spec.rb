@@ -97,11 +97,6 @@ describe 'Example, Unit', :unit_test => true do
 
     describe 'example output' do
 
-      it 'is a String' do
-        expect(example.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:example) { clazz.new }

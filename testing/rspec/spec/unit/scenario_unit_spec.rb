@@ -50,11 +50,6 @@ describe 'Scenario, Unit', :unit_test => true do
 
     describe 'scenario output' do
 
-      it 'is a String' do
-        expect(scenario.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:scenario) { clazz.new }

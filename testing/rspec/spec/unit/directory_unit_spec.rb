@@ -109,11 +109,6 @@ describe 'Directory, Unit', :unit_test => true do
 
     describe 'directory output' do
 
-      it 'is a String' do
-        expect(directory.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:directory) { clazz.new }
