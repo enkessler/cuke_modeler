@@ -106,39 +106,42 @@ describe 'Scenario, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@scenario_keyword}: Test test
-                      #{@step_keyword} a step"
-
-        file_path = "#{@default_file_directory}/scenario_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['scenario_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:scenario) { directory.feature_files.first.feature.tests.first }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                              #{@scenario_keyword}: Test test
+                                #{@step_keyword} a step"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:scenario_model) { directory_model.feature_files.first.feature.tests.first }
 
 
       it 'can get its directory' do
-        ancestor = scenario.get_ancestor(:directory)
+        ancestor = scenario_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = scenario.get_ancestor(:feature_file)
+        ancestor = scenario_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = scenario.get_ancestor(:feature)
+        ancestor = scenario_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = scenario.get_ancestor(:test)
+        ancestor = scenario_model.get_ancestor(:test)
 
         expect(ancestor).to be_nil
       end

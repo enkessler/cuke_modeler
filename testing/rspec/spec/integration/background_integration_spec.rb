@@ -103,39 +103,42 @@ describe 'Background, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@background_keyword}: Test background
-                      #{@step_keyword} a step"
-
-        file_path = "#{@default_file_directory}/background_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['background_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:background) { directory.feature_files.first.feature.background }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                                #{@background_keyword}: Test background
+                                  #{@step_keyword} a step"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:background_model) { directory_model.feature_files.first.feature.background }
 
 
       it 'can get its directory' do
-        ancestor = background.get_ancestor(:directory)
+        ancestor = background_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = background.get_ancestor(:feature_file)
+        ancestor = background_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = background.get_ancestor(:feature)
+        ancestor = background_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = background.get_ancestor(:example)
+        ancestor = background_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end

@@ -71,31 +71,34 @@ describe 'Comment, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "# feature comment
-                  #{@feature_keyword}: Test feature"
-
-        file_path = "#{@default_file_directory}/comment_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['comment_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:comment) { directory.feature_files.first.comments.first }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "# feature comment
+                              #{@feature_keyword}: Test feature"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:comment_model) { directory_model.feature_files.first.comments.first }
 
 
       it 'can get its directory' do
-        ancestor = comment.get_ancestor(:directory)
+        ancestor = comment_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = comment.get_ancestor(:feature_file)
+        ancestor = comment_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = comment.get_ancestor(:example)
+        ancestor = comment_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end
@@ -116,12 +119,13 @@ describe 'Comment, Integration' do
         end
 
         it "models the comment's source line" do
-          path = "#{@default_file_directory}/#{@default_feature_file_name}"
+          test_directory = Dir.mktmpdir
           source_text = "# a comment
                          #{@feature_keyword}:"
 
-          File.open(path, "w") { |file| file.puts source_text }
-          comment = CukeModeler::FeatureFile.new(path).comments.first
+          test_file = Tempfile.new(['comment_test_file', '.feature'], test_directory)
+          File.open(test_file.path, 'w') { |file| file.write(source_text) }
+          comment = CukeModeler::FeatureFile.new(test_file.path).comments.first
 
           expect(comment.source_line).to eq(1)
         end

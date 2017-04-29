@@ -72,73 +72,73 @@ describe 'Cell, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@scenario_keyword}: Test test
-                      #{@step_keyword} a step
-                        | a value |"
-
-        file_path = "#{@default_file_directory}/cell_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['cell_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:cell) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                                #{@scenario_keyword}: Test test
+                                  #{@step_keyword} a step
+                                    | a value |"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
 
 
       it 'can get its directory' do
-        ancestor = cell.get_ancestor(:directory)
+        ancestor = cell_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = cell.get_ancestor(:feature_file)
+        ancestor = cell_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = cell.get_ancestor(:feature)
+        ancestor = cell_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       context 'a cell that is part of an outline' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/cell_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                  #{@outline_keyword}: Test outline
+                                    #{@step_keyword} a step
+                                  #{@example_keyword}:
+                                    | param |
+                                    | value |"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:cell) { directory.feature_files.first.feature.tests.first.examples.first.rows.first.cells.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.examples.first.rows.first.cells.first }
 
 
         it 'can get its outline' do
-          ancestor = cell.get_ancestor(:outline)
+          ancestor = cell_model.get_ancestor(:outline)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
         it 'can get its example' do
-          ancestor = cell.get_ancestor(:example)
+          ancestor = cell_model.get_ancestor(:example)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.examples.first)
         end
 
         it 'can get its row' do
-          ancestor = cell.get_ancestor(:row)
+          ancestor = cell_model.get_ancestor(:row)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first.rows.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.examples.first.rows.first)
         end
 
       end
@@ -146,93 +146,84 @@ describe 'Cell, Integration' do
 
       context 'a cell that is part of a scenario' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-                      #{@scenario_keyword}: Test test
-                        #{@step_keyword} a step:
-                          | a | table |"
+                                  #{@scenario_keyword}: Test test
+                                    #{@step_keyword} a step:
+                                      | a | table |"
+        }
 
-          file_path = "#{@default_file_directory}/cell_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
-
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:cell) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
 
 
         it 'can get its scenario' do
-          ancestor = cell.get_ancestor(:scenario)
+          ancestor = cell_model.get_ancestor(:scenario)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       context 'a cell that is part of a background' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-                      #{@background_keyword}: Test background
-                        #{@step_keyword} a step:
-                          | a | table |"
+                                  #{@background_keyword}: Test background
+                                    #{@step_keyword} a step:
+                                      | a | table |"
+        }
 
-          file_path = "#{@default_file_directory}/cell_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
-
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:cell) { directory.feature_files.first.feature.background.steps.first.block.rows.first.cells.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:cell_model) { directory_model.feature_files.first.feature.background.steps.first.block.rows.first.cells.first }
 
 
         it 'can get its background' do
-          ancestor = cell.get_ancestor(:background)
+          ancestor = cell_model.get_ancestor(:background)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.background)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.background)
         end
 
       end
 
       context 'a cell that is part of a step' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-                      #{@scenario_keyword}: Test test
-                        #{@step_keyword} a step:
-                          | a | table |"
+                                  #{@scenario_keyword}: Test test
+                                    #{@step_keyword} a step:
+                                      | a | table |"
+        }
 
-          file_path = "#{@default_file_directory}/cell_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
-
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:cell) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
 
 
         it 'can get its step' do
-          ancestor = cell.get_ancestor(:step)
+          ancestor = cell_model.get_ancestor(:step)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first)
         end
 
         it 'can get its table' do
-          ancestor = cell.get_ancestor(:table)
+          ancestor = cell_model.get_ancestor(:table)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first.block)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first.block)
         end
 
         it 'can get its row' do
-          ancestor = cell.get_ancestor(:row)
+          ancestor = cell_model.get_ancestor(:row)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first.block.rows.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first)
         end
 
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = cell.get_ancestor(:example)
+        ancestor = cell_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end

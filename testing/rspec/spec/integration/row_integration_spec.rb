@@ -83,71 +83,71 @@ describe 'Row, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@scenario_keyword}: Test test
-                      #{@step_keyword} a step:
-                        | a | table |"
-
-        file_path = "#{@default_file_directory}/row_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['row_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                                #{@scenario_keyword}: Test test
+                                  #{@step_keyword} a step:
+                                    | a | table |"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:row_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
       it 'can get its directory' do
-        ancestor = row.get_ancestor(:directory)
+        ancestor = row_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = row.get_ancestor(:feature_file)
+        ancestor = row_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = row.get_ancestor(:feature)
+        ancestor = row_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       it 'can get its step' do
-        ancestor = row.get_ancestor(:step)
+        ancestor = row_model.get_ancestor(:step)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first)
       end
 
       it 'can get its table' do
-        ancestor = row.get_ancestor(:table)
+        ancestor = row_model.get_ancestor(:table)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.steps.first.block)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first.block)
       end
 
       context 'a row that is part of a scenario' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-                      #{@scenario_keyword}: Test test
-                        #{@step_keyword} a step:
-                          | a | table |"
+                                  #{@scenario_keyword}: Test test
+                                    #{@step_keyword} a step:
+                                      | a | table |"
+        }
 
-          file_path = "#{@default_file_directory}/row_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
-
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:row) { directory.feature_files.first.feature.tests.first.steps.first.block.rows.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:row_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first }
 
 
         it 'can get its scenario' do
-          ancestor = row.get_ancestor(:scenario)
+          ancestor = row_model.get_ancestor(:scenario)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
@@ -155,64 +155,58 @@ describe 'Row, Integration' do
 
       context 'a row that is part of a background' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-                      #{@background_keyword}: Test background
-                        #{@step_keyword} a step:
-                          | a | table |"
+                                #{@background_keyword}: Test background
+                                  #{@step_keyword} a step:
+                                    | a | table |"
+        }
 
-          file_path = "#{@default_file_directory}/row_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
-
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:row) { directory.feature_files.first.feature.background.steps.first.block.rows.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:row_model) { directory_model.feature_files.first.feature.background.steps.first.block.rows.first }
 
 
         it 'can get its background' do
-          ancestor = row.get_ancestor(:background)
+          ancestor = row_model.get_ancestor(:background)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.background)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.background)
         end
 
       end
 
       context 'a row that is part of an outline' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/row_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                #{@outline_keyword}: Test outline
+                                  #{@step_keyword} a step
+                                #{@example_keyword}:
+                                  | param |
+                                  | value |"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:row) { directory.feature_files.first.feature.tests.first.examples.first.rows.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:row_model) { directory_model.feature_files.first.feature.tests.first.examples.first.rows.first }
 
 
         it 'can get its outline' do
-          ancestor = row.get_ancestor(:outline)
+          ancestor = row_model.get_ancestor(:outline)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
         it 'can get its example' do
-          ancestor = row.get_ancestor(:example)
+          ancestor = row_model.get_ancestor(:example)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.examples.first)
         end
 
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = row.get_ancestor(:outline)
+        ancestor = row_model.get_ancestor(:outline)
 
         expect(ancestor).to be_nil
       end

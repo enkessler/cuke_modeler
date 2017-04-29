@@ -71,126 +71,121 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "@feature_tag
-                  #{@feature_keyword}: Test feature
-
-                    #{@outline_keyword}: Test test
-                      #{@step_keyword} a step
-
-                    @example_tag
-                    #{@example_keyword}: Test example
-                      | a param |
-                      | a value |"
-
-        file_path = "#{@default_file_directory}/tag_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        test_file = Tempfile.new(['tag_test_file', '.feature'], test_directory)
+        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:tag) { directory.feature_files.first.feature.tests.first.examples.first.tags.first }
-      let(:high_level_tag) { directory.feature_files.first.feature.tags.first }
+
+      let(:test_directory) { Dir.mktmpdir }
+      let(:source_gherkin) { "@feature_tag
+                              #{@feature_keyword}: Test feature
+
+                                #{@outline_keyword}: Test test
+                                  #{@step_keyword} a step
+
+                                @example_tag
+                                #{@example_keyword}: Test example
+                                  | a param |
+                                  | a value |"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:tag_model) { directory_model.feature_files.first.feature.tests.first.examples.first.tags.first }
+      let(:high_level_tag_model) { directory_model.feature_files.first.feature.tags.first }
 
 
       it 'can get its directory' do
-        ancestor = tag.get_ancestor(:directory)
+        ancestor = tag_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = tag.get_ancestor(:feature_file)
+        ancestor = tag_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = tag.get_ancestor(:feature)
+        ancestor = tag_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       context 'a tag that is part of a scenario' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      @a_tag
-                      #{@scenario_keyword}: Test scenario
-                        #{@step_keyword} a step"
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/tag_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                  @a_tag
+                                  #{@scenario_keyword}: Test scenario
+                                    #{@step_keyword} a step"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.feature.tests.first.tags.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:tag_model) { directory_model.feature_files.first.feature.tests.first.tags.first }
 
 
         it 'can get its scenario' do
-          ancestor = tag.get_ancestor(:scenario)
+          ancestor = tag_model.get_ancestor(:scenario)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       context 'a tag that is part of an outline' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      @a_tag
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/tag_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                @a_tag
+                                #{@outline_keyword}: Test outline
+                                  #{@step_keyword} a step
+                                #{@example_keyword}:
+                                  | param |
+                                  | value |"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.feature.tests.first.tags.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:tag_model) { directory_model.feature_files.first.feature.tests.first.tags.first }
 
 
         it 'can get its outline' do
-          ancestor = tag.get_ancestor(:outline)
+          ancestor = tag_model.get_ancestor(:outline)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       context 'a tag that is part of an example' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      @a_tag
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
-          file_path = "#{@default_file_directory}/tag_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+        let(:test_directory) { Dir.mktmpdir }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:tag) { directory.feature_files.first.feature.tests.first.examples.first.tags.first }
+                                #{@outline_keyword}: Test outline
+                                  #{@step_keyword} a step
+                                @a_tag
+                                #{@example_keyword}:
+                                  | param |
+                                  | value |"
+        }
+
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:tag_model) { directory_model.feature_files.first.feature.tests.first.examples.first.tags.first }
 
 
         it 'can get its example' do
-          ancestor = tag.get_ancestor(:example)
+          ancestor = tag_model.get_ancestor(:example)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first.examples.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.examples.first)
         end
 
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = high_level_tag.get_ancestor(:example)
+        ancestor = high_level_tag_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end
