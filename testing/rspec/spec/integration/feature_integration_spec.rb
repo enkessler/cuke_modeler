@@ -277,8 +277,7 @@ describe 'Feature, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        test_file = Tempfile.new(['feature_test_file', '.feature'], test_directory)
-        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
+        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'feature_test_file', test_directory)
       end
 
 

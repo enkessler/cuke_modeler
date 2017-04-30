@@ -80,8 +80,7 @@ describe 'DocString, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        test_file = Tempfile.new(['doc_string_test_file', '.feature'], test_directory)
-        File.open(test_file.path, 'w') { |file| file.write(source_gherkin) }
+        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'doc_string_test_file', test_directory)
       end
 
 
