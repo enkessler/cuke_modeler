@@ -19,7 +19,7 @@ And(/^a(?:n)? \w+(?: \w+)? model based on that gherkin$/) do |code_text|
 end
 
 Given(/^(?:a|the) (?:directory|feature file) is modeled$/) do |code_text|
-  code_text.gsub!('<path_to>', @default_file_directory)
+  code_text.gsub!('<path_to>', @root_test_directory)
 
   eval(code_text)
 end
