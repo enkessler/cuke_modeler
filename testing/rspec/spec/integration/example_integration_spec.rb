@@ -416,13 +416,30 @@ describe 'Example, Integration' do
         expect { example.remove_row([]) }.to_not raise_error
       end
 
-      # todo - add a test that checks removing a row that happens to have the same values as the parameter row
       it 'will not remove the parameter row' do
         source = "#{@example_keyword}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        hash_row = {'param1' => 'param1  ', 'param2' => '  param2'}
-        array_row = ['param1', ' param2 ']
+        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        array_row = ['param1', 'param2']
+
+        example.remove_row(hash_row)
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
+
+        example.remove_row(array_row)
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
+      end
+
+      it 'will remove an argument row that is the same as the parameter row' do
+        source = "#{@example_keyword}:\n|param1|param2|\n|value1|value2|\n|param1|param2|"
+        example = clazz.new(source)
+
+        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
         row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
