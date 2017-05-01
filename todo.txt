@@ -18,9 +18,7 @@ Backlog
 Include comments in the string output of a feature file
 
 replace joined array source text with single string source text/heredocs
-Don't bother to test directory create/destroy around unit tests
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
-Fix transient test failures (permission denied file access problems)
 make sure that all classes and tests are covered and attaches to code coverage
 use 'here doc' for source text construction in rspec tests
