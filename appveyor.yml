@@ -5,18 +5,6 @@ environment:
     - RUBY_VERSION: 193
       BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
       # AppVeyor does not have a 64-bit Ruby 1.9.3
-    - RUBY_VERSION: 200
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
-    - RUBY_VERSION: 200-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
-    - RUBY_VERSION: 21
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
-    - RUBY_VERSION: 21-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
-    - RUBY_VERSION: 22
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
-    - RUBY_VERSION: 22-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
     - RUBY_VERSION: 23-x64
@@ -25,18 +13,6 @@ environment:
     - RUBY_VERSION: 193
       BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
       # AppVeyor does not have a 64-bit Ruby 1.9.3
-    - RUBY_VERSION: 200
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
-    - RUBY_VERSION: 200-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
-    - RUBY_VERSION: 21
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
-    - RUBY_VERSION: 21-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
-    - RUBY_VERSION: 22
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
-    - RUBY_VERSION: 22-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
     - RUBY_VERSION: 23-x64
@@ -45,18 +21,6 @@ environment:
     - RUBY_VERSION: 193
       BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
       # AppVeyor does not have a 64-bit Ruby 1.9.3
-    - RUBY_VERSION: 200
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
-    - RUBY_VERSION: 200-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
-    - RUBY_VERSION: 21
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
-    - RUBY_VERSION: 21-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
-    - RUBY_VERSION: 22
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
-    - RUBY_VERSION: 22-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
     - RUBY_VERSION: 23-x64
