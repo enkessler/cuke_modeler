@@ -71,11 +71,11 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'tag_test_file', test_directory)
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'tag_test_file', :directory => test_directory)
       end
 
 
-      let(:test_directory) { Dir.mktmpdir }
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "@feature_tag
                               #{@feature_keyword}: Test feature
 
@@ -113,7 +113,7 @@ describe 'Tag, Integration' do
 
       context 'a tag that is part of a scenario' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                   @a_tag
@@ -135,7 +135,7 @@ describe 'Tag, Integration' do
 
       context 'a tag that is part of an outline' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 @a_tag
@@ -160,7 +160,7 @@ describe 'Tag, Integration' do
 
       context 'a tag that is part of an example' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@outline_keyword}: Test outline

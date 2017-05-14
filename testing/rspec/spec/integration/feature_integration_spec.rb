@@ -277,11 +277,11 @@ describe 'Feature, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'feature_test_file', test_directory)
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'feature_test_file', :directory => test_directory)
       end
 
 
-      let(:test_directory) { Dir.mktmpdir }
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "#{@feature_keyword}: Test feature" }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }

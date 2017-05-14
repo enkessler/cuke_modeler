@@ -84,4 +84,10 @@ RSpec.configure do |config|
     @then_keyword = CukeModeler::DialectHelper.then_keyword
   end
 
+  config.after(:all) do
+    CukeModeler::FileHelper.created_directories.each do |dir_path|
+      FileUtils.remove_entry(dir_path, true)
+    end
+  end
+
 end

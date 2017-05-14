@@ -71,11 +71,11 @@ describe 'Comment, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'comment_test_file', test_directory)
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'comment_test_file', :directory => test_directory)
       end
 
 
-      let(:test_directory) { Dir.mktmpdir }
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "# feature comment
                               #{@feature_keyword}: Test feature"
       }
@@ -121,8 +121,8 @@ describe 'Comment, Integration' do
           source_text = "# a comment
                          #{@feature_keyword}:"
 
-          test_file = CukeModeler::FileHelper.create_feature_file(source_text, 'comment_test_file')
-          comment = CukeModeler::FeatureFile.new(test_file.path).comments.first
+          test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'comment_test_file')
+          comment = CukeModeler::FeatureFile.new(test_file_path).comments.first
 
           expect(comment.source_line).to eq(1)
         end

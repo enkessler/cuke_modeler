@@ -1,20 +1,43 @@
-require 'tempfile'
-
-
 module CukeModeler
   module FileHelper
 
-    def self.create_feature_file(text = "#{CukeModeler::DialectHelper.feature_keyword}:", name = 'test_file', directory = nil)
-      create_file(text, name, '.feature', directory)
-    end
+    class << self
 
-    def self.create_file(text = '', name = 'test_file', extension = '.txt', directory = nil)
-      directory ||= Dir::tmpdir
+      def create_feature_file(options = {})
+        options[:text] ||= 'Feature:'
+        options[:name] ||= 'test_file'
 
-      temp_file = Tempfile.new([name, extension], directory)
-      File.open(temp_file.path, 'w') { |file| file.write(text) }
+        create_file(:text => options[:text], :name => options[:name], :extension => '.feature', :directory => options[:directory])
+      end
 
-      temp_file
+      def create_file(options = {})
+        options[:text] ||= ''
+        options[:name] ||= 'test_file'
+        options[:extension] ||= '.txt'
+        options[:directory] ||= create_directory
+
+        file_path = "#{options[:directory]}/#{options[:name]}#{options[:extension]}"
+        File.open(file_path, 'w') { |file| file.write(options[:text]) }
+
+        file_path
+      end
+
+      def created_directories
+        @created_directories ||= []
+      end
+
+      def create_directory(options = {})
+        options[:name] ||= 'test_directory'
+        options[:directory] ||= Dir.mktmpdir
+
+        path = "#{options[:directory]}/#{options[:name]}"
+
+        Dir::mkdir(path)
+        created_directories << options[:directory]
+
+        path
+      end
+
     end
 
   end

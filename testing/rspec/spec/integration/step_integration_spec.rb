@@ -244,11 +244,11 @@ describe 'Step, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'step_test_file', test_directory)
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'step_test_file', :directory => test_directory)
       end
 
 
-      let(:test_directory) { Dir.mktmpdir }
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                               #{@scenario_keyword}: Test test
@@ -280,7 +280,7 @@ describe 'Step, Integration' do
 
       context 'a step that is part of a scenario' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@scenario_keyword}: Test scenario
@@ -301,7 +301,7 @@ describe 'Step, Integration' do
 
       context 'a step that is part of an outline' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@outline_keyword}: Test outline
@@ -325,7 +325,7 @@ describe 'Step, Integration' do
 
       context 'a step that is part of a background' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@background_keyword}: Test background

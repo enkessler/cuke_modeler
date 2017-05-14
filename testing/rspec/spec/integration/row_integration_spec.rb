@@ -83,11 +83,11 @@ describe 'Row, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(source_gherkin, 'row_test_file', test_directory)
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'row_test_file', :directory => test_directory)
       end
 
 
-      let(:test_directory) { Dir.mktmpdir }
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@scenario_keyword}: Test test
@@ -131,7 +131,7 @@ describe 'Row, Integration' do
 
       context 'a row that is part of a scenario' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                   #{@scenario_keyword}: Test test
@@ -154,7 +154,7 @@ describe 'Row, Integration' do
 
       context 'a row that is part of a background' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@background_keyword}: Test background
@@ -176,7 +176,7 @@ describe 'Row, Integration' do
 
       context 'a row that is part of an outline' do
 
-        let(:test_directory) { Dir.mktmpdir }
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
         let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
                                 #{@outline_keyword}: Test outline

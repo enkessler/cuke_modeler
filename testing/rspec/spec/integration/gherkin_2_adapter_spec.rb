@@ -67,8 +67,8 @@ describe 'Gherkin2Adapter, Integration', :gherkin2 => true do
                            | param |
                            | value |
                        # final comment" }
-  let(:feature_file_model) { test_file = CukeModeler::FileHelper.create_feature_file(source_text, 'adapter_test_file')
-                             CukeModeler::FeatureFile.new(test_file.path) }
+  let(:feature_file_model) { test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
+                             CukeModeler::FeatureFile.new(test_file_path) }
   let(:feature_model) { feature_file_model.feature }
 
 
