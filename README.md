@@ -4,7 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0/branch/dev?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler/branch/dev)
 [![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=dev)](https://coveralls.io/github/enkessler/cuke_modeler?branch=dev)
 [![Code Quality](https://codeclimate.com/github/enkessler/cuke_modeler/badges/gpa.svg)](https://codeclimate.com/github/enkessler/cuke_modeler)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![Project License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/mit-license.php)
 
 
 # CukeModeler
