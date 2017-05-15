@@ -21,4 +21,3 @@ replace joined array source text with single string source text/heredocs
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
 make sure that all classes and tests are covered and attaches to code coverage
-use 'here doc' for source text construction in rspec tests
