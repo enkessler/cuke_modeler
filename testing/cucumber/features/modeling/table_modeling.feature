@@ -1,7 +1,6 @@
 Feature: Table modeling
 
-  Table models represent represent the table argument to a step. They expose several attributes of the table
-  that they represent.
+  Table models represent represent the table argument to a step. They expose several attributes of the table that they represent.
 
 
   Background:

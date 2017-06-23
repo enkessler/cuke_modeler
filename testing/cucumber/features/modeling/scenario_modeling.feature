@@ -1,7 +1,6 @@
 Feature: Scenario modeling
 
-  Scenario models represent a Scenario portion of a feature. They expose several attributes of the scenario
-  that they represent, as well as containing models for the steps and tags that are present in that scenario.
+  Scenario models represent a Scenario portion of a feature. They expose several attributes of the scenario that they represent, as well as containing models for the steps and tags that are present in that scenario.
 
 
   Background:

@@ -1,7 +1,6 @@
 Feature: Table output
 
-  A table model's string output is a Gherkin representation of itself. As such, output from a table model can be used as
-  input for the same kind of model.
+  A table model's string output is a Gherkin representation of itself. As such, output from a table model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a table model

@@ -1,7 +1,6 @@
 Feature: Comment modeling
 
-  Comment models represent a comment portion of a feature. They expose several attributes of the comment
-  that they represent.
+  Comment models represent a comment portion of a feature. They expose several attributes of the comment that they represent.
 
 
   Background:

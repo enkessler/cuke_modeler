@@ -1,8 +1,6 @@
 Feature: Feature modeling
 
-Feature models are the top level element of the gherkin portion of the model tree. They expose several attributes of
-the feature that they represent, as well as containing models for any background, scenarios, or outlines that are
-present in that feature.
+Feature models are the top level element of the gherkin portion of the model tree. They expose several attributes of the feature that they represent, as well as containing models for any background, scenarios, or outlines that are present in that feature.
 
 
   Background:
@@ -97,8 +95,7 @@ present in that feature.
 
   Scenario: Modeling a feature's tags
 
-  Note: Although a feature does not inherit tags from anything else, they can still
-  be requested in the same manner as other models that have tags.
+  Note: Although a feature does not inherit tags from anything else, they can still be requested in the same manner as other models that have tags.
 
     When the feature's tags are requested
       """

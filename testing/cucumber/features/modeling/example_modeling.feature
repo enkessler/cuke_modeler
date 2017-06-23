@@ -1,8 +1,6 @@
 Feature: Example modeling
 
-  Example models represent an example table of a Scenario Outline portion of a feature. They expose
-  several attributes of the example that they represent, as well as containing models for the example
-  rows and tags that are present in that example.
+  Example models represent an example table of a Scenario Outline portion of a feature. They expose several attributes of the example that they represent, as well as containing models for the example rows and tags that are present in that example.
 
 
   Background:

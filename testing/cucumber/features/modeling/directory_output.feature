@@ -1,7 +1,6 @@
 Feature: Directory output
 
-  A directory model's string output is simply the file path of the directory that it models. As such, output from a directory model can be used as
-  input for the same kind of model.
+  A directory model's string output is simply the file path of the directory that it models. As such, output from a directory model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a directory model

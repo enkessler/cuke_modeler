@@ -1,7 +1,6 @@
 Feature: Outline output
 
-  An outline model's string output is a Gherkin representation of itself. As such, output from an outline model can be used as
-  input for the same kind of model.
+  An outline model's string output is a Gherkin representation of itself. As such, output from an outline model can be used as input for the same kind of model.
 
 
   Scenario: Outputting an outline model

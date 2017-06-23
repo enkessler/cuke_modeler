@@ -1,13 +1,8 @@
 Feature: Model structure
 
-When modeling an existing test suite, that suite is parsed and models are created for each element of the
-suite. These models form a nested structure of parent and child models which has the same shape as whatever
-portion of the suite that they represent (see the documentation for specific models for details).
+When modeling an existing test suite, that suite is parsed and models are created for each element of the suite. These models form a nested structure of parent and child models which has the same shape as whatever portion of the suite that they represent (see the documentation for specific models for details).
 
-However, all models can also be used in an 'abstract' manner. That is, they can be created without any input
-(such as a file path or snippet of Gherkin) that would normally be used for determining their structure and
-properties. In these cases, their parent/child relationships and properties can be set directly rather than
-being populated dynamically based on an actual test suite.
+However, all models can also be used in an 'abstract' manner. That is, they can be created without any input (such as a file path or snippet of Gherkin) that would normally be used for determining their structure and properties. In these cases, their parent/child relationships and properties can be set directly rather than being populated dynamically based on an actual test suite.
 
 
   Scenario: Creating abstract models
@@ -36,8 +31,7 @@ being populated dynamically based on an actual test suite.
 
   Scenario: Accessing the parsing data
 
-  Note: Directory models do not store any parsing data because parsing Gherkin source text
-  does not come into play until the feature file level of modeling.
+  Note: Directory models do not store any parsing data because parsing Gherkin source text does not come into play until the feature file level of modeling.
 
     Given the models provided by CukeModeler
     Then  all of them provide access to the parsing data that was used to create them

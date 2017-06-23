@@ -1,7 +1,6 @@
 Feature: Feature file output
 
-  A feature file model's string output is simply the file path of the feature file that it models. As such, output from a feature file model can be used as
-  input for the same kind of model.
+  A feature file model's string output is simply the file path of the feature file that it models. As such, output from a feature file model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a feature file model

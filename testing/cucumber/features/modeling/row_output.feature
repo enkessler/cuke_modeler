@@ -1,7 +1,6 @@
 Feature: Row output
 
-  A row model's string output is a Gherkin representation of itself. As such, output from a row model can be used as
-  input for the same kind of model.
+  A row model's string output is a Gherkin representation of itself. As such, output from a row model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a row model

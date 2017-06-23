@@ -1,7 +1,6 @@
 Feature: Cell modeling
 
-  Cell models represent an individual cell in a table row (either a step table or an example table). They expose
-  several attributes of the cell that they represent.
+  Cell models represent an individual cell in a table row (either a step table or an example table). They expose several attributes of the cell that they represent.
 
 
   Background:

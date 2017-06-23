@@ -7,7 +7,6 @@ replace copying raw data during adaptation (all of the Marshal#load/#unload call
 
 document helper modules as not part of the public API
 
-# todo - remove hard coded newlines in feature files so that Relish and other text editors can wrap them on its own
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models
 

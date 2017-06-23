@@ -1,7 +1,6 @@
 Feature: Example output
 
-  An example model's string output is a Gherkin representation of itself. As such, output from an example model can be used as
-  input for the same kind of model.
+  An example model's string output is a Gherkin representation of itself. As such, output from an example model can be used as input for the same kind of model.
 
 
   Scenario: Outputting an example model
