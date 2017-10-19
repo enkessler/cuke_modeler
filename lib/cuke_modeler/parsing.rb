@@ -19,7 +19,7 @@ module CukeModeler
     # will be done with an 'adapter' appropriate to the version of the *gherkin* gem that has been activated.
 
     case Gem.loaded_specs['gherkin'].version.version
-      when /^4\./
+      when /^[54]\./
         require 'gherkin/parser'
         require 'cuke_modeler/adapters/gherkin_4_adapter'
 

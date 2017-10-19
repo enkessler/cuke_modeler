@@ -23,6 +23,6 @@ elsif RUBY_VERSION =~ /^2\./
     gem 'test-unit'
   end
 
-  gem 'gherkin', '~> 4.0'
+  gem 'gherkin', '~> 5.0'
 
 end
