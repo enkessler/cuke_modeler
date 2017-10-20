@@ -1,7 +1,6 @@
 Feature: Background output
 
-  A background model's string output is a Gherkin representation of itself. As such, output from a background model can be used as
-  input for the same kind of model.
+  A background model's string output is a Gherkin representation of itself. As such, output from a background model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a background model

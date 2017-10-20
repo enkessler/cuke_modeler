@@ -1,7 +1,6 @@
 Feature: Outline modeling
 
-  Outline models represent a Scenario Outline portion of a feature. They expose several attributes of the outline
-  that they represent, as well as containing models for the steps, tags, and examples that are present in that outline.
+  Outline models represent a Scenario Outline portion of a feature. They expose several attributes of the outline that they represent, as well as containing models for the steps, tags, and examples that are present in that outline.
 
 
   Background:

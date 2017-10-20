@@ -1,7 +1,6 @@
 Feature: Comment output
 
-  A comment model's string output is a Gherkin representation of itself. As such, output from a comment model can be used as
-  input for the same kind of model.
+  A comment model's string output is a Gherkin representation of itself. As such, output from a comment model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a comment model

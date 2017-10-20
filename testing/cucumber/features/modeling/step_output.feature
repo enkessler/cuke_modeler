@@ -1,7 +1,6 @@
 Feature: Step output
 
-  A step model's string output is a Gherkin representation of itself. As such, output from a step model can be used as
-  input for the same kind of model.
+  A step model's string output is a Gherkin representation of itself. As such, output from a step model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a step model

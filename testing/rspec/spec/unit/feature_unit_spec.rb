@@ -121,11 +121,6 @@ describe 'Feature, Unit', :unit_test => true do
 
     describe 'feature output' do
 
-      it 'is a String' do
-        expect(feature.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:feature) { clazz.new }

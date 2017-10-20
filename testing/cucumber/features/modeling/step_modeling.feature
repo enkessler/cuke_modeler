@@ -1,7 +1,6 @@
 Feature: Step modeling
 
-  Step models represent represent the a step in a scenario, outline, or background. They expose several attributes
-  of the step that they represent.
+  Step models represent represent the a step in a scenario, outline, or background. They expose several attributes of the step that they represent.
 
 
   Background:

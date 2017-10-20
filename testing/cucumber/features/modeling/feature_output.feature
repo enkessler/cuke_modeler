@@ -1,7 +1,6 @@
 Feature: Feature output
 
-  A feature model's string output is a Gherkin representation of itself. As such, output from a feature model can be used as
-  input for the same kind of model.
+  A feature model's string output is a Gherkin representation of itself. As such, output from a feature model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a feature model

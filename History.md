@@ -1,3 +1,8 @@
+### Version 1.3.0 / 2017-10-19
+
+* Now compatible with Gherkin 5.x.
+
+
 ### Version 1.2.1 / 2017-04-25
 
 * Now officially compatible with Rake 12.x.

@@ -420,8 +420,26 @@ describe 'Example, Integration' do
         source = "#{@example_keyword}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        hash_row = {'param1' => 'param1  ', 'param2' => '  param2'}
-        array_row = ['param1', ' param2 ']
+        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        array_row = ['param1', 'param2']
+
+        example.remove_row(hash_row)
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
+
+        example.remove_row(array_row)
+        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+
+        expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
+      end
+
+      it 'will remove an argument row that is the same as the parameter row' do
+        source = "#{@example_keyword}:\n|param1|param2|\n|value1|value2|\n|param1|param2|"
+        example = clazz.new(source)
+
+        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
         row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
@@ -440,69 +458,68 @@ describe 'Example, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@outline_keyword}: Test test
-                      #{@step_keyword} a step
-                    #{@example_keyword}: Test example
-                      | a param |
-                      | a value |"
-
-        file_path = "#{@default_file_directory}/example_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'example_test_file', :directory => test_directory)
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:example) { directory.feature_files.first.feature.tests.first.examples.first }
+
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                              #{@outline_keyword}: Test test
+                                #{@step_keyword} a step
+                              #{@example_keyword}: Test example
+                                | a param |
+                                | a value |"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:example_model) { directory_model.feature_files.first.feature.tests.first.examples.first }
 
 
       it 'can get its directory' do
-        ancestor = example.get_ancestor(:directory)
+        ancestor = example_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = example.get_ancestor(:feature_file)
+        ancestor = example_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = example.get_ancestor(:feature)
+        ancestor = example_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       context 'an example that is part of an outline' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/example_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                  #{@outline_keyword}: Test outline
+                                    #{@step_keyword} a step
+                                  #{@example_keyword}:
+                                    | param |
+                                    | value |"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:example) { directory.feature_files.first.feature.tests.first.examples.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:example_model) { directory_model.feature_files.first.feature.tests.first.examples.first }
 
 
         it 'can get its outline' do
-          ancestor = example.get_ancestor(:outline)
+          ancestor = example_model.get_ancestor(:outline)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = example.get_ancestor(:example)
+        ancestor = example_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end

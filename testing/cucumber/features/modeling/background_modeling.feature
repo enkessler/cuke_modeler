@@ -1,7 +1,6 @@
 Feature: Background modeling
 
-  Background models represent the Background portion of a feature. They expose several attributes of the background
-  that they represent, as well as containing models for the steps that are present in that background.
+  Background models represent the Background portion of a feature. They expose several attributes of the background that they represent, as well as containing models for the steps that are present in that background.
 
 
   Background:

@@ -10,13 +10,12 @@ this_dir = File.dirname(__FILE__)
 
 require "#{this_dir}/../../../lib/cuke_modeler"
 
+require "#{this_dir}/../../file_helper"
+
 
 Before do
   begin
-    @default_file_directory = "#{this_dir}/../temp_files"
-    @default_feature_file_name = 'test_feature.feature'
-
-    FileUtils.mkdir(@default_file_directory)
+    @root_test_directory = CukeModeler::FileHelper.create_directory
   rescue => e
     $stdout.puts 'Problem caught in Before hook!'
     $stdout.puts "Type: #{e.class}"
@@ -24,14 +23,8 @@ Before do
   end
 end
 
-After do
-  begin
-    FileUtils.remove_dir(@default_file_directory, true)
-  rescue => e
-    $stdout.puts 'Problem caught in After hook!'
-    $stdout.puts "Type: #{e.class}"
-    $stdout.puts "Message: #{e.message}"
+at_exit {
+  CukeModeler::FileHelper.created_directories.each do |dir_path|
+    FileUtils.remove_entry(dir_path, true)
   end
-end
-
-
+}

@@ -52,12 +52,6 @@ describe 'Comment, Unit', :unit_test => true do
 
   describe 'comment output' do
 
-    # todo - remove these tests because they are covered by the stringifiable tests
-    it 'is a String' do
-      expect(model.to_s).to be_a(String)
-    end
-
-
     context 'from abstract instantiation' do
 
       let(:comment) { clazz.new }

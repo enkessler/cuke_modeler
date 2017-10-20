@@ -1,7 +1,6 @@
 Feature: Doc string output
 
-  A doc string model's string output is a Gherkin representation of itself. As such, output from a doc string model can be used as
-  input for the same kind of model.
+  A doc string model's string output is a Gherkin representation of itself. As such, output from a doc string model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a doc string model

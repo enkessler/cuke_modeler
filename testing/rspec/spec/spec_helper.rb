@@ -24,7 +24,7 @@ require "#{this_dir}/unit/shared/parsed_models_unit_specs"
 require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 
 require "#{this_dir}/../../dialect_helper"
-
+require "#{this_dir}/../../file_helper"
 
 # Use a fake dialect for testing in order to avoid hard coded language assumptions in the
 # implementation. Only possible with newer versions of Gherkin.
@@ -59,7 +59,7 @@ end
 
 RSpec.configure do |config|
   case Gem.loaded_specs['gherkin'].version.version
-    when /^4\./
+    when /^[54]\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
                                   :gherkin4 => false
@@ -82,22 +82,11 @@ RSpec.configure do |config|
     @step_keyword = CukeModeler::DialectHelper.step_keyword
     @given_keyword = CukeModeler::DialectHelper.given_keyword
     @then_keyword = CukeModeler::DialectHelper.then_keyword
-
-    @default_file_directory = "#{this_dir}/temp_files"
-    @default_feature_file_name = 'test_feature.feature'
   end
 
-  config.before(:each) do |spec|
-    unless spec.metadata[:unit_test]
-      FileUtils.remove_dir(@default_file_directory, true) if File.exists?(@default_file_directory)
-
-      FileUtils.mkdir(@default_file_directory)
-    end
-  end
-
-  config.after(:each) do |spec|
-    unless spec.metadata[:unit_test]
-      FileUtils.remove_dir(@default_file_directory, true)
+  config.after(:all) do
+    CukeModeler::FileHelper.created_directories.each do |dir_path|
+      FileUtils.remove_entry(dir_path, true)
     end
   end
 

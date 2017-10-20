@@ -1,9 +1,6 @@
 Feature: Directory modeling
 
-
-  Directory models are the top level element of a model tree. They expose several attributes of the directory that they
-  represent, as well as containing models for any feature files or subdirectories that are present in the directory
-  that they represent.
+  Directory models are the top level element of a model tree. They expose several attributes of the directory that they represent, as well as containing models for any feature files or subdirectories that are present in the directory that they represent.
 
 
   Background: An existing test suite

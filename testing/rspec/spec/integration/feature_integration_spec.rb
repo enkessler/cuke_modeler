@@ -277,30 +277,31 @@ describe 'Feature, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature"
-
-        file_path = "#{@default_file_directory}/feature_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'feature_test_file', :directory => test_directory)
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:feature) { directory.feature_files.first.feature }
+
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature" }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:feature_model) { directory_model.feature_files.first.feature }
 
 
       it 'can get its directory' do
-        ancestor = feature.get_ancestor(:directory)
+        ancestor = feature_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = feature.get_ancestor(:feature_file)
+        ancestor = feature_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = feature.get_ancestor(:test)
+        ancestor = feature_model.get_ancestor(:test)
 
         expect(ancestor).to be_nil
       end

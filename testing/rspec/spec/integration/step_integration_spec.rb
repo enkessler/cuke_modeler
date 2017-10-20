@@ -244,115 +244,108 @@ describe 'Step, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@scenario_keyword}: Test test
-                      #{@step_keyword} a step:"
-
-        file_path = "#{@default_file_directory}/step_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'step_test_file', :directory => test_directory)
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
+
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                              #{@scenario_keyword}: Test test
+                                #{@step_keyword} a step:"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:step_model) { directory_model.feature_files.first.feature.tests.first.steps.first }
 
 
       it 'can get its directory' do
-        ancestor = step.get_ancestor(:directory)
+        ancestor = step_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = step.get_ancestor(:feature_file)
+        ancestor = step_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = step.get_ancestor(:feature)
+        ancestor = step_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
 
       context 'a step that is part of a scenario' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@scenario_keyword}: Test scenario
-                        #{@step_keyword} a step"
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/step_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                #{@scenario_keyword}: Test scenario
+                                  #{@step_keyword} a step"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:step_model) { directory_model.feature_files.first.feature.tests.first.steps.first }
 
 
         it 'can get its scenario' do
-          ancestor = step.get_ancestor(:scenario)
+          ancestor = step_model.get_ancestor(:scenario)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       context 'a step that is part of an outline' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@outline_keyword}: Test outline
-                        #{@step_keyword} a step
-                      #{@example_keyword}:
-                        | param |
-                        | value |"
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/step_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                #{@outline_keyword}: Test outline
+                                  #{@step_keyword} a step
+                                #{@example_keyword}:
+                                  | param |
+                                  | value |"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.feature.tests.first.steps.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:step_model) { directory_model.feature_files.first.feature.tests.first.steps.first }
 
 
         it 'can get its outline' do
-          ancestor = step.get_ancestor(:outline)
+          ancestor = step_model.get_ancestor(:outline)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.tests.first)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first)
         end
 
       end
 
       context 'a step that is part of a background' do
 
-        before(:each) do
-          source = "#{@feature_keyword}: Test feature
-                      
-                      #{@background_keyword}: Test background
-                        #{@step_keyword} a step"
+        let(:test_directory) { CukeModeler::FileHelper.create_directory }
+        let(:source_gherkin) { "#{@feature_keyword}: Test feature
 
-          file_path = "#{@default_file_directory}/step_test_file.feature"
-          File.open(file_path, 'w') { |file| file.write(source) }
-        end
+                                #{@background_keyword}: Test background
+                                  #{@step_keyword} a step"
+        }
 
-        let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-        let(:step) { directory.feature_files.first.feature.background.steps.first }
+        let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+        let(:step_model) { directory_model.feature_files.first.feature.background.steps.first }
 
 
         it 'can get its background' do
-          ancestor = step.get_ancestor(:background)
+          ancestor = step_model.get_ancestor(:background)
 
-          expect(ancestor).to equal(directory.feature_files.first.feature.background)
+          expect(ancestor).to equal(directory_model.feature_files.first.feature.background)
         end
 
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = step.get_ancestor(:example)
+        ancestor = step_model.get_ancestor(:example)
 
         expect(ancestor).to be_nil
       end

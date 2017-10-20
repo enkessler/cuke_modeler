@@ -67,21 +67,19 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
                            | param |
                            | value |
                        # final comment" }
-  let(:feature_file) { path = "#{@default_file_directory}/#{@default_feature_file_name}"
-                       File.open(path, "w") { |file| file.puts source_text }
-
-                       CukeModeler::FeatureFile.new(path) }
-  let(:feature) { feature_file.feature }
+  let(:feature_file_model) { test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
+                             CukeModeler::FeatureFile.new(test_file_path) }
+  let(:feature_model) { feature_file_model.feature }
 
 
   it "does not store parsing data for a feature file's children" do
-    model = feature_file
+    model = feature_file_model
 
     expect(model.parsing_data).to be_nil
   end
 
   it "does not store parsing data for a feature's children" do
-    model = feature
+    model = feature_model
 
     expect(model.parsing_data[:comments]).to be_nil
     expect(model.parsing_data[:tags]).to be_nil
@@ -90,20 +88,20 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
   end
 
   it "does not store parsing data for a background's children" do
-    model = feature.background
+    model = feature_model.background
 
     expect(model.parsing_data[:steps]).to be_nil
   end
 
   it "does not store parsing data for a scenario's children" do
-    model = feature.scenarios.first
+    model = feature_model.scenarios.first
 
     expect(model.parsing_data[:tags]).to be_nil
     expect(model.parsing_data[:steps]).to be_nil
   end
 
   it "does not store parsing data for an outline's children" do
-    model = feature.outlines.first
+    model = feature_model.outlines.first
 
     expect(model.parsing_data[:tags]).to be_nil
     expect(model.parsing_data[:steps]).to be_nil
@@ -111,7 +109,7 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
   end
 
   it "does not store parsing data for an example's children" do
-    model = feature.outlines.first.examples.first
+    model = feature_model.outlines.first.examples.first
 
     expect(model.parsing_data[:tags]).to be_nil
     expect(model.parsing_data[:tableHeader]).to be_nil
@@ -119,31 +117,31 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
   end
 
   it "does not store parsing data for an example row's children" do
-    model = feature.outlines.first.examples.first.rows.first
+    model = feature_model.outlines.first.examples.first.rows.first
 
     expect(model.parsing_data[:cells]).to be_nil
   end
 
   it "does not store parsing data for a step's children, table" do
-    model = feature.outlines.first.steps.first
+    model = feature_model.outlines.first.steps.first
 
     expect(model.parsing_data[:argument]).to be_nil
   end
 
   it "does not store parsing data for a step's children, doc string" do
-    model = feature.outlines.first.steps.last
+    model = feature_model.outlines.first.steps.last
 
     expect(model.parsing_data[:argument]).to be_nil
   end
 
   it "does not store parsing data for a table's children" do
-    model = feature.outlines.first.steps.first.block
+    model = feature_model.outlines.first.steps.first.block
 
     expect(model.parsing_data[:rows]).to be_nil
   end
 
   it "does not store parsing data for a table row's children" do
-    model = feature.outlines.first.steps.first.block.rows.first
+    model = feature_model.outlines.first.steps.first.block.rows.first
 
     expect(model.parsing_data[:cells]).to be_nil
   end

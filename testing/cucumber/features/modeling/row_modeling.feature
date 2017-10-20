@@ -1,7 +1,6 @@
 Feature: Row modeling
 
-  Row models represent an individual row in a step or example table. They expose several attributes of the row
-  that they represent.
+  Row models represent an individual row in a step or example table. They expose several attributes of the row that they represent.
 
 
   Background:

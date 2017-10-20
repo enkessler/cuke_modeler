@@ -1,7 +1,6 @@
 Feature: Tag modeling
 
-  Tag models represent a tag portion of a feature. They expose several attributes of the tag
-  that they represent.
+  Tag models represent a tag portion of a feature. They expose several attributes of the tag that they represent.
 
 
   Background:

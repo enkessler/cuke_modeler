@@ -1,7 +1,6 @@
 Feature: Scenario output
 
-  A scenario model's string output is a Gherkin representation of itself. As such, output from a scenario model can be used as
-  input for the same kind of model.
+  A scenario model's string output is a Gherkin representation of itself. As such, output from a scenario model can be used as input for the same kind of model.
 
 
   Scenario: Outputting a scenario model

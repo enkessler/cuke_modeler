@@ -77,11 +77,6 @@ describe 'Step, Unit', :unit_test => true do
 
     describe 'step output' do
 
-      it 'is a String' do
-        expect(step.to_s).to be_a(String)
-      end
-
-
       context 'from abstract instantiation' do
 
         let(:step) { clazz.new }

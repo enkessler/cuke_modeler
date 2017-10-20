@@ -108,42 +108,44 @@ describe 'Outline, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        source = "#{@feature_keyword}: Test feature
-
-                    #{@outline_keyword}: Test test
-                      #{@step_keyword} a step
-                    #{@example_keyword}: Test example
-                      | a param |
-                      | a value |"
-
-        file_path = "#{@default_file_directory}/outline_test_file.feature"
-        File.open(file_path, 'w') { |file| file.write(source) }
+        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'outline_test_file', :directory => test_directory)
       end
 
-      let(:directory) { CukeModeler::Directory.new(@default_file_directory) }
-      let(:outline) { directory.feature_files.first.feature.tests.first }
+
+      let(:test_directory) { CukeModeler::FileHelper.create_directory }
+      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+
+                              #{@outline_keyword}: Test test
+                                #{@step_keyword} a step
+                              #{@example_keyword}: Test example
+                                | a param |
+                                | a value |"
+      }
+
+      let(:directory_model) { CukeModeler::Directory.new(test_directory) }
+      let(:outline_model) { directory_model.feature_files.first.feature.tests.first }
 
 
       it 'can get its directory' do
-        ancestor = outline.get_ancestor(:directory)
+        ancestor = outline_model.get_ancestor(:directory)
 
-        expect(ancestor).to equal(directory)
+        expect(ancestor).to equal(directory_model)
       end
 
       it 'can get its feature file' do
-        ancestor = outline.get_ancestor(:feature_file)
+        ancestor = outline_model.get_ancestor(:feature_file)
 
-        expect(ancestor).to equal(directory.feature_files.first)
+        expect(ancestor).to equal(directory_model.feature_files.first)
       end
 
       it 'can get its feature' do
-        ancestor = outline.get_ancestor(:feature)
+        ancestor = outline_model.get_ancestor(:feature)
 
-        expect(ancestor).to equal(directory.feature_files.first.feature)
+        expect(ancestor).to equal(directory_model.feature_files.first.feature)
       end
 
       it 'returns nil if it does not have the requested type of ancestor' do
-        ancestor = outline.get_ancestor(:test)
+        ancestor = outline_model.get_ancestor(:test)
 
         expect(ancestor).to be_nil
       end
