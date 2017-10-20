@@ -59,7 +59,7 @@ end
 
 RSpec.configure do |config|
   case Gem.loaded_specs['gherkin'].version.version
-    when /^4\./
+    when /^[54]\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
                                   :gherkin4 => false
