@@ -15,6 +15,8 @@ if RUBY_VERSION =~ /^1\./
     gem 'cucumber', '~> 1.0' # Ruby 1.8.x support dropped after this version
     gem 'gherkin', '< 2.12.1' # Ruby 1.8.x support dropped after this version
     gem 'rake', '< 11.0' # Ruby 1.8.x support dropped after this version
+  else
+    gem 'rake', '< 12.3.0' # Ruby 1.9.x support dropped after this version
   end
 
 elsif RUBY_VERSION =~ /^2\./
