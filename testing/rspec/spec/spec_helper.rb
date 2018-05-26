@@ -73,18 +73,18 @@ RSpec.configure do |config|
                                   :gherkin4 => true
   end
 
-  config.before(:all) do
-    @feature_keyword = CukeModeler::DialectHelper.feature_keyword
-    @background_keyword = CukeModeler::DialectHelper.background_keyword
-    @scenario_keyword = CukeModeler::DialectHelper.scenario_keyword
-    @outline_keyword = CukeModeler::DialectHelper.outline_keyword
-    @example_keyword = CukeModeler::DialectHelper.example_keyword
-    @step_keyword = CukeModeler::DialectHelper.step_keyword
-    @given_keyword = CukeModeler::DialectHelper.given_keyword
-    @then_keyword = CukeModeler::DialectHelper.then_keyword
+  config.before(:suite) do
+    FEATURE_KEYWORD = CukeModeler::DialectHelper.feature_keyword
+    BACKGROUND_KEYWORD = CukeModeler::DialectHelper.background_keyword
+    SCENARIO_KEYWORD = CukeModeler::DialectHelper.scenario_keyword
+    OUTLINE_KEYWORD = CukeModeler::DialectHelper.outline_keyword
+    EXAMPLE_KEYWORD = CukeModeler::DialectHelper.example_keyword
+    STEP_KEYWORD = CukeModeler::DialectHelper.step_keyword
+    GIVEN_KEYWORD = CukeModeler::DialectHelper.given_keyword
+    THEN_KEYWORD = CukeModeler::DialectHelper.then_keyword
   end
 
-  config.after(:all) do
+  config.after(:suite) do
     CukeModeler::FileHelper.created_directories.each do |dir_path|
       FileUtils.remove_entry(dir_path, true)
     end

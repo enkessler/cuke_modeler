@@ -85,10 +85,10 @@ describe 'DocString, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@scenario_keyword}: Test test
-                                  #{@step_keyword} a big step:
+                                #{SCENARIO_KEYWORD}: Test test
+                                  #{STEP_KEYWORD} a big step:
                                 \"\"\"
                                 a
                                 doc
@@ -121,10 +121,10 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{@scenario_keyword}: Test test
-                                    #{@step_keyword} a big step:
+                                  #{SCENARIO_KEYWORD}: Test test
+                                    #{STEP_KEYWORD} a big step:
                                       \"\"\"
                                       a
                                       doc
@@ -147,16 +147,16 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{@outline_keyword}: Test outline
-                                    #{@step_keyword} a big step:
+                                  #{OUTLINE_KEYWORD}: Test outline
+                                    #{STEP_KEYWORD} a big step:
                                       \"\"\"
                                       a
                                       doc
                                       string
                                       \"\"\"
-        #{@example_keyword}:
+        #{EXAMPLE_KEYWORD}:
                                     | param |
                                     | value |"
         }
@@ -176,10 +176,10 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{@background_keyword}: Test background
-                                    #{@step_keyword} a big step:
+                                  #{BACKGROUND_KEYWORD}: Test background
+                                    #{STEP_KEYWORD} a big step:
                                       \"\"\"
                                       a
                                       doc
@@ -253,10 +253,10 @@ describe 'DocString, Integration' do
         end
 
         it "models the doc string's source line" do
-          source_text = "#{@feature_keyword}:
+          source_text = "#{FEATURE_KEYWORD}:
 
-                           #{@scenario_keyword}:
-                             #{@step_keyword} step
+                           #{SCENARIO_KEYWORD}:
+                             #{STEP_KEYWORD} step
                                \"\"\"
                                foo
                                \"\"\""
@@ -274,7 +274,7 @@ describe 'DocString, Integration' do
 
       it 'can be remade from its own output' do
         source = ['"""" the type',
-                  "#{@step_keyword} a step",
+                  "#{STEP_KEYWORD} a step",
                   '  \"\"\"',
                   '  that also has a doc string',
                   '  \"\"\"',

@@ -74,10 +74,10 @@ describe 'Table, Integration' do
       context 'from source text' do
 
         it "models the table's source line" do
-          source_text = "#{@feature_keyword}:
+          source_text = "#{FEATURE_KEYWORD}:
 
-                           #{@scenario_keyword}:
-                             #{@step_keyword} step
+                           #{SCENARIO_KEYWORD}:
+                             #{STEP_KEYWORD} step
                                | value |"
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
@@ -125,10 +125,10 @@ describe 'Table, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                              #{@scenario_keyword}: Test test
-                                #{@step_keyword} a step:
+                              #{SCENARIO_KEYWORD}: Test test
+                                #{STEP_KEYWORD} a step:
                                   | a | table |"
       }
 
@@ -157,10 +157,10 @@ describe 'Table, Integration' do
       context 'a table that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@scenario_keyword}: Test test
-                                  #{@step_keyword} a step:
+                                #{SCENARIO_KEYWORD}: Test test
+                                  #{STEP_KEYWORD} a step:
                                     | a | table |"
         }
 
@@ -179,12 +179,12 @@ describe 'Table, Integration' do
       context 'a table that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@outline_keyword}: Test outline
-                                  #{@step_keyword} a step:
+                                #{OUTLINE_KEYWORD}: Test outline
+                                  #{STEP_KEYWORD} a step:
                                     | a | table |
-                                #{@example_keyword}:
+                                #{EXAMPLE_KEYWORD}:
                                   | param |
                                   | value |"
         }
@@ -204,10 +204,10 @@ describe 'Table, Integration' do
       context 'a table that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@background_keyword}: Test background
-                                  #{@step_keyword} a step:
+                                #{BACKGROUND_KEYWORD}: Test background
+                                  #{STEP_KEYWORD} a step:
                                     | a | table |"
         }
 

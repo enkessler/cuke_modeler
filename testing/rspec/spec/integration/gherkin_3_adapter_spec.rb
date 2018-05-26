@@ -7,50 +7,50 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
   let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
-                       #{@feature_keyword}: A feature with everything it could have
+                       #{FEATURE_KEYWORD}: A feature with everything it could have
 
                        Including a description
                        and then some.
 
                          # background comment
-                         #{@background_keyword}:
+                         #{BACKGROUND_KEYWORD}:
 
                          Background
                          description
 
-                           #{@step_keyword} a step
+                           #{STEP_KEYWORD} a step
                            # table comment
                              | value1 |
                            # table row comment
                              | value2 |
-                           #{@step_keyword} another step
+                           #{STEP_KEYWORD} another step
 
                          # scenario comment
                          @scenario_tag
-                         #{@scenario_keyword}:
+                         #{SCENARIO_KEYWORD}:
 
                          Scenario
                          description
 
-                           #{@step_keyword} a step
-                           #{@step_keyword} another step
+                           #{STEP_KEYWORD} a step
+                           #{STEP_KEYWORD} another step
                              \"\"\"
                              some text
                              \"\"\"
 
                          # outline comment
                          @outline_tag
-                         #{@outline_keyword}:
+                         #{OUTLINE_KEYWORD}:
 
                          Outline
                          description
 
                            # step comment
-                           #{@step_keyword} a step
+                           #{STEP_KEYWORD} a step
                            # table comment
                              | value2 |
                            # step comment
-                           #{@step_keyword} another step
+                           #{STEP_KEYWORD} another step
                            # doc string comment
                              \"\"\"
                              some text
@@ -58,7 +58,7 @@ describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
 
                          # example comment
                          @example_tag
-                         #{@example_keyword}:
+                         #{EXAMPLE_KEYWORD}:
 
                          Example
                          description

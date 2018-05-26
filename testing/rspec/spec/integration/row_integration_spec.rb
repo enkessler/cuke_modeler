@@ -88,10 +88,10 @@ describe 'Row, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{@feature_keyword}: Test feature
+      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@scenario_keyword}: Test test
-                                  #{@step_keyword} a step:
+                                #{SCENARIO_KEYWORD}: Test test
+                                  #{STEP_KEYWORD} a step:
                                     | a | table |"
       }
 
@@ -132,10 +132,10 @@ describe 'Row, Integration' do
       context 'a row that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{@scenario_keyword}: Test test
-                                    #{@step_keyword} a step:
+                                  #{SCENARIO_KEYWORD}: Test test
+                                    #{STEP_KEYWORD} a step:
                                       | a | table |"
         }
 
@@ -155,10 +155,10 @@ describe 'Row, Integration' do
       context 'a row that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@background_keyword}: Test background
-                                  #{@step_keyword} a step:
+                                #{BACKGROUND_KEYWORD}: Test background
+                                  #{STEP_KEYWORD} a step:
                                     | a | table |"
         }
 
@@ -177,11 +177,11 @@ describe 'Row, Integration' do
       context 'a row that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{@feature_keyword}: Test feature
+        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
 
-                                #{@outline_keyword}: Test outline
-                                  #{@step_keyword} a step
-                                #{@example_keyword}:
+                                #{OUTLINE_KEYWORD}: Test outline
+                                  #{STEP_KEYWORD} a step
+                                #{EXAMPLE_KEYWORD}:
                                   | param |
                                   | value |"
         }
@@ -228,11 +228,11 @@ describe 'Row, Integration' do
         end
 
         it "models the row's source line" do
-          source_text = "#{@feature_keyword}: Test feature
+          source_text = "#{FEATURE_KEYWORD}: Test feature
 
-                           #{@outline_keyword}: Test outline
-                             #{@step_keyword} a step
-                           #{@example_keyword}:
+                           #{OUTLINE_KEYWORD}: Test outline
+                             #{STEP_KEYWORD} a step
+                           #{EXAMPLE_KEYWORD}:
                              | param |
                              | value |"
           row = CukeModeler::Feature.new(source_text).tests.first.examples.first.rows.first

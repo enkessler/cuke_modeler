@@ -77,7 +77,7 @@ describe 'Comment, Integration' do
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
       let(:source_gherkin) { "# feature comment
-                              #{@feature_keyword}: Test feature"
+                              #{FEATURE_KEYWORD}: Test feature"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -119,7 +119,7 @@ describe 'Comment, Integration' do
 
         it "models the comment's source line" do
           source_text = "# a comment
-                         #{@feature_keyword}:"
+                         #{FEATURE_KEYWORD}:"
 
           test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'comment_test_file')
           comment = CukeModeler::FeatureFile.new(test_file_path).comments.first

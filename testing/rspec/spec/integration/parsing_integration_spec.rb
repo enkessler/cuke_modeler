@@ -39,7 +39,7 @@ describe 'Parsing, Integration' do
 
     it 'raises and error if given something to parse besides a string' do
       expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Text to parse must be a String but got/)
-      expect { nodule.parse_text("#{@feature_keyword}:") }.to_not raise_error
+      expect { nodule.parse_text("#{FEATURE_KEYWORD}:") }.to_not raise_error
     end
 
     it 'includes the type of object provided when raising an non-string exception' do
@@ -48,7 +48,7 @@ describe 'Parsing, Integration' do
 
     # todo - Stop doing this. Just return a feature file rooted AST. (Will require major version number change)
     it 'returns an Array' do
-      result = nodule.parse_text("#{@feature_keyword}:")
+      result = nodule.parse_text("#{FEATURE_KEYWORD}:")
       expect(result).to be_a(Array)
     end
 

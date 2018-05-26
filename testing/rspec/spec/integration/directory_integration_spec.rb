@@ -46,7 +46,7 @@ describe 'Directory, Integration' do
           before(:each) do
             feature_files.each do |file_name|
               # Some versions of Gherkin require feature content to be present in feature files
-              CukeModeler::FileHelper.create_feature_file(:text => "#{@feature_keyword}: Test feature", :name => file_name, :directory => directory_path)
+              CukeModeler::FileHelper.create_feature_file(:text => "#{FEATURE_KEYWORD}: Test feature", :name => file_name, :directory => directory_path)
             end
 
             non_feature_files.each do |file_name|
@@ -146,7 +146,7 @@ describe 'Directory, Integration' do
       directory_path = CukeModeler::FileHelper.create_directory
       _nested_directory_path = CukeModeler::FileHelper.create_directory(:name => 'nested_directory', :directory => directory_path)
 
-      CukeModeler::FileHelper.create_feature_file(:text => "#{@feature_keyword}: Test feature", :name => 'test_file', :directory => directory_path)
+      CukeModeler::FileHelper.create_feature_file(:text => "#{FEATURE_KEYWORD}: Test feature", :name => 'test_file', :directory => directory_path)
 
 
       directory_model = clazz.new(directory_path)
