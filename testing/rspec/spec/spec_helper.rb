@@ -62,15 +62,15 @@ RSpec.configure do |config|
     when /^[54]\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
-                                  :gherkin4 => false
+                                  :gherkin4_5 => false
     when /^3\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => false,
-                                  :gherkin4 => true
+                                  :gherkin4_5 => true
     else
       config.filter_run_excluding :gherkin2 => false,
                                   :gherkin3 => true,
-                                  :gherkin4 => true
+                                  :gherkin4_5 => true
   end
 
   config.before(:suite) do

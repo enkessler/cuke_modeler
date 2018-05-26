@@ -8,7 +8,7 @@ describe 'Parsing, Integration' do
 
   describe 'unique behavior' do
 
-    it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4 => true do
+    it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4_5 => true do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
     end
 
