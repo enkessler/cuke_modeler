@@ -26,7 +26,10 @@ namespace 'cuke_modeler' do
   desc 'Test gem based on Ruby/dependency versions'
   task :smart_test do |t, args|
     rspec_args = '--tag ~@wip --pattern testing/rspec/spec/**/*_spec.rb'
-    cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip'
+
+    # TODO: swap command lines depending on which version of Cucumber is being used?
+    # cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t not @wip'
+    cucumber_args = "testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t 'not @wip'"
 
     Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)
   end
