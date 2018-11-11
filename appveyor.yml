@@ -33,6 +33,13 @@ environment:
     - RUBY_VERSION: 23-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin5.gemfile
 
+      # Gherkin 6.x requires at least Ruby 2.2
+      # AppVeyor does not have a 64-bit Ruby 1.9.3
+    - RUBY_VERSION: 23
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
+    - RUBY_VERSION: 23-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
+
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
   - bundle install
