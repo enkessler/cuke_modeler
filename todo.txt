@@ -9,7 +9,9 @@ document helper modules as not part of the public API
 
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models
-
+# todo - add support for `Rule` keyword
+# todo - incorporate new flexibility of `Example` keyword, etc.
+# todo - Have CukeModeler::Parsing.dialect also control the default dialect used by Gherkin
 
 Backlog
 -------------

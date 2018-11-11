@@ -8,6 +8,14 @@ describe 'Parsing, Integration' do
 
   describe 'unique behavior' do
 
+    it 'will complain if using an unknown version of `gherkin`' do
+      skip('finish me')
+    end
+
+    it 'loads the correct dialects based on the version of Gherkin used', :gherkin6 => true do
+      expect(nodule.dialects).to equal(Gherkin::DIALECTS)
+    end
+
     it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4_5 => true do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
     end
@@ -52,7 +60,7 @@ describe 'Parsing, Integration' do
       expect(result).to be_a(Array)
     end
 
-    it 'raises and error if an error is encountered while parsing text' do
+    it 'raises an error if an error is encountered while parsing text' do
       expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /Error encountered while parsing '.*'/)
     end
 
@@ -98,6 +106,10 @@ describe 'Parsing, Integration' do
 
     it 'has a default file name if one is not provided' do
       expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
+    end
+
+    it 'uses the given file name if one is provided' do
+      skip('finish me')
     end
 
   end
