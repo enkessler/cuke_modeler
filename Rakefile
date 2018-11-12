@@ -30,7 +30,7 @@ namespace 'cuke_modeler' do
     cucumber_version = Gem.loaded_specs['cucumber'].version.version
 
     if cucumber_version =~ /^[123]\./
-      cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t not @wip'
+      cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip'
     else
       cucumber_args = "testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t 'not @wip'"
     end
