@@ -34,6 +34,12 @@ matrix:
   # gherkin 6.x does not work with Ruby 1.9.x
   - rvm: 1.9.3
     gemfile: testing/gemfiles/gherkin6.gemfile
+
+  # TODO: turn this back on
+  # gherkin 6.x relies on 'google-protobuf', which does not currently work on JRuby (https://github.com/protocolbuffers/protobuf/issues/1594)
+  - rvm: jruby-9.1.7.0
+    gemfile: testing/gemfiles/gherkin6.gemfile
+
   # Travis does not provide 1.8.7 on OSX
   - rvm: 1.8.7
     os: osx
