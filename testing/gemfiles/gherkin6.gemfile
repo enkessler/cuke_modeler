@@ -4,3 +4,7 @@ gemspec :path => "../../"
 
 gem "gherkin", "~> 6.0"
 gem 'cucumber', '~>4.0.rc' # TODO: Upgrade to Cucumber 4.0 when it is finally released
+
+if RUBY_VERSION =~ /^2\.[23456789]/
+  gem 'test-unit'
+end
