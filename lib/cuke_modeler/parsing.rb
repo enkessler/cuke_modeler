@@ -31,7 +31,7 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_6_adapter'
 
         def self.parsing_method(source_text, filename)
-          messages = Gherkin::Gherkin.from_source(filename, source_text, {default_dialect: CukeModeler::Parsing.dialect}).to_a
+          messages = Gherkin::Gherkin.from_source(filename, source_text, {:default_dialect => CukeModeler::Parsing.dialect}).to_a
 
           messages.map(&:to_hash).find { |message| message[:gherkinDocument] }[:gherkinDocument]
         end
