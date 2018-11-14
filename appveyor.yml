@@ -3,30 +3,20 @@ version: '1.0.{build}'
 environment:
   matrix:
 
-      # Note: AppVeyor seems to only have one version of Ruby 1.9.3
-
-    - RUBY_VERSION: 193-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
       # Gherkin 2.x does not appear to support 32-bit Ruby 2.x and it's not worth it to investigate if this is true or not
     - RUBY_VERSION: 23-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin2.gemfile
 
-    - RUBY_VERSION: 193-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
     - RUBY_VERSION: 23-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin3.gemfile
 
-    - RUBY_VERSION: 193-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
     - RUBY_VERSION: 23-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin4.gemfile
 
-    - RUBY_VERSION: 193-x64
-      BUNDLE_GEMFILE: testing/gemfiles/gherkin5.gemfile
     - RUBY_VERSION: 23
       BUNDLE_GEMFILE: testing/gemfiles/gherkin5.gemfile
     - RUBY_VERSION: 23-x64
