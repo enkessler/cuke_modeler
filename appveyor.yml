@@ -41,6 +41,8 @@ environment:
       BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
 
 install:
+ - ps: |
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
   - bundle install
 
