@@ -26,7 +26,14 @@ namespace 'cuke_modeler' do
   desc 'Test gem based on Ruby/dependency versions'
   task :smart_test do |t, args|
     rspec_args = '--tag ~@wip --pattern testing/rspec/spec/**/*_spec.rb'
-    cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip'
+
+    cucumber_version = Gem.loaded_specs['cucumber'].version.version
+
+    if cucumber_version =~ /^[123]\./
+      cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip'
+    else
+      cucumber_args = "testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t 'not @wip'"
+    end
 
     Rake::Task['cuke_modeler:test_everything'].invoke(rspec_args, cucumber_args)
   end

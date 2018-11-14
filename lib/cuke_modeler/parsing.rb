@@ -11,19 +11,40 @@ module CukeModeler
     begin
       require 'gherkin'
     rescue LoadError
-      require 'gherkin/parser'
+      begin
+        require 'gherkin/parser'
+      rescue LoadError
+        # Gherkin 6.x
+        require 'gherkin/gherkin'
+      end
     end
 
 
     # The *gherkin* gem loads differently and has different grammar rules across major versions. Parsing
     # will be done with an 'adapter' appropriate to the version of the *gherkin* gem that has been activated.
 
-    case Gem.loaded_specs['gherkin'].version.version
+    gherkin_version = Gem.loaded_specs['gherkin'].version.version
+
+    case gherkin_version
+      when /^6\./
+        require 'gherkin/gherkin'
+        require 'cuke_modeler/adapters/gherkin_6_adapter'
+
+        def self.parsing_method(source_text, filename)
+          messages = Gherkin::Gherkin.from_source(filename, source_text, {:default_dialect => CukeModeler::Parsing.dialect}).to_a
+
+          messages.map(&:to_hash).find { |message| message[:gherkinDocument] }[:gherkinDocument]
+        end
+
+        def self.adapter_class
+          CukeModeler::Gherkin6Adapter
+        end
+
       when /^[54]\./
         require 'gherkin/parser'
         require 'cuke_modeler/adapters/gherkin_4_adapter'
 
-
+        # TODO: shouldn't the filename be used?
         # todo - make these methods private?
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
@@ -45,8 +66,7 @@ module CukeModeler
         def self.adapter_class
           CukeModeler::Gherkin3Adapter
         end
-
-      else # Assume version 2.x
+      when /^2\./
         require 'stringio'
         require 'gherkin/formatter/json_formatter'
         require 'gherkin'
@@ -68,6 +88,9 @@ module CukeModeler
           CukeModeler::Gherkin2Adapter
         end
 
+      else
+        # TODO: test this
+        raise("Unknown Gherkin version: '#{gherkin_version}'")
     end
 
 

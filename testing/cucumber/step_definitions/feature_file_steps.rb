@@ -6,7 +6,7 @@ Given(/^a feature file model based on "([^"]*)"$/) do |file_name|
 end
 
 And(/^a feature file model based on that file$/) do |code_text|
-  code_text.gsub!('<file_path>', "'#{@file_path}'")
+  code_text = code_text.gsub('<file_path>', "'#{@file_path}'")
 
   eval(code_text)
 end

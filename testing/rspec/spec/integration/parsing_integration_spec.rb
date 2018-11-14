@@ -8,7 +8,15 @@ describe 'Parsing, Integration' do
 
   describe 'unique behavior' do
 
-    it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4 => true do
+    it 'will complain if using an unknown version of `gherkin`' do
+      skip('finish me')
+    end
+
+    it 'loads the correct dialects based on the version of Gherkin used', :gherkin6 => true do
+      expect(nodule.dialects).to equal(Gherkin::DIALECTS)
+    end
+
+    it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4_5 => true do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
     end
 
@@ -39,7 +47,7 @@ describe 'Parsing, Integration' do
 
     it 'raises and error if given something to parse besides a string' do
       expect { nodule.parse_text(5) }.to raise_error(ArgumentError, /Text to parse must be a String but got/)
-      expect { nodule.parse_text("#{@feature_keyword}:") }.to_not raise_error
+      expect { nodule.parse_text("#{FEATURE_KEYWORD}:") }.to_not raise_error
     end
 
     it 'includes the type of object provided when raising an non-string exception' do
@@ -48,11 +56,11 @@ describe 'Parsing, Integration' do
 
     # todo - Stop doing this. Just return a feature file rooted AST. (Will require major version number change)
     it 'returns an Array' do
-      result = nodule.parse_text("#{@feature_keyword}:")
+      result = nodule.parse_text("#{FEATURE_KEYWORD}:")
       expect(result).to be_a(Array)
     end
 
-    it 'raises and error if an error is encountered while parsing text' do
+    it 'raises an error if an error is encountered while parsing text' do
       expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /Error encountered while parsing '.*'/)
     end
 
@@ -98,6 +106,10 @@ describe 'Parsing, Integration' do
 
     it 'has a default file name if one is not provided' do
       expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
+    end
+
+    it 'uses the given file name if one is provided' do
+      skip('finish me')
     end
 
   end

@@ -26,65 +26,94 @@ require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 require "#{this_dir}/../../dialect_helper"
 require "#{this_dir}/../../file_helper"
 
-# Use a fake dialect for testing in order to avoid hard coded language assumptions in the
-# implementation. Only possible with newer versions of Gherkin.
-if Gem.loaded_specs['gherkin'].version.version[/^2\./]
-  CukeModeler::DialectHelper.set_dialect(Gherkin::I18n::LANGUAGES['en'])
-  CukeModeler::Parsing.dialect = 'en'
-else
-  dialect_file_path = "#{this_dir}/../../test_languages.json"
-  test_dialects = JSON.parse File.open(dialect_file_path, 'r:UTF-8').read
+# Use a random dialect for testing in order to avoid hard coded language assumptions in the
+# implementation and making the test dialect the default dialect so that language headers
+# aren't needed for all of the test code. Only possible with some versions of Gherkin.
 
-  Gherkin::DIALECTS.merge!(test_dialects)
+gherkin_version = Gem.loaded_specs['gherkin'].version.version
+
+case gherkin_version
+  when /^6\./
+    # gherkin 6 does not preload the dialect module
+    require 'gherkin/dialect' if Gem.loaded_specs['gherkin'].version.version[/^6\./]
+
+    # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
+    test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
+    puts "Testing with dialect '#{test_dialect}'..."
 
 
-  # Making the test dialect the default dialect so that language headers aren't
-  # needed for all of the test code.
-  module Gherkin
-    class Parser
+    CukeModeler::DialectHelper.set_dialect(Gherkin::DIALECTS[test_dialect])
+    CukeModeler::Parsing.dialect = test_dialect
+  when /^[543]\./
+# TODO: stop using test dialect and just randomize for all version of `gherkin`
+    dialect_file_path = "#{this_dir}/../../test_languages.json"
+    test_dialects = JSON.parse File.open(dialect_file_path, 'r:UTF-8').read
 
-      alias_method :original_parse, :parse
+    Gherkin::DIALECTS.merge!(test_dialects)
 
-      def parse(token_scanner, token_matcher = TokenMatcher.new('cm-test'))
-        original_parse(token_scanner, token_matcher)
+
+    module Gherkin
+      class Parser
+
+        alias_method :original_parse, :parse
+
+        def parse(token_scanner, token_matcher = TokenMatcher.new('cm-test'))
+          original_parse(token_scanner, token_matcher)
+        end
+
       end
-
     end
-  end
 
-  CukeModeler::DialectHelper.set_dialect(test_dialects['cm-test'])
-  CukeModeler::Parsing.dialect = 'cm-test'
+    CukeModeler::DialectHelper.set_dialect(test_dialects['cm-test'])
+    CukeModeler::Parsing.dialect = 'cm-test'
+  when /^2\./
+    CukeModeler::DialectHelper.set_dialect(Gherkin::I18n::LANGUAGES['en'])
+    CukeModeler::Parsing.dialect = 'en'
+  else
+    raise("Unknown Gherkin version: '#{gherkin_version}'")
 end
 
 
 RSpec.configure do |config|
-  case Gem.loaded_specs['gherkin'].version.version
+  gherkin_version = Gem.loaded_specs['gherkin'].version.version
+
+  case gherkin_version
+    when /^6\./
+      config.filter_run_excluding :gherkin2 => true,
+                                  :gherkin3 => true,
+                                  :gherkin4_5 => true,
+                                  :gherkin6 => false
     when /^[54]\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
-                                  :gherkin4 => false
+                                  :gherkin4_5 => false,
+                                  :gherkin6 => true
     when /^3\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => false,
-                                  :gherkin4 => true
-    else
+                                  :gherkin4_5 => true,
+                                  :gherkin6 => true
+    when /^2\./
       config.filter_run_excluding :gherkin2 => false,
                                   :gherkin3 => true,
-                                  :gherkin4 => true
+                                  :gherkin4_5 => true,
+                                  :gherkin6 => true
+    else
+      raise("Unknown Gherkin version: '#{gherkin_version}'")
   end
 
-  config.before(:all) do
-    @feature_keyword = CukeModeler::DialectHelper.feature_keyword
-    @background_keyword = CukeModeler::DialectHelper.background_keyword
-    @scenario_keyword = CukeModeler::DialectHelper.scenario_keyword
-    @outline_keyword = CukeModeler::DialectHelper.outline_keyword
-    @example_keyword = CukeModeler::DialectHelper.example_keyword
-    @step_keyword = CukeModeler::DialectHelper.step_keyword
-    @given_keyword = CukeModeler::DialectHelper.given_keyword
-    @then_keyword = CukeModeler::DialectHelper.then_keyword
+  config.before(:suite) do
+    FEATURE_KEYWORD = CukeModeler::DialectHelper.feature_keyword
+    BACKGROUND_KEYWORD = CukeModeler::DialectHelper.background_keyword
+    SCENARIO_KEYWORD = CukeModeler::DialectHelper.scenario_keyword
+    OUTLINE_KEYWORD = CukeModeler::DialectHelper.outline_keyword
+    EXAMPLE_KEYWORD = CukeModeler::DialectHelper.example_keyword
+    STEP_KEYWORD = CukeModeler::DialectHelper.step_keyword
+    GIVEN_KEYWORD = CukeModeler::DialectHelper.given_keyword
+    THEN_KEYWORD = CukeModeler::DialectHelper.then_keyword
   end
 
-  config.after(:all) do
+  config.after(:suite) do
     CukeModeler::FileHelper.created_directories.each do |dir_path|
       FileUtils.remove_entry(dir_path, true)
     end

@@ -1,3 +1,6 @@
+require 'tmpdir'
+
+
 module CukeModeler
   module FileHelper
 
