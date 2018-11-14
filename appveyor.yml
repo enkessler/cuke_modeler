@@ -43,8 +43,8 @@ environment:
 install:
  - ps: |
       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls
-  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
-  - bundle install
+ - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+ - bundle install
 
 build: off
 
