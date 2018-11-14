@@ -13,13 +13,13 @@ When(/^the model is output as a string$/) do |code_text|
 end
 
 And(/^a(?:n)? \w+(?: \w+)? model based on that gherkin$/) do |code_text|
-  code_text.gsub!('<source_text>', "'#{@source_text}'")
+  code_text = code_text.gsub('<source_text>', "'#{@source_text}'")
 
   eval(code_text)
 end
 
 Given(/^(?:a|the) (?:directory|feature file) is modeled$/) do |code_text|
-  code_text.gsub!('<path_to>', @root_test_directory)
+  code_text = code_text.gsub('<path_to>', @root_test_directory)
 
   eval(code_text)
 end

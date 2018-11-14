@@ -12,7 +12,7 @@ Then(/^all of them can be output as text appropriate to the model type$/) do |co
 end
 
 Then(/^the following text is provided:$/) do |expected_text|
-  expected_text.sub!('<path_to>', @root_test_directory)
+  expected_text = expected_text.sub('<path_to>', @root_test_directory)
 
   expect(@output).to eq(expected_text)
 end
@@ -58,12 +58,13 @@ end
 
 Then(/^the model returns "([^"]*)"$/) do |value|
   value.gsub!('path_to', @root_test_directory) if value.is_a?(String)
+  value = value.to_i if value =~ /^\d+$/
 
   expect(@result).to eq(value)
 end
 
 Then(/^the model returns$/) do |value|
-  value.gsub!('path_to', @root_test_directory) if value.is_a?(String)
+  value = value.gsub('path_to', @root_test_directory) if value.is_a?(String)
 
   expect(@result).to eq(value)
 end

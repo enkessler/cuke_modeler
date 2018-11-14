@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Specify your gem's dependencies in cuke_modeler.gemspec
 gemspec
@@ -22,6 +22,7 @@ if RUBY_VERSION =~ /^1\./
     gem 'rake', '< 11.0' # Ruby 1.8.x support dropped after this version
   else
     gem 'rake', '< 12.3.0' # Ruby 1.9.x support dropped after this version
+    gem 'cucumber', '< 3.0.0' # Ruby 1.9.x support dropped after this version
   end
 
 elsif RUBY_VERSION =~ /^2\./
@@ -30,6 +31,6 @@ elsif RUBY_VERSION =~ /^2\./
     gem 'test-unit'
   end
 
-  gem 'gherkin', '~> 5.0'
-
+  gem 'gherkin', '~> 6.0'
+  gem 'cucumber', '~>4.0.rc'
 end
