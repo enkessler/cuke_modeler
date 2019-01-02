@@ -89,7 +89,6 @@ module CukeModeler
         end
 
       else
-        # TODO: test this
         raise("Unknown Gherkin version: '#{gherkin_version}'")
     end
 

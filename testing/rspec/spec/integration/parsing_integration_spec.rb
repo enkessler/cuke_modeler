@@ -9,7 +9,16 @@ describe 'Parsing, Integration' do
   describe 'unique behavior' do
 
     it 'will complain if using an unknown version of `gherkin`' do
-      skip('finish me')
+      original_version = Gem.loaded_specs['gherkin'].version
+      unknown_version  = Gem::Version.new('0.0.0')
+
+      begin
+        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, unknown_version)
+
+        expect { load "#{__dir__}/../../../../lib/cuke_modeler/parsing.rb" }.to raise_error("Unknown Gherkin version: '0.0.0'")
+      ensure
+        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, original_version)
+      end
     end
 
     it 'loads the correct dialects based on the version of Gherkin used', :gherkin6 => true do
