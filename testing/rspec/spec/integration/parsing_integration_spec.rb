@@ -15,7 +15,7 @@ describe 'Parsing, Integration' do
       begin
         Gem.loaded_specs['gherkin'].instance_variable_set(:@version, unknown_version)
 
-        expect { load "#{__dir__}/../../../../lib/cuke_modeler/parsing.rb" }.to raise_error("Unknown Gherkin version: '0.0.0'")
+        expect { load "#{File.dirname(__FILE__)}/../../../../lib/cuke_modeler/parsing.rb" }.to raise_error("Unknown Gherkin version: '0.0.0'")
       ensure
         Gem.loaded_specs['gherkin'].instance_variable_set(:@version, original_version)
       end
