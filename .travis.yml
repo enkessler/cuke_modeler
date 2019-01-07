@@ -54,5 +54,7 @@ matrix:
   - rvm: 1.9.3
     os: osx
 
+before_install:
+  - gem install bundler
 
 script: bundle exec rake cuke_modeler:ci_build
