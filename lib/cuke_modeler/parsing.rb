@@ -44,8 +44,9 @@ module CukeModeler
         require 'gherkin/parser'
         require 'cuke_modeler/adapters/gherkin_4_adapter'
 
-        # TODO: shouldn't the filename be used?
+
         # todo - make these methods private?
+        # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end
@@ -59,6 +60,7 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_3_adapter'
 
 
+        # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end

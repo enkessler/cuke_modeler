@@ -77,6 +77,10 @@ describe 'Parsing, Integration' do
       expect { nodule.parse_text('bad file', 'file foo.txt') }.to raise_error(/'file foo\.txt'/)
     end
 
+    it 'has a default file name used while parsing if one is not provided' do
+      expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
+    end
+
     it 'includes the underlying error message in the error that it raises' do
       begin
         $old_method = CukeModeler::Parsing.method(:parsing_method)
@@ -111,14 +115,6 @@ describe 'Parsing, Integration' do
         end
       end
 
-    end
-
-    it 'has a default file name if one is not provided' do
-      expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
-    end
-
-    it 'uses the given file name if one is provided' do
-      skip('finish me')
     end
 
   end
