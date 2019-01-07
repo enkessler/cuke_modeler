@@ -54,8 +54,5 @@ matrix:
   - rvm: 1.9.3
     os: osx
 
-# todo - Remove this once TravisCI fixes their bundler issue (https://github.com/alphagov/govuk_template/pull/186)
-before_install:
-  - gem install bundler -v 1.9.10
 
 script: bundle exec rake cuke_modeler:ci_build
