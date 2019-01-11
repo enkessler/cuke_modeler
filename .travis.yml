@@ -55,6 +55,6 @@ matrix:
     os: osx
 
 before_install:
-  - gem install bundler
+  - gem install bundler -v '< 2'
 
 script: bundle exec rake cuke_modeler:ci_build
