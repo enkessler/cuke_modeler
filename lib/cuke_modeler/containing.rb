@@ -4,6 +4,19 @@ module CukeModeler
 
   module Containing
 
+    def each_descendant(&block)
+      children.each do |child_model|
+        block.call(child_model)
+        child_model.each_descendant(&block) if child_model.respond_to?(:each_descendant)
+      end
+    end
+
+    def each_model(&block)
+      block.call(self)
+
+      each_descendant(&block)
+    end
+
 
     private
 
