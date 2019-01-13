@@ -1,3 +1,8 @@
+### Version 1.5.0 / 2019-01-13
+
+* Added methods to easily run elements of an arbitrarily rooted model tree through a given block of code.
+
+
 ### Version 1.4.0 / 2018-11-14
 
 * Now compatible with Gherkin 6.x.

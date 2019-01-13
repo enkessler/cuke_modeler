@@ -9,7 +9,16 @@ describe 'Parsing, Integration' do
   describe 'unique behavior' do
 
     it 'will complain if using an unknown version of `gherkin`' do
-      skip('finish me')
+      original_version = Gem.loaded_specs['gherkin'].version
+      unknown_version  = Gem::Version.new('0.0.0')
+
+      begin
+        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, unknown_version)
+
+        expect { load "#{File.dirname(__FILE__)}/../../../../lib/cuke_modeler/parsing.rb" }.to raise_error("Unknown Gherkin version: '0.0.0'")
+      ensure
+        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, original_version)
+      end
     end
 
     it 'loads the correct dialects based on the version of Gherkin used', :gherkin6 => true do
@@ -68,6 +77,10 @@ describe 'Parsing, Integration' do
       expect { nodule.parse_text('bad file', 'file foo.txt') }.to raise_error(/'file foo\.txt'/)
     end
 
+    it 'has a default file name used while parsing if one is not provided' do
+      expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
+    end
+
     it 'includes the underlying error message in the error that it raises' do
       begin
         $old_method = CukeModeler::Parsing.method(:parsing_method)
@@ -102,14 +115,6 @@ describe 'Parsing, Integration' do
         end
       end
 
-    end
-
-    it 'has a default file name if one is not provided' do
-      expect { nodule.parse_text('bad file') }.to raise_error(ArgumentError, /'cuke_modeler_fake_file\.feature'/)
-    end
-
-    it 'uses the given file name if one is provided' do
-      skip('finish me')
     end
 
   end

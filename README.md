@@ -1,5 +1,4 @@
 [![Gem Version](https://badge.fury.io/rb/cuke_modeler.svg)](https://rubygems.org/gems/cuke_modeler)
-[![Dependency Status](https://gemnasium.com/enkessler/cuke_modeler.svg)](https://gemnasium.com/enkessler/cuke_modeler)
 [![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=dev)](https://travis-ci.org/enkessler/cuke_modeler)
 [![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0/branch/dev?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler/branch/dev)
 [![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=dev)](https://coveralls.io/github/enkessler/cuke_modeler?branch=dev)
@@ -18,7 +17,7 @@ the rescue by providing a modeling layer that is easier to work with.
  
 Whether you just want something that will let you easily inspect your test 
 suite or you are looking for a foundation tool upon which to build something 
-Really Neat, this gem has you covered.
+[Really Neat](#projects), this gem has you covered.
 
 
 ## Installation
@@ -108,12 +107,13 @@ that feature is ultimately run with SpecFlow (Cucumber for C#), Lettuce
 (Cucumber for Python), or some other flavor of Cucumber. 
 
 
-### Other gems that are (or soon will be) powered by **cuke_modeler**
+### <a id="projects"></a>Other gems that are powered by **cuke_modeler**
 
   * [cql](https://github.com/enkessler/cql)
   * [cuketagger](https://github.com/enkessler/cuketagger)
   * [cuke_cataloger](https://github.com/enkessler/cuke_cataloger)
   * [cuke_slicer](https://github.com/grange-insurance/cuke_slicer)
+  * [cuke_linter](https://github.com/enkessler/cuke_linter)
 
 
 ## Contributing
