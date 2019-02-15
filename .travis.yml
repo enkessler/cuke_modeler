@@ -56,5 +56,6 @@ matrix:
 
 before_install:
   - gem install bundler -v '< 2'
+  - command curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
 
 script: bundle exec rake cuke_modeler:ci_build
