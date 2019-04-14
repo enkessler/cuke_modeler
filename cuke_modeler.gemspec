@@ -18,11 +18,13 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = '>= 1.8.7', '< 3.0'
+
   spec.add_runtime_dependency 'gherkin', '< 7.0'
   spec.add_runtime_dependency('json', '>= 1.0', '< 3.0')
   spec.add_runtime_dependency('multi_json', '~> 1.0')
 
-  spec.add_development_dependency "bundler"
+  spec.add_development_dependency 'bundler', '< 3.0'
   spec.add_development_dependency "rake", '< 13.0.0'
   spec.add_development_dependency 'cucumber', '< 5.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
