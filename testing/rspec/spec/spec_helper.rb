@@ -26,6 +26,9 @@ require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 require "#{this_dir}/../../dialect_helper"
 require "#{this_dir}/../../file_helper"
 
+require 'rubygems/mock_gem_ui'
+
+
 # Use a random dialect for testing in order to avoid hard coded language assumptions in the
 # implementation and making the test dialect the default dialect so that language headers
 # aren't needed for all of the test code. Only possible with some versions of Gherkin.

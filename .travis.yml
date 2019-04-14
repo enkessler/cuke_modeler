@@ -56,5 +56,5 @@ matrix:
 
 before_install:
   - gem install bundler -v '< 2'
-
+  
 script: bundle exec rake cuke_modeler:ci_build
