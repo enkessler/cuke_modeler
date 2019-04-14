@@ -1,196 +1,283 @@
-### Version 1.5.0 / 2019-01-13
+# Changelog
+All notable changes to this project will be documented in this file.
 
-* Added methods to easily run elements of an arbitrarily rooted model tree through a given block of code.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
 
-### Version 1.4.0 / 2018-11-14
+Nothing yet...
 
-* Now compatible with Gherkin 6.x.
+## [1.5.0] - 2019-01-13
 
+### Added
 
-### Version 1.3.0 / 2017-10-19
-
-* Now compatible with Gherkin 5.x.
-
-
-### Version 1.2.1 / 2017-04-25
-
-* Now officially compatible with Rake 12.x.
+ - Added methods to easily run elements of an arbitrarily rooted model tree through a given block of code.
 
 
-### Version 1.2.0 / 2016-11-23
+## [1.4.0] - 2018-11-14
 
-* The comments in a feature file are now a modeled element.
+### Added
 
-
-### Version 1.1.1 / 2016-10-28
-
-* Bug fix - Abstract instantiation of models when using a non-default dialect 
-  now works correctly.
+ - Now compatible with Gherkin 6.x.
 
 
-### Version 1.1.0 / 2016-10-28
+## [1.3.0] - 2017-10-19
 
-* Support added for non-English dialects. This gem should now be able to model 
-  feature files using any dialect supported by the 'gherkin' gem.
+### Added
 
-* Models for elements of Gherkin that have keywords (e.g. 'Feature', 'Scenario', 
-  'Examples') now keep track of the keyword used by the element that they model.
-
-* Bug fix - Fixed a bug that was causing example models to output extra newline 
-  characters under certain circumstances. 
+ - Now compatible with Gherkin 5.x.
 
 
-### Version 1.0.4 / 2016-10-07
+## [1.2.1] - 2017-04-25
 
-* Bug Fix - Fixed a bug that caused some models to include nil objects in their 
-  children collection if they did not have the relevant child object.
+### Added
 
-
-### Version 1.0.3 / 2016-09-12
-
-* Fixed a gem dependency that was accidentally declared with '<=' instead of '<'.
+ - Now officially compatible with Rake 12.x.
 
 
-### Version 1.0.2 / 2016-09-12
+## [1.2.0] - 2016-11-23
 
-* A more detailed gem description and summary have been added to the gemspec.
+### Added
 
-* The gem now declares version limits on its dependencies.
+ - The comments in a feature file are now a modeled element.
+
+
+## [1.1.1] - 2016-10-28
+
+### Fixed
+
+ - Abstract instantiation of models when using a non-default dialect 
+   now works correctly.
+
+
+## [1.1.0] - 2016-10-28
+
+### Added
+
+ - Support added for non-English dialects. This gem should now be able to model 
+   feature files using any dialect supported by the 'gherkin' gem.
+
+ - Models for elements of Gherkin that have keywords (e.g. 'Feature', 'Scenario', 
+   'Examples') now keep track of the keyword used by the element that they model.
+
+### Fixed
+
+ - Fixed a bug that was causing example models to output extra newline 
+   characters under certain circumstances. 
+
+
+## [1.0.4] - 2016-10-07
+
+### Fixed
+
+ - Fixed a bug that caused some models to include nil objects in their 
+   children collection if they did not have the relevant child object.
+
+
+## [1.0.3] - 2016-09-12
+
+### Fixed
+
+ - Fixed a gem dependency that was accidentally declared with '<=' instead of '<'.
+
+
+## [1.0.2] - 2016-09-12
+
+### Added
+
+ - A more detailed gem description and summary have been added to the gemspec.
+
+ - The gem now declares version limits on its dependencies.
  
-* Badges for the current status of the project have been added to the Readme.
+ - Badges for the current status of the project have been added to the Readme.
 
 
-### Version 1.0.1 / 2016-09-10
+## [1.0.1] - 2016-09-10
 
-* In the Readme file, added a link to the published documentation.
+### Added
+
+ - In the Readme file, added a link to the published documentation.
 
 
-### Version 1.0.0 / 2016-09-08
+## [1.0.0] - 2016-09-08
 
-* All modeled elements of a Cucumber test suite are now modeled with actual 
-  classes. Previously, some elements (such as tags or rows in an example table) 
-  were modeled with simple strings.
+### Added
 
-* A base model class has been added in order to simplify adding new element 
-  models. Other classes and modules used for organizing common model behavior 
-  have been created/removed/renamed.
+ - Background models can now be compared to other models that have steps (i.e. 
+   scenarios and outlines).
 
-* Feature file models now only have a single feature model instead of a 
-  collection of them (that would only ever have one item in it).
+ - Added specific ancestor types for scenario, outline, and background models as 
+   alternatives to the generic 'test' ancestor type.
 
-* Rows in an example table and rows in a step table no longer use two different 
-  classes for modeling.
 
-* Background models can now be compared to other models that have steps (i.e. 
-  scenarios and outlines).
+### Changed
 
-* All models for Gherkin elements now track the line number from which they 
-  originate in a source file.
+ -  A base model class has been added in order to simplify adding new element 
+   models. Other classes and modules used for organizing common model behavior 
+   have been created/removed/renamed.
 
-* The source line of a model is now a mutable attribute instead of being read 
-  only.
+ - All modeled elements of a Cucumber test suite are now modeled with actual 
+   classes. Previously, some elements (such as tags or rows in an example table) 
+   were modeled with simple strings.
 
-* The file path of a feature file is now a mutable attribute instead of being 
-  read only.
+ - Feature file models now only have a single feature model instead of a 
+   collection of them (that would only ever have one item in it).
 
-* Standardized the initial values of the attributes of abstractly created 
-  models so that they are consistent across model types.
+ - Rows in an example table and rows in a step table no longer use two different 
+   classes for modeling.
 
-* Added specific ancestor types for scenario, outline, and background models as 
-  alternatives to the generic 'test' ancestor type.
+ - All models for Gherkin elements now track the line number from which they 
+   originate in a source file.
 
-* Extra whitespace around parsed element descriptions is now trimmed away 
-  before being stored in a model.
+ - The source line of a model is now a mutable attribute instead of being read 
+   only.
+
+ - The file path of a feature file is now a mutable attribute instead of being 
+   read only.
+
+ - Standardized the initial values of the attributes of abstractly created 
+   models so that they are consistent across model types.
+
+ - Extra whitespace around parsed element descriptions is now trimmed away 
+   before being stored in a model.
   
-* Adding rows to examples via hashes can now be done without regard to the 
-  order of the keys in the hash. The correct order can be determined by the 
-  model.
+ - Adding rows to examples via hashes can now be done without regard to the 
+   order of the keys in the hash. The correct order can be determined by the 
+   model.
 
-* The saved parsing data that is generated by the 'gherkin' gem is no longer 
-  duplicated for each model, resulting in significantly less memory usage.
+ - The saved parsing data that is generated by the 'gherkin' gem is no longer 
+   duplicated for each model, resulting in significantly less memory usage.
 
-* String output of models has been improved. More special characters in Gherkin 
-  (e.g. vertical bars in rows) are appropriately escaped in the string output 
-  of a model and several minor bugs related to using model string output as the 
-  input text for new models have been fixed.
-
-* Removed the backdoor used to pass around model data during the model creation 
-  process. Model input can now only be text.
-
-* Simple counting methods have been removed. Ruby's collection methods are just 
-  as easy to use directly when dealing with classes that contain collections 
-  and the removal of these counting methods simplifies the codebase.
-
-* The 'World' module has been removed. The scope of this gem is to model files 
-  written in Gherkin. Concepts like 'step definitions' and 'hooks' are better 
-  left to libraries that include (possibly programming language specific) test 
-  execution logic within their scope of concern.
-
-* Step models no longer have 'arguments' because they require the concept of 
-  step definitions, which are no longer within the scope of this gem.
-
-* Removed deprecated behavior
-    - Marked
-        - Doc strings no longer use an array of strings to model their content
-        - Tables no longer use nested arrays of strings to model their rows
-        - Models that have descriptions no longer use an array of strings to 
-          model their description
-        - The convenient (read: awkward) #step_text has been removed.
-    - Unmarked
-        - Examples no longer use an array of hashes to model their rows
-
-* Various methods have been renamed.
+ - Various methods have been renamed.
 
 
-### Version 0.4.1 / 2016-05-12
+### Removed
 
-* Increased the flexibility of input when adding rows to an Example object. Non-
-  string values can now be used as input and they will be converted into 
-  strings. Original input objects are not modified.
+ - Removed the backdoor used to pass around model data during the model creation 
+   process. Model input can now only be text.
 
-* Added some error checking around adding value rows to an Example object 
-  without adding a parameter row as well.
+ - Simple counting methods have been removed. Ruby's collection methods are just 
+   as easy to use directly when dealing with classes that contain collections 
+   and the removal of these counting methods simplifies the codebase.
 
+ - The 'World' module has been removed. The scope of this gem is to model files 
+   written in Gherkin. Concepts like 'step definitions' and 'hooks' are better 
+   left to libraries that include (possibly programming language specific) test 
+   execution logic within their scope of concern.
 
-### Version 0.4.0 / 2016-05-01
+ - Step models no longer have 'arguments' because they require the concept of 
+   step definitions, which are no longer within the scope of this gem.
 
-* The path of a Directory object is now a changeable attribute instead of only 
-  being populated if the instance was given a diretory to model.
-
-* Bug fix - Fixed a bug that occurred if a Directory object was asked for its 
-  \#name when it was created as 'abstract' instead of modeling an existing 
-  directory.
-
-
-### Version 0.3.0 / 2016-04-24
-
-* Support for version 4.x of the 'gherkin' gem added.
-
-* Bug fix - Fixed a bug that was preventing Example objects from being created 
-  from text if that text had less Gherkin structure than normal.
-
-
-### Version 0.2.0 / 2016-02-21
-
-* Better error feedback when parsing errors are encountered. It is now easier 
-  to tell which file contained invalid Gherkin.
+ - Removed deprecated behavior
+     - Marked
+         - Doc strings no longer use an array of strings to model their content
+         - Tables no longer use nested arrays of strings to model their rows
+         - Models that have descriptions no longer use an array of strings to 
+           model their description
+         - The convenient (read: awkward) #step_text has been removed.
+     - Unmarked
+         - Examples no longer use an array of hashes to model their rows
 
 
-### Version 0.1.0 / 2016-02-10
+### Fixed
 
-* Support for version 3.x of the 'gherkin' gem added.
-
-* Bug fix - The saved parsing data that is generated by the 'gherkin' gem is no 
-  longer modified by the rest of the model creation process.
-
-
-### Version 0.0.2 / 2015-11-22
-
-* Bug fix - Fixed a bug that was causing object comparison using #== to not 
-  work when comparing some models to other types of objects.
+ - String output of models has been improved. More special characters in Gherkin 
+   (e.g. vertical bars in rows) are appropriately escaped in the string output 
+   of a model and several minor bugs related to using model string output as the 
+   input text for new models have been fixed.
 
 
-### Version 0.0.1 / 2014-06-02
+## [0.4.1] - 2016-05-12
 
-* Initial release
+### Added
+
+ - Increased the flexibility of input when adding rows to an Example object. Non-
+   string values can now be used as input and they will be converted into 
+   strings. Original input objects are not modified.
+
+ - Added some error checking around adding value rows to an Example object 
+   without adding a parameter row as well.
+
+
+## [0.4.0] - 2016-05-01
+
+### Added
+
+ - The path of a Directory object is now a changeable attribute instead of only 
+   being populated if the instance was given a diretory to model.
+
+### Fixed
+
+ - Fixed a bug that occurred if a Directory object was asked for its 
+   `#name` when it was created as 'abstract' instead of modeling an existing 
+   directory.
+
+
+## [0.3.0] - 2016-04-24
+
+### Added
+
+ - Support for version 4.x of the 'gherkin' gem added.
+
+### Fixed
+
+ - Fixed a bug that was preventing Example objects from being created 
+   from text if that text had less Gherkin structure than normal.
+
+
+## [0.2.0] - 2016-02-21
+
+### Added
+
+ - Better error feedback when parsing errors are encountered. It is now easier 
+   to tell which file contained invalid Gherkin.
+
+
+## [0.1.0] - 2016-02-10
+
+### Added
+
+ - Support for version 3.x of the 'gherkin' gem added.
+
+### Fixed
+
+ - The saved parsing data that is generated by the 'gherkin' gem is no 
+   longer modified by the rest of the model creation process.
+
+
+## [0.0.2] - 2015-11-22
+
+### Fixed
+
+ - Fixed a bug that was causing object comparison using #== to not 
+   work when comparing some models to other types of objects.
+
+
+## [0.0.1] - 2014-06-02
+
+### Added
+
+ - Initial release
+
+
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/enkessler/cuke_modeler/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/enkessler/cuke_modeler/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/enkessler/cuke_modeler/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/enkessler/cuke_modeler/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/enkessler/cuke_modeler/compare/v1.1.1...v1.2.0
+[1.1.1]: https://github.com/enkessler/cuke_modeler/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/enkessler/cuke_modeler/compare/v1.0.4...v1.1.0
+[1.0.4]: https://github.com/enkessler/cuke_modeler/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/enkessler/cuke_modeler/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/enkessler/cuke_modeler/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/enkessler/cuke_modeler/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/enkessler/cuke_modeler/compare/v0.4.1...v1.0.0
+[0.4.1]: https://github.com/enkessler/cuke_modeler/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/enkessler/cuke_modeler/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/enkessler/cuke_modeler/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/enkessler/cuke_modeler/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/enkessler/cuke_modeler/compare/v0.0.2...v0.1.0
+[0.0.2]: https://github.com/enkessler/cuke_modeler/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/enkessler/cuke_modeler/compare/ce627fb591966c9ef19a9e69338b1282e9902a0d...v0.0.1
