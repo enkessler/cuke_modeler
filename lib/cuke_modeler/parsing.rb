@@ -30,12 +30,14 @@ module CukeModeler
         require 'gherkin/gherkin'
         require 'cuke_modeler/adapters/gherkin_6_adapter'
 
+        # The method to use for parsing Gherkin text
         def self.parsing_method(source_text, filename)
           messages = Gherkin::Gherkin.from_source(filename, source_text, {:default_dialect => CukeModeler::Parsing.dialect}).to_a
 
           messages.map(&:to_hash).find { |message| message[:gherkinDocument] }[:gherkinDocument]
         end
 
+        # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin6Adapter
         end
@@ -46,11 +48,13 @@ module CukeModeler
 
 
         # todo - make these methods private?
+        # The method to use for parsing Gherkin text
         # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end
 
+        # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin4Adapter
         end
@@ -60,11 +64,13 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_3_adapter'
 
 
+        # The method to use for parsing Gherkin text
         # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end
 
+        # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin3Adapter
         end
@@ -77,6 +83,7 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_2_adapter'
 
 
+        # The method to use for parsing Gherkin text
         def self.parsing_method(source_text, filename)
           io = StringIO.new
           formatter = Gherkin::Formatter::JSONFormatter.new(io)
@@ -86,6 +93,7 @@ module CukeModeler
           MultiJson.load(io.string)
         end
 
+        # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin2Adapter
         end

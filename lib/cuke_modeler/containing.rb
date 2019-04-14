@@ -4,6 +4,7 @@ module CukeModeler
 
   module Containing
 
+    # Executes the given code block with every model that is a child of this model.
     def each_descendant(&block)
       children.each do |child_model|
         block.call(child_model)
@@ -11,6 +12,7 @@ module CukeModeler
       end
     end
 
+    # Executes the given code block with this model and every model that is a child of this model.
     def each_model(&block)
       block.call(self)
 

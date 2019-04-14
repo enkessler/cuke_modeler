@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Add dependency version limits to Ruby which was previously unbound
  - Add dependency version limits to `bundler`, which was previously unbound
+ - Added inline documentation to some methods that did not have any
 
 ## [1.5.0] - 2019-01-13
 
