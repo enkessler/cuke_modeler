@@ -67,25 +67,6 @@ namespace 'cuke_modeler' do
     puts Rainbow('All is well. :)').green
   end
 
-  # TODO: stop using Relish
-  # The task used to publish the current feature file documentation to Relish
-  desc 'Publish feature files to Relish'
-  task :publish_features do
-    # Get existing versions
-    this_dir = File.dirname(__FILE__)
-    output = `relish versions enkessler/CukeModeler`
-
-    # Add the current version if it doesn't exist
-    unless output =~ /#{Regexp.escape(CukeModeler::VERSION)}/
-      output = `relish versions:add enkessler/CukeModeler:#{CukeModeler::VERSION}`
-      puts output
-    end
-
-    # Publish the features
-    output = `relish push enkessler/CukeModeler:#{CukeModeler::VERSION} path #{this_dir}/testing/cucumber`
-    puts output
-  end
-
 end
 
 

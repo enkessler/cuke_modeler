@@ -73,7 +73,7 @@ One could, if so inclined, use this method to dynamically edit or even create
 an entire test suite!
 
 For more information on the different models and how to use them, see the 
-[documentation](http://www.relishapp.com/enkessler/CukeModeler/docs).
+[documentation](https://app.cucumber.pro/projects/cuke_modeler).
 
 ## Modeling dialects other than English
 
