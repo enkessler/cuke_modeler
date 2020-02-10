@@ -5,7 +5,6 @@ Show less boilerplate code in the documentation
 replace copying raw data during adaptation (all of the Marshal#load/#unload calls) with simply testing that modification never happens in order to increase performance?
 
 
-document helper modules as not part of the public API
 
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models

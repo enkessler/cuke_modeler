@@ -1,5 +1,6 @@
 module CukeModeler
 
+  # NOT A PART OF THE PUBLIC API
   # A module providing source text parsing functionality.
 
   module Parsing
