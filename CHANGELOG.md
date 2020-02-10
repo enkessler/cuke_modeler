@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Changed
+
+ - Step models now include doc strings and tables when determining their equality with other steps. Previously, only the base text of the step was included and the doc string/table was explicitly ignored.
+
+
 
 ## [1.5.1] - 2019-04-14
 

@@ -98,7 +98,7 @@ describe 'Step, Unit', :unit_test => true do
 
     it 'can gracefully be compared to other types of objects' do
       # Some common types of object
-      [1, 'foo', :bar, [], {}].each do |thing|
+      [1, 'foo', :bar, [], {}, nil].each do |thing|
         expect { step == thing }.to_not raise_error
         expect(step == thing).to be false
       end

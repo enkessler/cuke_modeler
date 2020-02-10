@@ -122,4 +122,15 @@ RSpec.configure do |config|
     end
   end
 
+
+  def assert_bidirectional_equality(base_thing, compared_thing)
+    expect(base_thing).to eq(compared_thing)
+    expect(compared_thing).to eq(base_thing)
+  end
+
+  def assert_bidirectional_inequality(base_thing, compared_thing)
+    expect(base_thing).to_not eq(compared_thing)
+    expect(compared_thing).to_not eq(base_thing)
+  end
+
 end
