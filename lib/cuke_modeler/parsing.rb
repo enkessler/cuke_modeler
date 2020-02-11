@@ -1,6 +1,5 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
   # A module providing source text parsing functionality.
 
   module Parsing
@@ -31,6 +30,7 @@ module CukeModeler
         require 'gherkin/gherkin'
         require 'cuke_modeler/adapters/gherkin_6_adapter'
 
+        # NOT A PART OF THE PUBLIC API
         # The method to use for parsing Gherkin text
         def self.parsing_method(source_text, filename)
           messages = Gherkin::Gherkin.from_source(filename, source_text, {:default_dialect => CukeModeler::Parsing.dialect}).to_a
@@ -38,6 +38,7 @@ module CukeModeler
           messages.map(&:to_hash).find { |message| message[:gherkinDocument] }[:gherkinDocument]
         end
 
+        # NOT A PART OF THE PUBLIC API
         # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin6Adapter
@@ -49,12 +50,14 @@ module CukeModeler
 
 
         # todo - make these methods private?
+        # NOT A PART OF THE PUBLIC API
         # The method to use for parsing Gherkin text
         # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end
 
+        # NOT A PART OF THE PUBLIC API
         # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin4Adapter
@@ -65,12 +68,14 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_3_adapter'
 
 
+        # NOT A PART OF THE PUBLIC API
         # The method to use for parsing Gherkin text
         # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
         def self.parsing_method(source_text, _filename)
           Gherkin::Parser.new.parse(source_text)
         end
 
+        # NOT A PART OF THE PUBLIC API
         # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin3Adapter
@@ -84,6 +89,7 @@ module CukeModeler
         require 'cuke_modeler/adapters/gherkin_2_adapter'
 
 
+        # NOT A PART OF THE PUBLIC API
         # The method to use for parsing Gherkin text
         def self.parsing_method(source_text, filename)
           io = StringIO.new
@@ -94,6 +100,7 @@ module CukeModeler
           MultiJson.load(io.string)
         end
 
+        # NOT A PART OF THE PUBLIC API
         # The adapter to use when converting an AST to a standard internal shape
         def self.adapter_class
           CukeModeler::Gherkin2Adapter
