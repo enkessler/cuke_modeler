@@ -6,6 +6,7 @@ replace copying raw data during adaptation (all of the Marshal#load/#unload call
 
 
 
+# todo - add compatibility with newer versions of Gherkin
 # todo - incorporate cuke_modeler extensions from other projects
 # todo - add plenty of testing around weird and minimal gherkin text for all models
 # todo - add support for `Rule` keyword
@@ -21,3 +22,4 @@ replace joined array source text with single string source text/heredocs
 unit testing around parsing/modeling cases (whitespace, indentation, minimalistic feature elements, etc.)
 replace "\n" usages with the currently set record separator (i.e "\$" )
 make sure that all classes and tests are covered and attaches to code coverage
+- make an actual Gherkin 5 adapter (just inherit from the Gherkin 4 adapter)
