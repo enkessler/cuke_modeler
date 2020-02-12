@@ -42,3 +42,8 @@ Given(/^a model for the following outline:$/) do |gherkin_text|
   @models ||= []
   @models << CukeModeler::Outline.new(gherkin_text)
 end
+
+Given(/^a model for the following step:$/) do |gherkin_text|
+  @models ||= []
+  @models << CukeModeler::Step.new(gherkin_text)
+end

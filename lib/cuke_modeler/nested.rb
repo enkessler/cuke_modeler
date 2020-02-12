@@ -1,5 +1,6 @@
 module CukeModeler
 
+  # NOT A PART OF THE PUBLIC API
   # A mix-in module containing methods used by models that are nested inside
   # of other models.
 

@@ -1,6 +1,6 @@
 Feature: Test comparison
 
-  Gherkin elements that contain steps (i.e. backgrounds, scenarios, and outlines) can be compared with one another in order to determine equality. Elements are considered equal if the base text of their steps match. That is, the keyword used for the step and any table or doc string that may be associated with that step are ignored for the purposes of comparison.
+  Gherkin elements that contain steps (i.e. backgrounds, scenarios, and outlines) can be compared with one another in order to determine equality. Elements are considered equal if their steps match (see step comparison). Properties that do not affect what a test *does* (e.g. name, description, tags) are ignored for the purposes of comparison.
 
 
   Scenario: Comparing tests

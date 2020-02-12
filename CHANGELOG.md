@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing yet...
 
+
+## [2.0.0] - 2019-02-11
+
+### Changed
+
+ - Step models now include doc strings and tables when determining their equality with other steps. Previously, only the base text of the step was included and the doc string/table was explicitly ignored.
+
+
 ## [1.5.1] - 2019-04-14
 
 ### Added
@@ -269,7 +277,8 @@ Nothing yet...
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/enkessler/cuke_modeler/compare/v1.5.1...v2.0.0
 [1.5.1]: https://github.com/enkessler/cuke_modeler/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/enkessler/cuke_modeler/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/enkessler/cuke_modeler/compare/v1.3.0...v1.4.0

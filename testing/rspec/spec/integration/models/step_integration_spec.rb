@@ -206,46 +206,140 @@ describe 'Step, Integration' do
 
     describe 'step comparison' do
 
-      it 'is equal to another Step that has the same text' do
-        source_1 = "#{STEP_KEYWORD} a step"
-        source_2 = "#{STEP_KEYWORD} a step"
-        source_3 = "#{STEP_KEYWORD} a different step"
+      context 'a step that has text' do
 
-        step_1 = clazz.new(source_1)
-        step_2 = clazz.new(source_2)
-        step_3 = clazz.new(source_3)
+        let(:step_text) { "#{STEP_KEYWORD} a step" }
+        let(:base_step) { clazz.new(step_text) }
+
+        context 'compared to a step that has the same text' do
+
+          let(:compared_step) { clazz.new(step_text) }
+
+          it 'considers them to be equal' do
+            assert_bidirectional_equality(base_step, compared_step)
+          end
+
+        end
+
+        context 'compared to a step that has different text' do
+
+          let(:compared_step) { clazz.new(step_text + ' plus some more') }
+
+          it 'considers them to not be equal' do
+            assert_bidirectional_inequality(base_step, compared_step)
+          end
+
+        end
+
+        context 'compared to a step that has a table' do
+
+          let(:compared_step) { clazz.new(step_text + "\n | foo |") }
+
+          it 'considers them to not be equal' do
+            assert_bidirectional_inequality(base_step, compared_step)
+          end
+
+        end
+
+        context 'compared to a step that has a doc string' do
+
+          let(:compared_step) { clazz.new(step_text + "\n \"\"\"\n foo\n\"\"\"") }
+
+          it 'considers them to not be equal' do
+            assert_bidirectional_inequality(base_step, compared_step)
+          end
+
+        end
 
 
-        expect(step_1).to eq(step_2)
-        expect(step_1).to_not eq(step_3)
+        context 'and has table' do
+
+          let(:step_text) { "#{STEP_KEYWORD} a step\n | foo |" }
+          let(:base_step) { clazz.new(step_text) }
+
+          context 'compared to a step that has the same table' do
+
+            let(:compared_step) { clazz.new(step_text) }
+
+            it 'considers them to be equal' do
+              assert_bidirectional_equality(base_step, compared_step)
+            end
+
+          end
+
+          context 'compared to a step that has a different table' do
+
+            let(:compared_step) { clazz.new(step_text + "\n | a different table |") }
+
+            it 'considers them to not be equal' do
+              assert_bidirectional_inequality(base_step, compared_step)
+            end
+
+          end
+
+        end
+
+
+        context 'and has a doc string' do
+
+          let(:content) { 'foo' }
+          let(:base_step) { clazz.new("#{step_text}\n\"\"\"\n#{content}\n\"\"\"") }
+
+          context 'compared to a step that has the same doc string' do
+
+            let(:compared_step) { clazz.new("#{step_text}\n\"\"\"\n#{content}\n\"\"\"") }
+
+            it 'considers them to be equal' do
+              assert_bidirectional_equality(base_step, compared_step)
+            end
+
+          end
+
+          context 'compared to a step that has a different doc string' do
+
+            let(:compared_step) { clazz.new("#{step_text}\n\"\"\"\n#{content + 'different'}\n\"\"\"") }
+
+            it 'considers them to not be equal' do
+              assert_bidirectional_inequality(base_step, compared_step)
+            end
+
+          end
+
+          context 'and has a content type' do
+
+            let(:content_type) { 'foo' }
+            let(:base_step) { clazz.new("#{step_text}\n\"\"\" #{content_type}\n#{content}\n\"\"\"") }
+
+
+            context 'compared to a step that has the same content type' do
+
+              let(:compared_step) { clazz.new("#{step_text}\n\"\"\" #{content_type}\n#{content}\n\"\"\"") }
+
+              it 'considers them to be equal' do
+                assert_bidirectional_equality(base_step, compared_step)
+              end
+
+            end
+
+            context 'compared to a step that has a different content type' do
+
+              let(:compared_step) { clazz.new("#{step_text}\n\"\"\" different #{content_type}\n#{content}\n\"\"\"") }
+
+              it 'considers them to not be equal' do
+                assert_bidirectional_inequality(base_step, compared_step)
+              end
+
+            end
+
+          end
+
+        end
+
       end
 
       it 'ignores steps keywords when comparing steps' do
         source_1 = "#{GIVEN_KEYWORD} a step"
         source_2 = "#{THEN_KEYWORD}  a step"
-
-        step_1 = clazz.new(source_1)
-        step_2 = clazz.new(source_2)
-
-
-        expect(step_1).to eq(step_2)
-      end
-
-      it 'ignores step tables when comparing steps' do
-        source_1 = "#{STEP_KEYWORD} a step"
-        source_2 = "#{STEP_KEYWORD} a step\n|with a table|"
-
-        step_1 = clazz.new(source_1)
-        step_2 = clazz.new(source_2)
-
-
-        expect(step_1).to eq(step_2)
-      end
-
-      it 'ignores step doc strings when comparing steps' do
-        source_1 = "#{STEP_KEYWORD} a step"
-        source_2 = "#{STEP_KEYWORD} a step\n\"\"\"\nwith a doc string\n\"\"\""
-
 
         step_1 = clazz.new(source_1)
         step_2 = clazz.new(source_2)

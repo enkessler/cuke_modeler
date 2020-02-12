@@ -1,5 +1,6 @@
 module CukeModeler
 
+  # NOT A PART OF THE PUBLIC API
   # An adapter that can convert the output of version 6.x of the *gherkin* gem into input that is consumable by this gem.
 
   class Gherkin6Adapter

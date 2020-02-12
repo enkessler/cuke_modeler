@@ -33,9 +33,11 @@ module CukeModeler
     # Returns *true* if the two steps have the same base text (i.e. minus any keyword,
     # table, or doc string and *false* otherwise.
     def ==(other_step)
-      return false unless other_step.respond_to?(:text)
+      return false unless other_step.is_a?(CukeModeler::Step)
 
-      text == other_step.text
+      text_matches?(other_step) &&
+          table_matches?(other_step) &&
+          doc_string_matches?(other_step)
     end
 
     # Returns the model objects that belong to this model.
@@ -63,6 +65,33 @@ module CukeModeler
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
 
       parsed_file.first['feature']['elements'].first['steps'].first
+    end
+
+    def text_matches?(other_step)
+      text == other_step.text
+    end
+
+    def table_matches?(other_step)
+      return false if (!block.is_a?(CukeModeler::Table) || !other_step.block.is_a?(CukeModeler::Table)) && (block.is_a?(CukeModeler::Table) || other_step.block.is_a?(CukeModeler::Table))
+      return true unless block.is_a?(CukeModeler::Table) && other_step.block.is_a?(CukeModeler::Table)
+
+      first_step_values  = block.rows.collect { |table_row| table_row.cells.map(&:value) }
+      second_step_values = other_step.block.rows.collect { |table_row| table_row.cells.map(&:value) }
+
+      first_step_values == second_step_values
+    end
+
+    def doc_string_matches?(other_step)
+      return false if (!block.is_a?(CukeModeler::DocString) || !other_step.block.is_a?(CukeModeler::DocString)) && (block.is_a?(CukeModeler::DocString) || other_step.block.is_a?(CukeModeler::DocString))
+      return true unless block.is_a?(CukeModeler::DocString) && other_step.block.is_a?(CukeModeler::DocString)
+
+      first_content       = block.content
+      first_content_type  = block.content_type
+      second_content      = other_step.block.content
+      second_content_type = other_step.block.content_type
+
+      (first_content == second_content) &&
+          (first_content_type == second_content_type)
     end
 
   end

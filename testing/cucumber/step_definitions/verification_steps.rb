@@ -166,6 +166,14 @@ But(/^none of the models are equivalent with a model for the following scenario:
   end
 end
 
+But(/^none of the models are equivalent with a model for the following step:$/) do |gherkin_text|
+  model = CukeModeler::Step.new(gherkin_text)
+
+  @models.each do |other_model|
+    expect(model == other_model).to_not be true
+  end
+end
+
 Then(/^the model returns models for the following comments:$/) do |model_values|
   model_values = model_values.raw.flatten
 
