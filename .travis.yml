@@ -57,7 +57,7 @@ matrix:
     - rvm: 1.9.3
       os: osx
     # Ruby 2.3.x is currently broken on TravisCI for OSX and is no longer a supported Ruby version, anyway.
-    - rvm: 2.3.3
+    - rvm: 2.3.8
       os: osx
 
 before_install:
