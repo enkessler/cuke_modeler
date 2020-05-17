@@ -192,6 +192,17 @@ describe 'Outline, Integration' do
           expect(outline.keyword).to eq("#{OUTLINE_KEYWORD}")
         end
 
+        context 'using gherkin 3.x', :gherkin3 => true do
+
+          let(:source_text) { "#{OUTLINE_KEYWORD}\n#{STEP_KEYWORD} step\n#{EXAMPLE_KEYWORD}:\n|param|\n|value|" }
+          let(:outline) { clazz.new(source_text) }
+
+          it "models the outline's keyword" do
+            expect(outline.keyword).to eq(OUTLINE_KEYWORD)
+          end
+
+        end
+
         it "models the outline's source line" do
           source_text = "#{FEATURE_KEYWORD}:
 

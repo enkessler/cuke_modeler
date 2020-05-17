@@ -140,6 +140,28 @@ describe 'Example, Integration' do
           expect(example.keyword).to eq("#{EXAMPLE_KEYWORD}")
         end
 
+        context 'using gherkin 2.x', :gherkin2 => true do
+
+          let(:source_text) { "#{EXAMPLE_KEYWORD}:\n|param|" }
+          let(:example) { clazz.new(source_text) }
+
+          it "models the example's keyword" do
+            expect(example.keyword).to eq(EXAMPLE_KEYWORD)
+          end
+
+        end
+
+        context 'using gherkin 3.x', :gherkin3 => true do
+
+          let(:source_text) { "#{EXAMPLE_KEYWORD}:\n|param|\n|value|" }
+          let(:example) { clazz.new(source_text) }
+
+          it "models the example's keyword" do
+            expect(example.keyword).to eq(EXAMPLE_KEYWORD)
+          end
+
+        end
+
         it "models the example's source line" do
           source_text = "#{FEATURE_KEYWORD}:
 
