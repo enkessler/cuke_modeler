@@ -36,9 +36,9 @@ require 'rubygems/mock_gem_ui'
 gherkin_version = Gem.loaded_specs['gherkin'].version.version
 
 case gherkin_version
-  when /^6\./
+  when /^[67]\./
     # gherkin 6 does not preload the dialect module
-    require 'gherkin/dialect' if Gem.loaded_specs['gherkin'].version.version[/^6\./]
+    require 'gherkin/dialect' if Gem.loaded_specs['gherkin'].version.version[/^[67]\./]
 
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
     test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
@@ -81,26 +81,36 @@ RSpec.configure do |config|
   gherkin_version = Gem.loaded_specs['gherkin'].version.version
 
   case gherkin_version
+    when /^7\./
+      config.filter_run_excluding :gherkin2 => true,
+                                  :gherkin3 => true,
+                                  :gherkin4_5 => true,
+                                  :gherkin6 => true,
+                                  :gherkin7 => false
     when /^6\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
                                   :gherkin4_5 => true,
-                                  :gherkin6 => false
+                                  :gherkin6 => false,
+                                  :gherkin7 => true
     when /^[54]\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => true,
                                   :gherkin4_5 => false,
-                                  :gherkin6 => true
+                                  :gherkin6 => true,
+                                  :gherkin7 => true
     when /^3\./
       config.filter_run_excluding :gherkin2 => true,
                                   :gherkin3 => false,
                                   :gherkin4_5 => true,
-                                  :gherkin6 => true
+                                  :gherkin6 => true,
+                                  :gherkin7 => true
     when /^2\./
       config.filter_run_excluding :gherkin2 => false,
                                   :gherkin3 => true,
                                   :gherkin4_5 => true,
-                                  :gherkin6 => true
+                                  :gherkin6 => true,
+                                  :gherkin7 => true
     else
       raise("Unknown Gherkin version: '#{gherkin_version}'")
   end

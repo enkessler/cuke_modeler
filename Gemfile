@@ -32,6 +32,5 @@ elsif RUBY_VERSION =~ /^2\./
     gem 'test-unit'
   end
 
-  gem 'gherkin', '~> 6.0'
-  gem 'cucumber', '~>4.0.rc'
+  gem 'gherkin', '~> 7.0'
 end

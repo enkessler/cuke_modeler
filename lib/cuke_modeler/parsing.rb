@@ -26,6 +26,24 @@ module CukeModeler
     gherkin_version = Gem.loaded_specs['gherkin'].version.version
 
     case gherkin_version
+      when /^7\./
+        require 'gherkin/gherkin'
+        require 'gherkin/dialect'
+        require 'cuke_modeler/adapters/gherkin_7_adapter'
+
+        # NOT A PART OF THE PUBLIC API
+        # The method to use for parsing Gherkin text
+        def self.parsing_method(source_text, filename)
+          messages = Gherkin::Gherkin.from_source(filename, source_text, { :default_dialect => CukeModeler::Parsing.dialect }).to_a
+
+          messages.map(&:to_hash).find { |message| message[:gherkinDocument] }[:gherkinDocument]
+        end
+
+        # NOT A PART OF THE PUBLIC API
+        # The adapter to use when converting an AST to a standard internal shape
+        def self.adapter_class
+          CukeModeler::Gherkin7Adapter
+        end
       when /^6\./
         require 'gherkin/gherkin'
         require 'cuke_modeler/adapters/gherkin_6_adapter'

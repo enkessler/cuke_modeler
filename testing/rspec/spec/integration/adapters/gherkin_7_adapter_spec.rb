@@ -1,9 +1,9 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin6Adapter, Integration', :gherkin6 => true do
+describe 'Gherkin7Adapter, Integration', :gherkin7 => true do
 
-  let(:clazz) { CukeModeler::Gherkin6Adapter }
+  let(:clazz) { CukeModeler::Gherkin7Adapter }
   let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
@@ -67,8 +67,11 @@ describe 'Gherkin6Adapter, Integration', :gherkin6 => true do
                            | param |
                            | value |
                        # final comment" }
-  let(:feature_file_model) { test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
-  CukeModeler::FeatureFile.new(test_file_path) }
+  let(:feature_file_model) do
+    test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
+
+    CukeModeler::FeatureFile.new(test_file_path)
+  end
   let(:feature_model) { feature_file_model.feature }
 
 
@@ -149,7 +152,7 @@ describe 'Gherkin6Adapter, Integration', :gherkin6 => true do
   describe 'stuff that is in no way part of the public API and entirely subject to change' do
 
     it 'provides a useful explosion message if it encounters an entirely new type of test' do
-      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:some_unknown_type => {}}]}
+      partial_feature_ast = { :type => :Feature, :location => { :line => 1, :column => 1 }, :children => [{ :some_unknown_type => {} }] }
 
       expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end
