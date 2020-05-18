@@ -38,4 +38,4 @@ elsif RUBY_VERSION =~ /^2\./
 
 end
 
-gem 'gherkin', '~> 3.0'
+gem 'gherkin', '~> 7.0'

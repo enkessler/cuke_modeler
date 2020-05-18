@@ -36,7 +36,7 @@ environment:
     - RUBY_VERSION: 25-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin5.gemfile
 
-      # Gherkin 6.x requires at least Ruby 2.2
+      # Gherkin 6.x+ requires at least Ruby 2.2
     - RUBY_VERSION: 24
       BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
     - RUBY_VERSION: 24-x64
@@ -45,6 +45,15 @@ environment:
       BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
     - RUBY_VERSION: 25-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin6.gemfile
+
+    - RUBY_VERSION: 24
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin7.gemfile
+    - RUBY_VERSION: 24-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin7.gemfile
+    - RUBY_VERSION: 25
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin7.gemfile
+    - RUBY_VERSION: 25-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin7.gemfile
 
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
