@@ -194,7 +194,7 @@ describe 'Outline, Integration' do
 
         context 'using gherkin 3.x', :gherkin3 => true do
 
-          let(:source_text) { "#{OUTLINE_KEYWORD}\n#{STEP_KEYWORD} step\n#{EXAMPLE_KEYWORD}:\n|param|\n|value|" }
+          let(:source_text) { "#{OUTLINE_KEYWORD}:\n#{STEP_KEYWORD} step\n#{EXAMPLE_KEYWORD}:\n|param|\n|value|" }
           let(:outline) { clazz.new(source_text) }
 
           it "models the outline's keyword" do
