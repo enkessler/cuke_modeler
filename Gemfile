@@ -24,13 +24,18 @@ if RUBY_VERSION =~ /^1\./
   else
     gem 'rake', '< 12.3.0' # Ruby 1.9.x support dropped after this version
     gem 'cucumber', '< 3.0.0' # Ruby 1.9.x support dropped after this version
+    gem 'rainbow', '< 3.0' # Ruby 1.9.x support dropped after this version
   end
 
+  gem 'mime-types', '< 3.0' # Ruby 1.x support dropped after this version
+  gem 'simplecov', '< 0.18' # Ruby 1.x support dropped after this version
+  gem 'thor', '< 1.0' # Ruby 1.x support dropped after this version
 elsif RUBY_VERSION =~ /^2\./
 
   if RUBY_VERSION =~ /^2\.[23456789]/
     gem 'test-unit'
   end
 
-  gem 'gherkin', '~> 7.0'
 end
+
+gem 'gherkin', '~> 3.0'
