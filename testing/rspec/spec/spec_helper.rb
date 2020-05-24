@@ -25,6 +25,7 @@ require "#{this_dir}/unit/shared/keyworded_models_unit_specs"
 
 require "#{this_dir}/../../dialect_helper"
 require "#{this_dir}/../../file_helper"
+require "#{this_dir}/../../helper_methods"
 
 require 'rubygems/mock_gem_ui'
 
@@ -33,12 +34,12 @@ require 'rubygems/mock_gem_ui'
 # implementation and making the test dialect the default dialect so that language headers
 # aren't needed for all of the test code. Only possible with some versions of Gherkin.
 
-gherkin_version = Gem.loaded_specs['gherkin'].version.version
+gherkin_major_version = Gem.loaded_specs['gherkin'].version.version.match(/^(\d+)\./)[1].to_i
 
-case gherkin_version
-  when /^[67]\./
-    # gherkin 6 does not preload the dialect module
-    require 'gherkin/dialect' if Gem.loaded_specs['gherkin'].version.version[/^[67]\./]
+case gherkin_major_version
+  when 6, 7
+    # gherkin 6+ does not preload the dialect module
+    require 'gherkin/dialect'
 
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
     test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
@@ -47,7 +48,7 @@ case gherkin_version
 
     CukeModeler::DialectHelper.set_dialect(Gherkin::DIALECTS[test_dialect])
     CukeModeler::Parsing.dialect = test_dialect
-  when /^[543]\./
+  when 3, 4, 5
 # TODO: stop using test dialect and just randomize for all version of `gherkin`
     dialect_file_path = "#{this_dir}/../../test_languages.json"
     test_dialects = JSON.parse File.open(dialect_file_path, 'r:UTF-8').read
@@ -69,51 +70,17 @@ case gherkin_version
 
     CukeModeler::DialectHelper.set_dialect(test_dialects['cm-test'])
     CukeModeler::Parsing.dialect = 'cm-test'
-  when /^2\./
+  when 2
     CukeModeler::DialectHelper.set_dialect(Gherkin::I18n::LANGUAGES['en'])
     CukeModeler::Parsing.dialect = 'en'
   else
-    raise("Unknown Gherkin version: '#{gherkin_version}'")
+    raise("Unknown Gherkin major version: '#{gherkin_major_version}'")
 end
 
 
 RSpec.configure do |config|
-  gherkin_version = Gem.loaded_specs['gherkin'].version.version
 
-  case gherkin_version
-    when /^7\./
-      config.filter_run_excluding :gherkin2 => true,
-                                  :gherkin3 => true,
-                                  :gherkin4_5 => true,
-                                  :gherkin6 => true,
-                                  :gherkin7 => false
-    when /^6\./
-      config.filter_run_excluding :gherkin2 => true,
-                                  :gherkin3 => true,
-                                  :gherkin4_5 => true,
-                                  :gherkin6 => false,
-                                  :gherkin7 => true
-    when /^[54]\./
-      config.filter_run_excluding :gherkin2 => true,
-                                  :gherkin3 => true,
-                                  :gherkin4_5 => false,
-                                  :gherkin6 => true,
-                                  :gherkin7 => true
-    when /^3\./
-      config.filter_run_excluding :gherkin2 => true,
-                                  :gherkin3 => false,
-                                  :gherkin4_5 => true,
-                                  :gherkin6 => true,
-                                  :gherkin7 => true
-    when /^2\./
-      config.filter_run_excluding :gherkin2 => false,
-                                  :gherkin3 => true,
-                                  :gherkin4_5 => true,
-                                  :gherkin6 => true,
-                                  :gherkin7 => true
-    else
-      raise("Unknown Gherkin version: '#{gherkin_version}'")
-  end
+  include CukeModeler::HelperMethods
 
   config.before(:suite) do
     FEATURE_KEYWORD = CukeModeler::DialectHelper.feature_keyword
@@ -130,17 +97,6 @@ RSpec.configure do |config|
     CukeModeler::FileHelper.created_directories.each do |dir_path|
       FileUtils.remove_entry(dir_path, true)
     end
-  end
-
-
-  def assert_bidirectional_equality(base_thing, compared_thing)
-    expect(base_thing).to eq(compared_thing)
-    expect(compared_thing).to eq(base_thing)
-  end
-
-  def assert_bidirectional_inequality(base_thing, compared_thing)
-    expect(base_thing).to_not eq(compared_thing)
-    expect(compared_thing).to_not eq(base_thing)
   end
 
 end

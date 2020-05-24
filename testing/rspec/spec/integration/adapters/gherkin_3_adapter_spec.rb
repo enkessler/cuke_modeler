@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin3Adapter, Integration', :gherkin3 => true do
+describe 'Gherkin3Adapter, Integration', :if => gherkin?(3) do
 
   let(:clazz) { CukeModeler::Gherkin3Adapter }
   let(:adapter) { clazz.new }

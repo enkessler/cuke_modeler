@@ -21,15 +21,11 @@ describe 'Parsing, Integration' do
       end
     end
 
-    it 'loads the correct dialects based on the version of Gherkin used', :gherkin6 => true, :gherkin7 => true do
+    it 'loads the correct dialects based on the version of Gherkin used', :if => gherkin?(3, 4, 5, 6, 7) do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
     end
 
-    it 'loads the correct dialects based on the version of Gherkin used', :gherkin3 => true, :gherkin4_5 => true do
-      expect(nodule.dialects).to equal(Gherkin::DIALECTS)
-    end
-
-    it 'loads the correct dialects based on the version of Gherkin used', :gherkin2 => true do
+    it 'loads the correct dialects based on the version of Gherkin used', :if => gherkin?(2) do
       expect(nodule.dialects).to equal(Gherkin::I18n::LANGUAGES)
     end
 
