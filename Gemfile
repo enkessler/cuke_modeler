@@ -21,13 +21,14 @@ if RUBY_VERSION =~ /^1\./
     gem 'gherkin', '< 2.12.1' # Ruby 1.8.x support dropped after this version
     gem 'rainbow', '< 2.0' # Ruby 1.8.x support dropped after this version
     gem 'rake', '< 11.0' # Ruby 1.8.x support dropped after this version
+    gem 'mime-types', '< 2.0' # Ruby 1.8.x support dropped after this version
   else
     gem 'rake', '< 12.3.0' # Ruby 1.9.x support dropped after this version
     gem 'cucumber', '< 3.0.0' # Ruby 1.9.x support dropped after this version
     gem 'rainbow', '< 3.0' # Ruby 1.9.x support dropped after this version
+    gem 'mime-types', '< 3.0' # Ruby 1.x support dropped after this version
   end
 
-  gem 'mime-types', '< 3.0' # Ruby 1.x support dropped after this version
   gem 'simplecov', '< 0.18' # Ruby 1.x support dropped after this version
   gem 'thor', '< 1.0' # Ruby 1.x support dropped after this version
 elsif RUBY_VERSION =~ /^2\./
@@ -38,4 +39,6 @@ elsif RUBY_VERSION =~ /^2\./
 
 end
 
+# Note: When testing against 6.x, the latest version (6.0.17) is missing an executable for Windows 64-bit
+# gem 'gherkin', '>= 6.0', '< 6.0.17'
 gem 'gherkin', '~> 7.0'
