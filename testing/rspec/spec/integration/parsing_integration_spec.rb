@@ -128,7 +128,12 @@ describe 'Parsing, Integration' do
       end
 
       it 'correctly bubbles up parsing errors', :if => gherkin?(2) do
-        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::Lexer::LexingError.*error on line 1/)
+        # A different error is thrown on JRuby
+        if RUBY_PLATFORM == "java"
+          expect { nodule.parse_text('bad file') }.to raise_error(/Java::GherkinLexer.*_FEATURE_END_/)
+        else
+          expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::Lexer::LexingError.*error on line 1/)
+        end
       end
 
     end
