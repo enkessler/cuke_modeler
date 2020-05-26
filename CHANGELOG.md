@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
  - Now compatible with Gherkin 7.x.
 
+### Fixed
+ - Parsing errors are now correctly bubbled up when using Gherkin 6.x
 
 ## [2.0.0] - 2020-02-11
 

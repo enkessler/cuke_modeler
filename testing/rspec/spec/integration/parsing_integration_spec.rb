@@ -113,6 +113,26 @@ describe 'Parsing, Integration' do
 
     end
 
+    describe 'parsing invalid Gherkin' do
+
+      it 'correctly bubbles up parsing errors', :if => gherkin?(6, 7) do
+        expect { nodule.parse_text('bad file') }.to raise_error(/RuntimeError.*#EOF/)
+      end
+
+      it 'correctly bubbles up parsing errors', :if => gherkin?(4, 5) do
+        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::CompositeParserException.*#EOF/m)
+      end
+
+      it 'correctly bubbles up parsing errors', :if => gherkin?(3) do
+        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::CompositeParserException.*unexpected end of file/m)
+      end
+
+      it 'correctly bubbles up parsing errors', :if => gherkin?(2) do
+        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::Lexer::LexingError.*error on line 1/)
+      end
+
+    end
+
   end
 
 end
