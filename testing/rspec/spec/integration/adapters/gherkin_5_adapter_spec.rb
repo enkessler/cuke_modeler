@@ -1,9 +1,9 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin4Adapter, Integration', :if => gherkin?(4) do
+describe 'Gherkin4Adapter, Integration', :if => gherkin?(5) do
 
-  let(:clazz) { CukeModeler::Gherkin4Adapter }
+  let(:clazz) { CukeModeler::Gherkin5Adapter }
   let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3
@@ -68,7 +68,7 @@ describe 'Gherkin4Adapter, Integration', :if => gherkin?(4) do
                            | value |
                        # final comment" }
   let(:feature_file_model) { test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
-                             CukeModeler::FeatureFile.new(test_file_path) }
+  CukeModeler::FeatureFile.new(test_file_path) }
   let(:feature_model) { feature_file_model.feature }
 
 
@@ -149,13 +149,13 @@ describe 'Gherkin4Adapter, Integration', :if => gherkin?(4) do
   describe 'stuff that is in no way part of the public API and entirely subject to change' do
 
     it 'provides a useful explosion message if it encounters an entirely new type of test' do
-      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:type => :some_unknown_type}]}
+      partial_feature_ast = { :type => :Feature, :location => { :line => 1, :column => 1 }, :children => [{ :type => :some_unknown_type }] }
 
       expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end
 
     it 'provides a useful explosion message if it encounters an entirely new type of step block' do
-      partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:type => :Scenario, :tags => [], :location => {:line => 1, :column => 1}, :steps => [{:type => :Step, :location => {:line => 1, :column => 1}, :argument => {:type => :some_unknown_type, :location => {:line => 1, :column => 1}, :content => ""}}]}]}
+      partial_feature_ast = { :type => :Feature, :location => { :line => 1, :column => 1 }, :children => [{ :type => :Scenario, :tags => [], :location => { :line => 1, :column => 1 }, :steps => [{ :type => :Step, :location => { :line => 1, :column => 1 }, :argument => { :type => :some_unknown_type, :location => { :line => 1, :column => 1 }, :content => "" } }] }] }
 
       expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end
