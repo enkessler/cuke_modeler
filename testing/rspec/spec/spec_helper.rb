@@ -37,10 +37,7 @@ require 'rubygems/mock_gem_ui'
 gherkin_major_version = Gem.loaded_specs['gherkin'].version.version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 6, 7
-    # gherkin 6+ does not preload the dialect module
-    require 'gherkin/dialect'
-
+  when 6, 7, 8
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
     test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
     puts "Testing with dialect '#{test_dialect}'..."

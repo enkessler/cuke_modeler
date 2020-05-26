@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.8.7', '< 3.0'
 
-  spec.add_runtime_dependency 'gherkin', '< 8.0'
+  spec.add_runtime_dependency 'gherkin', '< 9.0'
   spec.add_runtime_dependency('json', '>= 1.0', '< 3.0')
   spec.add_runtime_dependency('multi_json', '~> 1.0')
 

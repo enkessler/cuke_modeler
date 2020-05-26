@@ -21,7 +21,7 @@ describe 'Parsing, Integration' do
       end
     end
 
-    it 'loads the correct dialects based on the version of Gherkin used', :if => gherkin?(3, 4, 5, 6, 7) do
+    it 'loads the correct dialects based on the version of Gherkin used', :unless => gherkin?(2) do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
     end
 
@@ -115,7 +115,7 @@ describe 'Parsing, Integration' do
 
     describe 'parsing invalid Gherkin' do
 
-      it 'correctly bubbles up parsing errors', :if => gherkin?(6, 7) do
+      it 'correctly bubbles up parsing errors', :if => gherkin?(6, 7, 8) do
         expect { nodule.parse_text('bad file') }.to raise_error(/RuntimeError.*#EOF/)
       end
 
