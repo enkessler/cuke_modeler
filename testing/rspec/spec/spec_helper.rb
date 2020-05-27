@@ -37,13 +37,44 @@ require 'rubygems/mock_gem_ui'
 gherkin_major_version = Gem.loaded_specs['gherkin'].version.version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 6, 7, 8, 9
+  when 8, 9
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
     test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
     puts "Testing with dialect '#{test_dialect}'..."
 
     CukeModeler::DialectHelper.set_dialect(Gherkin::DIALECTS[test_dialect])
     CukeModeler::Parsing.dialect = test_dialect
+
+    module Gherkin
+      class << self
+        alias_method :original_from_source, :from_source
+
+        def from_source(uri, data, options = {})
+          options[:default_dialect] ||= CukeModeler::Parsing.dialect
+          original_from_source(uri, data, options)
+        end
+      end
+    end
+  when 6, 7
+    # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
+    test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
+    puts "Testing with dialect '#{test_dialect}'..."
+
+    CukeModeler::DialectHelper.set_dialect(Gherkin::DIALECTS[test_dialect])
+    CukeModeler::Parsing.dialect = test_dialect
+
+    module Gherkin
+      class Gherkin
+        class << self
+          alias_method :original_from_source, :from_source
+
+          def from_source(uri, data, options = {})
+            options[:default_dialect] ||= CukeModeler::Parsing.dialect
+            original_from_source(uri, data, options)
+          end
+        end
+      end
+    end
   when 3, 4, 5
 # TODO: stop using test dialect and just randomize for all version of `gherkin`
     dialect_file_path = "#{this_dir}/../../test_languages.json"
