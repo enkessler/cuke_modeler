@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
  - Support added for more versions of `gherkin`
+   - 9.x
    - 8.x
    - 7.x
 

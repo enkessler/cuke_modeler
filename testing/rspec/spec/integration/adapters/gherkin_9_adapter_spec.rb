@@ -1,9 +1,9 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin8Adapter, Integration', :if => gherkin?(8) do
+describe 'Gherkin9Adapter, Integration', :if => gherkin?(9) do
 
-  let(:clazz) { CukeModeler::Gherkin8Adapter }
+  let(:clazz) { CukeModeler::Gherkin9Adapter }
   let(:adapter) { clazz.new }
   let(:source_text) { "# feature comment
                        @tag1 @tag2 @tag3

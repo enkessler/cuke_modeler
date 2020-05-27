@@ -41,4 +41,4 @@ end
 
 # Note: When testing against 6.x, the latest version (6.0.17) is missing an executable for Windows 64-bit
 # gem 'gherkin', '>= 6.0', '< 6.0.17'
-gem 'gherkin', '~> 8.0'
+gem 'gherkin', '~> 9.0'

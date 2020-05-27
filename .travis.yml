@@ -23,6 +23,7 @@ gemfile:
   - testing/gemfiles/gherkin6.gemfile
   - testing/gemfiles/gherkin7.gemfile
   - testing/gemfiles/gherkin8.gemfile
+  - testing/gemfiles/gherkin9.gemfile
 
 matrix:
   exclude:
@@ -40,6 +41,8 @@ matrix:
       gemfile: testing/gemfiles/gherkin7.gemfile
     - rvm: 1.8.7
       gemfile: testing/gemfiles/gherkin8.gemfile
+    - rvm: 1.8.7
+      gemfile: testing/gemfiles/gherkin9.gemfile
 
     # gherkin 6.x+ does not work with Ruby 1.9.x
     - rvm: 1.9.3
@@ -48,6 +51,8 @@ matrix:
       gemfile: testing/gemfiles/gherkin7.gemfile
     - rvm: 1.9.3
       gemfile: testing/gemfiles/gherkin8.gemfile
+    - rvm: 1.9.3
+      gemfile: testing/gemfiles/gherkin9.gemfile
 
     # TODO: turn this back on
     # gherkin 6.x+ relies on 'google-protobuf', which does not currently work on JRuby (https://github.com/protocolbuffers/protobuf/issues/1594)
@@ -57,6 +62,8 @@ matrix:
       gemfile: testing/gemfiles/gherkin7.gemfile
     - rvm: jruby-9.1.7.0
       gemfile: testing/gemfiles/gherkin8.gemfile
+    - rvm: jruby-9.1.7.0
+      gemfile: testing/gemfiles/gherkin9.gemfile
 
     # Travis does not provide 1.8.7 on OSX
     - rvm: 1.8.7

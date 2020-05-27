@@ -2,7 +2,7 @@
 # be determined and the rest of the needed files can be loaded. The entry points vary across versions,
 # so try them all until one of them works.
 begin
-  # Gherkin 2.x, 8.x
+  # Gherkin 2.x, 8.x, 9.x
   require 'gherkin'
 rescue LoadError
   begin
@@ -21,7 +21,7 @@ gherkin_version = Gem.loaded_specs['gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 6, 7, 8
+  when 6, 7, 8, 9
     require 'gherkin/dialect'
   when 3, 4, 5
     require 'gherkin/parser'
@@ -83,6 +83,21 @@ module CukeModeler
       gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
       case gherkin_major_version
+        when 9
+          # NOT A PART OF THE PUBLIC API
+          # The method to use for parsing Gherkin text
+          def parsing_method(source_text, filename)
+            messages = Gherkin.from_source(filename, source_text, { :default_dialect => CukeModeler::Parsing.dialect, :include_gherkin_document => true }).to_a.map(&:to_hash)
+
+            potential_error_message = messages.find { |message| message[:attachment] }
+            gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
+
+            if potential_error_message
+              raise potential_error_message[:attachment][:data] if potential_error_message[:attachment][:data] =~ /expected.*got/
+            end
+
+            gherkin_ast_message[:gherkin_document]
+          end
         when 8
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
