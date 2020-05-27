@@ -1,9 +1,9 @@
 module CukeModeler
 
   # NOT A PART OF THE PUBLIC API
-  # An adapter that can convert the output of version 4.x of the *gherkin* gem into input that is consumable by this gem.
+  # An adapter that can convert the output of version 7.x of the *gherkin* gem into input that is consumable by this gem.
 
-  class Gherkin4Adapter
+  class Gherkin7Adapter
 
     # Adapts the given AST into the shape that this gem expects
     def adapt(parsed_ast)
@@ -14,7 +14,6 @@ module CukeModeler
       parsed_ast['cuke_modeler_parsing_data'][:feature] = nil
       parsed_ast['cuke_modeler_parsing_data'][:comments] = nil
 
-      # Comments are stored on the feature file in gherkin 4.x
       parsed_ast['comments'] = []
       parsed_ast[:comments].each do |comment|
         adapt_comment!(comment)
@@ -38,7 +37,7 @@ module CukeModeler
 
       parsed_feature['keyword'] = parsed_feature.delete(:keyword)
       parsed_feature['name'] = parsed_feature.delete(:name)
-      parsed_feature['description'] = parsed_feature.delete(:description) || ''
+      parsed_feature['description'] = parsed_feature.delete(:description)
       parsed_feature['line'] = parsed_feature.delete(:location)[:line]
 
       parsed_feature['elements'] = []
@@ -58,72 +57,76 @@ module CukeModeler
       parsed_background['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_background))
 
       # Removing parsed data for child elements in order to avoid duplicating data
-      parsed_background['cuke_modeler_parsing_data'][:steps] = nil
+      parsed_background['cuke_modeler_parsing_data'][:background][:steps] = nil
 
-      parsed_background['type'] = parsed_background.delete(:type).to_s
-      parsed_background['keyword'] = parsed_background.delete(:keyword).to_s
-      parsed_background['name'] = parsed_background.delete(:name)
-      parsed_background['description'] = parsed_background.delete(:description) || ''
-      parsed_background['line'] = parsed_background.delete(:location)[:line]
+      parsed_background['type'] = 'Background'
+      parsed_background['keyword'] = parsed_background[:background].delete(:keyword)
+      parsed_background['name'] = parsed_background[:background].delete(:name)
+      parsed_background['description'] = parsed_background[:background].delete(:description)
+      parsed_background['line'] = parsed_background[:background].delete(:location)[:line]
 
       parsed_background['steps'] = []
-      parsed_background[:steps].each do |step|
+      parsed_background[:background][:steps].each do |step|
         adapt_step!(step)
       end
-      parsed_background['steps'].concat(parsed_background.delete(:steps))
+      parsed_background['steps'].concat(parsed_background[:background].delete(:steps))
     end
 
     # Adapts the AST sub-tree that is rooted at the given scenario node.
     def adapt_scenario!(parsed_test)
       # Removing parsed data for child elements in order to avoid duplicating data
-      parsed_test['cuke_modeler_parsing_data'][:tags] = nil
-      parsed_test['cuke_modeler_parsing_data'][:steps] = nil
+      parsed_test['cuke_modeler_parsing_data'][:scenario][:tags] = nil
+      parsed_test['cuke_modeler_parsing_data'][:scenario][:steps] = nil
 
-      parsed_test['name'] = parsed_test.delete(:name)
-      parsed_test['description'] = parsed_test.delete(:description) || ''
-      parsed_test['line'] = parsed_test.delete(:location)[:line]
+      parsed_test['type'] = 'Scenario'
+      parsed_test['keyword'] = parsed_test[:scenario].delete(:keyword)
+      parsed_test['name'] = parsed_test[:scenario].delete(:name)
+      parsed_test['description'] = parsed_test[:scenario].delete(:description)
+      parsed_test['line'] = parsed_test[:scenario].delete(:location)[:line]
 
       parsed_test['tags'] = []
-      parsed_test[:tags].each do |tag|
+      parsed_test[:scenario][:tags].each do |tag|
         adapt_tag!(tag)
       end
-      parsed_test['tags'].concat(parsed_test.delete(:tags))
+      parsed_test['tags'].concat(parsed_test[:scenario].delete(:tags))
 
       parsed_test['steps'] = []
-      parsed_test[:steps].each do |step|
+      parsed_test[:scenario][:steps].each do |step|
         adapt_step!(step)
       end
-      parsed_test['steps'].concat(parsed_test.delete(:steps))
+      parsed_test['steps'].concat(parsed_test[:scenario].delete(:steps))
     end
 
     # Adapts the AST sub-tree that is rooted at the given outline node.
     def adapt_outline!(parsed_test)
       # Removing parsed data for child elements in order to avoid duplicating data
-      parsed_test['cuke_modeler_parsing_data'][:tags] = nil
-      parsed_test['cuke_modeler_parsing_data'][:steps] = nil
-      parsed_test['cuke_modeler_parsing_data'][:examples] = nil
+      parsed_test['cuke_modeler_parsing_data'][:scenario][:tags] = nil
+      parsed_test['cuke_modeler_parsing_data'][:scenario][:steps] = nil
+      parsed_test['cuke_modeler_parsing_data'][:scenario][:examples] = nil
 
-      parsed_test['name'] = parsed_test.delete(:name)
-      parsed_test['description'] = parsed_test.delete(:description) || ''
-      parsed_test['line'] = parsed_test.delete(:location)[:line]
+      parsed_test['type'] = 'ScenarioOutline'
+      parsed_test['keyword'] = parsed_test[:scenario].delete(:keyword)
+      parsed_test['name'] = parsed_test[:scenario].delete(:name)
+      parsed_test['description'] = parsed_test[:scenario].delete(:description)
+      parsed_test['line'] = parsed_test[:scenario].delete(:location)[:line]
 
       parsed_test['tags'] = []
-      parsed_test[:tags].each do |tag|
+      parsed_test[:scenario][:tags].each do |tag|
         adapt_tag!(tag)
       end
-      parsed_test['tags'].concat(parsed_test.delete(:tags))
+      parsed_test['tags'].concat(parsed_test[:scenario].delete(:tags))
 
       parsed_test['steps'] = []
-      parsed_test[:steps].each do |step|
+      parsed_test[:scenario][:steps].each do |step|
         adapt_step!(step)
       end
-      parsed_test['steps'].concat(parsed_test.delete(:steps))
+      parsed_test['steps'].concat(parsed_test[:scenario].delete(:steps))
 
       parsed_test['examples'] = []
-      parsed_test[:examples].each do |step|
+      parsed_test[:scenario][:examples].each do |step|
         adapt_example!(step)
       end
-      parsed_test['examples'].concat(parsed_test.delete(:examples))
+      parsed_test['examples'].concat(parsed_test[:scenario].delete(:examples))
     end
 
     # Adapts the AST sub-tree that is rooted at the given example node.
@@ -133,29 +136,27 @@ module CukeModeler
 
       # Removing parsed data for child elements in order to avoid duplicating data
       parsed_example['cuke_modeler_parsing_data'][:tags] = nil
-      parsed_example['cuke_modeler_parsing_data'][:tableHeader] = nil
-      parsed_example['cuke_modeler_parsing_data'][:tableBody] = nil
+      parsed_example['cuke_modeler_parsing_data'][:table_header] = nil
+      parsed_example['cuke_modeler_parsing_data'][:table_body] = nil
 
       parsed_example['keyword'] = parsed_example.delete(:keyword)
       parsed_example['name'] = parsed_example.delete(:name)
       parsed_example['line'] = parsed_example.delete(:location)[:line]
-      parsed_example['description'] = parsed_example.delete(:description) || ''
+      parsed_example['description'] = parsed_example.delete(:description)
 
       parsed_example['rows'] = []
 
-      if parsed_example[:tableHeader]
-        adapt_table_row!(parsed_example[:tableHeader])
-        parsed_example['rows'] << parsed_example.delete(:tableHeader)
+      if parsed_example[:table_header]
+        adapt_table_row!(parsed_example[:table_header])
+        parsed_example['rows'] << parsed_example.delete(:table_header)
       end
 
-      if parsed_example[:tableBody]
-
-        parsed_example[:tableBody].each do |row|
+      if parsed_example[:table_body]
+        parsed_example[:table_body].each do |row|
           adapt_table_row!(row)
         end
-        parsed_example['rows'].concat(parsed_example.delete(:tableBody))
+        parsed_example['rows'].concat(parsed_example.delete(:table_body))
       end
-
 
       parsed_example['tags'] = []
       parsed_example[:tags].each do |tag|
@@ -188,26 +189,23 @@ module CukeModeler
       parsed_step['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_step))
 
       # Removing parsed data for child elements in order to avoid duplicating data
-      parsed_step['cuke_modeler_parsing_data'][:argument] = nil
+      parsed_step['cuke_modeler_parsing_data'][:data_table] = nil
+      parsed_step['cuke_modeler_parsing_data'][:doc_string] = nil
 
       parsed_step['keyword'] = parsed_step.delete(:keyword)
       parsed_step['name'] = parsed_step.delete(:text)
       parsed_step['line'] = parsed_step.delete(:location)[:line]
 
 
-      step_argument = parsed_step[:argument]
-
-      if step_argument
-        case step_argument[:type]
-          when :DocString
-            adapt_doc_string!(step_argument)
-            parsed_step['doc_string'] = parsed_step.delete(:argument)
-          when :DataTable
-            adapt_step_table!(step_argument)
-            parsed_step['table'] = parsed_step.delete(:argument)
-          else
-            raise(ArgumentError, "Unknown step argument type: #{step_argument[:type]}")
-        end
+      case
+        when parsed_step[:doc_string]
+          adapt_doc_string!(parsed_step[:doc_string])
+          parsed_step['doc_string'] = parsed_step.delete(:doc_string)
+        when parsed_step[:data_table]
+          adapt_step_table!(parsed_step[:data_table])
+          parsed_step['table'] = parsed_step.delete(:data_table)
+        else
+          # Step has no extra argument
       end
     end
 
@@ -217,7 +215,7 @@ module CukeModeler
       parsed_doc_string['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_doc_string))
 
       parsed_doc_string['value'] = parsed_doc_string.delete(:content)
-      parsed_doc_string['content_type'] = parsed_doc_string.delete(:contentType)
+      parsed_doc_string['content_type'] = parsed_doc_string.delete(:content_type).strip # TODO: fix bug in Gherkin so that this whitespace is already trimmed off
       parsed_doc_string['line'] = parsed_doc_string.delete(:location)[:line]
     end
 
@@ -271,10 +269,12 @@ module CukeModeler
     def adapt_child_elements!(parsed_children)
       return if parsed_children.empty?
 
-      if parsed_children.first[:type] == :Background
-        adapt_background!(parsed_children.first)
+      background_child = parsed_children.find { |child| child[:background] }
 
-        remaining_children = parsed_children[1..-1]
+      if background_child
+        adapt_background!(background_child)
+
+        remaining_children = parsed_children.reject { |child| child[:background] }
       end
 
       adapt_tests!(remaining_children || parsed_children)
@@ -292,16 +292,14 @@ module CukeModeler
       # Saving off the original data
       parsed_test['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_test))
 
-      parsed_test['keyword'] = parsed_test.delete(:keyword)
-      parsed_test['type'] = parsed_test.delete(:type).to_s
 
-      case parsed_test['type']
-        when 'Scenario'
-          adapt_scenario!(parsed_test)
-        when 'ScenarioOutline'
+      case
+        when parsed_test[:scenario] && parsed_test[:scenario][:examples].any?
           adapt_outline!(parsed_test)
+        when parsed_test[:scenario]
+          adapt_scenario!(parsed_test)
         else
-          raise(ArgumentError, "Unknown test type: #{parsed_test['type']}")
+          raise(ArgumentError, "Unknown test type with keys: #{parsed_test.keys}")
       end
     end
 

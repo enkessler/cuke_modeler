@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+gemspec :path => "../../"
+
+gem "gherkin", "~> 8.0"
+
+if RUBY_VERSION =~ /^2\.[23456789]/
+  gem 'test-unit'
+end
