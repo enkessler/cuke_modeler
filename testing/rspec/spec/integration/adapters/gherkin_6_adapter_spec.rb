@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin6Adapter, Integration', :gherkin6 => true do
+describe 'Gherkin6Adapter, Integration', :if => gherkin?(6) do
 
   let(:clazz) { CukeModeler::Gherkin6Adapter }
   let(:adapter) { clazz.new }
@@ -153,13 +153,6 @@ describe 'Gherkin6Adapter, Integration', :gherkin6 => true do
 
       expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end
-
-    # TODO: no longer possible in G6?
-    # it 'provides a useful explosion message if it encounters an entirely new type of step block' do
-    #   partial_feature_ast = {:type => :Feature, :location => {:line => 1, :column => 1}, :children => [{:type => :Scenario, :tags => [], :location => {:line => 1, :column => 1}, :steps => [{:type => :Step, :location => {:line => 1, :column => 1}, :argument => {:type => :some_unknown_type, :location => {:line => 1, :column => 1}, :content => ""}}]}]}
-    #
-    #   expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
-    # end
 
   end
 

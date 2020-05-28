@@ -8,8 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing yet...
 
+## [2.1.0] - 2020-05-27
 
-## [2.0.0] - 2019-02-11
+### Added
+ - Support added for more versions of the `gherkin` gem
+   - 9.x
+   - 8.x
+   - 7.x
+
+### Fixed
+ - Parsing errors are now correctly bubbled up when using Gherkin 6.x
+
+## [2.0.0] - 2020-02-11
 
 ### Changed
 
@@ -277,7 +287,8 @@ Nothing yet...
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/enkessler/cuke_modeler/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/enkessler/cuke_modeler/compare/v1.5.1...v2.0.0
 [1.5.1]: https://github.com/enkessler/cuke_modeler/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/enkessler/cuke_modeler/compare/v1.4.0...v1.5.0
