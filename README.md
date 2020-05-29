@@ -8,11 +8,11 @@ User stuff:
 [![Yard Docs](http://img.shields.io/badge/Documentation-API-blue.svg)](https://www.rubydoc.info/gems/cuke_modeler)
 
 Developer stuff:
-[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=dev)](https://travis-ci.org/enkessler/cuke_modeler)
-[![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0/branch/dev?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler/branch/dev)
-[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=dev)](https://coveralls.io/github/enkessler/cuke_modeler?branch=dev)
+[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg)](https://travis-ci.org/enkessler/cuke_modeler)
+[![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler)
+[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg)](https://coveralls.io/github/enkessler/cuke_modeler)
 [![Maintainability](https://api.codeclimate.com/v1/badges/83986d8f7a918fed9707/maintainability)](https://codeclimate.com/github/enkessler/cuke_modeler/maintainability)
-[![Inline docs](http://inch-ci.org/github/enkessler/cuke_modeler.svg?branch=dev)](https://inch-ci.org/github/enkessler/cuke_modeler?branch=dev)
+[![Inline docs](http://inch-ci.org/github/enkessler/cuke_modeler.svg)](https://inch-ci.org/github/enkessler/cuke_modeler)
 
 ---
 
@@ -129,7 +129,7 @@ that feature is ultimately run with SpecFlow (Cucumber for C#), Lettuce
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (**off of the development branch**)
+2. Create your feature branch
    `git checkout -b my-new-feature`
 3. Commit your changes
    `git commit -am 'Add some feature'`
