@@ -16,7 +16,7 @@ module CukeModeler
     end
 
     def gherkin_major_version
-      Gem.loaded_specs['gherkin'].version.version.match(/^(\d+)\./)[1].to_i
+      Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
     end
 
   end

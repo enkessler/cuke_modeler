@@ -21,7 +21,7 @@ Developer stuff:
 There comes a time in every programmer's adventures with Cucumber when they 
 want to do Really Cool Stuff with their tests. This usually necessitates 
 scanning all of their feature files and playing with the output. While the 
-**[gherkin](https://github.com/cucumber/gherkin)** gem does a fine job of parsing feature files, reading or even manipulating 
+**[cucumber-gherkin](https://github.com/cucumber/cucumber/tree/master/gherkin)** gem does a fine job of parsing feature files, reading or even manipulating 
 the resulting Abstract Syntax Tree is not always fun. **cuke_modeler** comes to 
 the rescue by providing a modeling layer that is easier to work with.
  

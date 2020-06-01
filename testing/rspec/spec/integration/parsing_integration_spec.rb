@@ -9,24 +9,20 @@ describe 'Parsing, Integration' do
   describe 'unique behavior' do
 
     it 'will complain if using an unknown version of `gherkin`' do
-      original_version = Gem.loaded_specs['gherkin'].version
+      original_version = Gem.loaded_specs['cucumber-gherkin'].version
       unknown_version  = Gem::Version.new('0.0.0')
 
       begin
-        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, unknown_version)
+        Gem.loaded_specs['cucumber-gherkin'].instance_variable_set(:@version, unknown_version)
 
         expect { load "#{File.dirname(__FILE__)}/../../../../lib/cuke_modeler/parsing.rb" }.to raise_error("Unknown Gherkin version: '0.0.0'")
       ensure
-        Gem.loaded_specs['gherkin'].instance_variable_set(:@version, original_version)
+        Gem.loaded_specs['cucumber-gherkin'].instance_variable_set(:@version, original_version)
       end
     end
 
-    it 'loads the correct dialects based on the version of Gherkin used', :unless => gherkin?(2) do
+    it 'loads the correct dialects based on the version of Gherkin used' do
       expect(nodule.dialects).to equal(Gherkin::DIALECTS)
-    end
-
-    it 'loads the correct dialects based on the version of Gherkin used', :if => gherkin?(2) do
-      expect(nodule.dialects).to equal(Gherkin::I18n::LANGUAGES)
     end
 
     it 'can parse text that uses a non-default dialect' do
@@ -115,25 +111,8 @@ describe 'Parsing, Integration' do
 
     describe 'parsing invalid Gherkin' do
 
-      it 'correctly bubbles up parsing errors', :if => gherkin?(6, 7, 8, 9) do
+      it 'correctly bubbles up parsing errors', :if => gherkin?(9) do
         expect { nodule.parse_text('bad file') }.to raise_error(/RuntimeError.*#EOF/)
-      end
-
-      it 'correctly bubbles up parsing errors', :if => gherkin?(4, 5) do
-        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::CompositeParserException.*#EOF/m)
-      end
-
-      it 'correctly bubbles up parsing errors', :if => gherkin?(3) do
-        expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::CompositeParserException.*unexpected end of file/m)
-      end
-
-      it 'correctly bubbles up parsing errors', :if => gherkin?(2) do
-        # A different error is thrown on JRuby
-        if RUBY_PLATFORM == "java"
-          expect { nodule.parse_text('bad file') }.to raise_error(/Java::GherkinLexer.*_FEATURE_END_/m)
-        else
-          expect { nodule.parse_text('bad file') }.to raise_error(/Gherkin::Lexer::LexingError.*error on line 1/)
-        end
       end
 
     end

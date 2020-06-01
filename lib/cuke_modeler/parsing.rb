@@ -2,35 +2,23 @@
 # be determined and the rest of the needed files can be loaded. The entry points vary across versions,
 # so try them all until one of them works.
 begin
-  # Gherkin 2.x, 8.x, 9.x
+  # Gherkin 9.x
   require 'gherkin'
-rescue LoadError
-  begin
-    require 'gherkin/parser'
-  rescue LoadError
-    # Gherkin 6.x, 7.x
-    require 'gherkin/gherkin'
-  end
+rescue LoadError => e
+  # Add other entry points again if things change again
+  raise e
 end
 
 
-# The *gherkin* gem loads differently and has different grammar rules across major versions. Parsing
-# will be done with an 'adapter' appropriate to the version of the *gherkin* gem that has been activated.
+# The *cucumber-gherkin* gem loads differently and has different grammar rules across major versions. Parsing
+# will be done with an 'adapter' appropriate to the version of the *cucumber-gherkin* gem that has been activated.
 
-gherkin_version = Gem.loaded_specs['gherkin'].version.version
+gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 6, 7, 8, 9
+  when 9
     require 'gherkin/dialect'
-  when 3, 4, 5
-    require 'gherkin/parser'
-  when 2
-    require 'stringio'
-    require 'gherkin/formatter/json_formatter'
-    require 'gherkin'
-    require 'json'
-    require 'multi_json'
   else
     raise("Unknown Gherkin version: '#{gherkin_version}'")
 end
@@ -58,7 +46,7 @@ module CukeModeler
       # The dialects currently known by the gherkin gem
       def dialects
         unless @dialects
-          @dialects = Gem.loaded_specs['gherkin'].version.version[/^2\./] ? Gherkin::I18n::LANGUAGES : Gherkin::DIALECTS
+          @dialects = Gherkin::DIALECTS
         end
 
         @dialects
@@ -79,11 +67,12 @@ module CukeModeler
       end
 
 
-      gherkin_version = Gem.loaded_specs['gherkin'].version.version
+      gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
       gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
       case gherkin_major_version
         when 9
+          # todo - make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
@@ -93,59 +82,10 @@ module CukeModeler
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
 
             if potential_error_message
-              raise potential_error_message[:attachment][:data] if potential_error_message[:attachment][:data] =~ /expected.*got/
+              raise potential_error_message[:attachment][:text] if potential_error_message[:attachment][:text] =~ /expected.*got/
             end
 
             gherkin_ast_message[:gherkin_document]
-          end
-        when 8
-          # NOT A PART OF THE PUBLIC API
-          # The method to use for parsing Gherkin text
-          def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { :include_gherkin_document => true }).to_a.map(&:to_hash)
-
-            potential_error_message = messages.find { |message| message[:attachment] }
-            gherkin_ast_message = messages.find { |message| message[:gherkinDocument] }
-
-            if potential_error_message
-              raise potential_error_message[:attachment][:data] if potential_error_message[:attachment][:data] =~ /expected.*got/
-            end
-
-            gherkin_ast_message[:gherkinDocument]
-          end
-        when 6, 7
-          # NOT A PART OF THE PUBLIC API
-          # The method to use for parsing Gherkin text
-          def parsing_method(source_text, filename)
-            messages = Gherkin::Gherkin.from_source(filename, source_text).to_a.map(&:to_hash)
-
-            potential_error_message = messages.find { |message| message[:attachment] }
-            gherkin_ast_message = messages.find { |message| message[:gherkinDocument] }
-
-            if potential_error_message
-              raise potential_error_message[:attachment][:data] if potential_error_message[:attachment][:data] =~ /expected.*got/
-            end
-
-            gherkin_ast_message[:gherkinDocument]
-          end
-        when 3, 4, 5
-          # todo - make these methods private?
-          # NOT A PART OF THE PUBLIC API
-          # The method to use for parsing Gherkin text
-          # Filename isn't used by this version of Gherkin but keeping the parameter so that the calling method only has to know one method signature
-          def parsing_method(source_text, _filename)
-            Gherkin::Parser.new.parse(source_text)
-          end
-        when 2
-          # NOT A PART OF THE PUBLIC API
-          # The method to use for parsing Gherkin text
-          def parsing_method(source_text, filename)
-            io = StringIO.new
-            formatter = Gherkin::Formatter::JSONFormatter.new(io)
-            parser = Gherkin::Parser::Parser.new(formatter)
-            parser.parse(source_text, filename, 0)
-            formatter.done
-            MultiJson.load(io.string)
           end
         else
           raise("Unknown Gherkin version: '#{gherkin_version}'")

@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gemspec :path => "../../"
 
-gem "gherkin", "~> 9.0"
+# Only versions of Cucumber that rely on the old `gherkin3` gem can be used
+# with versions of the gherkin gem for which there was never a cucumber release
+gem 'cucumber', '2.2.0'
 
-if RUBY_VERSION =~ /^2\.[23456789]/
-  gem 'test-unit'
-end
+gem "cucumber-gherkin", "~> 9.0"

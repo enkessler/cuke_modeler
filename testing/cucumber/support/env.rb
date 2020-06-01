@@ -1,7 +1,5 @@
-unless RUBY_VERSION.to_s < '1.9.0'
-  require 'simplecov'
-  SimpleCov.command_name('cucumber_tests')
-end
+require 'simplecov'
+SimpleCov.command_name('cucumber_tests')
 
 require 'test/unit/assertions'
 include Test::Unit::Assertions

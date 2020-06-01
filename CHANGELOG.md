@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Changed
+ - This gem now wraps the `cucumber-gherkin` gem instead of the `gherkin` gem, now that `cucumber-gherkin` has superseded `gherkin`.
+ - Support for versions of Ruby earlier than 2.3 has been dropped due to that being the minimum required version of Ruby required by the `cucumber-gherkin` gem.
+ 
+### Added
+ - Support added for more versions of the `cucumber-gherkin` gem
+   - 9.x
 
 ## [2.1.0] - 2020-05-27
 

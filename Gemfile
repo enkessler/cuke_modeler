@@ -3,42 +3,7 @@ source 'http://rubygems.org'
 # Specify your gem's dependencies in cuke_modeler.gemspec
 gemspec
 
-# cuke_modeler can play with pretty much any version of these but they all play differently with Ruby
-
-if RUBY_VERSION =~ /^1\./
-
-  if RbConfig::CONFIG['host_os'].downcase =~ /mswin|msys|mingw32/
-    gem 'ffi', '< 1.9.15' # The 'ffi' gem, for Windows, requires Ruby 2.x on/after this version
-  end
-
-  gem 'unf_ext', '< 0.0.7.3' # Requires Ruby 2.x on/after this version
-  gem 'tins', '< 1.7' # The 'tins' gem requires Ruby 2.x on/after this version
-  gem 'json', '< 2.0' # The 'json' gem drops pre-Ruby 2.x support on/after this version
-  gem 'term-ansicolor', '< 1.4' # The 'term-ansicolor' gem requires Ruby 2.x on/after this version
-
-  if RUBY_VERSION =~ /^1\.8/
-    gem 'cucumber', '~> 1.0' # Ruby 1.8.x support dropped after this version
-    gem 'gherkin', '< 2.12.1' # Ruby 1.8.x support dropped after this version
-    gem 'rainbow', '< 2.0' # Ruby 1.8.x support dropped after this version
-    gem 'rake', '< 11.0' # Ruby 1.8.x support dropped after this version
-    gem 'mime-types', '< 2.0' # Ruby 1.8.x support dropped after this version
-  else
-    gem 'rake', '< 12.3.0' # Ruby 1.9.x support dropped after this version
-    gem 'cucumber', '< 3.0.0' # Ruby 1.9.x support dropped after this version
-    gem 'rainbow', '< 3.0' # Ruby 1.9.x support dropped after this version
-    gem 'mime-types', '< 3.0' # Ruby 1.x support dropped after this version
-  end
-
-  gem 'simplecov', '< 0.18' # Ruby 1.x support dropped after this version
-  gem 'thor', '< 1.0' # Ruby 1.x support dropped after this version
-elsif RUBY_VERSION =~ /^2\./
-
-  if RUBY_VERSION =~ /^2\.[23456789]/
-    gem 'test-unit'
-  end
-
-end
-
-# Note: When testing against 6.x, the latest version (6.0.17) is missing an executable for Windows 64-bit
-# gem 'gherkin', '>= 6.0', '< 6.0.17'
-gem 'gherkin', '~> 9.0'
+# Only versions of Cucumber that rely on the old `gherkin3` gem can be used
+# with versions of the gherkin gem for which there was never a cucumber release
+gem 'cucumber', '2.2.0'
+gem 'cucumber-gherkin', '~> 9.0'
