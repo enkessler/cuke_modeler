@@ -126,13 +126,10 @@ that feature is ultimately run with SpecFlow (Cucumber for C#), Lettuce
   * [cuke_linter](https://github.com/enkessler/cuke_linter)
 
 
-## Contributing
+## Development and Contributing
 
-1. Fork it
-2. Create your feature branch
-   `git checkout -b my-new-feature`
-3. Commit your changes
-   `git commit -am 'Add some feature'`
-4. Push to the branch
-   `git push origin my-new-feature`
-5. Create new Pull Request
+See [CONTRIBUTING.md](https://github.com/enkessler/cuke_modeler/blob/master/CONTRIBUTING.md)
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
