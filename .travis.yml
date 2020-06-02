@@ -16,6 +16,7 @@ rvm:
 gemfile:
   - testing/gemfiles/gherkin9.gemfile
   - testing/gemfiles/gherkin10.gemfile
+  - testing/gemfiles/gherkin11.gemfile
 
 matrix:
   exclude:
