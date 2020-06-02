@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gemspec
 
 
-gherkin_major_version = 12
+gherkin_major_version = 13
 
 # Only versions of Cucumber that rely on the old `gherkin3` gem can be used
 # with versions of the `cucumber-gherkin` gem for which there was never a cucumber release

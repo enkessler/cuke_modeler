@@ -17,7 +17,7 @@ gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 9, 10, 11, 12
+  when 9, 10, 11, 12, 13
     # Currently nothing else to load beyond the entry point to the gem
   else
     raise("Unknown Gherkin version: '#{gherkin_version}'")
@@ -71,6 +71,20 @@ module CukeModeler
       gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
       case gherkin_major_version
+        when 13
+          # todo - make these methods private?
+          # NOT A PART OF THE PUBLIC API
+          # The method to use for parsing Gherkin text
+          def parsing_method(source_text, filename)
+            messages = Gherkin.from_source(filename, source_text, { :include_gherkin_document => true }).to_a.map(&:to_hash)
+
+            error_message = messages.find { |message| message[:parse_error] }
+            gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
+
+            raise error_message[:parse_error][:message] if error_message
+
+            gherkin_ast_message[:gherkin_document]
+          end
         when 12
           # todo - make these methods private?
           # NOT A PART OF THE PUBLIC API
