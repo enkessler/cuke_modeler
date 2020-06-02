@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  
 ### Added
  - Support added for more versions of the `cucumber-gherkin` gem
+   - 12.x
    - 11.x
    - 10.x
    - 9.x
