@@ -111,7 +111,7 @@ describe 'Parsing, Integration' do
 
     describe 'parsing invalid Gherkin' do
 
-      it 'correctly bubbles up parsing errors', :if => gherkin?(9) do
+      it 'correctly bubbles up parsing errors' do
         expect { nodule.parse_text('bad file') }.to raise_error(/RuntimeError.*#EOF/)
       end
 

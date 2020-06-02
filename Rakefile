@@ -38,8 +38,9 @@ namespace 'cuke_modeler' do
     rspec_args = '--tag ~@wip --pattern "testing/rspec/spec/**/*_spec.rb" --force-color'
 
     cucumber_version = Gem.loaded_specs['cucumber'].version.version
+    cucumber_major_version = cucumber_version.match(/^(\d+)\./)[1].to_i
 
-    if cucumber_version =~ /^[123]\./
+    if cucumber_major_version < 4
       cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip --color'
     else
       cucumber_args = "testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t 'not @wip' --color"

@@ -1,9 +1,9 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Gherkin9Adapter, Integration', :if => gherkin?(9) do
+describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
 
-  let(:clazz) { CukeModeler::Gherkin9Adapter }
+  let(:clazz) { CukeModeler.const_get("Gherkin#{gherkin_major_version}Adapter") }
   let(:adapter) { clazz.new }
 
   describe 'parsing data' do

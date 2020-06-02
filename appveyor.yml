@@ -13,6 +13,15 @@ environment:
     - RUBY_VERSION: 25-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin9.gemfile
 
+    - RUBY_VERSION: 24
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin10.gemfile
+    - RUBY_VERSION: 24-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin10.gemfile
+    - RUBY_VERSION: 25
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin10.gemfile
+    - RUBY_VERSION: 25-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin10.gemfile
+
 install:
   - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
   - bundle install
