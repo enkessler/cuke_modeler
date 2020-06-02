@@ -21,11 +21,6 @@ gemfile:
 matrix:
   exclude:
 
-    # TODO: turn this back on
-    # gherkin 6.x+ relies on 'google-protobuf', which does not currently work on JRuby (https://github.com/protocolbuffers/protobuf/issues/1594)
-    - rvm: jruby-9.1.7.0
-      gemfile: testing/gemfiles/gherkin9.gemfile
-
     # Ruby 2.3.x is currently broken on TravisCI for OSX and is no longer a supported Ruby version, anyway.
     - rvm: 2.3.8
       os: osx
