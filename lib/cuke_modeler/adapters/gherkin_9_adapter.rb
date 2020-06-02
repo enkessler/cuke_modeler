@@ -234,7 +234,7 @@ module CukeModeler
       parsed_doc_string['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_doc_string))
 
       parsed_doc_string['value'] = parsed_doc_string.delete(:content)
-      parsed_doc_string['content_type'] = parsed_doc_string.delete(:media_type) #.strip # TODO: fix bug in Gherkin so that this whitespace is already trimmed off
+      parsed_doc_string['content_type'] = parsed_doc_string.delete(:media_type)
       parsed_doc_string['line'] = parsed_doc_string.delete(:location)[:line]
     end
 
