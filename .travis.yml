@@ -7,17 +7,9 @@ dist: trusty
 
 language: ruby
 rvm:
-  - 2.3.8
-  - 2.4.5
-  - 2.5.3
-  - 2.6.0
   - jruby-9.1.7.0
 
 gemfile:
-  - testing/gemfiles/gherkin9.gemfile
-  - testing/gemfiles/gherkin10.gemfile
-  - testing/gemfiles/gherkin11.gemfile
-  - testing/gemfiles/gherkin12.gemfile
   - testing/gemfiles/gherkin13.gemfile
 
 matrix:
