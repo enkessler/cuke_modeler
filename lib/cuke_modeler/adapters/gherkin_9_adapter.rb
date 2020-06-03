@@ -25,7 +25,7 @@ module CukeModeler
       adapt_feature!(parsed_ast[:feature]) if parsed_ast[:feature]
       parsed_ast['feature'] = parsed_ast.delete(:feature)
 
-      [parsed_ast]
+      parsed_ast
     end
 
     # Adapts the AST sub-tree that is rooted at the given feature node.

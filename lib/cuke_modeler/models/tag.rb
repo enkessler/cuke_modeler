@@ -40,7 +40,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_tag.feature')
 
-      parsed_file.first['feature']['tags'].first
+      parsed_file['feature']['tags'].first
     end
 
   end

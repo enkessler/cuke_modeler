@@ -52,8 +52,9 @@ module CukeModeler
         @dialects
       end
 
-      # Parses the Cucumber feature given in *source_text* and returns an array
-      # containing the hash representation of its logical structure.
+      # Parses the Cucumber feature given in *source_text* and returns a hash representation of
+      # its logical structure. This is a standardized AST that should remain consistent across
+      # different versions of `cucumber-gherkin`
       def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
         raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
 

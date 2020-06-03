@@ -686,7 +686,7 @@ describe 'Feature, Integration' do
               def parse_text(source_text, filename)
                 result = $old_method.call(source_text, filename)
 
-                result.first['feature']['elements'].first['type'] = :some_unknown_type
+                result['feature']['elements'].first['type'] = :some_unknown_type
 
                 result
               end

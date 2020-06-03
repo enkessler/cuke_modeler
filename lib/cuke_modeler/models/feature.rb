@@ -90,7 +90,7 @@ module CukeModeler
     def parse_source(source_text)
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
-      parsed_file.first['feature']
+      parsed_file['feature']
     end
 
     def background_output_string

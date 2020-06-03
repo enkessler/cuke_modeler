@@ -40,7 +40,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_comment.feature')
 
-      parsed_file.first['comments'].last
+      parsed_file['comments'].last
     end
 
   end

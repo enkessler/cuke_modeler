@@ -67,7 +67,7 @@ module CukeModeler
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_scenario.feature')
 
-      parsed_file.first['feature']['elements'].first
+      parsed_file['feature']['elements'].first
     end
 
   end

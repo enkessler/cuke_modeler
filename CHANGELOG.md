@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
  - This gem now wraps the `cucumber-gherkin` gem instead of the `gherkin` gem, now that `cucumber-gherkin` has superseded `gherkin`.
  - Support for versions of Ruby earlier than 2.3 has been dropped due to that being the minimum required version of Ruby required by the `cucumber-gherkin` gem.
+ - When using the parsing functionality provided by this gem, the standardized AST returned when parsing Gherkin text is now returned directly as a Hash instead of also being wrapped in an array. The array was an artifact of basing the AST on the earliest versions of `gherkin` that were supported.
  
 ### Added
  - Support added for more versions of the `cucumber-gherkin` gem

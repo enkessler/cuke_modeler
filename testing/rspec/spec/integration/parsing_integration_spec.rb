@@ -55,10 +55,10 @@ describe 'Parsing, Integration' do
       expect { nodule.parse_text(:not_a_string) }.to raise_error(ArgumentError, /Symbol/)
     end
 
-    # todo - Stop doing this. Just return a feature file rooted AST. (Will require major version number change)
-    it 'returns an Array' do
+    it 'returns an AST rooted at the feature file level' do
       result = nodule.parse_text("#{FEATURE_KEYWORD}:")
-      expect(result).to be_a(Array)
+      expect(result).to be_a(Hash)
+      expect(result.keys).to include('feature')
     end
 
     it 'raises an error if an error is encountered while parsing text' do
