@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
     source_controlled_files.keep_if { |file| file =~ %r{^(lib|testing/cucumber/features)} }
     source_controlled_files + ['README.md', 'LICENSE.txt', 'CHANGELOG.md', 'cuke_modeler.gemspec']
   end
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = '>= 2.3', '< 3.0'
