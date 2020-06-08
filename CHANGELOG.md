@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.0.0] - 2020-06-08
+
 ### Changed
  - This gem now wraps the `cucumber-gherkin` gem instead of the `gherkin` gem, now that `cucumber-gherkin` has superseded `gherkin`.
  - Support for versions of Ruby earlier than 2.3 has been dropped due to that being the minimum required version of Ruby required by the `cucumber-gherkin` gem.
@@ -299,7 +303,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/enkessler/cuke_modeler/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/enkessler/cuke_modeler/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/enkessler/cuke_modeler/compare/v1.5.1...v2.0.0
 [1.5.1]: https://github.com/enkessler/cuke_modeler/compare/v1.5.0...v1.5.1
