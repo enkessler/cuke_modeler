@@ -117,6 +117,47 @@ describe 'Parsing, Integration' do
 
     end
 
+    describe 'text encoding' do
+      let(:text) { 'Feature:'.encode('ASCII') }
+
+      it 'encodes text as UTF-8 before parsing' do
+        begin
+          $old_method = CukeModeler::Parsing.method(:parsing_method)
+
+          # Monkey patch the parsing method in order to capture the information that we need for testing
+          module CukeModeler
+            module Parsing
+              class << self
+                def parsing_method(source_text, *args)
+                  $source_text_received = source_text
+
+                  # Short circuit the rest of the parsing process
+                  fail
+                end
+              end
+            end
+          end
+
+          begin
+            nodule.parse_text(text)
+          rescue
+            expect($source_text_received.encoding.to_s).to eq('UTF-8')
+          end
+        ensure
+          # Making sure that our changes don't escape a test and ruin the rest of the suite
+          module CukeModeler
+            module Parsing
+              class << self
+                define_method(:parsing_method, $old_method)
+              end
+            end
+          end
+        end
+
+      end
+
+    end
+
   end
 
 end

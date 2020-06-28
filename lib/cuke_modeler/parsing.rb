@@ -59,7 +59,7 @@ module CukeModeler
         raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
 
         begin
-          parsed_result = parsing_method(source_text, filename)
+          parsed_result = parsing_method(source_text.encode('UTF-8'), filename)
         rescue => e
           raise(ArgumentError, "Error encountered while parsing '#{filename}'\n#{e.class} - #{e.message}")
         end

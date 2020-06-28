@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Fixed
+  - Text is converted to UTF-8 encoding before being passed to the underlying Gherkin gem. This is due to UTF-8 being 
+    the only encoding supported by Gherkin. The `gherkin` gem did the conversion automatically but the `cucumber-gherkin` 
+    gem does not.
 
 ## [3.0.0] - 2020-06-08
 
