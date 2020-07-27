@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
  - The `Rule` keyword is now a modeled element.
 
+### Deprecated
+ - `Feature#test_case_count` will be removed on the next major release. It's a random analysis method in what is 
+ otherwise a purely abstraction layer library. The [CQL](https://github.com/enkessler/cql) gem is better suited to such tasks.  
+
 ## [3.1.0] - 2020-06-28
 
 ### Added
