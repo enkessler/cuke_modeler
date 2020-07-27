@@ -82,7 +82,8 @@ and setting their attributes afterward.
 One could, if so inclined, use this method to dynamically edit or even create 
 an entire test suite!
 
-For more information on the different models and how to use them, see the 
+For more information on the different models (which more or less have the same relation 
+to each other as described in the AST [here](https://github.com/cucumber/cucumber/tree/master/gherkin#ast)) and how to use them, see the 
 [documentation](https://app.cucumber.pro/projects/cuke_modeler).
 
 ## Modeling dialects other than English
