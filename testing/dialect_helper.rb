@@ -13,6 +13,10 @@ module CukeModeler
       get_word(@dialect['background'])
     end
 
+    def self.rule_keyword
+      get_word(@dialect['rule'])
+    end
+
     def self.scenario_keyword
       get_word(@dialect['scenario'])
     end

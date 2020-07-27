@@ -50,6 +50,19 @@ describe 'Feature, Unit', :unit_test => true do
       expect(feature).to_not have_background
     end
 
+    it 'has rules' do
+      expect(feature).to respond_to(:rules)
+    end
+
+    it 'can change its rules' do
+      expect(feature).to respond_to(:rules=)
+
+      feature.rules = :some_rules
+      expect(feature.rules).to eq(:some_rules)
+      feature.rules = :some_other_rules
+      expect(feature.rules).to eq(:some_other_rules)
+    end
+    
     it 'has tests' do
       expect(feature).to respond_to(:tests)
     end
@@ -78,13 +91,15 @@ describe 'Feature, Unit', :unit_test => true do
       expect(feature.outlines).to be_empty
     end
 
-    it 'contains a background, tests, and tags' do
+    it 'contains a background, rules, tests, and tags' do
       tags = [:tag_1, :tagt_2]
+      rules = [:rule_1, :rule_2]
       tests = [:test_1, :test_2]
       background = :a_background
-      everything = [background] + tests + tags
+      everything = [background] + rules + tests + tags
 
       feature.background = background
+      feature.rules = rules
       feature.tests = tests
       feature.tags = tags
 
@@ -110,6 +125,10 @@ describe 'Feature, Unit', :unit_test => true do
 
       it 'starts with no background' do
         expect(feature.background).to be_nil
+      end
+
+      it 'starts with no rules' do
+        expect(feature.rules).to eq([])
       end
 
       it 'starts with no tests' do

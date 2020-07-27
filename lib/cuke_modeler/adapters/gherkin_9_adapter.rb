@@ -80,6 +80,27 @@ module CukeModeler
       end
     end
 
+    # Adapts the AST sub-tree that is rooted at the given rule node.
+    def adapt_rule!(parsed_rule)
+      # Saving off the original data
+      parsed_rule['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(parsed_rule))
+
+      # Removing parsed data for child elements in order to avoid duplicating data
+      parsed_rule['cuke_modeler_parsing_data'][:rule][:children] = nil if parsed_rule['cuke_modeler_parsing_data'][:rule][:children]
+
+      parsed_rule['type'] = 'Rule'
+      parsed_rule['keyword'] = parsed_rule[:rule].delete(:keyword)
+      parsed_rule['name'] = parsed_rule[:rule].delete(:name)
+      parsed_rule['description'] = parsed_rule[:rule].delete(:description) || ''
+      parsed_rule['line'] = parsed_rule[:rule].delete(:location)[:line]
+
+      parsed_rule['elements'] = []
+      if parsed_rule[:rule][:children]
+        adapt_child_elements!(parsed_rule[:rule][:children])
+        parsed_rule['elements'].concat(parsed_rule[:rule].delete(:children))
+      end
+    end
+
     # Adapts the AST sub-tree that is rooted at the given scenario node.
     def adapt_scenario!(parsed_test)
       # Removing parsed data for child elements in order to avoid duplicating data
@@ -286,14 +307,18 @@ module CukeModeler
 
     def adapt_child_elements!(parsed_children)
       background_child = parsed_children.find { |child| child[:background] }
+      rule_children = parsed_children.select { |child| child[:rule] }
+      remaining_children = parsed_children.reject { |child| child[:background] || child[:rule] }
 
-      if background_child
-        adapt_background!(background_child)
+      adapt_background!(background_child) if background_child
+      adapt_rules!(rule_children)
+      adapt_tests!(remaining_children)
+    end
 
-        remaining_children = parsed_children.reject { |child| child[:background] }
+    def adapt_rules!(parsed_rules)
+      parsed_rules.each do |rule|
+        adapt_rule!(rule)
       end
-
-      adapt_tests!(remaining_children || parsed_children)
     end
 
     def adapt_tests!(parsed_tests)

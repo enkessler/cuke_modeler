@@ -11,23 +11,28 @@ Feature: Feature output
       Feature: A feature with everything it could have
       Including a description
       and then some.
-      Background:
+      Background: non-nested background
       Background
       description
       * a step
       |value1|
+      |value2|
       * another step
       @scenario_tag
-      Scenario:
+      Scenario: non-nested scenario
       Scenario
       description
       * a step
       * another step
-      \"\"\"
+      \"\"\" with content type
         some text
       \"\"\"
+      Rule: a rule
+      Rule description 
+      Background: nested background
+      * a step
       @outline_tag
-      Scenario Outline:
+      Scenario Outline: nested outline
       Outline
       description
       * a step
@@ -42,6 +47,9 @@ Feature: Feature output
       description
       |param|
       |value|
+      Examples: additional example
+      Rule: another rule
+      Which is empty
       """
     And a feature model based on that gherkin
       """
@@ -59,48 +67,62 @@ Feature: Feature output
       Including a description
       and then some.
 
-        Background:
+        Background: non-nested background
 
         Background
         description
 
           * a step
             | value1 |
+            | value2 |
           * another step
 
         @scenario_tag
-        Scenario:
+        Scenario: non-nested scenario
 
         Scenario
         description
 
           * a step
           * another step
-            \"\"\"
+            \"\"\" with content type
               some text
             \"\"\"
 
-        @outline_tag
-        Scenario Outline:
+        Rule: a rule
 
-        Outline
-        description
+        Rule description
 
-          * a step
-            | value2 |
-          * another step
-            \"\"\"
-              some text
-            \"\"\"
+          Background: nested background
+            * a step
 
-        @example_tag
-        Examples:
+          @outline_tag
+          Scenario Outline: nested outline
 
-        Example
-        description
+          Outline
+          description
 
-          | param |
-          | value |
+            * a step
+              | value2 |
+            * another step
+              \"\"\"
+                some text
+              \"\"\"
+
+          @example_tag
+          Examples:
+
+          Example
+          description
+
+            | param |
+            | value |
+
+          Examples: additional example
+
+        Rule: another rule
+
+        Which is empty
       """
     And the output can be used to make an equivalent model
       """

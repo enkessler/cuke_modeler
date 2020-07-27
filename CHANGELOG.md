@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Added
+ - The `Rule` keyword is now a modeled element.
 
 ## [3.1.0] - 2020-06-28
 

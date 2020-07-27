@@ -32,7 +32,6 @@ module CukeModeler
 
       model.parent_model = self
 
-
       model
     end
 
@@ -130,6 +129,15 @@ module CukeModeler
       populate_children(feature_object, parsed_feature_data)
     end
 
+    def populate_rule(rule_object, parsed_rule_data)
+      populate_parsing_data(rule_object, parsed_rule_data)
+      populate_source_line(rule_object, parsed_rule_data)
+      populate_keyword(rule_object, parsed_rule_data)
+      populate_name(rule_object, parsed_rule_data)
+      populate_description(rule_object, parsed_rule_data)
+      populate_children(rule_object, parsed_rule_data)
+    end
+
     def populate_directory(directory_object, processed_directory_data)
       directory_object.path = processed_directory_data['path']
 
@@ -213,18 +221,20 @@ module CukeModeler
       end
     end
 
-    def populate_children(feature_model, parsed_feature_data)
+    def populate_children(model, parsed_feature_data)
       elements = parsed_feature_data['elements']
 
       if elements
         elements.each do |element|
           case element['type']
             when 'Scenario', 'scenario'
-              feature_model.tests << build_child_model(Scenario, element)
+              model.tests << build_child_model(Scenario, element)
             when 'ScenarioOutline', 'scenario_outline'
-              feature_model.tests << build_child_model(Outline, element)
+              model.tests << build_child_model(Outline, element)
             when 'Background', 'background'
-              feature_model.background = build_child_model(Background, element)
+              model.background = build_child_model(Background, element)
+            when 'Rule'
+              model.rules << build_child_model(Rule, element)
             else
               raise(ArgumentError, "Unknown element type: #{element['type']}")
           end

@@ -7,29 +7,24 @@ describe 'Feature, Integration' do
   let(:feature) { clazz.new }
   let(:minimum_viable_gherkin) { "#{FEATURE_KEYWORD}:" }
   let(:maximum_viable_gherkin) do
-    "# feature comment
-     @tag1 @tag2 @tag3
+    "@tag1 @tag2 @tag3
      #{FEATURE_KEYWORD}: A feature with everything it could have
 
      Including a description
      and then some.
 
-       # background comment
-       #{BACKGROUND_KEYWORD}:
+       #{BACKGROUND_KEYWORD}: non-nested background
 
        Background
        description
 
          #{STEP_KEYWORD} a step
-         # table comment
            | value1 |
-         # table row comment
            | value2 |
          #{STEP_KEYWORD} another step
 
-       # scenario comment
        @scenario_tag
-       #{SCENARIO_KEYWORD}:
+       #{SCENARIO_KEYWORD}: non-nested scenario
 
        Scenario
        description
@@ -40,35 +35,39 @@ describe 'Feature, Integration' do
            some text
            \"\"\"
 
-       # outline comment
-       @outline_tag
-       #{OUTLINE_KEYWORD}:
+       #{RULE_KEYWORD}: a rule
 
-       Outline
-       description
+       Rule description
 
-         # step comment
+       #{BACKGROUND_KEYWORD}: nested background
          #{STEP_KEYWORD} a step
-         # table comment
-           | value2 |
-         # step comment
-         #{STEP_KEYWORD} another step
-         # doc string comment
-           \"\"\"
-           some text
-           \"\"\"
 
-       # example comment
-       @example_tag
-       #{EXAMPLE_KEYWORD}:
+         @outline_tag
+         #{OUTLINE_KEYWORD}: nested outline
 
-       Example
-       description
+         Outline
+         description
 
-         # row comment
-         | param |
-         | value |
-     # final comment"
+           #{STEP_KEYWORD} a step
+             | value2 |
+           #{STEP_KEYWORD} another step
+             \"\"\"
+             some text
+             \"\"\"
+
+         @example_tag
+         #{EXAMPLE_KEYWORD}:
+
+         Example
+         description
+
+           | param |
+           | value |
+         #{EXAMPLE_KEYWORD}: additional example
+
+       #{RULE_KEYWORD}: another rule
+
+       Which is empty"
   end
 
 
@@ -116,11 +115,13 @@ describe 'Feature, Integration' do
                   #{OUTLINE_KEYWORD}: Test outline
                   #{EXAMPLE_KEYWORD}: Test Examples
                     | param |
-                    | value |"
+                    | value |
+                  #{RULE_KEYWORD}: Test rule"
 
 
       feature = clazz.new(source)
       background = feature.background
+      rule = feature.rules[0]
       scenario = feature.tests[0]
       outline = feature.tests[1]
       tag = feature.tags[0]
@@ -129,6 +130,7 @@ describe 'Feature, Integration' do
       expect(outline.parent_model).to equal(feature)
       expect(scenario.parent_model).to equal(feature)
       expect(background.parent_model).to equal(feature)
+      expect(rule.parent_model).to equal(feature)
       expect(tag.parent_model).to equal(feature)
     end
 
@@ -246,7 +248,10 @@ describe 'Feature, Integration' do
                                    #{STEP_KEYWORD} a step
                                  #{EXAMPLE_KEYWORD}:
                                    | param |
-                                   | value |" }
+                                   | value |
+
+                                 #{RULE_KEYWORD}: Rule 1
+                                 #{RULE_KEYWORD}: Rule 2" }
           let(:feature) { clazz.new(source_text) }
 
 
@@ -265,6 +270,12 @@ describe 'Feature, Integration' do
 
           it "models the feature's background" do
             expect(feature.background.name).to eq('The background')
+          end
+
+          it "models the feature's rules" do
+            rule_names = feature.rules.collect { |rule| rule.name }
+
+            expect(rule_names).to eq(['Rule 1', 'Rule 2'])
           end
 
           it "models the feature's scenarios" do
@@ -304,6 +315,10 @@ describe 'Feature, Integration' do
 
           it "models the feature's background" do
             expect(feature.background).to be_nil
+          end
+
+          it "models the feature's rules" do
+            expect(feature.rules).to eq([])
           end
 
           it "models the feature's scenarios" do
@@ -389,48 +404,62 @@ describe 'Feature, Integration' do
                   Including a description
                   and then some.
 
-                    #{BACKGROUND_KEYWORD}:
+                    #{BACKGROUND_KEYWORD}: non-nested background
 
                     Background
                     description
 
                       #{STEP_KEYWORD} a step
                         | value1 |
+                        | value2 |
                       #{STEP_KEYWORD} another step
 
                     @scenario_tag
-                    #{SCENARIO_KEYWORD}:
+                    #{SCENARIO_KEYWORD}: non-nested scenario
 
                     Scenario
                     description
 
                       #{STEP_KEYWORD} a step
                       #{STEP_KEYWORD} another step
-                        \"\"\"
+                        \"\"\" with content type
                         some text
                         \"\"\"
 
-                    @outline_tag
-                    #{OUTLINE_KEYWORD}:
+                    #{RULE_KEYWORD}: a rule
 
-                    Outline
-                    description
+                    Rule description
 
+                    #{BACKGROUND_KEYWORD}: nested background
                       #{STEP_KEYWORD} a step
-                        | value2 |
-                      #{STEP_KEYWORD} another step
-                        \"\"\"
-                        some text
-                        \"\"\"
 
-                    @example_tag
-                    #{EXAMPLE_KEYWORD}:
+                      @outline_tag
+                      #{OUTLINE_KEYWORD}: nested outline
 
-                    Example
-                    description
+                      Outline
+                      description
 
-                      | param |
-                      | value |"
+                        #{STEP_KEYWORD} a step
+                          | value2 |
+                        #{STEP_KEYWORD} another step
+                          \"\"\"
+                          some text
+                          \"\"\"
+
+                      @example_tag
+                      #{EXAMPLE_KEYWORD}:
+
+                      Example
+                      description
+
+                        | param |
+                        | value |
+                      #{EXAMPLE_KEYWORD}: additional example
+
+                  #{RULE_KEYWORD}: another rule
+
+                  Which is empty"
+
         feature = clazz.new(source)
 
         feature_output = feature.to_s
@@ -505,6 +534,25 @@ describe 'Feature, Integration' do
                                         "    #{STEP_KEYWORD} a step"])
         end
 
+        it 'can output a feature that has a rule' do
+          source = ["#{FEATURE_KEYWORD}:",
+                    "#{RULE_KEYWORD}:",
+                    "#{SCENARIO_KEYWORD}:",
+                    "#{STEP_KEYWORD} a step"]
+
+          source = source.join("\n")
+          feature = clazz.new(source)
+
+          feature_output = feature.to_s.split("\n", -1)
+
+          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                        '',
+                                        "  #{RULE_KEYWORD}:",
+                                        '',
+                                        "    #{SCENARIO_KEYWORD}:",
+                                        "      #{STEP_KEYWORD} a step"])
+        end
+
         it 'can output a feature that has a scenario' do
           source = ["#{FEATURE_KEYWORD}:",
                     "#{SCENARIO_KEYWORD}:",
@@ -547,26 +595,31 @@ describe 'Feature, Integration' do
                     "#{FEATURE_KEYWORD}: A feature with everything it could have",
                     'Including a description',
                     'and then some.',
-                    "#{BACKGROUND_KEYWORD}:",
+                    "#{BACKGROUND_KEYWORD}: non-nested background",
                     'Background',
                     'description',
                     "#{STEP_KEYWORD} a step",
                     '|value1|',
+                    '|value2|',
                     "#{STEP_KEYWORD} another step",
                     '@scenario_tag',
-                    "#{SCENARIO_KEYWORD}:",
+                    "#{SCENARIO_KEYWORD}: non-nested scenario",
                     'Scenario',
                     'description',
                     "#{STEP_KEYWORD} a step",
                     "#{STEP_KEYWORD} another step",
-                    '"""',
+                    '""" with content type',
                     'some text',
                     '"""',
+                    "#{RULE_KEYWORD}: a rule",
+                    'Rule description ',
+                    "#{BACKGROUND_KEYWORD}: nested background",
+                    "#{STEP_KEYWORD} a step",
                     '@outline_tag',
-                    "#{OUTLINE_KEYWORD}:",
-                    'Outline ',
+                    "#{OUTLINE_KEYWORD}: nested outline",
+                    'Outline',
                     'description',
-                    "#{STEP_KEYWORD} a step ",
+                    "#{STEP_KEYWORD} a step",
                     '|value2|',
                     "#{STEP_KEYWORD} another step",
                     '"""',
@@ -577,7 +630,10 @@ describe 'Feature, Integration' do
                     'Example',
                     'description',
                     '|param|',
-                    '|value|']
+                    '|value|',
+                    "#{EXAMPLE_KEYWORD}: additional example",
+                    "#{RULE_KEYWORD}: another rule",
+                    'Which is empty']
           source = source.join("\n")
           feature = clazz.new(source)
 
@@ -589,48 +645,62 @@ describe 'Feature, Integration' do
                                         'Including a description',
                                         'and then some.',
                                         '',
-                                        "  #{BACKGROUND_KEYWORD}:",
+                                        "  #{BACKGROUND_KEYWORD}: non-nested background",
                                         '',
                                         '  Background',
                                         '  description',
                                         '',
                                         "    #{STEP_KEYWORD} a step",
                                         '      | value1 |',
+                                        '      | value2 |',
                                         "    #{STEP_KEYWORD} another step",
                                         '',
                                         '  @scenario_tag',
-                                        "  #{SCENARIO_KEYWORD}:",
+                                        "  #{SCENARIO_KEYWORD}: non-nested scenario",
                                         '',
                                         '  Scenario',
                                         '  description',
                                         '',
                                         "    #{STEP_KEYWORD} a step",
                                         "    #{STEP_KEYWORD} another step",
-                                        '      """',
+                                        '      """ with content type',
                                         '      some text',
                                         '      """',
                                         '',
-                                        '  @outline_tag',
-                                        "  #{OUTLINE_KEYWORD}:",
+                                        "  #{RULE_KEYWORD}: a rule",
                                         '',
-                                        '  Outline',
-                                        '  description',
+                                        '  Rule description',
                                         '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        '      | value2 |',
-                                        "    #{STEP_KEYWORD} another step",
-                                        '      """',
-                                        '      some text',
-                                        '      """',
+                                        "    #{BACKGROUND_KEYWORD}: nested background",
+                                        "      #{STEP_KEYWORD} a step",
                                         '',
-                                        '  @example_tag',
-                                        "  #{EXAMPLE_KEYWORD}:",
+                                        '    @outline_tag',
+                                        "    #{OUTLINE_KEYWORD}: nested outline",
                                         '',
-                                        '  Example',
-                                        '  description',
+                                        '    Outline',
+                                        '    description',
                                         '',
-                                        '    | param |',
-                                        '    | value |'])
+                                        "      #{STEP_KEYWORD} a step",
+                                        '        | value2 |',
+                                        "      #{STEP_KEYWORD} another step",
+                                        '        """',
+                                        '        some text',
+                                        '        """',
+                                        '',
+                                        '    @example_tag',
+                                        "    #{EXAMPLE_KEYWORD}:",
+                                        '',
+                                        '    Example',
+                                        '    description',
+                                        '',
+                                        '      | param |',
+                                        '      | value |',
+                                        '',
+                                        "    #{EXAMPLE_KEYWORD}: additional example",
+                                        '',
+                                        "  #{RULE_KEYWORD}: another rule",
+                                        '',
+                                        '  Which is empty'])
         end
 
       end
@@ -649,6 +719,12 @@ describe 'Feature, Integration' do
 
         it 'can output a feature that has only a background' do
           feature.background = [CukeModeler::Background.new]
+
+          expect { feature.to_s }.to_not raise_error
+        end
+
+        it 'can output a feature that has only rules' do
+          feature.rules = [CukeModeler::Rule.new]
 
           expect { feature.to_s }.to_not raise_error
         end

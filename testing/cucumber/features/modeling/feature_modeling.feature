@@ -1,6 +1,8 @@
 Feature: Feature modeling
 
-Feature models are the top level element of the gherkin portion of the model tree. They expose several attributes of the feature that they represent, as well as containing models for any background, scenarios, or outlines that are present in that feature.
+Feature models are the top level element of the Gherkin portion of the model tree. They expose several attributes of the
+feature that they represent, as well as containing models for any background, scenarios, or outlines that are present in
+that feature.
 
 
   Background:
@@ -29,11 +31,18 @@ Feature models are the top level element of the gherkin portion of the model tre
         Scenario: Scenario 2
           * a step
 
-        Scenario Outline: Outline 2
-          * a step
-        Examples:
-          | param |
-          | value |
+        Rule: a rule
+
+          Scenario: Scenario 3
+            * a step
+
+        Rule: another rule
+
+          Scenario Outline: Outline 2
+            * a step
+          Examples:
+            | param |
+            | value |
       """
     And a feature model based on that gherkin
       """
@@ -75,7 +84,18 @@ Feature models are the top level element of the gherkin portion of the model tre
       """
     Then the model returns a model for the background "The background"
 
+  Scenario: Modeling a feature's rules
+    When the feature's rules are requested
+      """
+        @model.rules
+      """
+    Then the model returns models for the following rules:
+      | a rule       |
+      | another rule |
+
   Scenario: Modeling a feature's scenarios
+  Note: Scenarios under a Rule keyword are included in the corresponding Rule model instead of the Feature model
+
     When the feature's scenarios are requested
       """
         @model.scenarios
@@ -85,13 +105,14 @@ Feature models are the top level element of the gherkin portion of the model tre
       | Scenario 2 |
 
   Scenario: Modeling a feature's outlines
+  Note: Outlines under a Rule keyword are included in the corresponding Rule model instead of the Feature model
+
     When the feature's outlines are requested
       """
         @model.outlines
       """
     Then the model returns models for the following outlines:
       | Outline 1 |
-      | Outline 2 |
 
   Scenario: Modeling a feature's tags
 

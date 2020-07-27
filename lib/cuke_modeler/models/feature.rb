@@ -17,6 +17,9 @@ module CukeModeler
     # The Background object contained by the Feature
     attr_accessor :background
 
+    # The Rule objects contained by the Feature
+    attr_accessor :rules
+
     # The Scenario and Outline objects contained by the Feature
     attr_accessor :tests
 
@@ -25,6 +28,7 @@ module CukeModeler
     # object.
     def initialize(source_text = nil)
       @tags = []
+      @rules = []
       @tests = []
 
       super(source_text)
@@ -63,7 +67,7 @@ module CukeModeler
 
     # Returns the model objects that belong to this model.
     def children
-      models = tests + tags
+      models = rules + tests + tags
       models << background if background
 
       models
@@ -79,6 +83,7 @@ module CukeModeler
       text << "\n" + description_output_string unless (description.nil? || description.empty?)
       text << "\n\n" + background_output_string if background
       text << "\n\n" + tests_output_string unless tests.empty?
+      text << "\n\n" + rules_output_string unless rules.empty?
 
       text
     end
@@ -94,14 +99,18 @@ module CukeModeler
     end
 
     def background_output_string
-      test_output_string(background)
+      child_element_output_string(background)
     end
 
     def tests_output_string
-      tests.collect { |test| test_output_string(test) }.join("\n\n")
+      tests.collect { |test| child_element_output_string(test) }.join("\n\n")
     end
 
-    def test_output_string(model)
+    def rules_output_string
+      rules.collect { |rule| child_element_output_string(rule) }.join("\n\n")
+    end
+
+    def child_element_output_string(model)
       model.to_s.split("\n").collect { |line| line.empty? ? '' : "  #{line}" }.join("\n")
     end
 

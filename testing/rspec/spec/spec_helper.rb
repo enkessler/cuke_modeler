@@ -63,6 +63,7 @@ RSpec.configure do |config|
   config.before(:suite) do
     FEATURE_KEYWORD = CukeModeler::DialectHelper.feature_keyword
     BACKGROUND_KEYWORD = CukeModeler::DialectHelper.background_keyword
+    RULE_KEYWORD = CukeModeler::DialectHelper.rule_keyword
     SCENARIO_KEYWORD = CukeModeler::DialectHelper.scenario_keyword
     OUTLINE_KEYWORD = CukeModeler::DialectHelper.outline_keyword
     EXAMPLE_KEYWORD = CukeModeler::DialectHelper.example_keyword
