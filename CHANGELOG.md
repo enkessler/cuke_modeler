@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.2.0] - 2020-07-27
+
 ### Added
  - The `Rule` keyword is now a modeled element.
 
@@ -21,8 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
   - Text is converted to UTF-8 encoding before being passed to the underlying Gherkin gem. This is due to UTF-8 being 
-    the only encoding supported by Gherkin. The `gherkin` gem did the conversion automatically but the `cucumber-gherkin` 
-    gem does not.
+    the only encoding supported by Gherkin. The `gherkin` gem did the conversion automatically and so this conversion 
+    was not necessary previously but the `cucumber-gherkin` gem does not do any automatic conversion.
 
 ## [3.0.0] - 2020-06-08
 
@@ -319,7 +323,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.1.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/enkessler/cuke_modeler/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/enkessler/cuke_modeler/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/enkessler/cuke_modeler/compare/v2.1.0...v3.0.0
 [2.1.0]: https://github.com/enkessler/cuke_modeler/compare/v2.0.0...v2.1.0
