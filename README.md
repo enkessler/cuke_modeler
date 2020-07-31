@@ -89,7 +89,7 @@ to each other as described in the AST [here](https://github.com/cucumber/cucumbe
 ## Modeling dialects other than English
 
 The modeling functionality provided by this gem will work with any dialect that 
-is supported by the **gherkin** gem. For modeling at the feature level or higher, 
+is supported by the **cucumber-gherkin** gem. For modeling at the feature level or higher, 
 no additional effort is needed because the `# language` header at the top of a 
 feature already indicates that a non-default dialect is being used.
 
