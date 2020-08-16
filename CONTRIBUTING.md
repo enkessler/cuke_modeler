@@ -26,6 +26,6 @@ Be sure to update the `CHANGELOG` to reflect your changes if they affect the out
 Some guidelines when adding a new model
   * Inherit from the base model class. Having a common base class will make it easier for other tools to 
   interact with the models.
-  * Be sure that the model's parsing data is not stored by it's parent model or else the raw data from the 
+  * Be sure that the model's parsing data is not stored by its parent model or else the raw data from the 
   Gherkin gem will get duplicated, which could result in a lot of extra data usage for large projects.
   
