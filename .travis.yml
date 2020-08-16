@@ -20,6 +20,7 @@ gemfile:
   - testing/gemfiles/gherkin12.gemfile
   - testing/gemfiles/gherkin13.gemfile
   - testing/gemfiles/gherkin14.gemfile
+  - testing/gemfiles/gherkin15.gemfile
 
 matrix:
   exclude:
