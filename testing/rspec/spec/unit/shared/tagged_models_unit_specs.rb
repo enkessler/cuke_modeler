@@ -50,7 +50,7 @@ shared_examples_for 'a tagged model' do
 
   it 'inherits its applied tags from its ancestors' do
     all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
-    parent = double(:all_tags => all_parent_tags)
+    parent = double(all_tags: all_parent_tags)
 
     model.parent_model = parent
 
@@ -61,7 +61,7 @@ shared_examples_for 'a tagged model' do
     all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
     own_tags = [:tag_1, :tag_2]
 
-    parent = double(:all_tags => all_parent_tags)
+    parent = double(all_tags: all_parent_tags)
 
     model.parent_model = parent
     model.tags = own_tags

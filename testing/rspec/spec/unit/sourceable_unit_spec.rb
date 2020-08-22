@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../spec_helper"
 
 
-describe 'Sourceable, Unit', :unit_test => true do
+describe 'Sourceable, Unit', unit_test: true do
 
   let(:nodule) { CukeModeler::Sourceable }
   let(:model) { Object.new.extend(nodule) }

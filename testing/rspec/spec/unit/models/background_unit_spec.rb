@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Background, Unit', :unit_test => true do
+describe 'Background, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Background }
   let(:background) { clazz.new }

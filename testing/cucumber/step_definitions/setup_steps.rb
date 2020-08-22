@@ -28,5 +28,5 @@ Given(/^the following gherkin:$/) do |text|
 end
 
 Given(/^a feature file with the following gherkin:$/) do |file_text|
-  @file_path = CukeModeler::FileHelper.create_feature_file(:text => file_text)
+  @file_path = CukeModeler::FileHelper.create_feature_file(text: file_text)
 end

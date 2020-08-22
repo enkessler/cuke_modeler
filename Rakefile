@@ -35,7 +35,7 @@ namespace 'cuke_modeler' do
   end
 
   desc 'Run all of the tests'
-  task :test_everything => [:clear_coverage] do
+  task :test_everything => [:clear_coverage] do # rubocop:disable Style/HashSyntax
     rspec_args = '--tag ~@wip --pattern "testing/rspec/spec/**/*_spec.rb" --force-color'
 
     cucumber_version = Gem.loaded_specs['cucumber'].version.version
@@ -54,7 +54,7 @@ namespace 'cuke_modeler' do
   Coveralls::RakeTask.new
 
   desc 'The task that CI will run. Do not run locally.'
-  task :ci_build => ['cuke_modeler:test_everything', 'coveralls:push']
+  task :ci_build => ['cuke_modeler:test_everything', 'coveralls:push'] # rubocop:disable Style/HashSyntax
 
   desc 'Check that things look good before trying to release'
   task :prerelease_check do
@@ -79,4 +79,4 @@ namespace 'cuke_modeler' do
 end
 
 
-task :default => 'cuke_modeler:test_everything'
+task :default => 'cuke_modeler:test_everything' # rubocop:disable Style/HashSyntax

@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../spec_helper"
 
 
-describe 'Parsing, Unit', :unit_test => true do
+describe 'Parsing, Unit', unit_test: true do
 
   let(:nodule) { CukeModeler::Parsing }
 

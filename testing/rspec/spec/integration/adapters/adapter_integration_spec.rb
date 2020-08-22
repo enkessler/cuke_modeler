@@ -89,7 +89,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
     end
 
     let(:feature_file_model) do
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text, :name => 'adapter_test_file')
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text, name: 'adapter_test_file')
 
       CukeModeler::FeatureFile.new(test_file_path)
     end
@@ -182,7 +182,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
 
     it 'correctly identifies a minimal feature' do
       source_text = "#{FEATURE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text)
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
       feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
 
       expect(feature_file_model.feature).to be_a(CukeModeler::Feature)
@@ -199,7 +199,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
     it 'correctly identifies a minimal background' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{BACKGROUND_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text)
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
       feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
 
       expect(feature_file_model.feature.background).to be_a(CukeModeler::Background)
@@ -208,7 +208,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
     it 'correctly identifies a minimal scenario' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{SCENARIO_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text)
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
       feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
 
       expect(feature_file_model.feature.tests.first).to be_a(CukeModeler::Scenario)
@@ -217,7 +217,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
     it 'correctly identifies a minimal outline' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{OUTLINE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text)
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
       feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
 
       expect(feature_file_model.feature.tests.first).to be_a(CukeModeler::Outline)
@@ -227,7 +227,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
       source_text = "#{FEATURE_KEYWORD}:
                        #{OUTLINE_KEYWORD}:
                        #{EXAMPLE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(:text => source_text)
+      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
       feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
 
       expect(feature_file_model.feature.tests.first.examples.first).to be_a(CukeModeler::Example)
@@ -238,7 +238,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
   describe 'stuff that is in no way part of the public API and entirely subject to change' do
 
     it 'provides a useful explosion message if it encounters an entirely new type of test' do
-      partial_feature_ast = { :type => :Feature, :location => { :line => 1, :column => 1 }, :children => [{ :some_unknown_type => {} }] }
+      partial_feature_ast = { type: :Feature, location: { line: 1, column: 1 }, children: [{ some_unknown_type: {} }] }
 
       expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end

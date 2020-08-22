@@ -23,7 +23,7 @@ describe 'Directory, Integration' do
 
         let(:root_test_path) { CukeModeler::FileHelper.create_directory }
 
-        let(:directory_path) { CukeModeler::FileHelper.create_directory(:name => 'nested_directory', :directory => root_test_path) }
+        let(:directory_path) { CukeModeler::FileHelper.create_directory(name: 'nested_directory', directory: root_test_path) }
         let(:directory_model) { clazz.new(directory_path) }
 
 
@@ -46,11 +46,11 @@ describe 'Directory, Integration' do
           before(:each) do
             feature_files.each do |file_name|
               # Some versions of Gherkin require feature content to be present in feature files
-              CukeModeler::FileHelper.create_feature_file(:text => "#{FEATURE_KEYWORD}: Test feature", :name => file_name, :directory => directory_path)
+              CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature", name: file_name, directory: directory_path)
             end
 
             non_feature_files.each do |file_name|
-              CukeModeler::FileHelper.create_file(:text => '', :name => file_name, :extension => '.file', :directory => directory_path)
+              CukeModeler::FileHelper.create_file(text: '', name: file_name, extension: '.file', directory: directory_path)
             end
           end
 
@@ -74,7 +74,7 @@ describe 'Directory, Integration' do
 
         context 'with no feature files' do
 
-          let(:directory_path) { CukeModeler::FileHelper.create_directory(:name => 'empty_directory', :directory => root_test_path) }
+          let(:directory_path) { CukeModeler::FileHelper.create_directory(name: 'empty_directory', directory: root_test_path) }
           let(:directory_model) { clazz.new(directory_path) }
 
 
@@ -89,14 +89,14 @@ describe 'Directory, Integration' do
 
         context 'with a nested directory' do
 
-          let(:directory_path) { CukeModeler::FileHelper.create_directory(:name => 'test_directory', :directory => root_test_path) }
+          let(:directory_path) { CukeModeler::FileHelper.create_directory(name: 'test_directory', directory: root_test_path) }
           let(:directory_model) { clazz.new(directory_path) }
 
           let(:nested_directories) { ['nested_directory_1', 'nested_directory_2'] }
 
           before(:each) do
             nested_directories.each do |nested_directory|
-              CukeModeler::FileHelper.create_directory(:name => nested_directory, :directory => directory_path)
+              CukeModeler::FileHelper.create_directory(name: nested_directory, directory: directory_path)
             end
           end
 
@@ -112,7 +112,7 @@ describe 'Directory, Integration' do
 
         context 'with no directories' do
 
-          let(:directory_path) { CukeModeler::FileHelper.create_directory(:name => 'empty_directory', :directory => root_test_path) }
+          let(:directory_path) { CukeModeler::FileHelper.create_directory(name: 'empty_directory', directory: root_test_path) }
           let(:directory_model) { clazz.new(directory_path) }
 
 
@@ -144,9 +144,9 @@ describe 'Directory, Integration' do
 
     it 'properly sets its child models' do
       directory_path = CukeModeler::FileHelper.create_directory
-      _nested_directory_path = CukeModeler::FileHelper.create_directory(:name => 'nested_directory', :directory => directory_path)
+      _nested_directory_path = CukeModeler::FileHelper.create_directory(name: 'nested_directory', directory: directory_path)
 
-      CukeModeler::FileHelper.create_feature_file(:text => "#{FEATURE_KEYWORD}: Test feature", :name => 'test_file', :directory => directory_path)
+      CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature", name: 'test_file', directory: directory_path)
 
 
       directory_model = clazz.new(directory_path)
@@ -161,7 +161,7 @@ describe 'Directory, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_directory(:name => 'nested_directory', :directory => test_directory)
+        CukeModeler::FileHelper.create_directory(name: 'nested_directory', directory: test_directory)
       end
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }

@@ -91,7 +91,7 @@ describe 'Row, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'row_test_file', :directory => test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'row_test_file', directory: test_directory)
       end
 
 

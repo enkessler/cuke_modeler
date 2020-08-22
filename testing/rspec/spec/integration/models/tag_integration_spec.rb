@@ -79,7 +79,7 @@ describe 'Tag, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(:text => source_gherkin, :name => 'tag_test_file', :directory => test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'tag_test_file', directory: test_directory)
       end
 
 

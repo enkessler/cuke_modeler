@@ -10,7 +10,7 @@ module CukeModeler
         options[:text] ||= 'Feature:'
         options[:name] ||= 'test_file'
 
-        create_file(:text => options[:text], :name => options[:name], :extension => '.feature', :directory => options[:directory])
+        create_file(text: options[:text], name: options[:name], extension: '.feature', directory: options[:directory])
       end
 
       def create_file(options = {})

@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Comment, Unit', :unit_test => true do
+describe 'Comment, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Comment }
   let(:model) { clazz.new }

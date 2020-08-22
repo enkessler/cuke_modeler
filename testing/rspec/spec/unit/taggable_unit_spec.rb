@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../spec_helper"
 
 
-describe 'Taggable, Unit', :unit_test => true do
+describe 'Taggable, Unit', unit_test: true do
 
   let(:nodule) { CukeModeler::Taggable }
   let(:model) { o = Object.new.extend(nodule)
@@ -39,7 +39,7 @@ describe 'Taggable, Unit', :unit_test => true do
 
     it 'inherits its applied tags from its ancestors' do
       all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
-      parent = double(:all_tags => all_parent_tags)
+      parent = double(all_tags: all_parent_tags)
 
       model.parent_model = parent
 
@@ -50,7 +50,7 @@ describe 'Taggable, Unit', :unit_test => true do
       all_parent_tags = [:parent_tag_1, :parent_tag_2, :grandparent_tag_1]
       own_tags = [:tag_1, :tag_2]
 
-      parent = double(:all_tags => all_parent_tags)
+      parent = double(all_tags: all_parent_tags)
 
       model.parent_model = parent
       model.tags = own_tags

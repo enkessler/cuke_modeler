@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe 'Directory, Unit', :unit_test => true do
+describe 'Directory, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Directory }
   let(:directory) { clazz.new }

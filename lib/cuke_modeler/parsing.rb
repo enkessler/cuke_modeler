@@ -77,7 +77,7 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { :include_gherkin_document => true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
 
             error_message = messages.find { |message| message[:parse_error] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
@@ -91,7 +91,7 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { :include_gherkin_document => true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
 
             potential_error_message = messages.find { |message| message[:attachment] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
@@ -107,7 +107,7 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { :include_gherkin_document => true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
 
             potential_error_message = messages.find { |message| message[:attachment] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
