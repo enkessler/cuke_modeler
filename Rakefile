@@ -3,6 +3,7 @@ require 'rake'
 require 'racatt'
 require 'coveralls/rake/task'
 require 'rainbow'
+require 'rubocop/rake_task'
 
 
 Rainbow.enabled = true
@@ -66,6 +67,13 @@ namespace 'cuke_modeler' do
     end
 
     puts Rainbow('All is well. :)').green
+  end
+
+  desc 'Generate a Rubocop report for the project'
+  RuboCop::RakeTask.new(:rubocop) do |task|
+    task.patterns   = ['./']
+    task.formatters = ['fuubar', ['html', '--out', 'rubocop.html']]
+    task.options    = ['-S']
   end
 
 end
