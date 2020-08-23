@@ -20,10 +20,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_table_data = parse_source(source_text)
-        populate_table(self, parsed_table_data)
-      end
+      return unless source_text
+
+      parsed_table_data = parse_source(source_text)
+      populate_table(self, parsed_table_data)
     end
 
     # Returns the model objects that belong to this model.

@@ -27,10 +27,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_example_data = parse_source(source_text)
-        populate_example(self, parsed_example_data)
-      end
+      return unless source_text
+
+      parsed_example_data = parse_source(source_text)
+      populate_example(self, parsed_example_data)
     end
 
     # Adds a row to the example table. The row can be given as a Hash of

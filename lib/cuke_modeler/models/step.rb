@@ -24,10 +24,10 @@ module CukeModeler
     def initialize(source_text = nil)
       super(source_text)
 
-      if source_text
-        parsed_step_data = parse_source(source_text)
-        populate_step(self, parsed_step_data)
-      end
+      return unless source_text
+
+      parsed_step_data = parse_source(source_text)
+      populate_step(self, parsed_step_data)
     end
 
     # Returns *true* if the two steps have the same base text (i.e. minus any keyword,

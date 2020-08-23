@@ -366,10 +366,6 @@ Style/GlobalVars:
     - 'testing/rspec/spec/integration/models/rule_integration_spec.rb'
     - 'testing/rspec/spec/integration/parsing_integration_spec.rb'
 
-# Offense count: 25
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.

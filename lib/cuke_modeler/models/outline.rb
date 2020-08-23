@@ -29,10 +29,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_outline_data = parse_source(source_text)
-        populate_outline(self, parsed_outline_data)
-      end
+      return unless source_text
+
+      parsed_outline_data = parse_source(source_text)
+      populate_outline(self, parsed_outline_data)
     end
 
     # Returns *true* if the two models have equivalent steps and *false* otherwise.

@@ -23,10 +23,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_background_data = parse_source(source_text)
-        populate_background(self, parsed_background_data)
-      end
+      return unless source_text
+
+      parsed_background_data = parse_source(source_text)
+      populate_background(self, parsed_background_data)
     end
 
     # Returns *true* if the two models have equivalent steps and *false* otherwise.

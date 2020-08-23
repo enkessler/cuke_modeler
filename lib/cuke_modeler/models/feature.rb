@@ -33,10 +33,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_feature_data = parse_source(source_text)
-        populate_feature(self, parsed_feature_data)
-      end
+      return unless source_text
+
+      parsed_feature_data = parse_source(source_text)
+      populate_feature(self, parsed_feature_data)
     end
 
     # Returns *true* if the feature contains a background, *false* otherwise.

@@ -18,10 +18,10 @@ module CukeModeler
     def initialize(source_text = nil)
       super(source_text)
 
-      if source_text
-        parsed_cell_data = parse_source(source_text)
-        populate_cell(self, parsed_cell_data)
-      end
+      return unless source_text
+
+      parsed_cell_data = parse_source(source_text)
+      populate_cell(self, parsed_cell_data)
     end
 
     # Returns a string representation of this model. For a cell model,

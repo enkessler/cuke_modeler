@@ -28,10 +28,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_rule_data = parse_source(source_text)
-        populate_rule(self, parsed_rule_data)
-      end
+      return unless source_text
+
+      parsed_rule_data = parse_source(source_text)
+      populate_rule(self, parsed_rule_data)
     end
 
     # Returns *true* if the rule contains a background, *false* otherwise.

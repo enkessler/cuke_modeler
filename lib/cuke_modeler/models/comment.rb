@@ -18,10 +18,10 @@ module CukeModeler
     def initialize(source_text = nil)
       super(source_text)
 
-      if source_text
-        parsed_comment_data = parse_source(source_text)
-        populate_comment(self, parsed_comment_data)
-      end
+      return unless source_text
+
+      parsed_comment_data = parse_source(source_text)
+      populate_comment(self, parsed_comment_data)
     end
 
     # Returns a string representation of this model. For a comment model,

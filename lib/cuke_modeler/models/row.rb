@@ -19,10 +19,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_row_data = parse_source(source_text)
-        populate_row(self, parsed_row_data)
-      end
+      return unless source_text
+
+      parsed_row_data = parse_source(source_text)
+      populate_row(self, parsed_row_data)
     end
 
     # Returns a string representation of this model. For a row model,

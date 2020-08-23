@@ -25,10 +25,10 @@ module CukeModeler
 
       super(source_text)
 
-      if source_text
-        parsed_scenario_data = parse_source(source_text)
-        populate_scenario(self, parsed_scenario_data)
-      end
+      return unless source_text
+
+      parsed_scenario_data = parse_source(source_text)
+      populate_scenario(self, parsed_scenario_data)
     end
 
     # Returns *true* if the two models have equivalent steps and *false* otherwise.

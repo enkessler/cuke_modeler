@@ -25,13 +25,11 @@ module CukeModeler
 
       super(file_path)
 
-      if file_path
-        raise(ArgumentError, "Unknown file: #{file_path.inspect}") unless File.exists?(file_path)
+      return unless file_path
+      raise(ArgumentError, "Unknown file: #{file_path.inspect}") unless File.exists?(file_path)
 
-        processed_feature_file_data = process_feature_file(file_path)
-        populate_featurefile(self, processed_feature_file_data)
-      end
-
+      processed_feature_file_data = process_feature_file(file_path)
+      populate_featurefile(self, processed_feature_file_data)
     end
 
     # Returns the name of the modeled feature file.

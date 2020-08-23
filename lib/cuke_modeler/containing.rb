@@ -222,22 +222,20 @@ module CukeModeler
     end
 
     def populate_children(model, parsed_feature_data)
-      elements = parsed_feature_data['elements']
+      return unless parsed_feature_data['elements']
 
-      if elements
-        elements.each do |element|
-          case element['type']
-            when 'Scenario', 'scenario'
-              model.tests << build_child_model(Scenario, element)
-            when 'ScenarioOutline', 'scenario_outline'
-              model.tests << build_child_model(Outline, element)
-            when 'Background', 'background'
-              model.background = build_child_model(Background, element)
-            when 'Rule'
-              model.rules << build_child_model(Rule, element)
-            else
-              raise(ArgumentError, "Unknown element type: #{element['type']}")
-          end
+      parsed_feature_data['elements'].each do |element|
+        case element['type']
+          when 'Scenario', 'scenario'
+            model.tests << build_child_model(Scenario, element)
+          when 'ScenarioOutline', 'scenario_outline'
+            model.tests << build_child_model(Outline, element)
+          when 'Background', 'background'
+            model.background = build_child_model(Background, element)
+          when 'Rule'
+            model.rules << build_child_model(Rule, element)
+          else
+            raise(ArgumentError, "Unknown element type: #{element['type']}")
         end
       end
     end
@@ -290,18 +288,18 @@ module CukeModeler
     end
 
     def populate_tags(model, parsed_model_data)
-      if parsed_model_data['tags']
-        parsed_model_data['tags'].each do |tag|
-          model.tags << build_child_model(Tag, tag)
-        end
+      return unless parsed_model_data['tags']
+
+      parsed_model_data['tags'].each do |tag|
+        model.tags << build_child_model(Tag, tag)
       end
     end
 
     def populate_steps(model, parsed_model_data)
-      if parsed_model_data['steps']
-        parsed_model_data['steps'].each do |step_data|
-          model.steps << build_child_model(Step, step_data)
-        end
+      return unless parsed_model_data['steps']
+
+      parsed_model_data['steps'].each do |step_data|
+        model.steps << build_child_model(Step, step_data)
       end
     end
 

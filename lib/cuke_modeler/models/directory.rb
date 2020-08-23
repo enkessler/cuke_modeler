@@ -24,12 +24,11 @@ module CukeModeler
 
       super(directory_path)
 
-      if directory_path
-        raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exists?(directory_path)
+      return unless directory_path
+      raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exists?(directory_path)
 
-        processed_directory_data = process_directory(directory_path)
-        populate_directory(self, processed_directory_data)
-      end
+      processed_directory_data = process_directory(directory_path)
+      populate_directory(self, processed_directory_data)
     end
 
     # Returns the name of the modeled directory.

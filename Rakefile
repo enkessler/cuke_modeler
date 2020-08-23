@@ -27,11 +27,9 @@ namespace 'cuke_modeler' do
     output = `rdoc lib -C`
     puts output
 
-    if output =~ /100.00% documented/
-      puts Rainbow('All code documented').green
-    else
-      raise Rainbow('Parts of the gem are undocumented').red
-    end
+    raise Rainbow('Parts of the gem are undocumented').red unless output =~ /100.00% documented/
+
+    puts Rainbow('All code documented').green
   end
 
   desc 'Run all of the tests'
