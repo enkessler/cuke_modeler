@@ -64,13 +64,11 @@ module CukeModeler
       entries.each do |entry|
         entry = "#{directory_path}/#{entry}"
 
-        case
-          when File.directory?(entry)
-            directory_data['directories'] << process_directory(entry)
-          when entry =~ /\.feature$/
-            directory_data['feature_files'] << process_feature_file(entry)
-          else
-            # Ignore anything that isn't a directory or a feature file
+        # Ignore anything that isn't a directory or a feature file
+        if File.directory?(entry)
+          directory_data['directories'] << process_directory(entry)
+        elsif entry =~ /\.feature$/
+          directory_data['feature_files'] << process_feature_file(entry)
         end
       end
 

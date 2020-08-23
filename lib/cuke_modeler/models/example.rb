@@ -42,19 +42,18 @@ module CukeModeler
       # A quick 'deep clone' so that the input isn't modified
       row = Marshal::load(Marshal.dump(row))
 
-      case
-        when row.is_a?(Array)
-          # 'stringify' input
-          row.collect! { |value| value.to_s }
+      if row.is_a?(Array)
+        # 'stringify' input
+        row.collect! { |value| value.to_s }
 
-          @rows << Row.new("|#{row.join('|')}|")
-        when row.is_a?(Hash)
-          # 'stringify' input
-          row = row.inject({}) { |hash, (key, value)| hash[key.to_s] = value.to_s; hash }
+        @rows << Row.new("|#{row.join('|')}|")
+      elsif row.is_a?(Hash)
+        # 'stringify' input
+        row = row.inject({}) { |hash, (key, value)| hash[key.to_s] = value.to_s; hash }
 
-          @rows << Row.new("|#{ordered_row_values(row).join('|')}|")
-        else
-          raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
+        @rows << Row.new("|#{ordered_row_values(row).join('|')}|")
+      else
+        raise(ArgumentError, "Can only add row from a Hash or an Array but received #{row.class}")
       end
     end
 
@@ -64,16 +63,15 @@ module CukeModeler
     def remove_row(row_removed)
       return unless argument_rows
 
-      case
-        when row_removed.is_a?(Array)
-          location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == row_removed.collect { |value| value.strip } }
-        when row_removed.is_a?(Hash)
-          # Note: the hash value order has to be manually calculated because Ruby 1.8.7 does not have ordered 
-          # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead 
-          # of being built up in order according to the parameter order.
-          location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
-        else
-          raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}")
+      if row_removed.is_a?(Array)
+        location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == row_removed.collect { |value| value.strip } }
+      elsif row_removed.is_a?(Hash)
+        # Note: the hash value order has to be manually calculated because Ruby 1.8.7 does not have ordered
+        # hash keys. Alternatively, the hash may have simply been built up 'willy nilly' by the user instead
+        # of being built up in order according to the parameter order.
+        location = argument_rows.index { |row| row.cells.collect { |cell| cell.value } == ordered_row_values(row_removed.each_value { |value| value.strip! }) }
+      else
+        raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}")
       end
 
       @rows.delete_at(location + 1) if location

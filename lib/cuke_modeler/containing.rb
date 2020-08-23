@@ -74,13 +74,12 @@ module CukeModeler
     end
 
     def populate_block(step_object, parsed_step_data)
-      case
-        when parsed_step_data['table']
-          step_object.block = build_child_model(Table, parsed_step_data['table'])
-        when parsed_step_data['doc_string']
-          step_object.block = build_child_model(DocString, parsed_step_data['doc_string'])
-        else
-          step_object.block = nil
+      if parsed_step_data['table']
+        step_object.block = build_child_model(Table, parsed_step_data['table'])
+      elsif parsed_step_data['doc_string']
+        step_object.block = build_child_model(DocString, parsed_step_data['doc_string'])
+      else
+        step_object.block = nil
       end
     end
 

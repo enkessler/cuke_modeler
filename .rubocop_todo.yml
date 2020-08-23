@@ -324,22 +324,6 @@ Style/EachWithObject:
   Exclude:
     - 'lib/cuke_modeler/models/example.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/EmptyCaseCondition:
-  Exclude:
-    - 'lib/cuke_modeler/containing.rb'
-    - 'lib/cuke_modeler/models/directory.rb'
-    - 'lib/cuke_modeler/models/example.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'lib/cuke_modeler/models/directory.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/EmptyLiteral:
