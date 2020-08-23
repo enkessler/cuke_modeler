@@ -240,7 +240,7 @@ describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
     it 'provides a useful explosion message if it encounters an entirely new type of test' do
       partial_feature_ast = { type: :Feature, location: { line: 1, column: 1 }, children: [{ some_unknown_type: {} }] }
 
-      expect { adapter.adapt_feature!(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+      expect { adapter.adapt_feature(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
     end
 
   end

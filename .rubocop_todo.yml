@@ -43,7 +43,6 @@ Layout/BlockEndNewline:
 # SupportedStyles: case, end
 Layout/CaseIndentation:
   Exclude:
-    - 'lib/cuke_modeler/adapters/gherkin_9_adapter.rb'
     - 'lib/cuke_modeler/containing.rb'
     - 'lib/cuke_modeler/models/directory.rb'
     - 'lib/cuke_modeler/models/example.rb'
@@ -54,7 +53,6 @@ Layout/CaseIndentation:
 # Cop supports --auto-correct.
 Layout/CommentIndentation:
   Exclude:
-    - 'lib/cuke_modeler/adapters/gherkin_9_adapter.rb'
     - 'lib/cuke_modeler/models/directory.rb'
 
 
@@ -330,7 +328,6 @@ Style/EachWithObject:
 # Cop supports --auto-correct.
 Style/EmptyCaseCondition:
   Exclude:
-    - 'lib/cuke_modeler/adapters/gherkin_9_adapter.rb'
     - 'lib/cuke_modeler/containing.rb'
     - 'lib/cuke_modeler/models/directory.rb'
     - 'lib/cuke_modeler/models/example.rb'
@@ -341,7 +338,6 @@ Style/EmptyCaseCondition:
 # SupportedStyles: empty, nil, both
 Style/EmptyElse:
   Exclude:
-    - 'lib/cuke_modeler/adapters/gherkin_9_adapter.rb'
     - 'lib/cuke_modeler/models/directory.rb'
 
 # Offense count: 1
