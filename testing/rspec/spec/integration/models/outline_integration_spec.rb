@@ -123,13 +123,14 @@ describe 'Outline, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                              #{OUTLINE_KEYWORD}: Test test
-                                #{STEP_KEYWORD} a step
-                              #{EXAMPLE_KEYWORD}: Test example
-                                | a param |
-                                | a value |"
+           #{OUTLINE_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step
+           #{EXAMPLE_KEYWORD}: Test example
+             | a param |
+             | a value |"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -172,7 +173,7 @@ describe 'Outline, Integration' do
 
 
         it "models the outline's keyword" do
-          expect(outline.keyword).to eq("#{OUTLINE_KEYWORD}")
+          expect(outline.keyword).to eq(OUTLINE_KEYWORD)
         end
 
         it "models the outline's source line" do
@@ -191,23 +192,25 @@ describe 'Outline, Integration' do
 
         context 'a filled outline' do
 
-          let(:source_text) { "@tag1 @tag2 @tag3
-                                 #{OUTLINE_KEYWORD}: Foo
-                                     Scenario description.
+          let(:source_text) {
+            "@tag1 @tag2 @tag3
+             #{OUTLINE_KEYWORD}: Foo
+                 Scenario description.
 
-                                   Some more.
-                                       Even more.
+               Some more.
+                   Even more.
 
-                                   #{STEP_KEYWORD} a <setup> step
-                                   #{STEP_KEYWORD} an action step
-                                   #{STEP_KEYWORD} a <verification> step
+               #{STEP_KEYWORD} a <setup> step
+               #{STEP_KEYWORD} an action step
+               #{STEP_KEYWORD} a <verification> step
 
-                                 #{EXAMPLE_KEYWORD}: example 1
-                                   | setup | verification |
-                                   | x     | y            |
-                                 #{EXAMPLE_KEYWORD}: example 2
-                                   | setup | verification |
-                                   | a     | b            |" }
+             #{EXAMPLE_KEYWORD}: example 1
+               | setup | verification |
+               | x     | y            |
+             #{EXAMPLE_KEYWORD}: example 2
+               | setup | verification |
+               | a     | b            |"
+          }
           let(:outline) { clazz.new(source_text) }
 
 

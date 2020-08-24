@@ -96,11 +96,12 @@ describe 'Row, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                                #{SCENARIO_KEYWORD}: Test test
-                                  #{STEP_KEYWORD} a step:
-                                    | a | table |"
+           #{SCENARIO_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step:
+               | a | table |"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -140,11 +141,12 @@ describe 'Row, Integration' do
       context 'a row that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{SCENARIO_KEYWORD}: Test test
-                                    #{STEP_KEYWORD} a step:
-                                      | a | table |"
+             #{SCENARIO_KEYWORD}: Test test
+               #{STEP_KEYWORD} a step:
+                 | a | table |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -163,11 +165,12 @@ describe 'Row, Integration' do
       context 'a row that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{BACKGROUND_KEYWORD}: Test background
-                                  #{STEP_KEYWORD} a step:
-                                    | a | table |"
+             #{BACKGROUND_KEYWORD}: Test background
+               #{STEP_KEYWORD} a step:
+                 | a | table |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -185,13 +188,14 @@ describe 'Row, Integration' do
       context 'a row that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{OUTLINE_KEYWORD}: Test outline
-                                  #{STEP_KEYWORD} a step
-                                #{EXAMPLE_KEYWORD}:
-                                  | param |
-                                  | value |"
+             #{OUTLINE_KEYWORD}: Test outline
+               #{STEP_KEYWORD} a step
+             #{EXAMPLE_KEYWORD}:
+               | param |
+               | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }

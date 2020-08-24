@@ -19,5 +19,9 @@ module CukeModeler
       Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
     end
 
+    def self.test_storage
+      @test_storage ||= {}
+    end
+
   end
 end

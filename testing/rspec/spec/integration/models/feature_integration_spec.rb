@@ -221,37 +221,39 @@ describe 'Feature, Integration' do
 
         context 'a filled feature' do
 
-          let(:source_text) { "@tag_1 @tag_2
-                               #{FEATURE_KEYWORD}: Feature Foo
+          let(:source_text) {
+            "@tag_1 @tag_2
+             #{FEATURE_KEYWORD}: Feature Foo
 
-                                   Some feature description.
+                 Some feature description.
 
-                                 Some more.
-                                     And some more.
+               Some more.
+                   And some more.
 
-                                 #{BACKGROUND_KEYWORD}: The background
-                                   #{STEP_KEYWORD} some setup step
+               #{BACKGROUND_KEYWORD}: The background
+                 #{STEP_KEYWORD} some setup step
 
-                                 #{SCENARIO_KEYWORD}: Scenario 1
-                                   #{STEP_KEYWORD} a step
+               #{SCENARIO_KEYWORD}: Scenario 1
+                 #{STEP_KEYWORD} a step
 
-                                 #{OUTLINE_KEYWORD}: Outline 1
-                                   #{STEP_KEYWORD} a step
-                                 #{EXAMPLE_KEYWORD}:
-                                   | param |
-                                   | value |
+               #{OUTLINE_KEYWORD}: Outline 1
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
 
-                                 #{SCENARIO_KEYWORD}: Scenario 2
-                                   #{STEP_KEYWORD} a step
+               #{SCENARIO_KEYWORD}: Scenario 2
+                 #{STEP_KEYWORD} a step
 
-                                 #{OUTLINE_KEYWORD}: Outline 2
-                                   #{STEP_KEYWORD} a step
-                                 #{EXAMPLE_KEYWORD}:
-                                   | param |
-                                   | value |
+               #{OUTLINE_KEYWORD}: Outline 2
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
 
-                                 #{RULE_KEYWORD}: Rule 1
-                                 #{RULE_KEYWORD}: Rule 2" }
+               #{RULE_KEYWORD}: Rule 1
+               #{RULE_KEYWORD}: Rule 2"
+          }
           let(:feature) { clazz.new(source_text) }
 
 
@@ -752,7 +754,7 @@ describe 'Feature, Integration' do
 
     it 'provides a useful explosion message if it encounters an entirely new type of feature child' do
       begin
-        $old_method = CukeModeler::Parsing.method(:parse_text)
+        CukeModeler::HelperMethods.test_storage[:old_method] = CukeModeler::Parsing.method(:parse_text)
 
 
         # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new types of language objects
@@ -760,7 +762,7 @@ describe 'Feature, Integration' do
           module Parsing
             class << self
               def parse_text(source_text, filename)
-                result = $old_method.call(source_text, filename)
+                result = CukeModeler::HelperMethods.test_storage[:old_method].call(source_text, filename)
 
                 result['feature']['elements'].first['type'] = :some_unknown_type
 
@@ -777,7 +779,7 @@ describe 'Feature, Integration' do
         module CukeModeler
           module Parsing
             class << self
-              define_method(:parse_text, $old_method)
+              define_method(:parse_text, CukeModeler::HelperMethods.test_storage[:old_method])
             end
           end
         end

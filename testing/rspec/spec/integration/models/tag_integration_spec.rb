@@ -84,16 +84,17 @@ describe 'Tag, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "@feature_tag
-                              #{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "@feature_tag
+         #{FEATURE_KEYWORD}: Test feature
 
-                                #{OUTLINE_KEYWORD}: Test test
-                                  #{STEP_KEYWORD} a step
+           #{OUTLINE_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step
 
-                                @example_tag
-                                #{EXAMPLE_KEYWORD}: Test example
-                                  | a param |
-                                  | a value |"
+           @example_tag
+           #{EXAMPLE_KEYWORD}: Test example
+             | a param |
+             | a value |"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -122,11 +123,12 @@ describe 'Tag, Integration' do
       context 'a tag that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  @a_tag
-                                  #{SCENARIO_KEYWORD}: Test scenario
-                                    #{STEP_KEYWORD} a step"
+             @a_tag
+             #{SCENARIO_KEYWORD}: Test scenario
+               #{STEP_KEYWORD} a step"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -144,14 +146,15 @@ describe 'Tag, Integration' do
       context 'a tag that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                @a_tag
-                                #{OUTLINE_KEYWORD}: Test outline
-                                  #{STEP_KEYWORD} a step
-                                #{EXAMPLE_KEYWORD}:
-                                  | param |
-                                  | value |"
+           @a_tag
+           #{OUTLINE_KEYWORD}: Test outline
+             #{STEP_KEYWORD} a step
+           #{EXAMPLE_KEYWORD}:
+             | param |
+             | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -169,14 +172,15 @@ describe 'Tag, Integration' do
       context 'a tag that is part of an example' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{OUTLINE_KEYWORD}: Test outline
-                                  #{STEP_KEYWORD} a step
-                                @a_tag
-                                #{EXAMPLE_KEYWORD}:
-                                  | param |
-                                  | value |"
+             #{OUTLINE_KEYWORD}: Test outline
+               #{STEP_KEYWORD} a step
+             @a_tag
+             #{EXAMPLE_KEYWORD}:
+               | param |
+               | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }

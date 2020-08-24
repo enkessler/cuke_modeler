@@ -137,7 +137,7 @@ describe 'Example, Integration' do
 
 
         it "models the example's keyword" do
-          expect(example.keyword).to eq("#{EXAMPLE_KEYWORD}")
+          expect(example.keyword).to eq(EXAMPLE_KEYWORD)
         end
 
         it "models the example's source line" do
@@ -156,16 +156,18 @@ describe 'Example, Integration' do
 
         context 'a filled example' do
 
-          let(:source_text) { "@tag1 @tag2 @tag3
-                               #{EXAMPLE_KEYWORD}: test example
+          let(:source_text) {
+            "@tag1 @tag2 @tag3
+             #{EXAMPLE_KEYWORD}: test example
 
-                                   Some example description.
+                 Some example description.
 
-                                 Some more.
-                                     Even more.
+               Some more.
+                   Even more.
 
-                                 | param |
-                                 | value |" }
+               | param |
+               | value |"
+          }
           let(:example) { clazz.new(source_text) }
 
 
@@ -271,7 +273,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        new_row = {'param1' => 'value3', 'param2' => 'value4'}
+        new_row = { 'param1' => 'value3', 'param2' => 'value4' }
         example.add_row(new_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
@@ -282,7 +284,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        new_row = {:param1 => 'value3', 'param2' => 4}
+        new_row = { :param1 => 'value3', 'param2' => 4 }
         example.add_row(new_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
@@ -293,7 +295,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        new_row = {'param2' => 'value4', 'param1' => 'value3'}
+        new_row = { 'param2' => 'value4', 'param1' => 'value3' }
         example.add_row(new_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
@@ -335,7 +337,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        hash_row = {'param1' => 'value3  ', 'param2' => '  value4'}
+        hash_row = { 'param1' => 'value3  ', 'param2' => '  value4' }
         array_row = ['value5', ' value6 ']
         example.add_row(hash_row)
         example.add_row(array_row)
@@ -351,7 +353,7 @@ describe 'Example, Integration' do
         new_row = ['value1', 'value2']
         expect { example.add_row(new_row) }.to raise_error('Cannot add a row. No parameters have been set.')
 
-        new_row = {'param1' => 'value1', 'param2' => 'value2'}
+        new_row = { 'param1' => 'value1', 'param2' => 'value2' }
         expect { example.add_row(new_row) }.to raise_error('Cannot add a row. No parameters have been set.')
       end
 
@@ -362,7 +364,7 @@ describe 'Example, Integration' do
         array_row = ['value1'.freeze, 'value2'.freeze].freeze
         expect { example.add_row(array_row) }.to_not raise_error
 
-        hash_row = {'param1'.freeze => 'value1'.freeze, 'param2'.freeze => 'value2'.freeze}.freeze
+        hash_row = { 'param1'.freeze => 'value1'.freeze, 'param2'.freeze => 'value2'.freeze }.freeze
         expect { example.add_row(hash_row) }.to_not raise_error
       end
 
@@ -375,7 +377,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
         example = clazz.new(source)
 
-        old_row = {'param1' => 'value3', 'param2' => 'value4'}
+        old_row = { 'param1' => 'value3', 'param2' => 'value4' }
         example.remove_row(old_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
@@ -386,7 +388,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|\n|value3|value4|"
         example = clazz.new(source)
 
-        old_row = {'param2' => 'value4', 'param1' => 'value3'}
+        old_row = { 'param2' => 'value4', 'param1' => 'value3' }
         example.remove_row(old_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
 
@@ -415,7 +417,7 @@ describe 'Example, Integration' do
         example = clazz.new(source)
 
         # These will affect different rows
-        hash_row = {'param1' => 'value3  ', 'param2' => '  value4'}
+        hash_row = { 'param1' => 'value3  ', 'param2' => '  value4' }
         array_row = ['value5', ' value6 ']
 
         example.remove_row(hash_row)
@@ -437,7 +439,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
         example = clazz.new(source)
 
-        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        hash_row = { 'param1' => 'param1', 'param2' => 'param2' }
         array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
@@ -455,7 +457,7 @@ describe 'Example, Integration' do
         source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|\n|param1|param2|"
         example = clazz.new(source)
 
-        hash_row = {'param1' => 'param1', 'param2' => 'param2'}
+        hash_row = { 'param1' => 'param1', 'param2' => 'param2' }
         array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
@@ -480,13 +482,14 @@ describe 'Example, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                              #{OUTLINE_KEYWORD}: Test test
-                                #{STEP_KEYWORD} a step
-                              #{EXAMPLE_KEYWORD}: Test example
-                                | a param |
-                                | a value |"
+           #{OUTLINE_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step
+           #{EXAMPLE_KEYWORD}: Test example
+             | a param |
+             | a value |"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -514,13 +517,14 @@ describe 'Example, Integration' do
       context 'an example that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{OUTLINE_KEYWORD}: Test outline
-                                    #{STEP_KEYWORD} a step
-                                  #{EXAMPLE_KEYWORD}:
-                                    | param |
-                                    | value |"
+             #{OUTLINE_KEYWORD}: Test outline
+               #{STEP_KEYWORD} a step
+             #{EXAMPLE_KEYWORD}:
+               | param |
+               | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }

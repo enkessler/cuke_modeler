@@ -14,3 +14,14 @@ Style/HashTransformKeys:
   Enabled: true
 Style/HashTransformValues:
   Enabled: true
+
+# These help with readability
+Layout/CaseIndentation:
+  Enabled: false
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+# RSpec tests are inherently large blocks of code
+Metrics/BlockLength:
+  Exclude:
+    - 'testing/rspec/spec/**/*'

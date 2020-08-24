@@ -75,7 +75,7 @@ describe 'Parsing, Integration' do
 
     it 'includes the underlying error message in the error that it raises' do
       begin
-        $old_method = CukeModeler::Parsing.method(:parsing_method)
+        CukeModeler::HelperMethods.test_storage[:old_method] = CukeModeler::Parsing.method(:parsing_method)
 
         # Custom error type in order to ensure that we are throwing the correct thing
         module CukeModeler
@@ -87,7 +87,7 @@ describe 'Parsing, Integration' do
         module CukeModeler
           module Parsing
             class << self
-              def parsing_method(*args)
+              def parsing_method(*_args)
                 raise(CukeModeler::TestError, 'something went wrong')
               end
             end
@@ -101,7 +101,7 @@ describe 'Parsing, Integration' do
         module CukeModeler
           module Parsing
             class << self
-              define_method(:parsing_method, $old_method)
+              define_method(:parsing_method, CukeModeler::HelperMethods.test_storage[:old_method])
             end
           end
         end
@@ -122,33 +122,30 @@ describe 'Parsing, Integration' do
 
       it 'encodes text as UTF-8 before parsing' do
         begin
-          $old_method = CukeModeler::Parsing.method(:parsing_method)
+          CukeModeler::HelperMethods.test_storage[:old_method] = CukeModeler::Parsing.method(:parsing_method)
 
           # Monkey patch the parsing method in order to capture the information that we need for testing
           module CukeModeler
             module Parsing
               class << self
-                def parsing_method(source_text, *args)
-                  $source_text_received = source_text
+                def parsing_method(source_text, *_args)
+                  CukeModeler::HelperMethods.test_storage[:source_text_received] = source_text
 
                   # Short circuit the rest of the parsing process
-                  fail
+                  raise('Boom!')
                 end
               end
             end
           end
 
-          begin
-            nodule.parse_text(text)
-          rescue
-            expect($source_text_received.encoding.to_s).to eq('UTF-8')
-          end
+          expect { nodule.parse_text(text) }.to raise_error(ArgumentError)
+          expect(CukeModeler::HelperMethods.test_storage[:source_text_received].encoding.to_s).to eq('UTF-8')
         ensure
           # Making sure that our changes don't escape a test and ruin the rest of the suite
           module CukeModeler
             module Parsing
               class << self
-                define_method(:parsing_method, $old_method)
+                define_method(:parsing_method, CukeModeler::HelperMethods.test_storage[:old_method])
               end
             end
           end

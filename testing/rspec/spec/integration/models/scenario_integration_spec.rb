@@ -135,10 +135,11 @@ describe 'Scenario, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                              #{SCENARIO_KEYWORD}: Test test
-                                #{STEP_KEYWORD} a step"
+           #{SCENARIO_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -181,7 +182,7 @@ describe 'Scenario, Integration' do
 
 
         it "models the scenario's keyword" do
-          expect(scenario.keyword).to eq("#{SCENARIO_KEYWORD}")
+          expect(scenario.keyword).to eq(SCENARIO_KEYWORD)
         end
 
         it "models the scenario's source line" do
@@ -197,16 +198,18 @@ describe 'Scenario, Integration' do
 
         context 'a filled scenario' do
 
-          let(:source_text) { "@tag1 @tag2 @tag3
-                                 #{SCENARIO_KEYWORD}: Scenario name
+          let(:source_text) {
+            "@tag1 @tag2 @tag3
+               #{SCENARIO_KEYWORD}: Scenario name
 
-                                     Scenario description.
+                   Scenario description.
 
-                                   Some more.
-                                       Even more.
+                 Some more.
+                     Even more.
 
-                                 #{STEP_KEYWORD} a step
-                                 #{STEP_KEYWORD} another step" }
+               #{STEP_KEYWORD} a step
+               #{STEP_KEYWORD} another step"
+          }
           let(:scenario) { clazz.new(source_text) }
 
 

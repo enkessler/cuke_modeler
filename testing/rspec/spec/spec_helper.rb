@@ -43,7 +43,7 @@ case gherkin_major_version
 
     module Gherkin
       class << self
-        alias_method :original_from_source, :from_source
+        alias original_from_source from_source
 
         def from_source(uri, data, options = {})
           options[:default_dialect] ||= CukeModeler::Parsing.dialect

@@ -84,8 +84,9 @@ describe 'Comment, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "# feature comment
-                              #{FEATURE_KEYWORD}: Test feature"
+      let(:source_gherkin) {
+        "# feature comment
+         #{FEATURE_KEYWORD}: Test feature"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }

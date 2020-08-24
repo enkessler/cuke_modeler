@@ -224,33 +224,35 @@ describe 'Rule, Integration' do
 
         context 'a filled rule' do
 
-          let(:source_text) { "#{RULE_KEYWORD}: Rule Foo
+          let(:source_text) {
+            "#{RULE_KEYWORD}: Rule Foo
 
-                                   Some rule description.
+                 Some rule description.
 
-                                 Some more.
-                                     And some more.
+               Some more.
+                   And some more.
 
-                                 #{BACKGROUND_KEYWORD}: The background
-                                   #{STEP_KEYWORD} some setup step
+               #{BACKGROUND_KEYWORD}: The background
+                 #{STEP_KEYWORD} some setup step
 
-                                 #{SCENARIO_KEYWORD}: Scenario 1
-                                   #{STEP_KEYWORD} a step
+               #{SCENARIO_KEYWORD}: Scenario 1
+                 #{STEP_KEYWORD} a step
 
-                                 #{OUTLINE_KEYWORD}: Outline 1
-                                   #{STEP_KEYWORD} a step
-                                 #{EXAMPLE_KEYWORD}:
-                                   | param |
-                                   | value |
+               #{OUTLINE_KEYWORD}: Outline 1
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
 
-                                 #{SCENARIO_KEYWORD}: Scenario 2
-                                   #{STEP_KEYWORD} a step
+               #{SCENARIO_KEYWORD}: Scenario 2
+                 #{STEP_KEYWORD} a step
 
-                                 #{OUTLINE_KEYWORD}: Outline 2
-                                   #{STEP_KEYWORD} a step
-                                 #{EXAMPLE_KEYWORD}:
-                                   | param |
-                                   | value |" }
+               #{OUTLINE_KEYWORD}: Outline 2
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |"
+          }
           let(:rule) { clazz.new(source_text) }
 
 
@@ -327,8 +329,10 @@ describe 'Rule, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
-                                #{RULE_KEYWORD}: Test rule" }
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
+           #{RULE_KEYWORD}: Test rule"
+      }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
       let(:rule_model) { directory_model.feature_files.first.feature.rules.first }
@@ -555,55 +559,55 @@ describe 'Rule, Integration' do
           rule_output = rule.to_s.split("\n", -1)
 
           expect(rule_output).to eq(["#{RULE_KEYWORD}: A rule with everything it could have",
-                                        '',
-                                        'Including a description',
-                                        'and then some.',
-                                        '',
-                                        "  #{BACKGROUND_KEYWORD}: a background",
-                                        '',
-                                        '  Background',
-                                        '  description',
-                                        '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        '      | value1 |',
-                                        '      | value2 |',
-                                        "    #{STEP_KEYWORD} another step",
-                                        '',
-                                        '  @scenario_tag',
-                                        "  #{SCENARIO_KEYWORD}: a scenario",
-                                        '',
-                                        '  Scenario',
-                                        '  description',
-                                        '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        "    #{STEP_KEYWORD} another step",
-                                        '      """ with content type',
-                                        '        some text',
-                                        '      """',
-                                        '',
-                                        '  @outline_tag',
-                                        "  #{OUTLINE_KEYWORD}: an outline",
-                                        '',
-                                        '  Outline',
-                                        '  description',
-                                        '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        '      | value2 |',
-                                        "    #{STEP_KEYWORD} another step",
-                                        '      """',
-                                        '        some text',
-                                        '      """',
-                                        '',
-                                        '  @example_tag',
-                                        "  #{EXAMPLE_KEYWORD}:",
-                                        '',
-                                        '  Example',
-                                        '  description',
-                                        '',
-                                        '    | param |',
-                                        '    | value |',
-                                        '',
-                                        "  #{EXAMPLE_KEYWORD}: additional example"])
+                                     '',
+                                     'Including a description',
+                                     'and then some.',
+                                     '',
+                                     "  #{BACKGROUND_KEYWORD}: a background",
+                                     '',
+                                     '  Background',
+                                     '  description',
+                                     '',
+                                     "    #{STEP_KEYWORD} a step",
+                                     '      | value1 |',
+                                     '      | value2 |',
+                                     "    #{STEP_KEYWORD} another step",
+                                     '',
+                                     '  @scenario_tag',
+                                     "  #{SCENARIO_KEYWORD}: a scenario",
+                                     '',
+                                     '  Scenario',
+                                     '  description',
+                                     '',
+                                     "    #{STEP_KEYWORD} a step",
+                                     "    #{STEP_KEYWORD} another step",
+                                     '      """ with content type',
+                                     '        some text',
+                                     '      """',
+                                     '',
+                                     '  @outline_tag',
+                                     "  #{OUTLINE_KEYWORD}: an outline",
+                                     '',
+                                     '  Outline',
+                                     '  description',
+                                     '',
+                                     "    #{STEP_KEYWORD} a step",
+                                     '      | value2 |',
+                                     "    #{STEP_KEYWORD} another step",
+                                     '      """',
+                                     '        some text',
+                                     '      """',
+                                     '',
+                                     '  @example_tag',
+                                     "  #{EXAMPLE_KEYWORD}:",
+                                     '',
+                                     '  Example',
+                                     '  description',
+                                     '',
+                                     '    | param |',
+                                     '    | value |',
+                                     '',
+                                     "  #{EXAMPLE_KEYWORD}: additional example"])
         end
 
       end
@@ -642,7 +646,7 @@ describe 'Rule, Integration' do
 
     it 'provides a useful explosion message if it encounters an entirely new type of rule child' do
       begin
-        $old_method = CukeModeler::Parsing.method(:parse_text)
+        CukeModeler::HelperMethods.test_storage[:old_method] = CukeModeler::Parsing.method(:parse_text)
 
 
         # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new types of language objects
@@ -650,7 +654,7 @@ describe 'Rule, Integration' do
           module Parsing
             class << self
               def parse_text(source_text, filename)
-                result = $old_method.call(source_text, filename)
+                result = CukeModeler::HelperMethods.test_storage[:old_method].call(source_text, filename)
 
                 result['feature']['elements'].first['elements'].first['type'] = :some_unknown_type
 
@@ -667,7 +671,7 @@ describe 'Rule, Integration' do
         module CukeModeler
           module Parsing
             class << self
-              define_method(:parse_text, $old_method)
+              define_method(:parse_text, CukeModeler::HelperMethods.test_storage[:old_method])
             end
           end
         end

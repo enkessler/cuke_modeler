@@ -98,15 +98,16 @@ describe 'DocString, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                                #{SCENARIO_KEYWORD}: Test test
-                                  #{STEP_KEYWORD} a big step:
-                                \"\"\"
-                                a
-                                doc
-                                string
-                                \"\"\""
+           #{SCENARIO_KEYWORD}: Test test
+             #{STEP_KEYWORD} a big step:
+             \"\"\"
+             a
+             doc
+             string
+             \"\"\""
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -134,15 +135,16 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{SCENARIO_KEYWORD}: Test test
-                                    #{STEP_KEYWORD} a big step:
-                                      \"\"\"
-                                      a
-                                      doc
-                                      string
-                                      \"\"\""
+             #{SCENARIO_KEYWORD}: Test test
+               #{STEP_KEYWORD} a big step:
+                 \"\"\"
+                 a
+                 doc
+                 string
+                 \"\"\""
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -160,18 +162,19 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{OUTLINE_KEYWORD}: Test outline
-                                    #{STEP_KEYWORD} a big step:
-                                      \"\"\"
-                                      a
-                                      doc
-                                      string
-                                      \"\"\"
-        #{EXAMPLE_KEYWORD}:
-                                    | param |
-                                    | value |"
+             #{OUTLINE_KEYWORD}: Test outline
+               #{STEP_KEYWORD} a big step:
+                 \"\"\"
+                 a
+                 doc
+                 string
+                 \"\"\"
+             #{EXAMPLE_KEYWORD}:
+               | param |
+               | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -189,15 +192,16 @@ describe 'DocString, Integration' do
       context 'a doc string that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                  #{BACKGROUND_KEYWORD}: Test background
-                                    #{STEP_KEYWORD} a big step:
-                                      \"\"\"
-                                      a
-                                      doc
-                                      string
-                                      \"\"\""
+             #{BACKGROUND_KEYWORD}: Test background
+               #{STEP_KEYWORD} a big step:
+                 \"\"\"
+                 a
+                 doc
+                 string
+                 \"\"\""
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -233,9 +237,11 @@ describe 'DocString, Integration' do
 
         context 'a filled doc string' do
 
-          let(:source_text) { ['""" type foo',
-                               'bar',
-                               '"""'].join("\n") }
+          let(:source_text) {
+            ['""" type foo',
+             'bar',
+             '"""'].join("\n")
+          }
           let(:doc_string) { clazz.new(source_text) }
 
 
@@ -251,8 +257,10 @@ describe 'DocString, Integration' do
 
         context 'an empty doc_string' do
 
-          let(:source_text) { '"""
-                               """' }
+          let(:source_text) {
+            '"""
+             """'
+          }
           let(:doc_string) { clazz.new(source_text) }
 
           it "models the doc_string's content type" do

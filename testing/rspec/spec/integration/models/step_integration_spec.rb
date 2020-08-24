@@ -107,7 +107,7 @@ describe 'Step, Integration' do
 
 
         it "models the step's keyword" do
-          expect(step.keyword).to eq("#{STEP_KEYWORD}")
+          expect(step.keyword).to eq(STEP_KEYWORD)
         end
 
         it "models the step's text" do
@@ -139,9 +139,11 @@ describe 'Step, Integration' do
 
         context 'a step with a table' do
 
-          let(:source_text) { "#{STEP_KEYWORD} a step
-                                 | value 1 |
-                                 | value 2 |" }
+          let(:source_text) {
+            "#{STEP_KEYWORD} a step
+               | value 1 |
+               | value 2 |"
+          }
           let(:step) { clazz.new(source_text) }
 
 
@@ -155,10 +157,12 @@ describe 'Step, Integration' do
 
         context 'a step with a doc string' do
 
-          let(:source_text) { "#{STEP_KEYWORD} a step
-                                 \"\"\"
-                                 some text
-                                 \"\"\"" }
+          let(:source_text) {
+            "#{STEP_KEYWORD} a step
+               \"\"\"
+               some text
+               \"\"\""
+          }
           let(:step) { clazz.new(source_text) }
 
 
@@ -350,10 +354,11 @@ describe 'Step, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                              #{SCENARIO_KEYWORD}: Test test
-                                #{STEP_KEYWORD} a step:"
+           #{SCENARIO_KEYWORD}: Test test
+             #{STEP_KEYWORD} a step:"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -382,10 +387,11 @@ describe 'Step, Integration' do
       context 'a step that is part of a scenario' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{SCENARIO_KEYWORD}: Test scenario
-                                  #{STEP_KEYWORD} a step"
+             #{SCENARIO_KEYWORD}: Test scenario
+               #{STEP_KEYWORD} a step"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -403,13 +409,14 @@ describe 'Step, Integration' do
       context 'a step that is part of an outline' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{OUTLINE_KEYWORD}: Test outline
-                                  #{STEP_KEYWORD} a step
-                                #{EXAMPLE_KEYWORD}:
-                                  | param |
-                                  | value |"
+             #{OUTLINE_KEYWORD}: Test outline
+               #{STEP_KEYWORD} a step
+             #{EXAMPLE_KEYWORD}:
+               | param |
+               | value |"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -427,10 +434,11 @@ describe 'Step, Integration' do
       context 'a step that is part of a background' do
 
         let(:test_directory) { CukeModeler::FileHelper.create_directory }
-        let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+        let(:source_gherkin) {
+          "#{FEATURE_KEYWORD}: Test feature
 
-                                #{BACKGROUND_KEYWORD}: Test background
-                                  #{STEP_KEYWORD} a step"
+             #{BACKGROUND_KEYWORD}: Test background
+               #{STEP_KEYWORD} a step"
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -480,9 +488,11 @@ describe 'Step, Integration' do
 
         context 'a step with a table' do
 
-          let(:source_text) { ["#{STEP_KEYWORD} a step",
-                               '  | value1 | value2 |',
-                               '  | value3 | value4 |'].join("\n") }
+          let(:source_text) {
+            ["#{STEP_KEYWORD} a step",
+             '  | value1 | value2 |',
+             '  | value3 | value4 |'].join("\n")
+          }
           let(:step) { clazz.new(source_text) }
 
 
@@ -506,10 +516,12 @@ describe 'Step, Integration' do
 
         context 'a step with a doc string' do
 
-          let(:source_text) { ["#{STEP_KEYWORD} a step",
-                               '  """',
-                               '  some text',
-                               '  """'].join("\n") }
+          let(:source_text) {
+            ["#{STEP_KEYWORD} a step",
+             '  """',
+             '  some text',
+             '  """'].join("\n")
+          }
           let(:step) { clazz.new(source_text) }
 
 

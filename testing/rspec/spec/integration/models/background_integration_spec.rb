@@ -149,10 +149,11 @@ describe 'Background, Integration' do
 
 
       let(:test_directory) { CukeModeler::FileHelper.create_directory }
-      let(:source_gherkin) { "#{FEATURE_KEYWORD}: Test feature
+      let(:source_gherkin) {
+        "#{FEATURE_KEYWORD}: Test feature
 
-                                #{BACKGROUND_KEYWORD}: Test background
-                                  #{STEP_KEYWORD} a step"
+           #{BACKGROUND_KEYWORD}: Test background
+             #{STEP_KEYWORD} a step"
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
@@ -195,7 +196,7 @@ describe 'Background, Integration' do
 
 
         it "models the background's keyword" do
-          expect(background.keyword).to eq("#{BACKGROUND_KEYWORD}")
+          expect(background.keyword).to eq(BACKGROUND_KEYWORD)
         end
 
         it "models the background's source line" do
@@ -210,15 +211,17 @@ describe 'Background, Integration' do
 
         context 'a filled background' do
 
-          let(:source_text) { "#{BACKGROUND_KEYWORD}: Background name
+          let(:source_text) {
+            "#{BACKGROUND_KEYWORD}: Background name
 
-                               Background description.
+              Background description.
 
-                             Some more.
-                                 Even more.
+            Some more.
+                Even more.
 
-                                 #{STEP_KEYWORD} a step
-                                 #{STEP_KEYWORD} another step" }
+                #{STEP_KEYWORD} a step
+                #{STEP_KEYWORD} another step"
+          }
           let(:background) { clazz.new(source_text) }
 
 

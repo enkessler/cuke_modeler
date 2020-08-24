@@ -7,35 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 
-# Offense count: 49
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_element, with_fixed_indentation
-Layout/ArrayAlignment:
-  Exclude:
-    - 'testing/rspec/spec/integration/models/rule_integration_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  Exclude:
-    - 'testing/rspec/spec/unit/taggable_unit_spec.rb'
-
-# Offense count: 14
-# Cop supports --auto-correct.
-Layout/BlockEndNewline:
-  Exclude:
-    - 'testing/rspec/spec/integration/models/background_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/doc_string_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/example_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/feature_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/outline_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/rule_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/scenario_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/step_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/table_integration_spec.rb'
 
 # Offense count: 21
 # Cop supports --auto-correct.
@@ -47,7 +18,6 @@ Layout/CaseIndentation:
     - 'lib/cuke_modeler/models/directory.rb'
     - 'lib/cuke_modeler/models/example.rb'
     - 'lib/cuke_modeler/parsing.rb'
-    - 'testing/rspec/spec/spec_helper.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -88,32 +58,6 @@ Layout/EmptyLinesAroundMethodBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: normal, indented_internal_methods
-Layout/IndentationConsistency:
-  Exclude:
-    - 'testing/rspec/spec/unit/taggable_unit_spec.rb'
-
-# Offense count: 46
-# Cop supports --auto-correct.
-Layout/MultilineBlockLayout:
-  Exclude:
-    - 'testing/rspec/spec/integration/models/background_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/cell_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/comment_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/doc_string_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/example_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/feature_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/outline_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/row_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/rule_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/scenario_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/step_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/table_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/tag_integration_spec.rb'
-    - 'testing/rspec/spec/unit/taggable_unit_spec.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -141,8 +85,6 @@ Layout/SpaceInsideHashLiteralBraces:
   Exclude:
     - 'lib/cuke_modeler/models/directory.rb'
     - 'lib/cuke_modeler/nested.rb'
-    - 'testing/rspec/spec/integration/models/example_integration_spec.rb'
-    - 'testing/rspec/spec/unit/models/feature_unit_spec.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -150,7 +92,6 @@ Layout/SpaceInsideHashLiteralBraces:
 Layout/TrailingWhitespace:
   Exclude:
     - 'lib/cuke_modeler/models/example.rb'
-    - 'testing/rspec/spec/unit/models/feature_unit_spec.rb'
 
 # Offense count: 1
 Lint/AmbiguousRegexpLiteral:
@@ -177,12 +118,6 @@ Lint/EmptyWhen:
   Exclude:
     - 'lib/cuke_modeler/parsing.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'testing/rspec/spec/integration/parsing_integration_spec.rb'
 
 # Offense count: 2
 Lint/UselessAssignment:
@@ -246,23 +181,9 @@ Naming/BinaryOperatorParameterName:
 # MethodDefinitionMacros: define_method, define_singleton_method
 Naming/PredicateName:
   Exclude:
-    - 'spec/**/*'
     - 'lib/cuke_modeler/models/feature.rb'
     - 'lib/cuke_modeler/models/rule.rb'
 
-# Offense count: 39
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, normalcase, non_integer
-Naming/VariableNumber:
-  Exclude:
-    - 'testing/rspec/spec/integration/models/background_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/feature_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/outline_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/row_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/scenario_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/step_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/table_integration_spec.rb'
-    - 'testing/rspec/spec/unit/cuke_modeler_unit_spec.rb'
 
 # Offense count: 16
 Security/Eval:
@@ -272,15 +193,7 @@ Security/Eval:
     - 'testing/cucumber/step_definitions/modeling_steps.rb'
     - 'testing/cucumber/step_definitions/tag_steps.rb'
     - 'testing/cucumber/step_definitions/verification_steps.rb'
-    - 'testing/rspec/spec/unit/cuke_modeler_unit_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'testing/rspec/spec/spec_helper.rb'
 
 # Offense count: 50
 # Cop supports --auto-correct.
@@ -338,13 +251,6 @@ Style/EmptyLiteral:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 12
-# Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Exclude:
-    - 'testing/rspec/spec/integration/models/feature_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/rule_integration_spec.rb'
-    - 'testing/rspec/spec/integration/parsing_integration_spec.rb'
 
 
 # Offense count: 1
@@ -372,7 +278,6 @@ Style/MutableConstant:
 # SupportedStyles: predicate, comparison
 Style/NumericPredicate:
   Exclude:
-    - 'spec/**/*'
     - 'lib/cuke_modeler/containing.rb'
 
 # Offense count: 1
@@ -399,11 +304,6 @@ Style/ParenthesesAroundCondition:
 Style/RedundantInterpolation:
   Exclude:
     - 'lib/cuke_modeler/described.rb'
-    - 'testing/rspec/spec/integration/models/background_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/example_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/outline_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/scenario_integration_spec.rb'
-    - 'testing/rspec/spec/integration/models/step_integration_spec.rb'
 
 
 # Offense count: 1
@@ -421,7 +321,6 @@ Style/RescueStandardError:
     - 'Rakefile'
     - 'lib/cuke_modeler/parsing.rb'
     - 'testing/cucumber/support/env.rb'
-    - 'testing/rspec/spec/integration/parsing_integration_spec.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -438,13 +337,6 @@ Style/Semicolon:
   Exclude:
     - 'lib/cuke_modeler/models/example.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: only_raise, only_fail, semantic
-Style/SignalException:
-  Exclude:
-    - 'testing/rspec/spec/integration/parsing_integration_spec.rb'
 
 # Offense count: 36
 # Cop supports --auto-correct.
@@ -476,13 +368,6 @@ Style/TernaryParentheses:
     - 'lib/cuke_modeler/models/doc_string.rb'
     - 'lib/cuke_modeler/named.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: ExactNameMatch, AllowPredicates, AllowDSLWriters, IgnoreClassMethods, AllowedMethods.
-# AllowedMethods: to_ary, to_a, to_c, to_enum, to_h, to_hash, to_i, to_int, to_io, to_open, to_path, to_proc, to_r, to_regexp, to_str, to_s, to_sym
-Style/TrivialAccessors:
-  Exclude:
-    - 'testing/rspec/spec/unit/taggable_unit_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.

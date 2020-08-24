@@ -23,9 +23,9 @@ describe 'Feature, Unit', unit_test: true do
   describe 'unique behavior' do
 
     it 'will complain about unknown element types' do
-      parsed_element = {'description' => '',
-                        'elements' => [{'keyword' => 'Scenario', 'description' => ''},
-                                       {'keyword' => 'New Type', 'description' => ''}]}
+      parsed_element = { 'description' => '',
+                         'elements' => [{ 'keyword' => 'Scenario', 'description' => '' },
+                                        { 'keyword' => 'New Type', 'description' => '' }] }
 
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
     end
@@ -62,7 +62,7 @@ describe 'Feature, Unit', unit_test: true do
       feature.rules = :some_other_rules
       expect(feature.rules).to eq(:some_other_rules)
     end
-    
+
     it 'has tests' do
       expect(feature).to respond_to(:tests)
     end
