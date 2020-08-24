@@ -25,3 +25,7 @@ Naming/VariableNumber:
 Metrics/BlockLength:
   Exclude:
     - 'testing/rspec/spec/**/*'
+
+# Just not going to worry about it for now
+Style/FrozenStringLiteralComment:
+  Enabled: false

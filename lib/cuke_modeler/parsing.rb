@@ -73,7 +73,7 @@ module CukeModeler
 
       case gherkin_major_version
         when 13, 14, 15
-          # todo - make these methods private?
+          # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
@@ -87,7 +87,7 @@ module CukeModeler
             gherkin_ast_message[:gherkin_document]
           end
         when 12
-          # todo - make these methods private?
+          # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
@@ -103,7 +103,7 @@ module CukeModeler
             gherkin_ast_message[:gherkin_document]
           end
         when 9, 10, 11
-          # todo - make these methods private?
+          # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)

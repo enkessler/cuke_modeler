@@ -19,12 +19,6 @@ Layout/CaseIndentation:
     - 'lib/cuke_modeler/models/example.rb'
     - 'lib/cuke_modeler/parsing.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/CommentIndentation:
-  Exclude:
-    - 'lib/cuke_modeler/models/directory.rb'
-
 
 # Offense count: 520
 # Cop supports --auto-correct.
@@ -210,13 +204,6 @@ Style/BlockDelimiters:
 Style/ColonMethodCall:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-    - 'lib/cuke_modeler/parsing.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -242,14 +229,6 @@ Style/EachWithObject:
 Style/EmptyLiteral:
   Exclude:
     - 'testing/cucumber/step_definitions/modeling_steps.rb'
-
-
-# Offense count: 119
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
 
 
 
