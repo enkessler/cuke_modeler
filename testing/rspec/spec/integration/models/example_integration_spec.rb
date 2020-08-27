@@ -407,6 +407,10 @@ describe 'Example, Integration' do
       end
 
       it 'can only use a Hash or an Array to remove an existing row' do
+        # Need at least one argument row to exist for the removal to even be attempted
+        source = "#{EXAMPLE_KEYWORD}:\n|param1|\n|value1|"
+        example = clazz.new(source)
+
         expect { example.remove_row({}) }.to_not raise_error
         expect { example.remove_row([]) }.to_not raise_error
         expect { example.remove_row(:a_row) }.to raise_error(ArgumentError)
@@ -433,6 +437,7 @@ describe 'Example, Integration' do
 
         expect { example.remove_row({}) }.to_not raise_error
         expect { example.remove_row([]) }.to_not raise_error
+        expect(example.rows).to eq([])
       end
 
       it 'will not remove the parameter row' do

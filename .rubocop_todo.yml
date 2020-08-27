@@ -118,41 +118,6 @@ Lint/UselessAssignment:
   Exclude:
     - 'lib/cuke_modeler/models/feature.rb'
 
-# Offense count: 21
-# Configuration parameters: IgnoredMethods.
-Metrics/AbcSize:
-  Max: 56
-
-# Offense count: 152
-# Configuration parameters: CountComments, ExcludedMethods.
-# ExcludedMethods: refine
-Metrics/BlockLength:
-  Max: 520
-
-# Offense count: 2
-# Configuration parameters: CountComments.
-Metrics/ClassLength:
-  Max: 237
-
-# Offense count: 9
-# Configuration parameters: IgnoredMethods.
-Metrics/CyclomaticComplexity:
-  Max: 9
-
-# Offense count: 12
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/MethodLength:
-  Max: 29
-
-# Offense count: 1
-# Configuration parameters: CountComments.
-Metrics/ModuleLength:
-  Max: 241
-
-# Offense count: 6
-# Configuration parameters: IgnoredMethods.
-Metrics/PerceivedComplexity:
-  Max: 9
 
 # Offense count: 1
 Naming/AccessorMethodName:

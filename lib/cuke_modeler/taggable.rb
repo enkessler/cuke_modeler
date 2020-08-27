@@ -28,5 +28,13 @@ module CukeModeler
       tags.collect { |tag| tag.name }.join(' ')
     end
 
+    def populate_tags(model, parsed_model_data)
+      return unless parsed_model_data['tags']
+
+      parsed_model_data['tags'].each do |tag|
+        model.tags << build_child_model(Tag, tag)
+      end
+    end
+
   end
 end

@@ -63,9 +63,9 @@ module CukeModeler
       text = ''
 
       text << "#{@keyword}:#{name_output_string}"
-      text << "\n" + description_output_string unless (description.nil? || description.empty?)
-      text << "\n\n" + background_output_string if background
-      text << "\n\n" + tests_output_string unless tests.empty?
+      text << "\n#{description_output_string}" unless no_description_to_output?
+      text << "\n\n#{background_output_string}" if background
+      text << "\n\n#{tests_output_string}" unless tests.empty?
 
       text
     end

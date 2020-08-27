@@ -49,7 +49,7 @@ module CukeModeler
     # this will be Gherkin text that is equivalent to the step being modeled.
     def to_s
       text = "#{keyword} #{self.text}"
-      text << "\n" + block.to_s.split("\n").collect { |line| "  #{line}" }.join("\n") if block
+      text << "\n#{block.to_s.split("\n").collect { |line| "  #{line}" }.join("\n")}" if block
 
       text
     end
@@ -72,18 +72,18 @@ module CukeModeler
     end
 
     def table_matches?(other_step)
-      return false if (!block.is_a?(CukeModeler::Table) || !other_step.block.is_a?(CukeModeler::Table)) && (block.is_a?(CukeModeler::Table) || other_step.block.is_a?(CukeModeler::Table))
-      return true unless block.is_a?(CukeModeler::Table) && other_step.block.is_a?(CukeModeler::Table)
+      return false if only_one_step_has_table?(other_step)
+      return true if neither_step_has_table?(other_step)
 
-      first_step_values  = block.rows.collect { |table_row| table_row.cells.map(&:value) }
+      first_step_values = block.rows.collect { |table_row| table_row.cells.map(&:value) }
       second_step_values = other_step.block.rows.collect { |table_row| table_row.cells.map(&:value) }
 
       first_step_values == second_step_values
     end
 
     def doc_string_matches?(other_step)
-      return false if (!block.is_a?(CukeModeler::DocString) || !other_step.block.is_a?(CukeModeler::DocString)) && (block.is_a?(CukeModeler::DocString) || other_step.block.is_a?(CukeModeler::DocString))
-      return true unless block.is_a?(CukeModeler::DocString) && other_step.block.is_a?(CukeModeler::DocString)
+      return false if only_one_step_has_doc_string?(other_step)
+      return true if neither_step_has_doc_string?(other_step)
 
       first_content       = block.content
       first_content_type  = block.content_type
@@ -92,6 +92,26 @@ module CukeModeler
 
       (first_content == second_content) &&
           (first_content_type == second_content_type)
+    end
+
+    def only_one_step_has_table?(other_step)
+      (!block.is_a?(CukeModeler::Table) || !other_step.block.is_a?(CukeModeler::Table)) &&
+        (block.is_a?(CukeModeler::Table) || other_step.block.is_a?(CukeModeler::Table))
+    end
+
+    def neither_step_has_table?(other_step)
+      !block.is_a?(CukeModeler::Table) &&
+        !other_step.block.is_a?(CukeModeler::Table)
+    end
+
+    def only_one_step_has_doc_string?(other_step)
+      (!block.is_a?(CukeModeler::DocString) || !other_step.block.is_a?(CukeModeler::DocString)) &&
+        (block.is_a?(CukeModeler::DocString) || other_step.block.is_a?(CukeModeler::DocString))
+    end
+
+    def neither_step_has_doc_string?(other_step)
+      !block.is_a?(CukeModeler::DocString) &&
+        !other_step.block.is_a?(CukeModeler::DocString)
     end
 
   end

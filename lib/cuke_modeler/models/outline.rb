@@ -47,20 +47,25 @@ module CukeModeler
       examples + steps + tags
     end
 
+    # Building strings just isn't pretty
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+
     # Returns a string representation of this model. For an outline model,
     # this will be Gherkin text that is equivalent to the outline being modeled.
     def to_s
       text = ''
 
-      text << tag_output_string + "\n" unless tags.empty?
+      text << "#{tag_output_string}\n" unless tags.empty?
       text << "#{@keyword}:#{name_output_string}"
-      text << "\n" + description_output_string unless (description.nil? || description.empty?)
-      text << "\n" unless (steps.empty? || description.nil? || description.empty?)
-      text << "\n" + steps_output_string unless steps.empty?
-      text << "\n\n" + examples_output_string unless examples.empty?
+      text << "\n#{description_output_string}" unless no_description_to_output?
+      text << "\n" unless (steps.empty? || no_description_to_output?)
+      text << "\n#{steps_output_string}" unless steps.empty?
+      text << "\n\n#{examples_output_string}" unless examples.empty?
 
       text
     end
+
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
 
 
     private

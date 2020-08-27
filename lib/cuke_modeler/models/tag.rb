@@ -43,5 +43,9 @@ module CukeModeler
       parsed_file['feature']['tags'].first
     end
 
+    def populate_name(model, parsed_model_data)
+      model.name = parsed_model_data['name']
+    end
+
   end
 end

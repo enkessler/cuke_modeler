@@ -21,5 +21,13 @@ module CukeModeler
       step.to_s.split("\n").collect { |line| "  #{line}" }.join("\n")
     end
 
+    def populate_steps(model, parsed_model_data)
+      return unless parsed_model_data['steps']
+
+      parsed_model_data['steps'].each do |step_data|
+        model.steps << build_child_model(Step, step_data)
+      end
+    end
+
   end
 end

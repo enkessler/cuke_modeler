@@ -25,5 +25,44 @@ module CukeModeler
       text
     end
 
+    def no_description_to_output?
+      description.nil? || description.empty?
+    end
+
+    def populate_description(model, parsed_model_data)
+      model.description = trimmed_description(parsed_model_data['description'])
+    end
+
+    def trimmed_description(description)
+      description = description.split("\n")
+
+      trim_leading_blank_lines(description)
+      trim_trailing_blank_lines(description)
+      trim_leading_spaces(description)
+      trim_trailing_spaces(description)
+
+      description.join("\n")
+    end
+
+    def trim_leading_blank_lines(description)
+      description.replace(description.drop_while { |line| line !~ /\S/ })
+    end
+
+    def trim_trailing_blank_lines(_description)
+      # Nothing to do. Already done by the parser but leaving this here in case that changes in future versions.
+    end
+
+    def trim_leading_spaces(description)
+      non_blank_lines = description.select { |line| line =~ /\S/ }
+
+      fewest_spaces = non_blank_lines.collect { |line| line[/^\s*/].length }.min || 0
+
+      description.each { |line| line.slice!(0..(fewest_spaces - 1)) } if fewest_spaces.positive?
+    end
+
+    def trim_trailing_spaces(description)
+      description.map! { |line| line.rstrip }
+    end
+
   end
 end

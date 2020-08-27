@@ -21,11 +21,16 @@ Layout/CaseIndentation:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
-# RSpec tests are inherently large blocks of code
 Metrics/BlockLength:
   Exclude:
-    - 'testing/rspec/spec/**/*'
+    - 'testing/rspec/spec/**/*' # RSpec tests are inherently large blocks of code
+    - 'cuke_modeler.gemspec' # As is a gemspec
+    - 'Rakefile' # And a Rakefile
 
 # Just not going to worry about it for now
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# Still within understanding as long as other complexity cops aren't triggering
+Metrics/MethodLength:
+  Max: 15

@@ -1,3 +1,6 @@
+# It's the module that has functionality for every possible model type. So, yes, it's long.
+# rubocop:disable Metrics/ModuleLength
+
 module CukeModeler
 
   # NOT A PART OF THE PUBLIC API
@@ -220,6 +223,9 @@ module CukeModeler
       end
     end
 
+    # It's not getting better any time soon
+    # rubocop:disable Metrics/AbcSize
+
     def populate_children(model, parsed_feature_data)
       return unless parsed_feature_data['elements']
 
@@ -238,69 +244,8 @@ module CukeModeler
         end
       end
     end
-
-    def populate_parsing_data(model, parsed_model_data)
-      model.parsing_data = parsed_model_data['cuke_modeler_parsing_data']
-    end
-
-    def populate_source_line(model, parsed_model_data)
-      model.source_line = parsed_model_data['line']
-    end
-
-    def populate_name(model, parsed_model_data)
-      model.name = parsed_model_data['name']
-    end
-
-    def populate_description(model, parsed_model_data)
-      model.description = trimmed_description(parsed_model_data['description'])
-    end
-
-    def trimmed_description(description)
-      description = description.split("\n")
-
-      trim_leading_blank_lines(description)
-      trim_trailing_blank_lines(description)
-      trim_leading_spaces(description)
-      trim_trailing_spaces(description)
-
-      description.join("\n")
-    end
-
-    def trim_leading_blank_lines(description)
-      description.replace(description.drop_while { |line| line !~ /\S/ })
-    end
-
-    def trim_trailing_blank_lines(description)
-      # Nothing to do. Already done by the parser but leaving this here in case that changes in future versions.
-    end
-
-    def trim_leading_spaces(description)
-      non_blank_lines = description.select { |line| line =~ /\S/ }
-
-      fewest_spaces = non_blank_lines.collect { |line| line[/^\s*/].length }.min || 0
-
-      description.each { |line| line.slice!(0..(fewest_spaces - 1)) } if fewest_spaces > 0
-    end
-
-    def trim_trailing_spaces(description)
-      description.map! { |line| line.rstrip }
-    end
-
-    def populate_tags(model, parsed_model_data)
-      return unless parsed_model_data['tags']
-
-      parsed_model_data['tags'].each do |tag|
-        model.tags << build_child_model(Tag, tag)
-      end
-    end
-
-    def populate_steps(model, parsed_model_data)
-      return unless parsed_model_data['steps']
-
-      parsed_model_data['steps'].each do |step_data|
-        model.steps << build_child_model(Step, step_data)
-      end
-    end
+    # rubocop:enable Metrics/AbcSize
 
   end
 end
+# rubocop:enable Metrics/ModuleLength

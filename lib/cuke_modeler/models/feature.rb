@@ -75,20 +75,25 @@ module CukeModeler
       models
     end
 
+    # Building strings just isn't pretty
+    # rubocop:disable Metrics/AbcSize
+
     # Returns a string representation of this model. For a feature model,
     # this will be Gherkin text that is equivalent to the feature being modeled.
     def to_s
       text = ''
 
-      text << tag_output_string + "\n" unless tags.empty?
+      text << "#{tag_output_string}\n" unless tags.empty?
       text << "#{@keyword}:#{name_output_string}"
-      text << "\n" + description_output_string unless (description.nil? || description.empty?)
-      text << "\n\n" + background_output_string if background
-      text << "\n\n" + tests_output_string unless tests.empty?
-      text << "\n\n" + rules_output_string unless rules.empty?
+      text << "\n#{description_output_string}" unless no_description_to_output?
+      text << "\n\n#{background_output_string}" if background
+      text << "\n\n#{tests_output_string}" unless tests.empty?
+      text << "\n\n#{rules_output_string}" unless rules.empty?
 
       text
     end
+
+    # rubocop:enable Metrics/AbcSize
 
 
     private
