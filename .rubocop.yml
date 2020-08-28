@@ -18,6 +18,16 @@ Style/HashTransformValues:
 # These help with readability
 Layout/CaseIndentation:
   Enabled: false
+Layout/EmptyLines:
+  Enabled: false
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+  Exclude:
+    - 'testing/rspec/spec/**/*' # Specs tend to just have little monkey patches that don't need the extra room
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 Metrics/LineLength:
