@@ -36,8 +36,8 @@ module CukeModeler
       return false unless other_step.is_a?(CukeModeler::Step)
 
       text_matches?(other_step) &&
-          table_matches?(other_step) &&
-          doc_string_matches?(other_step)
+        table_matches?(other_step) &&
+        doc_string_matches?(other_step)
     end
 
     # Returns the model objects that belong to this model.
@@ -59,7 +59,9 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n#{dialect_scenario_keyword}:\n"
+      base_file_string = "# language: #{Parsing.dialect}
+      #{dialect_feature_keyword}: Fake feature to parse
+                            #{dialect_scenario_keyword}:\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
@@ -91,7 +93,7 @@ module CukeModeler
       second_content_type = other_step.block.content_type
 
       (first_content == second_content) &&
-          (first_content_type == second_content_type)
+        (first_content_type == second_content_type)
     end
 
     def only_one_step_has_table?(other_step)

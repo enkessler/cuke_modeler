@@ -41,7 +41,8 @@ shared_examples_for 'a containing model' do
         'top level model'
       end
 
-      # Redefining what children are returned for the model rather than fiddling with all of the different kinds of child models that various model classes have
+      # Redefining what children are returned for the model rather than fiddling with all of the different kinds of
+      # child models that various model classes have
       def m.children
         []
       end
@@ -83,7 +84,8 @@ shared_examples_for 'a containing model' do
         'top level model'
       end
 
-      # Redefining what children are returned for the model rather than fiddling with all of the different kinds of child models that various model classes have
+      # Redefining what children are returned for the model rather than fiddling with all of the different kinds of
+      # child models that various model classes have
       def m.children
         containing_model_stub     = Struct.new(:name, :children)
         non_containing_model_stub = Struct.new(:name)

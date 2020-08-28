@@ -12,7 +12,8 @@ shared_examples_for 'a prepopulated model' do
   end
 
   it 'will complain if given non-text input' do
-    expect { clazz.new(:not_a_string) }.to raise_error(ArgumentError, 'Can only create models from Strings but was given a Symbol.')
+    expect { clazz.new(:not_a_string) }
+      .to raise_error(ArgumentError, 'Can only create models from Strings but was given a Symbol.')
   end
 
 end

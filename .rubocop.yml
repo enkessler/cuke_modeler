@@ -20,6 +20,8 @@ Layout/CaseIndentation:
   Enabled: false
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+Metrics/LineLength:
+  Max: 120
 
 Metrics/BlockLength:
   Exclude:
@@ -34,3 +36,11 @@ Style/FrozenStringLiteralComment:
 # Still within understanding as long as other complexity cops aren't triggering
 Metrics/MethodLength:
   Max: 15
+
+# I'd rather not have to mix `{}` and `do...end` blocks for `let` statements just to keep RuboCop happy
+Layout/BlockEndNewline:
+  Exclude:
+    - 'testing/rspec/spec/**/*'
+Layout/MultilineBlockLayout:
+  Exclude:
+    - 'testing/rspec/spec/**/*'

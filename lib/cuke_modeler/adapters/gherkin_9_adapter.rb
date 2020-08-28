@@ -4,7 +4,8 @@
 module CukeModeler
 
   # NOT A PART OF THE PUBLIC API
-  # An adapter that can convert the output of version 9.x of the *cucumber-gherkin* gem into input that is consumable by this gem.
+  # An adapter that can convert the output of version 9.x of the *cucumber-gherkin* gem into input that is consumable
+  # by this gem.
 
   class Gherkin9Adapter
 
@@ -311,9 +312,11 @@ module CukeModeler
     end
 
     def adapt_test(test_ast)
-      if (test_ast[:scenario] && test_ast[:scenario][:examples]) || (test_ast[:scenario] && Parsing.dialects[Parsing.dialect]['scenarioOutline'].include?(test_ast[:scenario][:keyword]))
+      if (test_node?(test_ast) && test_has_examples?(test_ast)) ||
+         (test_node?(test_ast) && test_uses_outline_keyword?(test_ast))
+
         adapt_outline(test_ast)
-      elsif test_ast[:scenario]
+      elsif test_node?(test_ast)
         adapt_scenario(test_ast)
       else
         raise(ArgumentError, "Unknown test type with keys: #{test_ast.keys}")
@@ -326,7 +329,9 @@ module CukeModeler
 
     def clear_child_elements(ast, child_paths)
       child_paths.each do |traversal_path|
-        bury(ast['cuke_modeler_parsing_data'], traversal_path, nil) if ast['cuke_modeler_parsing_data'].dig(*traversal_path)
+        if ast['cuke_modeler_parsing_data'].dig(*traversal_path)
+          bury(ast['cuke_modeler_parsing_data'], traversal_path, nil)
+        end
       end
     end
 
@@ -340,8 +345,20 @@ module CukeModeler
 
       current[keys.last] = value
     end
-  end
 
+    def test_node?(ast_node)
+      ast_node[:scenario]
+    end
+
+    def test_has_examples?(ast_node)
+      ast_node[:scenario][:examples]
+    end
+
+    def test_uses_outline_keyword?(test_ast)
+      Parsing.dialects[Parsing.dialect]['scenarioOutline'].include?(test_ast[:scenario][:keyword])
+    end
+
+  end
 end
 
 # rubocop:enable Metrics/ClassLength, Metrics/AbcSize, Metrics/MethodLength

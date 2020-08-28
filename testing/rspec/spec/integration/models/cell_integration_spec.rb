@@ -79,7 +79,9 @@ describe 'Cell, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'cell_test_file', directory: test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin,
+                                                    name: 'cell_test_file',
+                                                    directory: test_directory)
       end
 
 
@@ -93,7 +95,7 @@ describe 'Cell, Integration' do
       }
 
       let(:directory_model) { CukeModeler::Directory.new(test_directory) }
-      let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+      let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first } # rubocop:disable Layout/LineLength
 
 
       it 'can get its directory' do
@@ -128,7 +130,7 @@ describe 'Cell, Integration' do
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
-        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.examples.first.rows.first.cells.first }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.examples.first.rows.first.cells.first } # rubocop:disable Layout/LineLength
 
 
         it 'can get its outline' do
@@ -164,7 +166,7 @@ describe 'Cell, Integration' do
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
-        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first } # rubocop:disable Layout/LineLength
 
 
         it 'can get its scenario' do
@@ -187,7 +189,7 @@ describe 'Cell, Integration' do
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
-        let(:cell_model) { directory_model.feature_files.first.feature.background.steps.first.block.rows.first.cells.first }
+        let(:cell_model) { directory_model.feature_files.first.feature.background.steps.first.block.rows.first.cells.first } # rubocop:disable Layout/LineLength
 
 
         it 'can get its background' do
@@ -210,7 +212,7 @@ describe 'Cell, Integration' do
         }
 
         let(:directory_model) { CukeModeler::Directory.new(test_directory) }
-        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first }
+        let(:cell_model) { directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first.cells.first } # rubocop:disable Layout/LineLength
 
 
         it 'can get its step' do
@@ -227,8 +229,9 @@ describe 'Cell, Integration' do
 
         it 'can get its row' do
           ancestor = cell_model.get_ancestor(:row)
+          row = directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first
 
-          expect(ancestor).to equal(directory_model.feature_files.first.feature.tests.first.steps.first.block.rows.first)
+          expect(ancestor).to equal(row)
         end
 
       end

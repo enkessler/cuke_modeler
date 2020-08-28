@@ -56,7 +56,9 @@ module CukeModeler
       # its logical structure. This is a standardized AST that should remain consistent across
       # different versions of `cucumber-gherkin`
       def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
-        raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}") unless source_text.is_a?(String)
+        unless source_text.is_a?(String)
+          raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}")
+        end
 
         begin
           parsed_result = parsing_method(source_text.encode('UTF-8'), filename)
@@ -77,7 +79,10 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename,
+                                           source_text,
+                                           { include_gherkin_document: true })
+                              .to_a.map(&:to_hash)
 
             error_message = messages.find { |message| message[:parse_error] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
@@ -91,13 +96,16 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename,
+                                           source_text,
+                                           { include_gherkin_document: true })
+                              .to_a.map(&:to_hash)
 
             potential_error_message = messages.find { |message| message[:attachment] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
 
-            if potential_error_message
-              raise potential_error_message[:attachment][:body] if potential_error_message[:attachment][:body] =~ /expected.*got/
+            if potential_error_message && potential_error_message[:attachment][:body] =~ /expected.*got/
+              raise potential_error_message[:attachment][:body]
             end
 
             gherkin_ast_message[:gherkin_document]
@@ -107,13 +115,16 @@ module CukeModeler
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
-            messages = Gherkin.from_source(filename, source_text, { include_gherkin_document: true }).to_a.map(&:to_hash)
+            messages = Gherkin.from_source(filename,
+                                           source_text,
+                                           { include_gherkin_document: true })
+                              .to_a.map(&:to_hash)
 
             potential_error_message = messages.find { |message| message[:attachment] }
             gherkin_ast_message = messages.find { |message| message[:gherkin_document] }
 
-            if potential_error_message
-              raise potential_error_message[:attachment][:text] if potential_error_message[:attachment][:text] =~ /expected.*got/
+            if potential_error_message && potential_error_message[:attachment][:text] =~ /expected.*got/
+              raise potential_error_message[:attachment][:text]
             end
 
             gherkin_ast_message[:gherkin_document]
@@ -143,7 +154,8 @@ module CukeModeler
     end
 
     def dialect_outline_keyword
-      get_word(Parsing.dialects[Parsing.dialect]['scenarioOutline'] || Parsing.dialects[Parsing.dialect]['scenario_outline'])
+      get_word(Parsing.dialects[Parsing.dialect]['scenarioOutline'] ||
+                 Parsing.dialects[Parsing.dialect]['scenario_outline'])
     end
 
     def dialect_step_keyword

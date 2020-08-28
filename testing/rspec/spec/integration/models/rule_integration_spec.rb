@@ -324,7 +324,9 @@ describe 'Rule, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'rule_test_file', directory: test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin,
+                                                    name: 'rule_test_file',
+                                                    directory: test_directory)
       end
 
 
@@ -649,7 +651,8 @@ describe 'Rule, Integration' do
         CukeModeler::HelperMethods.test_storage[:old_method] = CukeModeler::Parsing.method(:parse_text)
 
 
-        # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new types of language objects
+        # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new
+        # types of language objects
         module CukeModeler
           module Parsing
             class << self
@@ -665,7 +668,8 @@ describe 'Rule, Integration' do
         end
 
 
-        expect { clazz.new("#{RULE_KEYWORD}:\n#{SCENARIO_KEYWORD}:\n#{STEP_KEYWORD} foo") }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
+        expect { clazz.new("#{RULE_KEYWORD}:\n#{SCENARIO_KEYWORD}:\n#{STEP_KEYWORD} foo") }
+          .to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
       ensure
         # Making sure that our changes don't escape a test and ruin the rest of the suite
         module CukeModeler

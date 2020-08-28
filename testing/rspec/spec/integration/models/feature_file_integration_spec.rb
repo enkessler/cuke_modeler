@@ -253,7 +253,8 @@ describe 'FeatureFile, Integration' do
     end
 
     it 'properly sets its child models' do
-      file_path = CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature", name: 'test_file')
+      file_path = CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature",
+                                                              name: 'test_file')
 
       file = clazz.new(file_path)
       feature = file.feature
@@ -265,7 +266,9 @@ describe 'FeatureFile, Integration' do
     describe 'getting ancestors' do
 
       let(:directory_path) { CukeModeler::FileHelper.create_directory }
-      let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: '', name: 'feature_file_test_file', directory: directory_path) }
+      let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: '',
+                                                                            name: 'feature_file_test_file',
+                                                                            directory: directory_path) }
 
       before(:each) do
         File.open(feature_file_path, 'w') { |file| file.write("#{FEATURE_KEYWORD}: Test feature") }
@@ -295,7 +298,8 @@ describe 'FeatureFile, Integration' do
       context 'from source text' do
 
         let(:source_text) { "#{FEATURE_KEYWORD}: Test feature" }
-        let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: '', name: 'feature_file_test_file') }
+        let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: '',
+                                                                              name: 'feature_file_test_file') }
         let(:feature_file) { clazz.new(feature_file_path) }
 
         before(:each) do

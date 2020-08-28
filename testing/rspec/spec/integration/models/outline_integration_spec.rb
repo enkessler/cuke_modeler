@@ -83,7 +83,7 @@ describe 'Outline, Integration' do
           data = outline.parsing_data
 
           expect(data.keys).to match_array([:scenario])
-          expect(data[:scenario].keys).to match_array([:description, :examples, :id, :keyword, :location, :name, :steps, :tags])
+          expect(data[:scenario].keys).to match_array([:description, :examples, :id, :keyword, :location, :name, :steps, :tags]) # rubocop:disable Layout/LineLength
           expect(data[:scenario][:keyword]).to eq(OUTLINE_KEYWORD)
         end
 
@@ -118,7 +118,9 @@ describe 'Outline, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'outline_test_file', directory: test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin,
+                                                    name: 'outline_test_file',
+                                                    directory: test_directory)
       end
 
 

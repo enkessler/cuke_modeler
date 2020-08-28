@@ -32,7 +32,8 @@ module CukeModeler
 
 
     def classes_for_type(type)
-      { directory: [Directory],
+      {
+        directory: [Directory],
         feature_file: [FeatureFile],
         feature: [Feature],
         test: [Scenario, Outline, Background],

@@ -8,7 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eric Kessler"]
   spec.email         = ["morrow748@gmail.com"]
   spec.summary       = 'A gem providing functionality to model Gherkin based test suites.'
-  spec.description   = "This gem facilitates modeling a test suite that is written in Gherkin (e.g. Cucumber, SpecFlow, Lettuce, etc.). It does this by providing an abstraction layer on top of the Abstract Syntax Tree that the 'cucumber-gherkin' gem generates when parsing features, as well as providing models for feature files and directories in order to be able to have a fully traversable model tree of a test suite's structure. These models can then be analyzed or manipulated more easily than the underlying AST layer."
+  spec.description   = ["This gem facilitates modeling a test suite that is written in Gherkin (e.g. Cucumber, ",
+                        "SpecFlow, Lettuce, etc.). It does this by providing an abstraction layer on top of the ",
+                        "Abstract Syntax Tree that the 'cucumber-gherkin' gem generates when parsing features, ",
+                        "as well as providing models for feature files and directories in order to be able to ",
+                        "have a fully traversable model tree of a test suite's structure. These models can then ",
+                        "be analyzed or manipulated more easily than the underlying AST layer."].join("\n")
   spec.homepage      = 'https://github.com/enkessler/cuke_modeler'
   spec.license       = "MIT"
 

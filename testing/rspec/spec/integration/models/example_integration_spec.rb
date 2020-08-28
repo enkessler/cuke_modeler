@@ -82,7 +82,7 @@ describe 'Example, Integration' do
           example = clazz.new(source_text)
           data = example.parsing_data
 
-          expect(data.keys).to match_array([:tags, :location, :keyword, :name, :table_header, :table_body, :description, :id])
+          expect(data.keys).to match_array([:tags, :location, :keyword, :name, :table_header, :table_body, :description, :id]) # rubocop:disable Layout/LineLength
           expect(data[:name]).to eq('test example')
         end
 
@@ -90,7 +90,7 @@ describe 'Example, Integration' do
           example = clazz.new(source_text)
           data = example.parsing_data
 
-          expect(data.keys).to match_array([:tags, :location, :keyword, :name, :table_header, :table_body, :description])
+          expect(data.keys).to match_array([:tags, :location, :keyword, :name, :table_header, :table_body, :description]) # rubocop:disable Layout/LineLength
           expect(data[:name]).to eq('test example')
         end
 
@@ -482,7 +482,9 @@ describe 'Example, Integration' do
     describe 'getting ancestors' do
 
       before(:each) do
-        CukeModeler::FileHelper.create_feature_file(text: source_gherkin, name: 'example_test_file', directory: test_directory)
+        CukeModeler::FileHelper.create_feature_file(text: source_gherkin,
+                                                    name: 'example_test_file',
+                                                    directory: test_directory)
       end
 
 

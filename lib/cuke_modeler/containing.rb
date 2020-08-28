@@ -156,7 +156,9 @@ module CukeModeler
       populate_parsing_data(feature_file_object, processed_feature_file_data)
       feature_file_object.path = processed_feature_file_data['path']
 
-      feature_file_object.feature = build_child_model(Feature, processed_feature_file_data['feature']) unless processed_feature_file_data['feature'].nil?
+      if processed_feature_file_data['feature']
+        feature_file_object.feature = build_child_model(Feature, processed_feature_file_data['feature'])
+      end
 
       processed_feature_file_data['comments'].each do |comment_data|
         feature_file_object.comments << build_child_model(Comment, comment_data)
@@ -204,7 +206,11 @@ module CukeModeler
     end
 
     def populate_content_type(doc_string_model, parsed_doc_string_data)
-      doc_string_model.content_type = parsed_doc_string_data['content_type'] == "" ? nil : parsed_doc_string_data['content_type']
+      doc_string_model.content_type = if parsed_doc_string_data['content_type'] == ""
+                                        nil
+                                      else
+                                        parsed_doc_string_data['content_type']
+                                      end
     end
 
     def populate_content(doc_string_model, parsed_doc_string_data)

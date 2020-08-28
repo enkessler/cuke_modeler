@@ -8,17 +8,6 @@
 
 
 
-# Offense count: 21
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.
-# SupportedStyles: case, end
-Layout/CaseIndentation:
-  Exclude:
-    - 'lib/cuke_modeler/containing.rb'
-    - 'lib/cuke_modeler/models/directory.rb'
-    - 'lib/cuke_modeler/models/example.rb'
-    - 'lib/cuke_modeler/parsing.rb'
-
 
 # Offense count: 520
 # Cop supports --auto-correct.
@@ -39,11 +28,6 @@ Layout/EmptyLinesAroundBlockBody:
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'lib/cuke_modeler/models/feature_file.rb'
 
 # Offense count: 57
 # Cop supports --auto-correct.
@@ -52,40 +36,6 @@ Layout/EmptyLinesAroundMethodBody:
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'lib/cuke_modeler/models/directory.rb'
-    - 'lib/cuke_modeler/nested.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'lib/cuke_modeler/models/step.rb'
-
-# Offense count: 30
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'lib/cuke_modeler/models/directory.rb'
-    - 'lib/cuke_modeler/nested.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'lib/cuke_modeler/models/example.rb'
 
 # Offense count: 1
 Lint/AmbiguousRegexpLiteral:
@@ -325,10 +275,3 @@ Style/WhileUntilModifier:
 # SupportedStyles: percent, brackets
 Style/WordArray:
   EnforcedStyle: brackets
-
-# Offense count: 541
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Layout/LineLength:
-  Max: 527
