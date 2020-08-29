@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gemspec path: "../../"
+gemspec path: '../../'
 
 # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 # gem 'cucumber', '>=4.0.0'
@@ -8,4 +8,4 @@ gemspec path: "../../"
 # TODO: Go back to using the newer releases once they work on JRuby
 gem 'cucumber', '2.2.0'
 
-gem "cucumber-gherkin", "~> 13.0"
+gem 'cucumber-gherkin', '~> 13.0'

@@ -143,7 +143,7 @@ module CukeModeler
       text = ''
 
       unless parameter_row.nil?
-        text << "  |"
+        text << '  |'
         parameter_row.cells.count.times { |index| text << " #{string_for(parameter_row.cells, index)} |" }
       end
 
@@ -156,7 +156,7 @@ module CukeModeler
       unless argument_rows.empty?
 
         argument_rows.each do |row|
-          text << "  |"
+          text << '  |'
           row.cells.count.times { |index| text << " #{string_for(row.cells, index)} |" }
           text << "\n"
         end

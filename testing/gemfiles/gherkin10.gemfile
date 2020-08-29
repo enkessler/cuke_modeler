@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gemspec path: "../../"
+gemspec path: '../../'
 
 # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 gem 'cucumber', '>=4.0.0.rc.4'
 
-gem "cucumber-gherkin", "~> 10.0"
+gem 'cucumber-gherkin', '~> 10.0'

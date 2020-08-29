@@ -1,6 +1,6 @@
 Given(/^a feature file model based on "([^"]*)"$/) do |file_name|
   file_path = "#{@root_test_directory}/#{file_name}"
-  File.open(file_path, 'w') { |file| file.puts "Feature:" } unless File.exists?(file_path)
+  File.open(file_path, 'w') { |file| file.puts 'Feature:' } unless File.exist?(file_path)
 
   @model = CukeModeler::FeatureFile.new(file_path)
 end

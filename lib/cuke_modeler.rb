@@ -4,7 +4,7 @@ module CukeModeler
 end
 
 
-require "cuke_modeler/version"
+require 'cuke_modeler/version'
 
 require 'cuke_modeler/parsing'
 require 'cuke_modeler/containing'

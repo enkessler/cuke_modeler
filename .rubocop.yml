@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
   TargetRubyVersion: 2.3
 
@@ -63,3 +61,11 @@ Layout/MultilineBlockLayout:
 Style/BlockDelimiters:
   Exclude:
     - 'testing/rspec/spec/**/*'
+
+# Documentation is checked using RDoc
+Style/Documentation:
+  Enabled: false
+
+Security/Eval:
+  Exclude:
+    - 'testing/**/*'  # Test code is a safe enough place to use 'eval'

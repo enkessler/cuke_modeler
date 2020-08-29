@@ -3,19 +3,19 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cuke_modeler/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cuke_modeler"
+  spec.name          = 'cuke_modeler'
   spec.version       = CukeModeler::VERSION
-  spec.authors       = ["Eric Kessler"]
-  spec.email         = ["morrow748@gmail.com"]
+  spec.authors       = ['Eric Kessler']
+  spec.email         = ['morrow748@gmail.com']
   spec.summary       = 'A gem providing functionality to model Gherkin based test suites.'
-  spec.description   = ["This gem facilitates modeling a test suite that is written in Gherkin (e.g. Cucumber, ",
-                        "SpecFlow, Lettuce, etc.). It does this by providing an abstraction layer on top of the ",
+  spec.description   = ['This gem facilitates modeling a test suite that is written in Gherkin (e.g. Cucumber, ',
+                        'SpecFlow, Lettuce, etc.). It does this by providing an abstraction layer on top of the ',
                         "Abstract Syntax Tree that the 'cucumber-gherkin' gem generates when parsing features, ",
-                        "as well as providing models for feature files and directories in order to be able to ",
+                        'as well as providing models for feature files and directories in order to be able to ',
                         "have a fully traversable model tree of a test suite's structure. These models can then ",
-                        "be analyzed or manipulated more easily than the underlying AST layer."].join("\n")
+                        'be analyzed or manipulated more easily than the underlying AST layer.'].join("\n")
   spec.homepage      = 'https://github.com/enkessler/cuke_modeler'
-  spec.license       = "MIT"
+  spec.license       = 'MIT'
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     source_controlled_files.keep_if { |file| file =~ %r{^(lib|testing/cucumber/features)} }
     source_controlled_files + ['README.md', 'LICENSE.txt', 'CHANGELOG.md', 'cuke_modeler.gemspec']
   end
-  spec.require_paths = ["lib"]
+  spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 2.3', '< 3.0'
 

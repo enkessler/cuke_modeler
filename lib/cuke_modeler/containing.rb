@@ -204,7 +204,7 @@ module CukeModeler
     end
 
     def populate_content_type(doc_string_model, parsed_doc_string_data)
-      doc_string_model.content_type = if parsed_doc_string_data['content_type'] == ""
+      doc_string_model.content_type = if parsed_doc_string_data['content_type'] == ''
                                         nil
                                       else
                                         parsed_doc_string_data['content_type']

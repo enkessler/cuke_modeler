@@ -76,7 +76,7 @@ describe 'Rule, Integration' do
       CukeModeler::Parsing.dialect = 'de'
 
       begin
-        source_text = "Regel: Rule name"
+        source_text = 'Regel: Rule name'
 
         expect { @model = clazz.new(source_text) }.to_not raise_error
 

@@ -4,7 +4,7 @@ require "#{File.dirname(__FILE__)}/../spec_helper"
 describe 'the gem' do
 
   let(:root_dir) { "#{__dir__}/../../../.." }
-  let(:gemspec) { eval(File.read("#{root_dir}/cuke_modeler.gemspec")) } # rubocop:disable Security/Eval
+  let(:gemspec) { eval(File.read("#{root_dir}/cuke_modeler.gemspec")) }
   let(:lib_folder) { "#{root_dir}/lib" }
   let(:features_folder) { "#{root_dir}/testing/cucumber/features" }
 
@@ -82,7 +82,7 @@ end
 
 describe CukeModeler do
 
-  it "has a version number" do
+  it 'has a version number' do
     expect(CukeModeler::VERSION).not_to be nil
   end
 

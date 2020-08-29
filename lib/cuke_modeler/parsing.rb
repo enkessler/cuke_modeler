@@ -73,6 +73,10 @@ module CukeModeler
       gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
       gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
+      # Previous versions of the gem had more variation between their parsing methods and so it was more
+      # understandable to have different methods instead of a single method with lots of conditional statements
+      # inside of it, so I'm leaving this here in case it changes again
+      # rubocop:disable Lint/DuplicateMethods
       case gherkin_major_version
         when 13, 14, 15
           # TODO: make these methods private?
@@ -132,6 +136,7 @@ module CukeModeler
         else
           raise("Unknown Gherkin version: '#{gherkin_version}'")
       end
+      # rubocop:enable Lint/DuplicateMethods
 
       # NOT A PART OF THE PUBLIC API
       # The adapter to use when converting an AST to a standard internal shape

@@ -1,7 +1,7 @@
 Given(/^(?:a|the) directory "([^"]*)"$/) do |directory_name|
   @test_directory = "#{@root_test_directory}/#{directory_name}"
 
-  FileUtils.mkdir(@test_directory) unless File.exists?(@test_directory)
+  FileUtils.mkdir(@test_directory) unless File.exist?(@test_directory)
 end
 
 And(/^(?:a|the) file "([^"]*)"$/) do |file_name|

@@ -25,7 +25,7 @@ module CukeModeler
       super(directory_path)
 
       return unless directory_path
-      raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exists?(directory_path)
+      raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exist?(directory_path)
 
       processed_directory_data = process_directory(directory_path)
       populate_directory(self, processed_directory_data)
