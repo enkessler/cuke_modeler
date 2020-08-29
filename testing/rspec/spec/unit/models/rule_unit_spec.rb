@@ -42,13 +42,15 @@ describe 'Rule, Unit', unit_test: true do
       expect(rule.background).to eq(:some_other_background)
     end
 
-    it 'knows whether or not it presently has a background' do
-      expect(rule).to respond_to(:has_background?)
+    [:has_background?, :background?].each do |method_name|
+      it "knows whether or not it presently has a background (##{method_name})" do
+        expect(rule).to respond_to(method_name)
 
-      rule.background = :a_background
-      expect(rule).to have_background
-      rule.background = nil
-      expect(rule).to_not have_background
+        rule.background = :a_background
+        expect(rule.send(method_name)).to be true
+        rule.background = nil
+        expect(rule.send(method_name)).to_not be true
+      end
     end
 
     it 'has tests' do

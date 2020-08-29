@@ -7,10 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 
-# Offense count: 1
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'testing/cucumber/step_definitions/setup_steps.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.
@@ -27,43 +23,6 @@ Lint/DuplicateMethods:
   Exclude:
     - 'lib/cuke_modeler/parsing.rb'
 
-# Offense count: 1
-Lint/EmptyWhen:
-  Exclude:
-    - 'lib/cuke_modeler/parsing.rb'
-
-
-# Offense count: 2
-Lint/UselessAssignment:
-  Exclude:
-    - 'lib/cuke_modeler/models/feature.rb'
-
-
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'testing/dialect_helper.rb'
-
-# Offense count: 4
-Naming/BinaryOperatorParameterName:
-  Exclude:
-    - 'lib/cuke_modeler/models/background.rb'
-    - 'lib/cuke_modeler/models/outline.rb'
-    - 'lib/cuke_modeler/models/scenario.rb'
-    - 'lib/cuke_modeler/models/step.rb'
-
-# Offense count: 2
-# Configuration parameters: NamePrefix, ForbiddenPrefixes, AllowedMethods, MethodDefinitionMacros.
-# NamePrefix: is_, has_, have_
-# ForbiddenPrefixes: is_, has_, have_
-# AllowedMethods: is_a?
-# MethodDefinitionMacros: define_method, define_singleton_method
-Naming/PredicateName:
-  Exclude:
-    - 'lib/cuke_modeler/models/feature.rb'
-    - 'lib/cuke_modeler/models/rule.rb'
-
-
 # Offense count: 16
 Security/Eval:
   Exclude:
@@ -74,132 +33,9 @@ Security/Eval:
     - 'testing/cucumber/step_definitions/verification_steps.rb'
 
 
-# Offense count: 50
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# IgnoredMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Enabled: false
-
-# Offense count: 30
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Enabled: false
-
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/cuke_modeler/containing.rb'
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EachWithObject:
-  Exclude:
-    - 'lib/cuke_modeler/models/example.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'testing/cucumber/step_definitions/modeling_steps.rb'
-
-
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/cuke_modeler/parsing.rb'
-
-# Offense count: 1
-Style/MixinUsage:
-  Exclude:
-    - 'testing/cucumber/support/env.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'lib/cuke_modeler/version.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'lib/cuke_modeler/containing.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/OrAssignment:
-  Exclude:
-    - 'lib/cuke_modeler/parsing.rb'
-
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/cuke_modeler/models/background.rb'
-    - 'lib/cuke_modeler/models/example.rb'
-    - 'lib/cuke_modeler/models/feature.rb'
-    - 'lib/cuke_modeler/models/outline.rb'
-    - 'lib/cuke_modeler/models/rule.rb'
-    - 'lib/cuke_modeler/models/scenario.rb'
-
-
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/RedundantInterpolation:
-  Exclude:
-    - 'lib/cuke_modeler/described.rb'
-
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/cuke_modeler/nested.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/cuke_modeler/parsing.rb'
-    - 'testing/cucumber/support/env.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods.
-# AllowedMethods: present?, blank?, presence, try, try!
-Style/SafeNavigation:
-  Exclude:
-    - 'lib/cuke_modeler/containing.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'lib/cuke_modeler/models/example.rb'
 
 
 # Offense count: 36
@@ -208,40 +44,3 @@ Style/Semicolon:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 58
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
-# Offense count: 55
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
-  Exclude:
-    - 'lib/cuke_modeler/models/doc_string.rb'
-    - 'lib/cuke_modeler/named.rb'
-
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/WhileUntilModifier:
-  Exclude:
-    - 'lib/cuke_modeler/nested.rb'
-
-# Offense count: 36
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize, WordRegex.
-# SupportedStyles: percent, brackets
-Style/WordArray:
-  EnforcedStyle: brackets

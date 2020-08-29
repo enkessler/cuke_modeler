@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.command_name('cucumber_tests')
 
 require 'test/unit/assertions'
-include Test::Unit::Assertions
+World(Test::Unit::Assertions)
 
 this_dir = File.dirname(__FILE__)
 
@@ -21,8 +21,8 @@ Before do
   end
 end
 
-at_exit {
+at_exit do
   CukeModeler::FileHelper.created_directories.each do |dir_path|
     FileUtils.remove_entry(dir_path, true)
   end
-}
+end

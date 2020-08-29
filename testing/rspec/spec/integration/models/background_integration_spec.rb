@@ -241,7 +241,7 @@ describe 'Background, Integration' do
           end
 
           it "models the background's steps" do
-            step_names = background.steps.collect { |step| step.text }
+            step_names = background.steps.map(&:text)
 
             expect(step_names).to eq(['a step', 'another step'])
           end

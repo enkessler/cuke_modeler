@@ -40,9 +40,11 @@ module CukeModeler
     end
 
     # Returns *true* if the feature contains a background, *false* otherwise.
-    def has_background?
+    def background?
       !@background.nil?
     end
+
+    alias has_background? background?
 
     # Returns the scenario models contained in the feature.
     def scenarios
@@ -60,11 +62,11 @@ module CukeModeler
     # single set of test values, such as an individual scenario or one example row
     # of an outline.
     def test_case_count
-      scenarios.count + outlines.reduce(0) { |outline_sum, outline|
-        outline_sum += outline.examples.reduce(0) { |example_sum, example|
-          example_sum += example.argument_rows.count
-        }
-      }
+      scenarios.count + outlines.reduce(0) do |outline_sum, outline|
+        outline_sum + outline.examples.reduce(0) do |example_sum, example|
+          example_sum + example.argument_rows.count
+        end
+      end
     end
 
     # Returns the model objects that belong to this model.
@@ -100,7 +102,7 @@ module CukeModeler
 
 
     def parse_source(source_text)
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file['feature']
     end

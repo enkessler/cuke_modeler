@@ -275,25 +275,25 @@ describe 'Feature, Integration' do
           end
 
           it "models the feature's rules" do
-            rule_names = feature.rules.collect { |rule| rule.name }
+            rule_names = feature.rules.map(&:name)
 
             expect(rule_names).to eq(['Rule 1', 'Rule 2'])
           end
 
           it "models the feature's scenarios" do
-            scenario_names = feature.scenarios.collect { |scenario| scenario.name }
+            scenario_names = feature.scenarios.map(&:name)
 
             expect(scenario_names).to eq(['Scenario 1', 'Scenario 2'])
           end
 
           it "models the feature's outlines" do
-            outline_names = feature.outlines.collect { |outline| outline.name }
+            outline_names = feature.outlines.map(&:name)
 
             expect(outline_names).to eq(['Outline 1', 'Outline 2'])
           end
 
           it "models the feature's tags" do
-            tag_names = feature.tags.collect { |tag| tag.name }
+            tag_names = feature.tags.map(&:name)
 
             expect(tag_names).to eq(['@tag_1', '@tag_2'])
           end

@@ -274,13 +274,13 @@ describe 'Rule, Integration' do
           end
 
           it "models the rules's scenarios" do
-            scenario_names = rule.scenarios.collect { |scenario| scenario.name }
+            scenario_names = rule.scenarios.map(&:name)
 
             expect(scenario_names).to eq(['Scenario 1', 'Scenario 2'])
           end
 
           it "models the rules's outlines" do
-            outline_names = rule.outlines.collect { |outline| outline.name }
+            outline_names = rule.outlines.map(&:name)
 
             expect(outline_names).to eq(['Outline 1', 'Outline 2'])
           end

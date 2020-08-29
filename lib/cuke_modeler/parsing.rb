@@ -16,12 +16,16 @@ end
 gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
+# Previous versions of the gem did not use the conventional entry point, so I'm leaving this here in case it
+# changes again
+# rubocop:disable Lint/EmptyWhen
 case gherkin_major_version
   when 9, 10, 11, 12, 13, 14, 15
     # Currently nothing else to load beyond the entry point to the gem
   else
     raise("Unknown Gherkin version: '#{gherkin_version}'")
 end
+# rubocop:enable Lint/EmptyWhen
 
 require "cuke_modeler/adapters/gherkin_#{gherkin_major_version}_adapter"
 
@@ -45,11 +49,7 @@ module CukeModeler
 
       # The dialects currently known by the gherkin gem
       def dialects
-        unless @dialects
-          @dialects = Gherkin::DIALECTS
-        end
-
-        @dialects
+        @dialects ||= Gherkin::DIALECTS
       end
 
       # Parses the Cucumber feature given in *source_text* and returns a hash representation of

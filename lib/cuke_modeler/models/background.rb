@@ -30,10 +30,10 @@ module CukeModeler
     end
 
     # Returns *true* if the two models have equivalent steps and *false* otherwise.
-    def ==(other_model)
-      return false unless other_model.respond_to?(:steps)
+    def ==(other)
+      return false unless other.respond_to?(:steps)
 
-      steps == other_model.steps
+      steps == other.steps
     end
 
     # Returns the model objects that belong to this model.
@@ -48,7 +48,7 @@ module CukeModeler
 
       text << "#{@keyword}:#{name_output_string}"
       text << "\n#{description_output_string}" unless no_description_to_output?
-      text << "\n" unless (steps.empty? || no_description_to_output?)
+      text << "\n" unless steps.empty? || no_description_to_output?
       text << "\n#{steps_output_string}" unless steps.empty?
 
       text
@@ -62,7 +62,7 @@ module CukeModeler
       base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_background.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_background.feature')
 
       parsed_file['feature']['elements'].first
     end

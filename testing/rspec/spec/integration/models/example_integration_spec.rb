@@ -185,13 +185,13 @@ describe 'Example, Integration' do
           end
 
           it "models the example's rows" do
-            row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+            row_cell_values = example.rows.collect { |row| row.cells.map(&:value) }
 
             expect(row_cell_values).to eq([['param'], ['value']])
           end
 
           it "models the example's tags" do
-            tag_names = example.tags.collect { |tag| tag.name }
+            tag_names = example.tags.map(&:name)
 
             expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
           end
@@ -251,7 +251,7 @@ describe 'Example, Integration' do
       example = clazz.new(source)
 
       rows = example.argument_rows
-      row_cell_values = rows.collect { |row| row.cells.collect { |cell| cell.value } }
+      row_cell_values = rows.collect { |row| row.cells.map(&:value) }
 
       expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
     end
@@ -261,7 +261,7 @@ describe 'Example, Integration' do
       example = clazz.new(source)
 
       row = example.parameter_row
-      row_cell_values = row.cells.collect { |cell| cell.value }
+      row_cell_values = row.cells.map(&:value)
 
       expect(row_cell_values).to eq(['param1', 'param2'])
     end
@@ -275,7 +275,7 @@ describe 'Example, Integration' do
 
         new_row = { 'param1' => 'value3', 'param2' => 'value4' }
         example.add_row(new_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
@@ -286,7 +286,7 @@ describe 'Example, Integration' do
 
         new_row = { :param1 => 'value3', 'param2' => 4 }
         example.add_row(new_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2'], ['value3', '4']])
       end
@@ -297,7 +297,7 @@ describe 'Example, Integration' do
 
         new_row = { 'param2' => 'value4', 'param1' => 'value3' }
         example.add_row(new_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
@@ -308,7 +308,7 @@ describe 'Example, Integration' do
 
         new_row = ['value3', 'value4']
         example.add_row(new_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4']])
       end
@@ -319,7 +319,7 @@ describe 'Example, Integration' do
 
         new_row = [:value4, 5, 'value6']
         example.add_row(new_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2', 'value3'], ['value4', '5', 'value6']])
       end
@@ -341,7 +341,7 @@ describe 'Example, Integration' do
         array_row = ['value5', ' value6 ']
         example.add_row(hash_row)
         example.add_row(array_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2'], ['value3', 'value4'], ['value5', 'value6']])
       end
@@ -379,7 +379,7 @@ describe 'Example, Integration' do
 
         old_row = { 'param1' => 'value3', 'param2' => 'value4' }
         example.remove_row(old_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2']])
       end
@@ -390,7 +390,7 @@ describe 'Example, Integration' do
 
         old_row = { 'param2' => 'value4', 'param1' => 'value3' }
         example.remove_row(old_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2']])
       end
@@ -401,7 +401,7 @@ describe 'Example, Integration' do
 
         old_row = ['value3', 'value4']
         example.remove_row(old_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2']])
       end
@@ -426,7 +426,7 @@ describe 'Example, Integration' do
 
         example.remove_row(hash_row)
         example.remove_row(array_row)
-        row_cell_values = example.argument_rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['value1', 'value2']])
       end
@@ -448,12 +448,12 @@ describe 'Example, Integration' do
         array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
-        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
 
         example.remove_row(array_row)
-        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
       end
@@ -466,12 +466,12 @@ describe 'Example, Integration' do
         array_row = ['param1', 'param2']
 
         example.remove_row(hash_row)
-        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
 
         example.remove_row(array_row)
-        row_cell_values = example.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+        row_cell_values = example.rows.collect { |row| row.cells.map(&:value) }
 
         expect(row_cell_values).to eq([['param1', 'param2'], ['value1', 'value2']])
       end

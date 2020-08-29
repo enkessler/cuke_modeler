@@ -28,7 +28,7 @@ module CukeModeler
     # Returns a string representation of this model. For a row model,
     # this will be Gherkin text that is equivalent to the row being modeled.
     def to_s
-      text_cells = cells.collect { |cell| cell.to_s }
+      text_cells = cells.map(&:to_s)
 
       "| #{text_cells.join(' | ')} |"
     end
@@ -44,7 +44,7 @@ module CukeModeler
                               #{dialect_step_keyword} fake step\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_row.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_row.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['table']['rows'].first
     end

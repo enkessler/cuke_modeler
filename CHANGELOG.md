@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Added
+ - `Feature#has_background?` and `Rule#has_background?` now both have a more conventional name via the alias `#background?`
 
 ## [3.3.0] - 2020-08-15
 

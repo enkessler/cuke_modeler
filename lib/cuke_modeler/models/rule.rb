@@ -35,9 +35,11 @@ module CukeModeler
     end
 
     # Returns *true* if the rule contains a background, *false* otherwise.
-    def has_background?
+    def background?
       !@background.nil?
     end
+
+    alias has_background? background?
 
     # Returns the scenario models contained in the rule.
     def scenarios
@@ -78,7 +80,7 @@ module CukeModeler
       base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_rule.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_rule.feature')
 
       parsed_file['feature']['elements'].first
     end

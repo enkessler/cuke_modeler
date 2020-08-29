@@ -324,7 +324,7 @@ module CukeModeler
     end
 
     def save_original_data(adapted_ast, raw_ast)
-      adapted_ast['cuke_modeler_parsing_data'] = Marshal::load(Marshal.dump(raw_ast))
+      adapted_ast['cuke_modeler_parsing_data'] = Marshal.load(Marshal.dump(raw_ast))
     end
 
     def clear_child_elements(ast, child_paths)

@@ -46,7 +46,7 @@ module CukeModeler
                               #{dialect_step_keyword} step\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_doc_string.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_doc_string.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['doc_string']
     end
@@ -56,7 +56,7 @@ module CukeModeler
     end
 
     def content_output_string
-      (content.nil? || content.empty?) ? '' : content.gsub('"""', '\"\"\"') + "\n"
+      content.nil? || content.empty? ? '' : content.gsub('"""', '\"\"\"') + "\n"
     end
 
   end

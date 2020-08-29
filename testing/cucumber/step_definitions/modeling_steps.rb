@@ -1,5 +1,5 @@
 Given(/^the models provided by CukeModeler/) do
-  @available_model_classes = Array.new.tap do |classes|
+  @available_model_classes = [].tap do |classes|
     CukeModeler.constants.each do |constant|
       next unless CukeModeler.const_get(constant).is_a?(Class) &&
                   CukeModeler.const_get(constant).ancestors.include?(CukeModeler::Model)

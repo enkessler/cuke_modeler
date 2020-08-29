@@ -35,10 +35,10 @@ gherkin_major_version = Gem.loaded_specs['cucumber-gherkin'].version.version.mat
 case gherkin_major_version
   when 9, 10, 11, 12, 13, 14, 15
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
-    test_dialect = ['en', 'en-lol', 'en-pirate', 'en-Scouse'].sample
+    test_dialect = %w[en en-lol en-pirate en-Scouse].sample
     puts "Testing with dialect '#{test_dialect}'..."
 
-    CukeModeler::DialectHelper.set_dialect(Gherkin::DIALECTS[test_dialect])
+    CukeModeler::DialectHelper.dialect = Gherkin::DIALECTS[test_dialect]
     CukeModeler::Parsing.dialect = test_dialect
 
     module Gherkin

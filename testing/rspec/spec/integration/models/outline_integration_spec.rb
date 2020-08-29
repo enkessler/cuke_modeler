@@ -230,19 +230,19 @@ describe 'Outline, Integration' do
           end
 
           it "models the outline's steps" do
-            step_names = outline.steps.collect { |step| step.text }
+            step_names = outline.steps.map(&:text)
 
             expect(step_names).to eq(['a <setup> step', 'an action step', 'a <verification> step'])
           end
 
           it "models the outline's tags" do
-            tag_names = outline.tags.collect { |tag| tag.name }
+            tag_names = outline.tags.map(&:name)
 
             expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
           end
 
           it "models the outline's examples" do
-            example_names = outline.examples.collect { |example| example.name }
+            example_names = outline.examples.map(&:name)
 
             expect(example_names).to eq(['example 1', 'example 2'])
           end

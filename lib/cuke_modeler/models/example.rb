@@ -43,7 +43,7 @@ module CukeModeler
       raise('Cannot add a row. No parameters have been set.') if rows.empty?
 
       # A quick 'deep clone' so that the input isn't modified
-      row = Marshal::load(Marshal.dump(row))
+      row = Marshal.load(Marshal.dump(row))
 
       values = if row.is_a?(Array)
                  row
@@ -91,7 +91,7 @@ module CukeModeler
 
     # Returns the parameters of the example table
     def parameters
-      parameter_row ? parameter_row.cells.collect { |cell| cell.value } : []
+      parameter_row ? parameter_row.cells.map(&:value) : []
     end
 
     # Returns the model objects that belong to this model.
@@ -110,7 +110,7 @@ module CukeModeler
       text << "#{tag_output_string}\n" unless tags.empty?
       text << "#{@keyword}:#{name_output_string}"
       text << "\n#{description_output_string}" unless no_description_to_output?
-      text << "\n" unless (rows.empty? || no_description_to_output?)
+      text << "\n" unless rows.empty? || no_description_to_output?
       text << "\n#{parameters_output_string}" if parameter_row
       text << "\n#{rows_output_string}" unless argument_rows.empty?
 
@@ -130,7 +130,7 @@ module CukeModeler
                               #{dialect_step_keyword} fake step\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
 
       parsed_file['feature']['elements'].first['examples'].first
     end
@@ -172,11 +172,11 @@ module CukeModeler
     end
 
     def ordered_row_values(row_hash)
-      parameter_row.cells.collect { |cell| cell.value }.collect { |parameter| row_hash[parameter] }
+      parameter_row.cells.map(&:value).collect { |parameter| row_hash[parameter] }
     end
 
     def stringify_keys(hash)
-      hash.inject({}) { |new_hash, (key, value)| new_hash[key.to_s] = value; new_hash }
+      hash.each_with_object({}) { |(key, value), new_hash| new_hash[key.to_s] = value }
     end
 
     def index_for_values(values)

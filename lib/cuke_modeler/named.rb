@@ -13,7 +13,7 @@ module CukeModeler
 
 
     def name_output_string
-      (name.nil? || name.empty?) ? '' : " #{name}"
+      name.nil? || name.empty? ? '' : " #{name}"
     end
 
     def populate_name(model, parsed_model_data)

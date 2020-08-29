@@ -19,7 +19,7 @@ module CukeModeler
         description_lines = description.split("\n")
 
         text << "\n" if description_lines.first =~ /\S/
-        text << description_lines.collect { |line| "#{line}" }.join("\n")
+        text << description_lines.join("\n")
       end
 
       text
@@ -61,7 +61,7 @@ module CukeModeler
     end
 
     def trim_trailing_spaces(description)
-      description.map! { |line| line.rstrip }
+      description.map!(&:rstrip)
     end
 
   end

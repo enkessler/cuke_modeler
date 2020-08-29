@@ -16,13 +16,8 @@ module CukeModeler
 
       raise(ArgumentError, "Unknown ancestor type '#{ancestor_type}'.") if target_classes.nil?
 
-
-      ancestor = self.parent_model
-
-      until target_classes.include?(ancestor.class) || ancestor.nil?
-        ancestor = ancestor.parent_model
-      end
-
+      ancestor = parent_model
+      ancestor = ancestor.parent_model until target_classes.include?(ancestor.class) || ancestor.nil?
 
       ancestor
     end

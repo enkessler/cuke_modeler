@@ -32,12 +32,12 @@ module CukeModeler
 
     # Returns *true* if the two steps have the same base text (i.e. minus any keyword,
     # table, or doc string and *false* otherwise.
-    def ==(other_step)
-      return false unless other_step.is_a?(CukeModeler::Step)
+    def ==(other)
+      return false unless other.is_a?(CukeModeler::Step)
 
-      text_matches?(other_step) &&
-        table_matches?(other_step) &&
-        doc_string_matches?(other_step)
+      text_matches?(other) &&
+        table_matches?(other) &&
+        doc_string_matches?(other)
     end
 
     # Returns the model objects that belong to this model.
@@ -64,7 +64,7 @@ module CukeModeler
                             #{dialect_scenario_keyword}:\n"
       source_text = base_file_string + source_text
 
-      parsed_file = Parsing::parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
+      parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
 
       parsed_file['feature']['elements'].first['steps'].first
     end

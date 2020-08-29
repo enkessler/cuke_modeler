@@ -1,50 +1,51 @@
 module CukeModeler
   module DialectHelper
 
-    def self.set_dialect(dialect)
-      @dialect = dialect
-    end
+    class << self
 
-    def self.feature_keyword
-      get_word(@dialect['feature'])
-    end
+      attr_writer :dialect
 
-    def self.background_keyword
-      get_word(@dialect['background'])
-    end
+      def feature_keyword
+        get_word(@dialect['feature'])
+      end
 
-    def self.rule_keyword
-      get_word(@dialect['rule'])
-    end
+      def background_keyword
+        get_word(@dialect['background'])
+      end
 
-    def self.scenario_keyword
-      get_word(@dialect['scenario'])
-    end
+      def rule_keyword
+        get_word(@dialect['rule'])
+      end
 
-    def self.outline_keyword
-      get_word(@dialect['scenarioOutline'] || @dialect['scenario_outline'])
-    end
+      def scenario_keyword
+        get_word(@dialect['scenario'])
+      end
 
-    def self.example_keyword
-      get_word(@dialect['examples'])
-    end
+      def outline_keyword
+        get_word(@dialect['scenarioOutline'] || @dialect['scenario_outline'])
+      end
 
-    def self.step_keyword
-      get_word(@dialect['given']).strip
-    end
+      def example_keyword
+        get_word(@dialect['examples'])
+      end
 
-    def self.given_keyword
-      get_word(@dialect['given']).strip
-    end
+      def step_keyword
+        get_word(@dialect['given']).strip
+      end
 
-    def self.then_keyword
-      get_word(@dialect['then']).strip
-    end
+      def given_keyword
+        get_word(@dialect['given']).strip
+      end
 
-    def self.get_word(word_set)
-      word_set.is_a?(Array) ? word_set.first : word_set.split('|').first
-    end
+      def then_keyword
+        get_word(@dialect['then']).strip
+      end
 
+      def get_word(word_set)
+        word_set.is_a?(Array) ? word_set.first : word_set.split('|').first
+      end
+
+    end
 
     private_class_method :get_word
 

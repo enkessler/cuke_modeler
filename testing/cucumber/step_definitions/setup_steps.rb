@@ -1,4 +1,4 @@
-Given /^(?:a|the) directory "([^"]*)"$/ do |directory_name|
+Given(/^(?:a|the) directory "([^"]*)"$/) do |directory_name|
   @test_directory = "#{@root_test_directory}/#{directory_name}"
 
   FileUtils.mkdir(@test_directory) unless File.exists?(@test_directory)
@@ -9,9 +9,7 @@ And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
 
   # Some versions of Gherkin require feature content to be present in feature files
   if file_name =~ /\.feature/
-    File.open(file_path, 'w') { |file|
-      file.write('Feature:')
-    }
+    File.write(file_path, 'Feature:')
   else
     FileUtils.touch(file_path)
   end

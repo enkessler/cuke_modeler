@@ -35,7 +35,7 @@ module CukeModeler
 
         path = "#{options[:directory]}/#{options[:name]}"
 
-        Dir::mkdir(path)
+        Dir.mkdir(path)
         created_directories << options[:directory]
 
         path

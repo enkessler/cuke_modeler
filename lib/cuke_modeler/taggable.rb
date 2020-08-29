@@ -25,7 +25,7 @@ module CukeModeler
 
 
     def tag_output_string
-      tags.collect { |tag| tag.name }.join(' ')
+      tags.map(&:name).join(' ')
     end
 
     def populate_tags(model, parsed_model_data)

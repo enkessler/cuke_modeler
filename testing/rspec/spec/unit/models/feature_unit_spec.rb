@@ -43,11 +43,15 @@ describe 'Feature, Unit', unit_test: true do
       expect(feature.background).to eq(:some_other_background)
     end
 
-    it 'knows whether or not it presently has a background - has_background?' do
-      feature.background = :a_background
-      expect(feature).to have_background
-      feature.background = nil
-      expect(feature).to_not have_background
+    [:has_background?, :background?].each do |method_name|
+      it "knows whether or not it presently has a background (##{method_name})" do
+        expect(feature).to respond_to(method_name)
+
+        feature.background = :a_background
+        expect(feature.send(method_name)).to be true
+        feature.background = nil
+        expect(feature.send(method_name)).to_not be true
+      end
     end
 
     it 'has rules' do

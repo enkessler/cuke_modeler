@@ -86,7 +86,7 @@ describe 'Directory, Integration' do
 
 
           it 'models the feature files contained in the directory' do
-            modeled_files = directory_model.feature_files.collect { |file| file.name }
+            modeled_files = directory_model.feature_files.map(&:name)
 
             expect(modeled_files).to eq([])
           end
@@ -126,7 +126,7 @@ describe 'Directory, Integration' do
 
 
           it 'models the directories contained in the directory' do
-            modeled_directories = directory_model.directories.collect { |nested_directory| nested_directory.name }
+            modeled_directories = directory_model.directories.map(&:name)
 
             expect(modeled_directories).to eq([])
           end

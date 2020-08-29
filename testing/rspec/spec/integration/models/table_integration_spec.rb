@@ -106,7 +106,7 @@ describe 'Table, Integration' do
 
 
           it "models the table's rows" do
-            table_cell_values = table.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+            table_cell_values = table.rows.collect { |row| row.cells.map(&:value) }
 
             expect(table_cell_values).to eq([['value 1'], ['value 2']])
           end

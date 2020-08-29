@@ -229,13 +229,13 @@ describe 'Scenario, Integration' do
           end
 
           it "models the scenario's steps" do
-            step_names = scenario.steps.collect { |step| step.text }
+            step_names = scenario.steps.map(&:text)
 
             expect(step_names).to eq(['a step', 'another step'])
           end
 
           it "models the scenario's tags" do
-            tag_names = scenario.tags.collect { |tag| tag.name }
+            tag_names = scenario.tags.map(&:name)
 
             expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
           end

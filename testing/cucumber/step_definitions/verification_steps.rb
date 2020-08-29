@@ -72,13 +72,13 @@ end
 Then(/^the model returns models for the following feature files:$/) do |file_names|
   file_names = file_names.raw.flatten
 
-  expect(@result.collect { |file_model| file_model.name }).to match_array(file_names)
+  expect(@result.map(&:name)).to match_array(file_names)
 end
 
 Then(/^the model returns models for the following directories:$/) do |directory_names|
   directory_names = directory_names.raw.flatten
 
-  expect(@result.collect { |directory_model| directory_model.name }).to match_array(directory_names)
+  expect(@result.map(&:name)).to match_array(directory_names)
 end
 
 And(/^the output can be used to make an equivalent model$/) do |code_text|
@@ -113,13 +113,13 @@ end
 Then(/^the model returns models for the following steps:$/) do |step_names|
   step_names = step_names.raw.flatten
 
-  expect(@result.collect { |step_model| step_model.text }).to eq(step_names)
+  expect(@result.map(&:text)).to eq(step_names)
 end
 
 Then(/^the model returns models for the following rows:$/) do |rows|
   rows = rows.raw
 
-  expect(@result.collect { |row_model| row_model.cells.collect { |cell| cell.value } }).to eq(rows)
+  expect(@result.collect { |row_model| row_model.cells.map(&:value) }).to eq(rows)
 end
 
 Then(/^the model returns a model for the following feature:$/) do |feature_name|
@@ -131,7 +131,7 @@ end
 Then(/^the model returns a model for the following table:$/) do |table_rows|
   table_rows = table_rows.raw
 
-  expect(@result.rows.collect { |row| row.cells.collect { |cell| cell.value } }).to eq(table_rows)
+  expect(@result.rows.collect { |row| row.cells.map(&:value) }).to eq(table_rows)
 end
 
 Then(/^the model returns a model for the following doc string:$/) do |string_text|
@@ -145,13 +145,13 @@ end
 Then(/^the model returns models for the following (?:rule|scenario|outline|tag|example)s:$/) do |model_names|
   model_names = model_names.raw.flatten
 
-  expect(@result.collect { |model| model.name }).to eq(model_names)
+  expect(@result.map(&:name)).to eq(model_names)
 end
 
 Then(/^the model returns models for the following cells:$/) do |model_values|
   model_values = model_values.raw.flatten
 
-  expect(@result.collect { |model| model.value }).to eq(model_values)
+  expect(@result.map(&:value)).to eq(model_values)
 end
 
 Then(/^all of them are equivalent$/) do
@@ -177,5 +177,5 @@ end
 Then(/^the model returns models for the following comments:$/) do |model_values|
   model_values = model_values.raw.flatten
 
-  expect(@result.collect { |model| model.text }).to eq(model_values)
+  expect(@result.map(&:text)).to eq(model_values)
 end

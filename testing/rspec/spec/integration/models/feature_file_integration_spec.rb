@@ -219,7 +219,7 @@ describe 'FeatureFile, Integration' do
         File.open(feature_file_path, 'w') { |file| file.write(source_text) }
 
         feature_file = clazz.new(feature_file_path)
-        comments = feature_file.comments.collect { |comment| comment.text }
+        comments = feature_file.comments.map(&:text)
 
 
         expected_comments = ['# feature comment',

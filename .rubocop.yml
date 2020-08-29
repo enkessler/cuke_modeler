@@ -28,10 +28,10 @@ Layout/EmptyLinesAroundClassBody:
     - 'testing/rspec/spec/**/*' # Specs tend to just have little monkey patches that don't need the extra room
 Layout/EmptyLinesAroundModuleBody:
   Enabled: false
+Layout/LineLength:
+  Max: 120
 Naming/VariableNumber:
   EnforcedStyle: snake_case
-Metrics/LineLength:
-  Max: 120
 
 Metrics/BlockLength:
   Exclude:
@@ -41,6 +41,12 @@ Metrics/BlockLength:
 
 # Just not going to worry about it for now
 Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/RescueStandardError:
+  EnforcedStyle: 'implicit'
+Style/SymbolArray:
+  Enabled: false
+Style/WordArray:
   Enabled: false
 
 # Still within understanding as long as other complexity cops aren't triggering
@@ -52,5 +58,8 @@ Layout/BlockEndNewline:
   Exclude:
     - 'testing/rspec/spec/**/*'
 Layout/MultilineBlockLayout:
+  Exclude:
+    - 'testing/rspec/spec/**/*'
+Style/BlockDelimiters:
   Exclude:
     - 'testing/rspec/spec/**/*'

@@ -236,7 +236,7 @@ describe 'Row, Integration' do
 
 
         it "models the row's cells" do
-          cell_values = row.cells.collect { |cell| cell.value }
+          cell_values = row.cells.map(&:value)
 
           expect(cell_values).to match_array(['cell 1', 'cell 2'])
         end

@@ -148,7 +148,7 @@ describe 'Step, Integration' do
 
 
           it "models the step's table" do
-            table_cell_values = step.block.rows.collect { |row| row.cells.collect { |cell| cell.value } }
+            table_cell_values = step.block.rows.collect { |row| row.cells.map(&:value) }
 
             expect(table_cell_values).to eq([['value 1'], ['value 2']])
           end
