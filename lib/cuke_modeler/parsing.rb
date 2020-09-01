@@ -1,13 +1,6 @@
 # Have to at least load some version of the gem before which version of the gem has been loaded can
-# be determined and the rest of the needed files can be loaded. The entry points vary across versions,
-# so try them all until one of them works.
-begin
-  # Gherkin 9.x
-  require 'gherkin'
-rescue LoadError => e
-  # Add other entry points again if things change again
-  raise e
-end
+# be determined and the rest of the needed files can be loaded.
+require 'gherkin'
 
 
 # The *cucumber-gherkin* gem loads differently and has different grammar rules across major versions. Parsing
