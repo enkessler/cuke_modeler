@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../../spec_helper"
 
 
-describe "Gherkin#{gherkin_major_version}Adapter, Integration" do
+describe "Adapter, Integration" do
 
   let(:clazz) { CukeModeler.const_get("Gherkin#{gherkin_major_version}Adapter") }
   let(:adapter) { clazz.new }
