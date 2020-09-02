@@ -39,14 +39,15 @@ namespace 'cuke_modeler' do
     cucumber_version = Gem.loaded_specs['cucumber'].version.version
     cucumber_major_version = cucumber_version.match(/^(\d+)\./)[1].to_i
 
-    # Command lines are long things
-    # rubocop:disable Layout/LineLength
-    if cucumber_major_version < 4
-      cucumber_args = 'testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t ~@wip --color'
-    else
-      cucumber_args = "testing/cucumber/features -r testing/cucumber/support -r testing/cucumber/step_definitions -f progress -t 'not @wip' --color"
-    end
-    # rubocop:enable Layout/LineLength
+    cucumber_args = 'testing/cucumber/features'
+    cucumber_args += ' -r testing/cucumber/support -r testing/cucumber/step_definitions'
+    cucumber_args += ' -f progress --color'
+    cucumber_args += if cucumber_major_version < 4
+                       ' -t ~@wip'
+                     else
+                       " -t 'not @wip'"
+                     end
+    cucumber_args += ' --publish-quiet' if cucumber_major_version >= 5
 
     Rake::Task['racatt:test_everything'].invoke(rspec_args, cucumber_args)
   end

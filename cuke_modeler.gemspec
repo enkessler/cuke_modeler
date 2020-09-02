@@ -32,12 +32,16 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '< 3.0'
   spec.add_development_dependency 'coveralls', '< 1.0.0'
-  spec.add_development_dependency 'cucumber', '< 5.0.0'
+  # Cucumber 4.x is the earliest version to use cucumber-gherkin
+  spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 6.0.0'
   spec.add_development_dependency 'racatt', '~> 1.0'
   spec.add_development_dependency 'rainbow', '< 4.0.0'
-  spec.add_development_dependency 'rake', '< 13.0.0'
+  spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
+  # RuboCop drops Ruby 2.3 support after this version and we need to maintain Ruby 2.3 compatibility when writing code
+  # for this gem
   spec.add_development_dependency 'rubocop', '< 0.82.0'
+  # Coveralls gem does not support any newer version than this
   spec.add_development_dependency 'simplecov', '<= 0.16.1'
   spec.add_development_dependency 'test-unit', '< 4.0.0'
 end
