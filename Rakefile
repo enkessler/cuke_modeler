@@ -80,4 +80,4 @@ namespace 'cuke_modeler' do
 end
 
 
-task :default => 'cuke_modeler:test_everything' # rubocop:disable Style/HashSyntax
+task :default => ['cuke_modeler:test_everything', 'cuke_modeler:rubocop'] # rubocop:disable Style/HashSyntax
