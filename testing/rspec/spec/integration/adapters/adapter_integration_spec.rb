@@ -177,60 +177,54 @@ describe "Adapter, Integration" do
 
   end
 
-  # TODO: have these skip making a file and just use source text
   describe 'element type selection' do
 
     it 'correctly identifies a minimal feature' do
       source_text = "#{FEATURE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
-      feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_file_model.feature).to be_a(CukeModeler::Feature)
+      expect(adapted_ast['feature']).to_not be_nil
     end
 
     it 'correctly identifies a minimal rule' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{RULE_KEYWORD}:"
-      feature_model = CukeModeler::Feature.new(source_text)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_model.rules.first).to be_a(CukeModeler::Rule)
+      expect(adapted_ast['feature']['elements'].first['type']).to eq('Rule')
     end
 
     it 'correctly identifies a minimal background' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{BACKGROUND_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
-      feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_file_model.feature.background).to be_a(CukeModeler::Background)
+      expect(adapted_ast['feature']['elements'].first['type']).to eq('Background')
     end
 
     it 'correctly identifies a minimal scenario' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{SCENARIO_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
-      feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_file_model.feature.tests.first).to be_a(CukeModeler::Scenario)
+      expect(adapted_ast['feature']['elements'].first['type']).to eq('Scenario')
     end
 
     it 'correctly identifies a minimal outline' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{OUTLINE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
-      feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_file_model.feature.tests.first).to be_a(CukeModeler::Outline)
+      expect(adapted_ast['feature']['elements'].first['type']).to eq('ScenarioOutline')
     end
 
     it 'correctly identifies a minimal example' do
       source_text = "#{FEATURE_KEYWORD}:
                        #{OUTLINE_KEYWORD}:
                        #{EXAMPLE_KEYWORD}:"
-      test_file_path = CukeModeler::FileHelper.create_feature_file(text: source_text)
-      feature_file_model = CukeModeler::FeatureFile.new(test_file_path)
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
 
-      expect(feature_file_model.feature.tests.first.examples.first).to be_a(CukeModeler::Example)
+      expect(adapted_ast['feature']['elements'].first['examples'].count).to eq(1)
     end
 
   end
