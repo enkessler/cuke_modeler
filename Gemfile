@@ -4,11 +4,11 @@ source 'http://rubygems.org'
 gemspec
 
 
-gherkin_major_version = 15
+gherkin_major_version = 16
 
 # Only versions of Cucumber that rely on the old `gherkin3` gem can be used
 # with versions of the `cucumber-gherkin` gem for which there was never a cucumber release
-unsupported_gherkin_versions = [9, 11, 12]
+unsupported_gherkin_versions = [9, 11, 12, 16]
 
 # rubocop:disable Bundler/DuplicatedGem
 if unsupported_gherkin_versions.include?(gherkin_major_version)
