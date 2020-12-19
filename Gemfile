@@ -6,16 +6,23 @@ gemspec
 
 gherkin_major_version = 16
 
-# Only versions of Cucumber that rely on the old `gherkin3` gem can be used
-# with versions of the `cucumber-gherkin` gem for which there was never a cucumber release
-unsupported_gherkin_versions = [9, 11, 12, 16]
-
 # rubocop:disable Bundler/DuplicatedGem
-if unsupported_gherkin_versions.include?(gherkin_major_version)
-  gem 'cucumber', '2.2.0'
-elsif gherkin_major_version == 13
-  # Prerelease versions are not usually used but it's the only version of Cucumber that supports Gherkin 13
-  gem 'cucumber', '>4.0.0.rc.4'
+if RUBY_VERSION =~ /^2\.[34]/
+  gem 'activesupport', '< 6.0' # Requires Ruby 2.5 at this version
+  gem 'parallel', '< 1.20' # Requires Ruby 2.5 at this version
+
+  if [9, 11, 12, 15, 16].include?(gherkin_major_version)
+    gem 'cucumber', '2.2.0' # No recent version of cucumber that supports this Ruby & cucumber-gherkin combination
+  else
+    gem 'cucumber', '>=4.0.0.rc.4', # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+                    '< 5.0' # Requires Ruby 2.5 at this version
+  end
+else
+  if [9, 11, 12, 16].include?(gherkin_major_version)
+    gem 'cucumber', '2.2.0' # No recent version of cucumber that supports this Ruby & cucumber-gherkin combination
+  else
+    gem 'cucumber', '>=4.0.0.rc.4' # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+  end
 end
 # rubocop:enable Bundler/DuplicatedGem
 

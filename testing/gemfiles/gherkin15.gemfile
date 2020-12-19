@@ -2,6 +2,12 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
+if RUBY_VERSION =~ /^2\.[34]/
+  gem 'activesupport', '< 6.0' # Requires Ruby 2.5 at this version
+  gem 'parallel', '< 1.20' # Requires Ruby 2.5 at this version
+  gem 'cucumber', '2.2.0' # No recent version of cucumber that supports Ruby < 2.5 and cucumber-gherkin 15
+end
+
 # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 gem 'cucumber', '>=4.0.0.rc.4'
 
