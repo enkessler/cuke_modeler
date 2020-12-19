@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.5.0] - 2020-12-19
+
 ### Added
  - Support added for more versions of the `cucumber-gherkin` gem
    - 16.x
@@ -336,7 +340,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.4.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.5.0...HEAD
+[3.5.0]: https://github.com/enkessler/cuke_modeler/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/enkessler/cuke_modeler/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/enkessler/cuke_modeler/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/enkessler/cuke_modeler/compare/v3.1.0...v3.2.0
