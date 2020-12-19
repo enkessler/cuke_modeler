@@ -1,4 +1,4 @@
 module CukeModeler
   # The gem version
-  VERSION = '3.4.0'.freeze
+  VERSION = '3.5.0'.freeze
 end
