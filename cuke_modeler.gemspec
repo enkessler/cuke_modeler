@@ -44,4 +44,5 @@ Gem::Specification.new do |spec|
   # Coveralls gem does not support any newer version than this
   spec.add_development_dependency 'simplecov', '<= 0.16.1'
   spec.add_development_dependency 'test-unit', '< 4.0.0'
+  spec.add_development_dependency 'pry', '~> 0.13.1'
 end

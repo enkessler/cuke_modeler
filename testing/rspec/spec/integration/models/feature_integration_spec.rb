@@ -298,6 +298,13 @@ describe 'Feature, Integration' do
             expect(tag_names).to eq(['@tag_1', '@tag_2'])
           end
 
+          it "models the feature's fingerprint" do
+            children_fingerprints = feature.children.map(&:fingerprint)
+
+            expect(children_fingerprints.compact).to match_array children_fingerprints
+            expect(feature.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
+          end
+
         end
 
 
@@ -333,6 +340,10 @@ describe 'Feature, Integration' do
 
           it "models the feature's tags" do
             expect(feature.tags).to eq([])
+          end
+
+          it "models the feature's fingerprint" do
+            expect(feature.fingerprint).to eq(Digest::MD5.hexdigest(feature.to_s))
           end
 
         end

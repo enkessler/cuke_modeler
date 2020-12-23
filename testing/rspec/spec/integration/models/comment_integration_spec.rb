@@ -138,6 +138,10 @@ describe 'Comment, Integration' do
           expect(comment.source_line).to eq(1)
         end
 
+        it "models the comment's fingerprint" do
+          expect(comment.fingerprint).to eq(Digest::MD5.hexdigest(comment.to_s))
+        end
+
         it 'removes surrounding whitespace' do
           comment = clazz.new('           # a comment             ')
 

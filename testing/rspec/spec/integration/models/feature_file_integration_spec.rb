@@ -239,6 +239,12 @@ describe 'FeatureFile, Integration' do
         expect(comments).to match_array(expected_comments)
       end
 
+      it "models the feature_file's fingerprint" do
+        children_fingerprints = feature_file.children.map(&:fingerprint)
+
+        expect(children_fingerprints.compact).to match_array children_fingerprints
+        expect(feature_file.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
+      end
 
       context 'an empty feature file' do
 
@@ -246,6 +252,10 @@ describe 'FeatureFile, Integration' do
 
         it "models the feature file's feature" do
           expect(feature_file.feature).to be_nil
+        end
+
+        it "models the feature_file's fingerprint" do
+          expect(feature_file.fingerprint).to eq(Digest::MD5.hexdigest(feature_file.to_s))
         end
 
       end

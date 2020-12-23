@@ -246,6 +246,12 @@ describe 'Background, Integration' do
             expect(step_names).to eq(['a step', 'another step'])
           end
 
+          it "models the background's fingerprint" do
+            children_fingerprints = background.children.map(&:fingerprint)
+
+            expect(children_fingerprints.compact).to match_array children_fingerprints
+            expect(background.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
+          end
         end
 
         context 'an empty background' do

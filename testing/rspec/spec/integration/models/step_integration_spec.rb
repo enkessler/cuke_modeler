@@ -114,6 +114,10 @@ describe 'Step, Integration' do
           expect(step.text).to eq('a step')
         end
 
+        it "models the step's fingerprint" do
+          expect(step.fingerprint).to eq(Digest::MD5.hexdigest(step.to_s))
+        end
+
         it "models the step's source line" do
           source_text = "#{FEATURE_KEYWORD}:
 
@@ -153,6 +157,9 @@ describe 'Step, Integration' do
             expect(table_cell_values).to eq([['value 1'], ['value 2']])
           end
 
+          it "models the step's fingerprint" do
+            expect(step.fingerprint).to eq(Digest::MD5.hexdigest(step.to_s))
+          end
         end
 
         context 'a step with a doc string' do

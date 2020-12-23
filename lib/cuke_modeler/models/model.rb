@@ -6,6 +6,7 @@ module CukeModeler
 
     include Nested
     include Containing
+    include Fingerprint
 
 
     # Creates a new Model object and, if *source_text* is provided,
