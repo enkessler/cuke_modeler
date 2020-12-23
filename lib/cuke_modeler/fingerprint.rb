@@ -7,35 +7,41 @@ module CukeModeler
 
   module Fingerprint
     # NOTE: create a fingerprint for the given model using Digest::MD5
-    def fingerprint()
+    def fingerprint
+      # NOTE: yield the result value of the block as the argument to .hexdigest
+      if block_given?
+        value = yield self
+
+        # NOTE: The block returned nil, nothing to hexdigest here
+        return nil unless value.present?
+
+        return Digest::MD5.hexdigest(value)
+      end
+
+      # NOTE: no block given, .hexdigest the to_s of the model
+      return Digest::MD5.hexdigest(to_s)
+    end
+
+    # NOTE: create a fingerprint for the given model's children using Digest::MD5
+    def fingerprint_children(depth = 0)
       if children.empty?
-        # NOTE: yield the result value of the block as the argument to .hexdigest
-        if block_given?
-          value = yield self
+        fail 'dont invoke fingerprint_children on a model without children' if depth == 0
 
-          # NOTE: The block returned nil, nothing to hexdigest here
-          return nil unless value.present?
-
-          return Digest::MD5.hexdigest(value)
-        end
-
-        # NOTE: no block given, .hexdigest the to_s of the model
-        return Digest::MD5.hexdigest(to_s)
+        return fingerprint { |m| yield m } if block_given?
+        return fingerprint
       end
 
       # NOTE: aggregate the fingerprints of all it's children
-      children_fingerprints = children.map do |child|
+      fingerprints = children.map do |child|
         if block_given?
-          # NOTE: this child has children of its own traverse those
-          child.fingerprint { |nested_child| yield nested_child }
+          child.fingerprint_children(depth+1) { |c| yield c }
         else
-          # NOTE: this child is a leaf node, return the fingerprint
-          child.fingerprint
+          child.fingerprint_children(depth+1)
         end
       end.compact
 
       # NOTE: create a .hexdigest of the combined fingerprint of all children
-      Digest::MD5.hexdigest(children_fingerprints.join)
+      Digest::MD5.hexdigest(fingerprints.join)
     end
   end
 end
