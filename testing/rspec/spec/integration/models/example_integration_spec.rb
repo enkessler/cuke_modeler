@@ -153,6 +153,7 @@ describe 'Example, Integration' do
           expect(example.source_line).to eq(5)
         end
 
+
         context 'a filled example' do
 
           let(:source_text) {
@@ -197,13 +198,6 @@ describe 'Example, Integration' do
 
           it "models the example's parameters" do
             expect(example.parameters).to eq(['param'])
-          end
-
-          it "models the example's fingerprint" do
-            children_fingerprints = example.children.map(&:fingerprint)
-
-            expect(children_fingerprints.compact).to match_array children_fingerprints
-            expect(example.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
           end
 
         end

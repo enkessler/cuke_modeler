@@ -285,14 +285,6 @@ describe 'Rule, Integration' do
             expect(outline_names).to eq(['Outline 1', 'Outline 2'])
           end
 
-
-          it "models the rule's fingerprint" do
-            children_fingerprints = rule.children.map(&:fingerprint)
-
-            expect(children_fingerprints.compact).to match_array children_fingerprints
-            expect(rule.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
-          end
-
         end
 
 
@@ -320,10 +312,6 @@ describe 'Rule, Integration' do
 
           it "models the rule's outlines" do
             expect(rule.outlines).to eq([])
-          end
-
-          it "models the rule's fingerprint" do
-            expect(rule.fingerprint).to eq(Digest::MD5.hexdigest(rule.to_s))
           end
 
         end

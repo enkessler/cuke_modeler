@@ -247,14 +247,6 @@ describe 'Outline, Integration' do
             expect(example_names).to eq(['example 1', 'example 2'])
           end
 
-
-          it "models the outline's fingerprint" do
-            children_fingerprints = outline.children.map(&:fingerprint)
-
-            expect(children_fingerprints.compact).to match_array children_fingerprints
-            expect(outline.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
-          end
-
         end
 
 
@@ -282,10 +274,6 @@ describe 'Outline, Integration' do
 
           it "models the outline's examples" do
             expect(outline.examples).to eq([])
-          end
-
-          it "models the outline's fingerprint" do
-            expect(outline.fingerprint).to eq(Digest::MD5.hexdigest(outline.to_s))
           end
 
         end

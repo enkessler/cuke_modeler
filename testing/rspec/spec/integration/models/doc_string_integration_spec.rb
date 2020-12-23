@@ -255,9 +255,6 @@ describe 'DocString, Integration' do
             expect(doc_string.content).to eq('bar')
           end
 
-          it "models the doc_string's fingerprint" do
-            expect(doc_string.fingerprint).to eq(Digest::MD5.hexdigest(doc_string.to_s))
-          end
         end
 
         context 'an empty doc_string' do
@@ -274,10 +271,6 @@ describe 'DocString, Integration' do
 
           it "models the doc_string's content" do
             expect(doc_string.content).to eq('')
-          end
-
-          it "models the doc_string's fingerprint" do
-            expect(doc_string.fingerprint).to eq(Digest::MD5.hexdigest(doc_string.to_s))
           end
 
         end

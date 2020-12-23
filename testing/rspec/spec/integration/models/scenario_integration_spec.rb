@@ -240,13 +240,6 @@ describe 'Scenario, Integration' do
             expect(tag_names).to eq(['@tag1', '@tag2', '@tag3'])
           end
 
-          it "models the scenario's fingerprint" do
-            children_fingerprints = scenario.children.map(&:fingerprint)
-
-            expect(children_fingerprints.compact).to match_array children_fingerprints
-            expect(scenario.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
-          end
-
         end
 
         context 'an empty scenario' do
@@ -269,10 +262,6 @@ describe 'Scenario, Integration' do
 
           it "models the scenario's tags" do
             expect(scenario.tags).to eq([])
-          end
-
-          it "models the scenario's fingerprint" do
-            expect(scenario.fingerprint).to eq(Digest::MD5.hexdigest(scenario.to_s))
           end
 
         end

@@ -268,11 +268,6 @@ describe 'Cell, Integration' do
           expect(cell.source_line).to eq(5)
         end
 
-
-        it "models the cell's fingerprint" do
-          expect(cell.fingerprint).to eq(Digest::MD5.hexdigest(cell.to_s))
-        end
-
       end
 
     end

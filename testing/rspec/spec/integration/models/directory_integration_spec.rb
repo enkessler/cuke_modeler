@@ -67,13 +67,6 @@ describe 'Directory, Integration' do
             expect(modeled_files).to match_array(feature_files)
           end
 
-          it "models the directory's fingerprint" do
-            children_fingerprints = directory_model.children.map(&:fingerprint)
-
-            expect(children_fingerprints.compact).to match_array children_fingerprints
-            expect(directory_model.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
-          end
-
           it 'does not model non-feature files contained in the directory' do
             modeled_files = directory_model.feature_files.collect { |file| file.name[/test_file_\d/] }
 

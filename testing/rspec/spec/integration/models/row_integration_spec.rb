@@ -254,14 +254,6 @@ describe 'Row, Integration' do
           expect(row.source_line).to eq(6)
         end
 
-
-        it "models the row's fingerprint" do
-          children_fingerprints = row.children.map(&:fingerprint)
-
-          expect(children_fingerprints.compact).to match_array children_fingerprints
-          expect(row.fingerprint).to eq(Digest::MD5.hexdigest(children_fingerprints.join))
-        end
-
       end
 
     end
