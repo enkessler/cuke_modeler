@@ -10,7 +10,14 @@ module CukeModeler
     def fingerprint()
       if children.empty?
         # NOTE: yield the result value of the block as the argument to .hexdigest
-        return Digest::MD5.hexdigest(yield self) if block_given?
+        if block_given?
+          value = yield self
+
+          # NOTE: The block returned nil, nothing to hexdigest here
+          return nil unless value.present?
+
+          return Digest::MD5.hexdigest(value)
+        end
 
         # NOTE: no block given, .hexdigest the to_s of the model
         return Digest::MD5.hexdigest(to_s)
@@ -25,7 +32,7 @@ module CukeModeler
           # NOTE: this child is a leaf node, return the fingerprint
           child.fingerprint
         end
-      end
+      end.compact
 
       # NOTE: create a .hexdigest of the combined fingerprint of all children
       Digest::MD5.hexdigest(children_fingerprints.join)

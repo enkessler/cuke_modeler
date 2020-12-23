@@ -90,7 +90,30 @@ describe 'Fingerprint, Integration' do
         end
 
       end
+
+      describe 'getting a fingerprint with a block that excludes some children' do
+
+        it 'returns the Digest::MD5 of the block return value' do
+          block = lambda do |m|
+            next unless m.is_a? CukeModeler::Step
+
+            m.text
+          end
+
+          step_values = model.steps.map(&:text)
+          step_fingerprints = step_values.map { |v| Digest::MD5.hexdigest(v) }
+
+          fingerprint = model.fingerprint(&block)
+
+          expect(fingerprint).to eq(Digest::MD5.hexdigest(step_fingerprints.join))
+        end
+
+      end
+
+
     end
+
   end
+
 end
 
