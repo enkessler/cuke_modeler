@@ -81,7 +81,7 @@ shared_examples_for 'a containing model' do
     end
 
     it 'executes and aggregates the provided code on each model in its tree' do
-      names = parent_model.map_model do |model_node|
+      names = parent_model.map_tree do |model_node|
         model_node.name
       end
 
@@ -150,7 +150,7 @@ shared_examples_for 'a containing model' do
     end
 
     it 'executes and aggregates the provided code on each model in its tree' do
-      names = parent_model.map_model do |model_node|
+      names = parent_model.map_tree do |model_node|
         model_node.name
       end
 
