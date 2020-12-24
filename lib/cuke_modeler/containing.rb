@@ -23,7 +23,7 @@ module CukeModeler
         next block.call(child_model) if child_model.children.empty?
 
         child_model.map_descendant(&block)
-      end
+      end.flatten
     end
 
     # Executes the given code block with this model and every model that is a child of this model.
@@ -33,6 +33,17 @@ module CukeModeler
       each_descendant(&block)
     end
 
+    # Executes and aggregates the return value of the given code block for this and avery model that is a child of this model.
+    def map_model(&block)
+      children.map do |child_model|
+        next block.call(child_model) if child_model.children.empty?
+
+        [
+          block.call(self),
+          child_model.map_descendant(&block)
+        ]
+      end.flatten
+    end
 
     private
 

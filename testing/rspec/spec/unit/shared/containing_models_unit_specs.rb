@@ -80,6 +80,14 @@ shared_examples_for 'a containing model' do
       expect(names).to match_array(['top level model'])
     end
 
+    it 'executes and aggregates the provided code on each model in its tree' do
+      names = parent_model.map_model do |model_node|
+        model_node.name
+      end
+
+      expect(names).to match_array(['top level model'])
+    end
+
   end
 
 
@@ -136,6 +144,14 @@ shared_examples_for 'a containing model' do
 
       parent_model.each_model do |model_node|
         names << model_node.name
+      end
+
+      expect(names).to match_array(['top level model', 'child object 1', 'child object 2', 'grandchild object'])
+    end
+
+    it 'executes and aggregates the provided code on each model in its tree' do
+      names = parent_model.map_model do |model_node|
+        model_node.name
       end
 
       expect(names).to match_array(['top level model', 'child object 1', 'child object 2', 'grandchild object'])
