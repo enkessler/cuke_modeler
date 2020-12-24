@@ -11,14 +11,24 @@ module CukeModeler
     # Executes the given code block with every model that is a child of this model.
     def each_descendant(&block)
       children.each do |child_model|
-        block.call(child_model)
-        child_model.each_descendant(&block) if child_model.respond_to?(:each_descendant)
+        next block.call(child_model) if child_model.children.empty?
+
+        child_model.each_descendant(&block)
+      end
+    end
+
+    # Executes and aggregates the return value of the given code block for each model that is a child of this model.
+    def map_descendant(&block)
+      children.map do |child_model|
+        next block.call(child_model) if child_model.children.empty?
+
+        child_model.map_descendant(&block)
       end
     end
 
     # Executes the given code block with this model and every model that is a child of this model.
     def each_model(&block)
-      block.call(self)
+      return block.call(self) if children.empty?
 
       each_descendant(&block)
     end

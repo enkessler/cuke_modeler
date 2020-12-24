@@ -61,6 +61,15 @@ shared_examples_for 'a containing model' do
       expect(names).to be_empty
     end
 
+    it 'executes and aggregates the provided code on each descendant of the model' do
+      names = parent_model.map_descendant do |descendant_model|
+        descendant_model.name
+      end
+
+      expect(names).to be_empty
+    end
+
+
     it 'executes the provided code on each model in its tree' do
       names = []
 
@@ -109,6 +118,14 @@ shared_examples_for 'a containing model' do
 
       parent_model.each_descendant do |descendant_model|
         names << descendant_model.name
+      end
+
+      expect(names).to match_array(['child object 1', 'child object 2', 'grandchild object'])
+    end
+
+    it 'executes and aggregates the provided code on each descendant of the model' do
+      names = parent_model.map_descendant do |descendant_model|
+        descendant_model.name
       end
 
       expect(names).to match_array(['child object 1', 'child object 2', 'grandchild object'])
