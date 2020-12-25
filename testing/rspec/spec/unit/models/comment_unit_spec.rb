@@ -31,6 +31,10 @@ describe 'Comment, Unit', unit_test: true do
       expect(model.text).to eq(:some_other_text)
     end
 
+    it 'contains nothing' do
+      expect(model.children).to be_empty
+    end
+
 
     describe 'abstract instantiation' do
 

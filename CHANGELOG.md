@@ -6,7 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Fixed
+ - `Row#children` now returns the row's `Cell` models
+
 
 ## [3.5.0] - 2020-12-19
 

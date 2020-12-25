@@ -25,7 +25,6 @@ module CukeModeler
 
     # Returns the model objects that belong to this model.
     def children
-      # This should be overridden by a child class
       []
     end
 

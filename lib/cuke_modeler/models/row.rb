@@ -25,6 +25,11 @@ module CukeModeler
       populate_row(self, parsed_row_data)
     end
 
+    # Returns the model objects that belong to this model.
+    def children
+      @cells
+    end
+
     # Returns a string representation of this model. For a row model,
     # this will be Gherkin text that is equivalent to the row being modeled.
     def to_s

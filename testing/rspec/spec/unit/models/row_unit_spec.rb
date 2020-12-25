@@ -31,6 +31,15 @@ describe 'Row, Unit', unit_test: true do
       expect(row.cells).to eq(:some_other_cells)
     end
 
+    it 'contains cells' do
+      cells = [:cell_1, :cell_2]
+      everything = cells
+
+      row.cells = cells
+
+      expect(row.children).to match_array(everything)
+    end
+
 
     describe 'abstract instantiation' do
 

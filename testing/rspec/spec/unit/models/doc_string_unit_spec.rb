@@ -43,6 +43,10 @@ describe 'DocString, Unit', unit_test: true do
       expect(doc_string.content).to eq(:some_other_content)
     end
 
+    it 'contains nothing' do
+      expect(doc_string.children).to be_empty
+    end
+
 
     describe 'abstract instantiation' do
 

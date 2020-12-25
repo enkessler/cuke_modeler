@@ -31,6 +31,10 @@ describe 'Cell, Unit', unit_test: true do
       expect(cell.value).to eq(:some_other_value)
     end
 
+    it 'contains nothing' do
+      expect(cell.children).to be_empty
+    end
+
 
     describe 'abstract instantiation' do
 

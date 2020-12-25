@@ -31,6 +31,9 @@ describe 'Tag, Unit', unit_test: true do
       expect(model.name).to eq(:some_other_name)
     end
 
+    it 'contains nothing' do
+      expect(model.children).to be_empty
+    end
 
     describe 'abstract instantiation' do
 
