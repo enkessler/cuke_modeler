@@ -8,7 +8,22 @@ module CukeModeler
 
   module Containing
 
+    include Enumerable
+
+    # Executes the given code block with this model and every model that is a child of this model. Exact
+    # order of model tree traversal is not guaranteed beyond the first model traversed, which will be the
+    # model that called this method.
+    def each(&block)
+      if block
+        block.call(self)
+        children.each { |child| child.each(&block) }
+      else
+        to_enum(:each)
+      end
+    end
+
     # Executes the given code block with every model that is a child of this model.
+    # DEPRECATED: use `Enumerable` module methods instead
     def each_descendant(&block)
       children.each do |child_model|
         block.call(child_model)
@@ -17,6 +32,7 @@ module CukeModeler
     end
 
     # Executes the given code block with this model and every model that is a child of this model.
+    # DEPRECATED: use `Enumerable` module methods instead
     def each_model(&block)
       block.call(self)
 

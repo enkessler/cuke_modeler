@@ -22,6 +22,7 @@ require_relative 'unit/shared/keyworded_models_unit_specs'
 require_relative '../../dialect_helper'
 require_relative '../../file_helper'
 require_relative '../../helper_methods'
+require_relative '../../model_factory'
 
 require 'rubygems/mock_gem_ui'
 
@@ -78,4 +79,5 @@ RSpec.configure do |config|
     end
   end
 
+  config.include CukeModeler::ModelFactory
 end

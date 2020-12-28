@@ -6,8 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+ - All models are now `Enumerable`. However, some methods such as `Enumerable#max` and `Enumerable#sort` do not work 
+   because models do not meaningfully compare to each other.
+
+### Deprecated
+ - `Model#each_descendant` and `Model#each_model` will be removed on the next major release. `Model#each` and methods in 
+ the `Enumerable` module now provide this kind of functionality.
+
 ### Fixed
- - `Row#children` now returns the row's `Cell` models
+ - `Row#children` now returns the row's `Cell` models instead of returning an empty array
 
 
 ## [3.5.0] - 2020-12-19
