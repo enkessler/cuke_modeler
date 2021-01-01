@@ -66,9 +66,17 @@ describe 'Fingerprint, Integration' do
       let(:model_two) { CukeModeler::Scenario.new(maximum_viable_gherkin) }
       let(:model_three) { CukeModeler::Scenario.new }
 
-      it 'should result in the same fingerprint' do
+      it 'should result in the same fingerprint when classes exactly the same' do
         expect(model_one.fingerprint).to eq(model_two.fingerprint)
         expect(model_one.fingerprint).not_to eq(model_three.fingerprint)
+      end
+
+      it 'should recalculate the fingerprint when using a block' do
+        model_one_fingerprint = model_one.fingerprint
+        model_one_block_fingerprint = model_one.fingerprint { |m| m.name }
+
+        expect(model_one_fingerprint).not_to eq(model_one_block_fingerprint)
+        expect(model_one.fingerprint).to eq(model_one_block_fingerprint)
       end
 
       it 'is more performant than ==' do
