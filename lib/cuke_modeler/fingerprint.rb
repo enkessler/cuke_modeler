@@ -9,18 +9,21 @@ module CukeModeler
 
     # NOTE: create a fingerprint for the given model using Digest::MD5
     def fingerprint
-      # NOTE: yield the result value of the block as the argument to .hexdigest
-      if block_given?
-        value = yield self
+      # NOTE: memoize fingerprint for improved performance
+      @fingerprint ||= begin
+        # NOTE: yield the result value of the block as the argument to .hexdigest
+        if block_given?
+          value = yield self
 
-        # NOTE: The block returned nil, nothing to digest here
-        return nil unless value.present?
+          # NOTE: The block returned nil, nothing to digest here
+          return nil unless value.present?
 
-        return Digest::MD5.hexdigest(value)
+          return Digest::MD5.hexdigest(value)
+        end
+
+        # NOTE: no block given, .hexdigest the to_s of the model
+        Digest::MD5.hexdigest(to_s)
       end
-
-      # NOTE: no block given, .hexdigest the to_s of the model
-      return Digest::MD5.hexdigest(to_s)
     end
 
   end
