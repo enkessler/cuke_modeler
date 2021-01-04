@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+ - Ruby 3.x is now supported
  - All models are now `Enumerable`. However, some methods such as `Enumerable#max` and `Enumerable#sort` do not work 
    because models do not meaningfully compare to each other.
 
