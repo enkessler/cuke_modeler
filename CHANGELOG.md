@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.6.0] - 2021-01-05
+
 ### Added
  - Ruby 3.x is now supported
  - All models are now `Enumerable`. However, some methods such as `Enumerable#max` and `Enumerable#sort` do not work 
@@ -340,7 +344,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
- - Fixed a bug that was causing object comparison using #== to not 
+ - Fixed a bug that was causing object comparison using `#==` to not 
    work when comparing some models to other types of objects.
 
 
@@ -351,7 +355,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.5.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.6.0...HEAD
+[3.6.0]: https://github.com/enkessler/cuke_modeler/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/enkessler/cuke_modeler/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/enkessler/cuke_modeler/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/enkessler/cuke_modeler/compare/v3.2.0...v3.3.0
