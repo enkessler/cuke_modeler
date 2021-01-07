@@ -12,7 +12,7 @@ module CukeModeler
 
     # Executes the given code block with this model and every model that is a child of this model. Exact
     # order of model tree traversal is not guaranteed beyond the first model traversed, which will be the
-    # model that called this method.
+    # model that called this method. If no block is provided, an `Enumerator` is returned instead.
     def each(&block)
       if block
         block.call(self)
