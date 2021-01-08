@@ -25,6 +25,8 @@ require_relative '../../helper_methods'
 require_relative '../../model_factory'
 
 require 'rubygems/mock_gem_ui'
+require 'digest/md5'
+require 'pry'
 
 
 # Use a random dialect for testing in order to avoid hard coded language assumptions in the
