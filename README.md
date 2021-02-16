@@ -4,7 +4,7 @@ Basic stuff:
 [![Downloads](https://img.shields.io/gem/dt/cuke_modeler.svg)](https://rubygems.org/gems/cuke_modeler)
 
 User stuff:
-[![Cucumber Docs](http://img.shields.io/badge/Documentation-Features-green.svg)](https://app.cucumber.pro/projects/cuke_modeler)
+[![Cucumber Docs](http://img.shields.io/badge/Documentation-Features-green.svg)](https://github.com/enkessler/cuke_modeler/tree/master/testing/cucumber/features)
 [![Yard Docs](http://img.shields.io/badge/Documentation-API-blue.svg)](https://www.rubydoc.info/gems/cuke_modeler)
 
 Developer stuff:
@@ -84,7 +84,7 @@ an entire test suite!
 
 For more information on the different models (which more or less have the same relation 
 to each other as described in the AST [here](https://github.com/cucumber/cucumber/tree/master/gherkin#ast)) and how to use them, see the 
-[documentation](https://app.cucumber.pro/projects/cuke_modeler).
+[documentation](https://github.com/enkessler/cuke_modeler/tree/master/testing/cucumber/features).
 
 ## Modeling dialects other than English
 
