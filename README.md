@@ -8,11 +8,11 @@ User stuff:
 [![Yard Docs](http://img.shields.io/badge/Documentation-API-blue.svg)](https://www.rubydoc.info/gems/cuke_modeler)
 
 Developer stuff:
-[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg)](https://travis-ci.org/enkessler/cuke_modeler)
-[![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler)
-[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg)](https://coveralls.io/github/enkessler/cuke_modeler)
+[![Build Status](https://travis-ci.org/enkessler/cuke_modeler.svg?branch=master)](https://travis-ci.org/enkessler/cuke_modeler)
+[![Build status](https://ci.appveyor.com/api/projects/status/is8xqvoqn3pjh9l0/branch/master?svg=true)](https://ci.appveyor.com/project/enkessler/cuke-modeler)
+[![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=master)](https://coveralls.io/github/enkessler/cuke_modeler?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/83986d8f7a918fed9707/maintainability)](https://codeclimate.com/github/enkessler/cuke_modeler/maintainability)
-[![Inline docs](http://inch-ci.org/github/enkessler/cuke_modeler.svg)](https://inch-ci.org/github/enkessler/cuke_modeler)
+[![Inline docs](http://inch-ci.org/github/enkessler/cuke_modeler.svg?branch=master)](https://inch-ci.org/github/enkessler/cuke_modeler)
 
 ---
 
