@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'FeatureFile, Integration' do
+RSpec.describe 'FeatureFile, Integration' do
 
   let(:clazz) { CukeModeler::FeatureFile }
   let(:minimum_viable_gherkin) { '' }

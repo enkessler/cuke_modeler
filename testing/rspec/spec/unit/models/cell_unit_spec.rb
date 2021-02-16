@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Cell, Unit', unit_test: true do
+RSpec.describe 'Cell, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Cell }
   let(:cell) { clazz.new }

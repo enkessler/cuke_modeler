@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Step, Integration' do
+RSpec.describe 'Step, Integration' do
 
   let(:clazz) { CukeModeler::Step }
   let(:minimum_viable_gherkin) { "#{STEP_KEYWORD} a step" }

@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Scenario, Unit', unit_test: true do
+RSpec.describe 'Scenario, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Scenario }
   let(:scenario) { clazz.new }

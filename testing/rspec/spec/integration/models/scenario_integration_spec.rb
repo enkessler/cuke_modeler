@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Scenario, Integration' do
+RSpec.describe 'Scenario, Integration' do
 
   let(:clazz) { CukeModeler::Scenario }
   let(:minimum_viable_gherkin) { "#{SCENARIO_KEYWORD}:" }

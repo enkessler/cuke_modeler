@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Background, Integration' do
+RSpec.describe 'Background, Integration' do
 
   let(:clazz) { CukeModeler::Background }
   let(:minimum_viable_gherkin) { "#{BACKGROUND_KEYWORD}:" }

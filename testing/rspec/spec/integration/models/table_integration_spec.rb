@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Table, Integration' do
+RSpec.describe 'Table, Integration' do
 
   let(:clazz) { CukeModeler::Table }
   let(:minimum_viable_gherkin) { '| a table |' }

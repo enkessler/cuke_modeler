@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require_relative '../../../../environments/rspec_env'
 
 
-describe 'Sourceable, Unit', unit_test: true do
+RSpec.describe 'Sourceable, Unit', unit_test: true do
 
   let(:nodule) { CukeModeler::Sourceable }
   let(:model) { Object.new.extend(nodule) }

@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Comment, Unit', unit_test: true do
+RSpec.describe 'Comment, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Comment }
   let(:model) { clazz.new }

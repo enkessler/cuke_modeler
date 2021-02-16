@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require_relative '../../../../environments/rspec_env'
 
 
-describe 'the gem' do
+RSpec.describe 'the gem' do
 
   let(:root_dir) { "#{__dir__}/../../../.." }
   let(:gemspec) { eval(File.read("#{root_dir}/cuke_modeler.gemspec")) }
@@ -80,7 +80,7 @@ describe 'the gem' do
 end
 
 
-describe CukeModeler do
+RSpec.describe CukeModeler do
 
   it 'has a version number' do
     expect(CukeModeler::VERSION).not_to be nil

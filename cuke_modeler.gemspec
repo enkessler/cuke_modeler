@@ -31,7 +31,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'cucumber-gherkin', '< 17.0'
 
   spec.add_development_dependency 'bundler', '< 3.0'
+  spec.add_development_dependency 'childprocess', '< 5.0'
   spec.add_development_dependency 'coveralls', '< 1.0.0'
+  spec.add_development_dependency 'ffi', '< 2.0' # This is an invisible dependency for the `childprocess` gem on Windows
   # Cucumber 4.x is the earliest version to use cucumber-gherkin
   spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 6.0.0'
   spec.add_development_dependency 'racatt', '~> 1.0'
@@ -44,4 +46,5 @@ Gem::Specification.new do |spec|
   # Coveralls gem does not support any newer version than this
   spec.add_development_dependency 'simplecov', '<= 0.16.1'
   spec.add_development_dependency 'test-unit', '< 4.0.0'
+  spec.add_development_dependency 'yard', '< 1.0'
 end

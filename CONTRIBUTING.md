@@ -1,10 +1,19 @@
 # Development
 
-After checking out the repo, run `bundle install` to install dependencies.
+After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an 
+interactive prompt that will allow you to experiment. For environments that can't run shell scripts directly, 
+`bundle install` and `ruby bin/console` are analogous commands for the above steps.
+
 
 ### Testing
 
-`bundle exec rake cuke_modeler:test_everything` will run all of the tests for the project.
+`bundle exec rake cuke_modeler:test_everything` will run all of the tests for the project. To run just the RSpec tests 
+or Cucumber tests specifically:
+ - `bundle exec rake cuke_modeler:run_rspec_tests` or
+   `bundle exec rspec`
+ - `bundle exec rake cuke_modeler:run_cucumber_tests` or
+   `bundle exec cucumber`
+
 
 ## Contributing
 

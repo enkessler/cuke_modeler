@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Outline, Integration' do
+RSpec.describe 'Outline, Integration' do
 
   let(:clazz) { CukeModeler::Outline }
   let(:minimum_viable_gherkin) { "#{OUTLINE_KEYWORD}:" }

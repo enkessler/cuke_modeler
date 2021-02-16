@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Feature, Integration' do
+RSpec.describe 'Feature, Integration' do
 
   let(:clazz) { CukeModeler::Feature }
   let(:feature) { clazz.new }

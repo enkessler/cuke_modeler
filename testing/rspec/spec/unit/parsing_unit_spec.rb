@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require_relative '../../../../environments/rspec_env'
 
 
-describe 'Parsing, Unit', unit_test: true do
+RSpec.describe 'Parsing, Unit', unit_test: true do
 
   let(:nodule) { CukeModeler::Parsing }
 

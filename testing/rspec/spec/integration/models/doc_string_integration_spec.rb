@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'DocString, Integration' do
+RSpec.describe 'DocString, Integration' do
 
   let(:clazz) { CukeModeler::DocString }
   let(:minimum_viable_gherkin) { "\"\"\"\n\"\"\"" }

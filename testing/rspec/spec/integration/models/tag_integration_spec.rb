@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Tag, Integration' do
+RSpec.describe 'Tag, Integration' do
 
   let(:clazz) { CukeModeler::Tag }
   let(:minimum_viable_gherkin) { '@a_tag' }

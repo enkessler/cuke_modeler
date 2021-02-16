@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require_relative '../../../../environments/rspec_env'
 
 
-describe 'Nested, Integration' do
+RSpec.describe 'Nested, Integration' do
 
   let(:nodule) { CukeModeler::Nested }
   let(:nested_model) { Object.new.extend(nodule) }

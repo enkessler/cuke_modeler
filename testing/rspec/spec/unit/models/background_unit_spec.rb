@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Background, Unit', unit_test: true do
+RSpec.describe 'Background, Unit', unit_test: true do
 
   let(:clazz) { CukeModeler::Background }
   let(:background) { clazz.new }

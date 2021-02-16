@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Comment, Integration' do
+RSpec.describe 'Comment, Integration' do
 
   let(:clazz) { CukeModeler::Comment }
   let(:minimum_viable_gherkin) { '# a comment' }

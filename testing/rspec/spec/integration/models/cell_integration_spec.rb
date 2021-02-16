@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../../spec_helper"
+require_relative '../../../../../environments/rspec_env'
 
 
-describe 'Cell, Integration' do
+RSpec.describe 'Cell, Integration' do
 
   let(:clazz) { CukeModeler::Cell }
   let(:minimum_viable_gherkin) { '' }

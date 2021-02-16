@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/../spec_helper"
+require_relative '../../../../environments/rspec_env'
 
 
-describe 'Parsed, Unit' do
+RSpec.describe 'Parsed, Unit' do
 
   let(:nodule) { CukeModeler::Parsed }
   let(:model) { Object.new.extend(nodule) }

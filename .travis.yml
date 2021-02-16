@@ -7,10 +7,9 @@ dist: trusty
 
 language: ruby
 rvm:
-  - 2.3.8
-  - 2.4.5
-  - 2.5.3
-  - 2.6.0
+  - 2.3
+  - 2.5
+  - 2.7
   - jruby-9.1.7.0
 
 gemfile:
@@ -26,10 +25,12 @@ gemfile:
 matrix:
   exclude:
 
-    # Ruby 2.3.x is currently broken on TravisCI for OSX and is no longer a supported Ruby version, anyway.
-    - rvm: 2.3.8
+    # Older versions of Ruby don't seem to work on Travis CI for OSX. The Linux
+    # testing is probably good enough for the older versions.
+    - rvm: 2.3
       os: osx
 
+# TODO: Remove this once TravisCI fixes their bundler issue (https://github.com/alphagov/govuk_template/pull/186)
 before_install:
   - gem install bundler -v '< 2'
 

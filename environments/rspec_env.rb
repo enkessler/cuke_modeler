@@ -1,28 +1,27 @@
+ENV['CUKE_MODELER_SIMPLECOV_COMMAND_NAME'] ||= 'rspec_tests'
+
 require 'simplecov'
-SimpleCov.command_name('rspec_tests')
+require_relative 'common_env'
 
 
-require_relative '../../../lib/cuke_modeler'
+require_relative '../testing/rspec/spec/unit/shared/models_unit_specs'
+require_relative '../testing/rspec/spec/integration/shared/models_integration_specs'
+require_relative '../testing/rspec/spec/unit/shared/named_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/described_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/stepped_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/stringifiable_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/nested_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/tagged_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/containing_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/bare_bones_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/prepopulated_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/sourced_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/parsed_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/keyworded_models_unit_specs'
 
-require_relative 'unit/shared/models_unit_specs'
-require_relative 'integration/shared/models_integration_specs'
-require_relative 'unit/shared/named_models_unit_specs'
-require_relative 'unit/shared/described_models_unit_specs'
-require_relative 'unit/shared/stepped_models_unit_specs'
-require_relative 'unit/shared/stringifiable_models_unit_specs'
-require_relative 'unit/shared/nested_models_unit_specs'
-require_relative 'unit/shared/tagged_models_unit_specs'
-require_relative 'unit/shared/containing_models_unit_specs'
-require_relative 'unit/shared/bare_bones_models_unit_specs'
-require_relative 'unit/shared/prepopulated_models_unit_specs'
-require_relative 'unit/shared/sourced_models_unit_specs'
-require_relative 'unit/shared/parsed_models_unit_specs'
-require_relative 'unit/shared/keyworded_models_unit_specs'
-
-require_relative '../../dialect_helper'
-require_relative '../../file_helper'
-require_relative '../../helper_methods'
-require_relative '../../model_factory'
+require_relative '../testing/dialect_helper'
+require_relative '../testing/helper_methods'
+require_relative '../testing/model_factory'
 
 require 'rubygems/mock_gem_ui'
 
@@ -44,12 +43,14 @@ case gherkin_major_version
 
     module Gherkin
       class << self
+
         alias original_from_source from_source
 
         def from_source(uri, data, options = {})
           options[:default_dialect] ||= CukeModeler::Parsing.dialect
           original_from_source(uri, data, options)
         end
+
       end
     end
   else
@@ -59,7 +60,12 @@ end
 
 RSpec.configure do |config|
 
-  include CukeModeler::HelperMethods
+  # Disable RSpec exposing methods globally on `Module` and `main`
+  config.disable_monkey_patching!
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
 
   config.before(:suite) do
     FEATURE_KEYWORD = CukeModeler::DialectHelper.feature_keyword
@@ -79,5 +85,9 @@ RSpec.configure do |config|
     end
   end
 
+  # Methods will be available outside of tests
+  include CukeModeler::HelperMethods
+
+  # Methods will be available inside of tests
   config.include CukeModeler::ModelFactory
 end
