@@ -69,3 +69,6 @@ Style/Documentation:
 Security/Eval:
   Exclude:
     - 'testing/**/*'  # Test code is a safe enough place to use 'eval'
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table

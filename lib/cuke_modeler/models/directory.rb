@@ -52,8 +52,8 @@ module CukeModeler
 
 
     def process_directory(directory_path)
-      directory_data = { 'path' => directory_path,
-                         'directories' => [],
+      directory_data = { 'path'          => directory_path,
+                         'directories'   => [],
                          'feature_files' => [] }
 
       entries = Dir.entries(directory_path)

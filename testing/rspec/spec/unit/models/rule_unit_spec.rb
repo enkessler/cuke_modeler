@@ -23,8 +23,8 @@ RSpec.describe 'Rule, Unit', unit_test: true do
 
     it 'will complain about unknown element types' do
       parsed_element = { 'description' => '',
-                         'elements' => [{ 'keyword' => 'Scenario', 'description' => '' },
-                                        { 'keyword' => 'New Type', 'description' => '' }] }
+                         'elements'    => [{ 'keyword' => 'Scenario', 'description' => '' },
+                                           { 'keyword' => 'New Type', 'description' => '' }] }
 
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
     end

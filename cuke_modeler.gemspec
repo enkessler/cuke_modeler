@@ -13,9 +13,17 @@ Gem::Specification.new do |spec|
                         "Abstract Syntax Tree that the 'cucumber-gherkin' gem generates when parsing features, ",
                         'as well as providing models for feature files and directories in order to be able to ',
                         "have a fully traversable model tree of a test suite's structure. These models can then ",
-                        'be analyzed or manipulated more easily than the underlying AST layer.'].join("\n")
+                        'be analyzed or manipulated more easily than the underlying AST layer.'].join
   spec.homepage      = 'https://github.com/enkessler/cuke_modeler'
   spec.license       = 'MIT'
+
+  spec.metadata = {
+    'bug_tracker_uri'   => 'https://github.com/enkessler/cuke_modeler/issues',
+    'changelog_uri'     => 'https://github.com/enkessler/cuke_modeler/blob/master/CHANGELOG.md',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/cuke_modeler',
+    'homepage_uri'      => 'https://github.com/enkessler/cuke_modeler',
+    'source_code_uri'   => 'https://github.com/enkessler/cuke_modeler'
+  }
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
