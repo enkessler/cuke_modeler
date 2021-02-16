@@ -36,7 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ffi', '< 2.0' # This is an invisible dependency for the `childprocess` gem on Windows
   # Cucumber 4.x is the earliest version to use cucumber-gherkin
   spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 6.0.0'
-  spec.add_development_dependency 'racatt', '~> 1.0'
   spec.add_development_dependency 'rainbow', '< 4.0.0'
   spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
