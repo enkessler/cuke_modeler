@@ -1,4 +1,6 @@
 module CukeModeler
+
+  # A helper module for abstracting away what dialect is being used during testing
   module DialectHelper
 
     class << self

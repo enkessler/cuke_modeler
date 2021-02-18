@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling an individual scenario of a Cucumber suite.
-
   class Scenario < Model
 
     include Parsing

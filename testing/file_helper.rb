@@ -2,6 +2,8 @@ require 'tmpdir'
 
 
 module CukeModeler
+
+  # A helper module that create files and directories during testing
   module FileHelper
 
     class << self

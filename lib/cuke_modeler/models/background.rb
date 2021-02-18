@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a feature's background.
-
   class Background < Model
 
     include Parsing

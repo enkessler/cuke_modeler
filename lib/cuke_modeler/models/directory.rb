@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a directory in a Cucumber suite.
-
   class Directory < Model
 
 

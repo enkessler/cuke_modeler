@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling an individual outline in a Cucumber suite.
-
   class Outline < Model
 
     include Parsing

@@ -62,10 +62,6 @@ Style/BlockDelimiters:
   Exclude:
     - 'testing/rspec/spec/**/*'
 
-# Documentation is checked using RDoc
-Style/Documentation:
-  Enabled: false
-
 Security/Eval:
   Exclude:
     - 'testing/**/*'  # Test code is a safe enough place to use 'eval'

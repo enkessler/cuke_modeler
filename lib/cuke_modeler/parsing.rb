@@ -26,7 +26,6 @@ require "cuke_modeler/adapters/gherkin_#{gherkin_major_version}_adapter"
 module CukeModeler
 
   # A module providing source text parsing functionality.
-
   module Parsing
 
     class << self

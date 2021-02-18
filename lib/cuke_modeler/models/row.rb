@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a single row of a step table or example table.
-
   class Row < Model
 
     include Sourceable

@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling an element of a Cucumber suite.
-
   class Model
 
     include Nested

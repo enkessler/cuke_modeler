@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a single step of a background, scenario, or outline.
-
   class Step < Model
 
     include Sourceable

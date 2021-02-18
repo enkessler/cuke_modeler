@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a step's table.
-
   class Table < Model
 
     include Parsing

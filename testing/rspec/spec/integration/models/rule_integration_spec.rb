@@ -654,7 +654,7 @@ RSpec.describe 'Rule, Integration' do
         # Monkey patch the parsing method to mimic what would essentially be Gherkin creating new
         # types of language objects
         module CukeModeler
-          module Parsing
+          module Parsing # rubocop:disable Style/Documentation
             class << self
               def parse_text(source_text, filename)
                 result = CukeModeler::HelperMethods.test_storage[:old_method].call(source_text, filename)
@@ -673,7 +673,7 @@ RSpec.describe 'Rule, Integration' do
       ensure
         # Making sure that our changes don't escape a test and ruin the rest of the suite
         module CukeModeler
-          module Parsing
+          module Parsing # rubocop:disable Style/Documentation
             class << self
               define_method(:parse_text, CukeModeler::HelperMethods.test_storage[:old_method])
             end

@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a tag.
-
   class Tag < Model
 
     include Parsing

@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a rule in a Cucumber suite.
-
   class Rule < Model
 
     include Parsing

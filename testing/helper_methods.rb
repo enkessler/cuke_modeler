@@ -1,4 +1,6 @@
 module CukeModeler
+
+  # Some helper methods used during testing
   module HelperMethods
 
     def assert_bidirectional_equality(base_thing, compared_thing)

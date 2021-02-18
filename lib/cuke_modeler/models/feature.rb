@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a feature in a Cucumber suite.
-
   class Feature < Model
 
     include Parsed

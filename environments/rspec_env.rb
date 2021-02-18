@@ -41,7 +41,7 @@ case gherkin_major_version
     CukeModeler::DialectHelper.dialect = Gherkin::DIALECTS[test_dialect]
     CukeModeler::Parsing.dialect = test_dialect
 
-    module Gherkin
+    module Gherkin # rubocop:disable Style/Documentation
       class << self
 
         alias original_from_source from_source

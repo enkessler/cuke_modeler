@@ -2,7 +2,6 @@ module CukeModeler
 
   # NOT A PART OF THE PUBLIC API
   # A mix-in module containing methods used by models that represent an element that has steps.
-
   module Stepped
 
 

@@ -1,5 +1,4 @@
 # The top level namespace used by this gem
-
 module CukeModeler
 end
 

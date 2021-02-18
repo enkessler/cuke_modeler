@@ -1,7 +1,6 @@
 module CukeModeler
 
   # A class modeling a comment in a feature file.
-
   class Comment < Model
 
     include Parsing

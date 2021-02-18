@@ -4,7 +4,6 @@
 module CukeModeler
 
   # A class modeling an example table of an outline.
-
   class Example < Model
 
     include Parsing

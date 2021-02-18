@@ -5,7 +5,6 @@ module CukeModeler
 
   # NOT A PART OF THE PUBLIC API
   # A mix-in module containing methods used by models that contain other models.
-
   module Containing
 
     include Enumerable

@@ -86,7 +86,7 @@ RSpec.describe 'Parsing, Integration' do
 
         # Monkey patch the parsing method to throw the error that we need for testing
         module CukeModeler
-          module Parsing
+          module Parsing # rubocop:disable Style/Documentation
             class << self
               def parsing_method(*_args)
                 raise(CukeModeler::TestError, 'something went wrong')
@@ -100,7 +100,7 @@ RSpec.describe 'Parsing, Integration' do
       ensure
         # Making sure that our changes don't escape a test and ruin the rest of the suite
         module CukeModeler
-          module Parsing
+          module Parsing # rubocop:disable Style/Documentation
             class << self
               define_method(:parsing_method, CukeModeler::HelperMethods.test_storage[:old_method])
             end
@@ -127,7 +127,7 @@ RSpec.describe 'Parsing, Integration' do
 
           # Monkey patch the parsing method in order to capture the information that we need for testing
           module CukeModeler
-            module Parsing
+            module Parsing # rubocop:disable Style/Documentation
               class << self
                 def parsing_method(source_text, *_args)
                   CukeModeler::HelperMethods.test_storage[:source_text_received] = source_text
@@ -144,7 +144,7 @@ RSpec.describe 'Parsing, Integration' do
         ensure
           # Making sure that our changes don't escape a test and ruin the rest of the suite
           module CukeModeler
-            module Parsing
+            module Parsing # rubocop:disable Style/Documentation
               class << self
                 define_method(:parsing_method, CukeModeler::HelperMethods.test_storage[:old_method])
               end
