@@ -35,13 +35,17 @@ Metrics/BlockLength:
   Exclude:
     - 'testing/rspec/spec/**/*' # RSpec tests are inherently large blocks of code
     - 'cuke_modeler.gemspec' # As is a gemspec
-    - 'Rakefile' # And a Rakefile
 
-# Just not going to worry about it for now
+# If Ruby suddenly changes, that's its fault.
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# Non-specific exception handling is fine
 Style/RescueStandardError:
   EnforcedStyle: 'implicit'
+
+# This would result in too much intermixing of regular and percent arrays, depending on
+# context, and makes nested arrays look weird
 Style/SymbolArray:
   Enabled: false
 Style/WordArray:
