@@ -13,7 +13,7 @@ gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 # changes again
 # rubocop:disable Lint/EmptyWhen
 case gherkin_major_version
-  when 9, 10, 11, 12, 13, 14, 15, 16, 17
+  when 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
     # Currently nothing else to load beyond the entry point to the gem
   else
     raise("Unknown Gherkin version: '#{gherkin_version}'")
@@ -70,7 +70,7 @@ module CukeModeler
       # inside of it, so I'm leaving this here in case it changes again
       # rubocop:disable Lint/DuplicateMethods
       case gherkin_major_version
-        when 13, 14, 15, 16, 17
+        when 13, 14, 15, 16, 17, 18
           # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text

@@ -33,7 +33,7 @@ require 'rubygems/mock_gem_ui'
 gherkin_major_version = Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
 
 case gherkin_major_version
-  when 9, 10, 11, 12, 13, 14, 15, 16, 17
+  when 9, 10, 11, 12, 13, 14, 15, 16, 17, 18
     # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
     test_dialect = %w[en en-lol en-pirate en-Scouse].sample
     puts "Testing with dialect '#{test_dialect}'..."
