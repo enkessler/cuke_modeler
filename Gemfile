@@ -5,7 +5,7 @@ gemspec
 
 
 gherkin_major_version_used = 18
-gherkin_major_versions_without_cucumber_support = [9,11,12,16,17]
+gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17]
 
 # rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION =~ /^2\.[34]/

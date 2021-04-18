@@ -38,7 +38,7 @@ CukeModeler::Parsing.dialect = test_dialect
 
 # Making the test dialect the default dialect so that language headers
 # aren't needed for all of the test code.
-module Gherkin # rubocop:disable Style/Documentation
+module Gherkin
   class << self
 
     alias original_from_source from_source

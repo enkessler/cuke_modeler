@@ -196,11 +196,11 @@ RSpec.describe 'the gem' do
 
     it 'works with Gherkin 9-18' do
       cucumber_gherkin_version_limits = @gemspec.dependencies
-                                            .find do |dependency|
-                                              (dependency.type == :runtime) &&
-                                                (dependency.name == 'cucumber-gherkin')
-                                            end
-                                            .requirement.requirements.map(&:join)
+                                                .find do |dependency|
+                                                  (dependency.type == :runtime) &&
+                                                    (dependency.name == 'cucumber-gherkin')
+                                                end
+                                                .requirement.requirements.map(&:join)
 
       # Note: No lower bound is specified because 9.x was the first release of the gem
       expect(cucumber_gherkin_version_limits).to match_array(['<19.0'])
