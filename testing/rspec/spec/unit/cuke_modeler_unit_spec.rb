@@ -194,8 +194,8 @@ RSpec.describe 'the gem' do
       expect(ruby_version_limits).to match_array(['>=2.3', '<4.0'])
     end
 
-    it 'works with Gherkin 9-17' do
-      cuke_modeler_version_limits = @gemspec.dependencies
+    it 'works with Gherkin 9-18' do
+      cucumber_gherkin_version_limits = @gemspec.dependencies
                                             .find do |dependency|
                                               (dependency.type == :runtime) &&
                                                 (dependency.name == 'cucumber-gherkin')
@@ -203,7 +203,7 @@ RSpec.describe 'the gem' do
                                             .requirement.requirements.map(&:join)
 
       # Note: No lower bound is specified because 9.x was the first release of the gem
-      expect(cuke_modeler_version_limits).to match_array(['<18.0'])
+      expect(cucumber_gherkin_version_limits).to match_array(['<19.0'])
     end
 
   end

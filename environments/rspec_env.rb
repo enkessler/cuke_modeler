@@ -27,34 +27,28 @@ require 'rubygems/mock_gem_ui'
 
 
 # Use a random dialect for testing in order to avoid hard coded language assumptions in the
-# implementation and making the test dialect the default dialect so that language headers
-# aren't needed for all of the test code. Only possible with some versions of Gherkin.
+# implementation.
 
-gherkin_major_version = Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
+# TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
+test_dialect = %w[en en-lol en-pirate en-Scouse].sample
+puts "Testing with dialect '#{test_dialect}'..."
 
-case gherkin_major_version
-  when 9, 10, 11, 12, 13, 14, 15, 16, 17
-    # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
-    test_dialect = %w[en en-lol en-pirate en-Scouse].sample
-    puts "Testing with dialect '#{test_dialect}'..."
+CukeModeler::DialectHelper.dialect = Gherkin::DIALECTS[test_dialect]
+CukeModeler::Parsing.dialect = test_dialect
 
-    CukeModeler::DialectHelper.dialect = Gherkin::DIALECTS[test_dialect]
-    CukeModeler::Parsing.dialect = test_dialect
+# Making the test dialect the default dialect so that language headers
+# aren't needed for all of the test code.
+module Gherkin # rubocop:disable Style/Documentation
+  class << self
 
-    module Gherkin # rubocop:disable Style/Documentation
-      class << self
+    alias original_from_source from_source
 
-        alias original_from_source from_source
-
-        def from_source(uri, data, options = {})
-          options[:default_dialect] ||= CukeModeler::Parsing.dialect
-          original_from_source(uri, data, options)
-        end
-
-      end
+    def from_source(uri, data, options = {})
+      options[:default_dialect] ||= CukeModeler::Parsing.dialect
+      original_from_source(uri, data, options)
     end
-  else
-    raise("Unknown Gherkin major version: '#{gherkin_major_version}'")
+
+  end
 end
 
 

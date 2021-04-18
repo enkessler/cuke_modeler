@@ -3,22 +3,13 @@
 require 'gherkin'
 
 
-# The *cucumber-gherkin* gem loads differently and has different grammar rules across major versions. Parsing
-# will be done with an 'adapter' appropriate to the version of the *cucumber-gherkin* gem that has been activated.
-
+# The *cucumber-gherkin* has different grammar rules across major versions. Parsing will be done with
+# an 'adapter' appropriate to the version of the *cucumber-gherkin* gem that has been activated.
 gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
+supported_gherkin_versions = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
-# Previous versions of the gem did not use the conventional entry point, so I'm leaving this here in case it
-# changes again
-# rubocop:disable Lint/EmptyWhen
-case gherkin_major_version
-  when 9, 10, 11, 12, 13, 14, 15, 16, 17
-    # Currently nothing else to load beyond the entry point to the gem
-  else
-    raise("Unknown Gherkin version: '#{gherkin_version}'")
-end
-# rubocop:enable Lint/EmptyWhen
+raise("Unknown Gherkin version: '#{gherkin_version}'") unless supported_gherkin_versions.include?(gherkin_major_version)
 
 require "cuke_modeler/adapters/gherkin_#{gherkin_major_version}_adapter"
 
@@ -70,7 +61,7 @@ module CukeModeler
       # inside of it, so I'm leaving this here in case it changes again
       # rubocop:disable Lint/DuplicateMethods
       case gherkin_major_version
-        when 13, 14, 15, 16, 17
+        when 13, 14, 15, 16, 17, 18
           # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
