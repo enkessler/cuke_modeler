@@ -1,7 +1,20 @@
-<% # Can't use 'require_relative' because it won't work on JRuby inside of an ERB file %>
-<% require "#{__dir__}/cuke_modeler_project_settings" %>
-<% FileUtils.mkdir(ENV['CUKE_MODELER_REPORT_FOLDER']) unless File.exist?(ENV['CUKE_MODELER_REPORT_FOLDER'])%>
-<% cucumber_major_version = Gem.loaded_specs['cucumber'].version.version.match(/^(\d+)\./)[1].to_i %>
+<%
+  # Can't use 'require_relative' because it won't work on JRuby inside of an ERB file
+  require "#{__dir__}/cuke_modeler_project_settings"
 
+  # The output folder needs to exist no matter how Cucumber was invoked, so do it here
+  FileUtils.mkdir(ENV['CUKE_MODELER_REPORT_FOLDER']) unless File.exist?(ENV['CUKE_MODELER_REPORT_FOLDER'])
+
+  cucumber_major_version = Gem.loaded_specs['cucumber'].version.version.match(/^(\d+)\./)[1].to_i
+  gherkin_major_version = Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
+  max_gherkin_version = 18
+
+  # Some tests only work for some versions of Gherkin
+  gherkin_filter_tags = ((gherkin_major_version + 1)..max_gherkin_version).map{ |index| "@gherkin_min_version_#{index}" }
+  formatted_filter_tags = (cucumber_major_version < 4 ? gherkin_filter_tags.map { |tag| "-t ~#{tag}" } : gherkin_filter_tags.map { |tag| "-t 'not #{tag}'" }).join(' ')
+%>
+
+
+wip_filter: -t <%= cucumber_major_version < 4 ? "~@wip": "'not @wip'" %>
 html: -f html -o <%= ENV['CUKE_MODELER_REPORT_FOLDER'] %>/<%= ENV['CUKE_MODELER_CUCUMBER_REPORT_HTML_FILE'] %>
-default: testing/cucumber/features -p html -f progress --color -r environments/cucumber_env.rb -t <%= cucumber_major_version < 4 ? "~@wip": "'not @wip'" %> <%= '--publish-quiet' if cucumber_major_version >= 5 %>
+default: testing/cucumber/features -p html -p wip_filter -f progress --color -r environments/cucumber_env.rb <%= '--publish-quiet' if cucumber_major_version >= 5 %> <%= formatted_filter_tags unless gherkin_major_version == max_gherkin_version %>

@@ -14,6 +14,7 @@ RSpec.describe 'Rule, Unit', unit_test: true do
     it_should_behave_like 'a named model'
     it_should_behave_like 'a described model'
     it_should_behave_like 'a sourced model'
+    it_should_behave_like 'a tagged model'
     it_should_behave_like 'a parsed model'
 
   end
@@ -81,13 +82,15 @@ RSpec.describe 'Rule, Unit', unit_test: true do
       expect(rule.outlines).to be_empty
     end
 
-    it 'contains a background and tests' do
+    it 'contains a background, tests, and tags' do
+      tags = [:tag_1, :tag_2]
       tests = [:test_1, :test_2]
       background = :a_background
-      everything = [background] + tests
+      everything = [background] + tests + tags
 
       rule.background = background
       rule.tests = tests
+      rule.tags = tags
 
       expect(rule.children).to match_array(everything)
     end

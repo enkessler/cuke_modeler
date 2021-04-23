@@ -7,6 +7,7 @@ module CukeModeler
     include Parsed
     include Named
     include Described
+    include Taggable
     include Sourceable
 
 
@@ -23,6 +24,7 @@ module CukeModeler
     # Creates a new Rule object and, if *source_text* is provided, populates the
     # object.
     def initialize(source_text = nil)
+      @tags = []
       @tests = []
 
       super(source_text)
@@ -52,7 +54,7 @@ module CukeModeler
 
     # Returns the model objects that belong to this model.
     def children
-      models = tests
+      models = tests + tags
       models << background if background
 
       models
@@ -63,6 +65,7 @@ module CukeModeler
     def to_s
       text = ''
 
+      text << "#{tag_output_string}\n" unless tags.empty?
       text << "#{@keyword}:#{name_output_string}"
       text << "\n#{description_output_string}" unless no_description_to_output?
       text << "\n\n#{background_output_string}" if background

@@ -1,7 +1,8 @@
 Feature: Rule modeling
 
-Rule models Scenario portion of a feature. They expose several attributes of the rule that they represent, as well as
-containing models for any background, scenarios, or outlines that are present in that rule.
+Rule models represent a Rule portion of a feature. They expose several attributes of the rule that they
+represent, as well as containing models for any background, scenarios, outlines, and tags that are present
+in that rule.
 
 
   Background:
@@ -85,6 +86,47 @@ containing models for any background, scenarios, or outlines that are present in
       """
     Then the model returns models for the following outlines:
       | Outline 1 |
+
+  @gherkin_min_version_18
+  Scenario: Modeling a rules's tags
+    Given the following gherkin:
+      """
+      @feature_tag
+      Feature:
+
+        @rule_tag_1
+        @rule_tag_2
+        Rule:
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the rule model of that feature model
+      """
+        @model = @model.rules.first
+      """
+    When the rules's tags are requested
+      """
+        @model.tags
+      """
+    Then the model returns models for the following tags:
+      | @rule_tag_1 |
+      | @rule_tag_2 |
+    When the rule's inherited tags are requested
+      """
+        @model.applied_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+    When all of the rule's tags are requested
+      """
+        @model.all_tags
+      """
+    Then the model returns models for the following tags:
+      | @feature_tag |
+      | @rule_tag_1  |
+      | @rule_tag_2  |
 
   Scenario: Modeling a rule's source line
     Given the following gherkin:

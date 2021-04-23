@@ -4,9 +4,12 @@ Feature: Rule output
   input for the same kind of model.
 
 
+  @gherkin_min_version_18
   Scenario: Outputting a rule model
     Given the following gherkin:
       """
+      @tag1@tag2
+      @tag3
       Rule: A rule with everything it could have
       Including a description
       and then some.
@@ -54,6 +57,7 @@ Feature: Rule output
       """
     Then the following text is provided:
       """
+      @tag1 @tag2 @tag3
       Rule: A rule with everything it could have
 
       Including a description

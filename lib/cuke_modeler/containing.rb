@@ -150,6 +150,7 @@ module CukeModeler
       populate_keyword(rule_object, parsed_rule_data)
       populate_name(rule_object, parsed_rule_data)
       populate_description(rule_object, parsed_rule_data)
+      populate_tags(rule_object, parsed_rule_data)
       populate_children(rule_object, parsed_rule_data)
     end
 
