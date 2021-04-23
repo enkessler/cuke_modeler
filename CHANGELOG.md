@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+
+## [3.9.0] - 2021-04-23
+
 ### Added
  - `Rule` models are now taggable elements
 
@@ -371,7 +376,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.8.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.9.0...HEAD
+[3.9.0]: https://github.com/enkessler/cuke_modeler/compare/v3.8.0...v3.9.0
 [3.8.0]: https://github.com/enkessler/cuke_modeler/compare/v3.7.0...v3.8.0
 [3.7.0]: https://github.com/enkessler/cuke_modeler/compare/v3.6.0...v3.7.0
 [3.6.0]: https://github.com/enkessler/cuke_modeler/compare/v3.5.0...v3.6.0
