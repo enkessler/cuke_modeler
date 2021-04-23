@@ -3,7 +3,8 @@ namespace 'cuke_modeler' do
   desc 'Run all of the RSpec tests'
   task :run_rspec_tests => [:clear_old_results] do # rubocop:disable Style/HashSyntax
     puts Rainbow('Running RSpec tests...').cyan
-    completed_process = CukeModeler::CukeModelerHelper.run_command(%w[bundle exec rspec])
+    completed_process = CukeModeler::CukeModelerHelper.run_command(['bundle', 'exec', 'rspec',
+                                                                    '--pattern', 'testing/rspec/spec/**/*_spec.rb'])
 
     raise(Rainbow('RSpec tests encountered problems!').red) unless completed_process.exit_code.zero?
 

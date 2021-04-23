@@ -10,7 +10,7 @@ interactive prompt that will allow you to experiment. For environments that can'
 `bundle exec rake cuke_modeler:test_everything` will run all of the tests for the project. To run just the RSpec tests 
 or Cucumber tests specifically:
  - `bundle exec rake cuke_modeler:run_rspec_tests` or
-   `bundle exec rspec`
+   `bundle exec rspec --pattern "testing/rspec/spec/**/*_spec.rb"`
  - `bundle exec rake cuke_modeler:run_cucumber_tests` or
    `bundle exec cucumber`
 
