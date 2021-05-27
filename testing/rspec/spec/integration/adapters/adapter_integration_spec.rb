@@ -8,7 +8,13 @@ RSpec.describe 'Adapter, Integration' do
 
   describe 'parsing data' do
 
+    # Rules became taggable in Gherkin 18
+    let(:gherkin_versions_with_untagged_rules) { [9, 10, 11, 12, 13, 14, 15, 16, 17] }
+
+    # Essentially, maximum viable Gherkin of any significance that can be in a feature file
     let(:source_text) do
+      tag_text = gherkin?(*gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
+
       "# feature comment
        @tag1 @tag2 @tag3
        #{FEATURE_KEYWORD}: A feature with everything it could have
@@ -43,7 +49,7 @@ RSpec.describe 'Adapter, Integration' do
              \"\"\"
 
        # rule comment
-       #{RULE_KEYWORD}: a rule
+       #{tag_text}#{RULE_KEYWORD}: A rule
 
          Rule description
 
@@ -81,7 +87,7 @@ RSpec.describe 'Adapter, Integration' do
            #{EXAMPLE_KEYWORD}: additional example
 
 
-       #{RULE_KEYWORD}: another rule
+       #{tag_text}#{RULE_KEYWORD}: another rule
 
        Which is empty
 

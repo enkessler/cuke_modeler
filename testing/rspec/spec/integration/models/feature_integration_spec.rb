@@ -3,10 +3,15 @@ require_relative '../../../../../environments/rspec_env'
 
 RSpec.describe 'Feature, Integration' do
 
+  # Rules became taggable in Gherkin 18
+  let(:gherkin_versions_with_untagged_rules) { [9, 10, 11, 12, 13, 14, 15, 16, 17] }
+
   let(:clazz) { CukeModeler::Feature }
   let(:feature) { clazz.new }
   let(:minimum_viable_gherkin) { "#{FEATURE_KEYWORD}:" }
   let(:maximum_viable_gherkin) do
+    tag_text = gherkin?(*gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
+
     "@tag1 @tag2 @tag3
      #{FEATURE_KEYWORD}: A feature with everything it could have
 
@@ -35,7 +40,7 @@ RSpec.describe 'Feature, Integration' do
            some text
            \"\"\"
 
-       #{RULE_KEYWORD}: a rule
+       #{tag_text}#{RULE_KEYWORD}: a rule
 
        Rule description
 
@@ -65,7 +70,7 @@ RSpec.describe 'Feature, Integration' do
            | value |
          #{EXAMPLE_KEYWORD}: additional example
 
-       #{RULE_KEYWORD}: another rule
+       #{tag_text}#{RULE_KEYWORD}: another rule
 
        Which is empty"
   end
