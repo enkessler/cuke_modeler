@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Support added for more versions of the `cucumber-gherkin` gem
    - 19.x
 
+### Fixed
+ - `Rule` models now clear out parsing data for their tags. This data was an unintentional duplication of the 
+   parsing data that the `Tag` models already contained. 
+
 
 ## [3.9.0] - 2021-04-23
 

@@ -113,6 +113,7 @@ RSpec.describe 'Adapter, Integration' do
     it "does not store parsing data for a rule's children" do
       model = feature_model.rules.first
 
+      expect(model.parsing_data[:rule][:tags]).to be_nil # This will be nil for <18.x anyway
       expect(model.parsing_data[:rule][:children]).to be_nil
     end
 

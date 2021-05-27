@@ -12,6 +12,8 @@ module CukeModeler
     def adapt_rule(rule_ast)
       adapted_rule = super(rule_ast)
 
+      clear_child_elements(adapted_rule, [[:rule, :tags]])
+
       # Tagging of Rules was added in Gherkin 18
       adapted_rule['tags'] = adapt_tags(rule_ast[:rule])
 
