@@ -13,7 +13,8 @@ module CukeModeler
       expect(compared_thing).to_not eq(base_thing)
     end
 
-    def gherkin?(*versions)
+    def gherkin?(versions)
+      versions = [versions] unless versions.is_a?(Enumerable)
       versions.include?(gherkin_major_version)
     end
 

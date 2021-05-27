@@ -9,11 +9,11 @@ RSpec.describe 'Adapter, Integration' do
   describe 'parsing data' do
 
     # Rules became taggable in Gherkin 18
-    let(:gherkin_versions_with_untagged_rules) { [9, 10, 11, 12, 13, 14, 15, 16, 17] }
+    let(:gherkin_versions_with_untagged_rules) { (9..17) }
 
     # Essentially, maximum viable Gherkin of any significance that can be in a feature file
     let(:source_text) do
-      tag_text = gherkin?(*gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
+      tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
 
       "# feature comment
        @tag1 @tag2 @tag3
@@ -152,7 +152,7 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:tableBody]).to be_nil
     end
 
-    it "does not store parsing data for an example's children", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
+    it "does not store parsing data for an example's children", if: gherkin?((9..18)) do
       model = feature_model.rules.first.outlines.first.examples.first
 
       expect(model.parsing_data[:tags]).to be_nil
@@ -172,7 +172,7 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:dataTable]).to be_nil
     end
 
-    it "does not store parsing data for a step's children, table", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
+    it "does not store parsing data for a step's children, table", if: gherkin?((9..18)) do
       model = feature_model.rules.first.outlines.first.steps.first
 
       expect(model.parsing_data[:data_table]).to be_nil
@@ -185,7 +185,7 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:docString]).to be_nil
     end
 
-    it "does not store parsing data for a step's children, doc string", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
+    it "does not store parsing data for a step's children, doc string", if: gherkin?((9..18)) do
       model = feature_model.rules.first.outlines.first.steps.last
 
       expect(model.parsing_data[:doc_string]).to be_nil
