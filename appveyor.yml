@@ -94,6 +94,15 @@ environment:
     - RUBY_VERSION: 25-x64
       BUNDLE_GEMFILE: testing/gemfiles/gherkin18.gemfile
 
+    - RUBY_VERSION: 24
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin19.gemfile
+    - RUBY_VERSION: 24-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin19.gemfile
+    - RUBY_VERSION: 25
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin19.gemfile
+    - RUBY_VERSION: 25-x64
+      BUNDLE_GEMFILE: testing/gemfiles/gherkin19.gemfile
+
 # Allow Windows builds to use CRLF as expected by linting tools, etc.
 init:
   - git config --global core.autocrlf true

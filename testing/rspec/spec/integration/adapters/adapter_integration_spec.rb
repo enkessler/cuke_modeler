@@ -137,7 +137,15 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:scenario][:examples]).to be_nil
     end
 
-    it "does not store parsing data for an example's children" do
+    it "does not store parsing data for an example's children", if: gherkin?(19) do
+      model = feature_model.rules.first.outlines.first.examples.first
+
+      expect(model.parsing_data[:tags]).to be_nil
+      expect(model.parsing_data[:tableHeader]).to be_nil
+      expect(model.parsing_data[:tableBody]).to be_nil
+    end
+
+    it "does not store parsing data for an example's children", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
       model = feature_model.rules.first.outlines.first.examples.first
 
       expect(model.parsing_data[:tags]).to be_nil
@@ -151,13 +159,26 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:cells]).to be_nil
     end
 
-    it "does not store parsing data for a step's children, table" do
+    it "does not store parsing data for a step's children, table", if: gherkin?(19) do
+      model = feature_model.rules.first.outlines.first.steps.first
+
+      expect(model.parsing_data[:dataTable]).to be_nil
+    end
+
+    it "does not store parsing data for a step's children, table", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
       model = feature_model.rules.first.outlines.first.steps.first
 
       expect(model.parsing_data[:data_table]).to be_nil
     end
 
-    it "does not store parsing data for a step's children, doc string" do
+
+    it "does not store parsing data for a step's children, doc string", if: gherkin?(19) do
+      model = feature_model.rules.first.outlines.first.steps.last
+
+      expect(model.parsing_data[:docString]).to be_nil
+    end
+
+    it "does not store parsing data for a step's children, doc string", if: gherkin?(9, 10, 11, 12, 13, 14, 15, 16, 17, 18) do
       model = feature_model.rules.first.outlines.first.steps.last
 
       expect(model.parsing_data[:doc_string]).to be_nil

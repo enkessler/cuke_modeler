@@ -7,7 +7,7 @@
 
   cucumber_major_version = Gem.loaded_specs['cucumber'].version.version.match(/^(\d+)\./)[1].to_i
   gherkin_major_version = Gem.loaded_specs['cucumber-gherkin'].version.version.match(/^(\d+)\./)[1].to_i
-  max_gherkin_version = 18
+  max_gherkin_version = 19
 
   # Some tests only work for some versions of Gherkin
   gherkin_filter_tags = ((gherkin_major_version + 1)..max_gherkin_version).map{ |index| "@gherkin_min_version_#{index}" }

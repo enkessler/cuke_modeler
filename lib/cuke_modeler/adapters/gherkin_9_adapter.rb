@@ -328,6 +328,7 @@ module CukeModeler
 
     def clear_child_elements(ast, child_paths)
       child_paths.each do |traversal_path|
+        # Wipe the value if it's there but don't add any keys to the hash if it didn't already have them
         if ast['cuke_modeler_parsing_data'].dig(*traversal_path)
           bury(ast['cuke_modeler_parsing_data'], traversal_path, nil)
         end
@@ -346,11 +347,11 @@ module CukeModeler
     end
 
     def test_node?(ast_node)
-      ast_node[:scenario]
+      !ast_node[:scenario].nil?
     end
 
     def test_has_examples?(ast_node)
-      ast_node[:scenario][:examples]
+      !ast_node[:scenario][:examples].nil?
     end
 
     def test_uses_outline_keyword?(test_ast)
