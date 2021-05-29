@@ -255,6 +255,19 @@ RSpec.describe 'Adapter, Integration' do
       expect(adapted_ast['feature']['elements'].first['examples'].count).to eq(1)
     end
 
+    it 'correctly identifies an outline that uses a scenario keyword' do
+      source_text = "# language: en
+                     Feature:
+                       Scenario:
+
+                       Scenario:
+                       Examples:"
+      adapted_ast = CukeModeler::Parsing.parse_text(source_text)
+
+      expect(adapted_ast['feature']['elements'].first['type']).to eq('Scenario')
+      expect(adapted_ast['feature']['elements'].last['type']).to eq('ScenarioOutline')
+    end
+
   end
 
   describe 'stuff that is in no way part of the public API and entirely subject to change' do
