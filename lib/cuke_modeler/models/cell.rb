@@ -1,6 +1,5 @@
 module CukeModeler
 
-  # A class modeling a single cell of a row.
   class Cell < Model
 
     include Sourceable
