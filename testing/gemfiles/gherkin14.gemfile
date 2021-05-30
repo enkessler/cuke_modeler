@@ -7,5 +7,3 @@ gemspec path: '../../'
 gem 'cucumber', '2.2.0'
 
 gem 'cucumber-gherkin', '~> 14.0'
-
-gem 'this_gem_better_not_exist'
