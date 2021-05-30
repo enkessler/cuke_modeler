@@ -8,7 +8,7 @@ RSpec.describe 'Named, Unit', unit_test: true do
 
 
   it 'has a name' do
-    expect(named_model).to respond_to(:name)
+    expect(named_model).to respond_to(:fake_name)
   end
 
   it 'can change its name' do
