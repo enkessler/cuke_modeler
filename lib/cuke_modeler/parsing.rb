@@ -32,8 +32,7 @@ module CukeModeler
 
       # The dialects currently known by the gherkin gem
       def dialects
-        # TODO: No need to save the constant? Just return it directly.
-        @dialects ||= Gherkin::DIALECTS
+        Gherkin::DIALECTS
       end
 
       # Parses the Cucumber feature given in *source_text* and returns a hash representation of

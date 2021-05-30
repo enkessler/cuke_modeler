@@ -7,8 +7,6 @@ replace copying raw data during adaptation (all of the Marshal#load/#unload call
 
 
 # todo - incorporate cuke_modeler extensions from other projects
-# todo - add plenty of testing around weird and minimal gherkin text for all models
-# todo - incorporate new flexibility of `Example` keyword, etc.
 # todo - Have CukeModeler::Parsing.dialect also control the default dialect used by Gherkin
 
 Backlog
