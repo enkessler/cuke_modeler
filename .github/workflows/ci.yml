@@ -7,6 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
+
   test:
     strategy:
       matrix:
@@ -26,4 +27,28 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run CI Rake task
-        run: bundle exec rake cuke_modeler:ci_build
+        run: bundle exec rake cuke_modeler:test_everything
+
+  check_documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - run: bundle exec rake cuke_modeler:check_documentation
+
+  lint_code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - run: bundle exec rake cuke_modeler:rubocop
