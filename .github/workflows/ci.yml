@@ -28,7 +28,7 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.github_token }}
-          path-to-lcov: "./reports/coverage/lcov/lcov.info"
+          path-to-lcov: "./reports/coverage/lcov/lcov.infofoo"
           parallel: true
           flag-name: run-${{ matrix.os }}-${{ matrix.ruby-version }}-${{ matrix.gemfile }}
 
