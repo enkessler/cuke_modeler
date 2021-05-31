@@ -7,7 +7,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest]
         ruby-version: ['2.3', '2.5', '2.7', '3.0', 'jruby-9.1.17.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19 ]
@@ -24,6 +24,10 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run CI Rake task
         run: bundle exec rake cuke_modeler:test_everything
+      - name: Check LCOV file
+        run: less ./reports/coverage/lcov/lcov.info
+      - run: less ./reports/coverage/.last_run.json
+      - run: less Gemfile    # Sanity check
       - name: Push code coverage to Coveralls
         uses: coverallsapp/github-action@master
         with:
