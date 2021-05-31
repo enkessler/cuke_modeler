@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
 
@@ -28,6 +24,24 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run CI Rake task
         run: bundle exec rake cuke_modeler:test_everything
+      - name: Push code coverage to Coveralls (conditional)
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: "./reports/coverage/lcov/lcov.info"
+          parallel: true
+          flag-name: run-${{ matrix.os }}-${{ matrix.ruby-version }}-${{ matrix.gemfile }}
+        if: matrix.ruby-version != '2.3' && matrix.ruby-version != 'jruby-9.1.17.0'
+
+  test_finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
 
   check_documentation:
     runs-on: ubuntu-latest
