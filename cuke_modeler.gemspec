@@ -40,7 +40,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '< 3.0'
   spec.add_development_dependency 'childprocess', '< 5.0'
-  spec.add_development_dependency 'coveralls', '< 1.0.0'
   spec.add_development_dependency 'ffi', '< 2.0' # This is an invisible dependency for the `childprocess` gem on Windows
   # Cucumber 4.x is the earliest version to use cucumber-gherkin
   spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 7.0.0'
@@ -50,8 +49,8 @@ Gem::Specification.new do |spec|
   # RuboCop drops Ruby 2.3 support after this version and we need to maintain Ruby 2.3 compatibility when writing code
   # for this gem
   spec.add_development_dependency 'rubocop', '< 0.82.0'
-  # Coveralls gem does not support any newer version than this
-  spec.add_development_dependency 'simplecov', '<= 0.16.1'
+  spec.add_development_dependency 'simplecov', '< 1.0'
+  spec.add_development_dependency 'simplecov-lcov', '< 1.0'
   spec.add_development_dependency 'test-unit', '< 4.0.0'
   spec.add_development_dependency 'yard', '< 1.0'
 end
