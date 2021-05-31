@@ -25,7 +25,7 @@ jobs:
       - name: Run CI Rake task
         run: bundle exec rake cuke_modeler:test_everything
       - name: Push code coverge to Coveralls
-        run: bundle exec rake coveralls:push
+        run: bundle exec rake cuke_modeler:coveralls:push
 
   check_documentation:
     runs-on: ubuntu-latest
