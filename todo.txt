@@ -7,7 +7,6 @@ replace copying raw data during adaptation (all of the Marshal#load/#unload call
 
 
 # todo - incorporate cuke_modeler extensions from other projects
-# todo - Have CukeModeler::Parsing.dialect also control the default dialect used by Gherkin
 
 Backlog
 -------------
