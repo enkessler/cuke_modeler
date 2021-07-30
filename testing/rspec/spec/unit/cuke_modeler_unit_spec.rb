@@ -136,7 +136,7 @@ RSpec.describe 'the gem' do
     end
 
     it 'does not include just any source controlled file' do
-      some_files_not_to_include = ['.travis.yml', 'Gemfile', 'Rakefile']
+      some_files_not_to_include = ['Gemfile', 'Rakefile']
 
       some_files_not_to_include.each do |file|
         expect(@gemspec.files).to_not include(file)
@@ -194,7 +194,7 @@ RSpec.describe 'the gem' do
       expect(ruby_version_limits).to match_array(['>=2.3', '<4.0'])
     end
 
-    it 'works with Gherkin 9-19' do
+    it 'works with Gherkin 9-20' do
       cucumber_gherkin_version_limits = @gemspec.dependencies
                                                 .find do |dependency|
                                                   (dependency.type == :runtime) &&
@@ -203,7 +203,7 @@ RSpec.describe 'the gem' do
                                                 .requirement.requirements.map(&:join)
 
       # Note: No lower bound is specified because 9.x was the first release of the gem
-      expect(cucumber_gherkin_version_limits).to match_array(['<20.0'])
+      expect(cucumber_gherkin_version_limits).to match_array(['<21.0'])
     end
 
   end

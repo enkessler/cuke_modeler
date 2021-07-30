@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gemspec
 
 
-gherkin_major_version_used = 19
+gherkin_major_version_used = 20
 gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19]
 
 # rubocop:disable Bundler/DuplicatedGem

@@ -101,47 +101,102 @@ RSpec.describe 'Adapter, Integration' do
     end
     let(:feature_model) { feature_file_model.feature }
 
+    it "does not store parsing data for a feature file's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_file_model
 
-    it "does not store parsing data for a feature file's children" do
+      expect(model.parsing_data.comments).to be_nil
+      expect(model.parsing_data.feature).to be_nil
+    end
+
+    it "does not store parsing data for a feature file's children", if: gherkin?((9..19)) do
       model = feature_file_model
 
       expect(model.parsing_data[:comments]).to be_nil
       expect(model.parsing_data[:feature]).to be_nil
     end
 
-    it "does not store parsing data for a feature's children" do
+    it "does not store parsing data for a feature's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model
+
+      expect(model.parsing_data.tags).to be_nil
+      expect(model.parsing_data.children).to be_nil
+    end
+
+    it "does not store parsing data for a feature's children", if: gherkin?((9..19)) do
       model = feature_model
 
       expect(model.parsing_data[:tags]).to be_nil
       expect(model.parsing_data[:children]).to be_nil
     end
 
-    it "does not store parsing data for a rule's children" do
+    it "does not store parsing data for a rule's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
       model = feature_model.rules.first
 
-      expect(model.parsing_data[:rule][:tags]).to be_nil # This will be nil for <18.x anyway
+      expect(model.parsing_data.rule.tags).to be_nil
+      expect(model.parsing_data.rule.children).to be_nil
+    end
+
+    it "does not store parsing data for a rule's children", if: gherkin?((18..19)) do
+      model = feature_model.rules.first
+
+      expect(model.parsing_data[:rule][:tags]).to be_nil
       expect(model.parsing_data[:rule][:children]).to be_nil
     end
 
-    it "does not store parsing data for a background's children" do
+    it "does not store parsing data for a rule's children", if: gherkin?((9..17)) do
+      model = feature_model.rules.first
+
+      expect(model.parsing_data[:rule][:children]).to be_nil
+    end
+
+    it "does not store parsing data for a background's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.background
+
+      expect(model.parsing_data.background.steps).to be_nil
+    end
+
+    it "does not store parsing data for a background's children", if: gherkin?((9..19)) do
       model = feature_model.background
 
       expect(model.parsing_data[:background][:steps]).to be_nil
     end
 
-    it "does not store parsing data for a scenario's children" do
+    it "does not store parsing data for a scenario's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.scenarios.first
+
+      expect(model.parsing_data.scenario.tags).to be_nil
+      expect(model.parsing_data.scenario.steps).to be_nil
+    end
+
+    it "does not store parsing data for a scenario's children", if: gherkin?((9..19)) do
       model = feature_model.scenarios.first
 
       expect(model.parsing_data[:scenario][:tags]).to be_nil
       expect(model.parsing_data[:scenario][:steps]).to be_nil
     end
 
-    it "does not store parsing data for an outline's children" do
+    it "does not store parsing data for an outline's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first
+
+      expect(model.parsing_data.scenario.tags).to be_nil
+      expect(model.parsing_data.scenario.steps).to be_nil
+      expect(model.parsing_data.scenario.examples).to be_nil
+    end
+
+    it "does not store parsing data for an outline's children", if: gherkin?((9..19)) do
       model = feature_model.rules.first.outlines.first
 
       expect(model.parsing_data[:scenario][:tags]).to be_nil
       expect(model.parsing_data[:scenario][:steps]).to be_nil
       expect(model.parsing_data[:scenario][:examples]).to be_nil
+    end
+
+    it "does not store parsing data for an example's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.examples.first
+
+      expect(model.parsing_data.tags).to be_nil
+      expect(model.parsing_data.table_header).to be_nil
+      expect(model.parsing_data.table_body).to be_nil
     end
 
     it "does not store parsing data for an example's children", if: gherkin?(19) do
@@ -160,10 +215,22 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:table_body]).to be_nil
     end
 
-    it "does not store parsing data for an example row's children" do
+    it "does not store parsing data for an example row's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.examples.first.rows.first
+
+      expect(model.parsing_data.cells).to be_nil
+    end
+
+    it "does not store parsing data for an example row's children", if: gherkin?((9..19)) do
       model = feature_model.rules.first.outlines.first.examples.first.rows.first
 
       expect(model.parsing_data[:cells]).to be_nil
+    end
+
+    it "does not store parsing data for a step's children, table", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.steps.first
+
+      expect(model.parsing_data.data_table).to be_nil
     end
 
     it "does not store parsing data for a step's children, table", if: gherkin?(19) do
@@ -178,6 +245,11 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:data_table]).to be_nil
     end
 
+    it "does not store parsing data for a step's children, doc string", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.steps.last
+
+      expect(model.parsing_data.doc_string).to be_nil
+    end
 
     it "does not store parsing data for a step's children, doc string", if: gherkin?(19) do
       model = feature_model.rules.first.outlines.first.steps.last
@@ -191,13 +263,25 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:doc_string]).to be_nil
     end
 
-    it "does not store parsing data for a table's children" do
+    it "does not store parsing data for a table's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.steps.first.block
+
+      expect(model.parsing_data.rows).to be_nil
+    end
+
+    it "does not store parsing data for a table's children", if: gherkin?((9..19)) do
       model = feature_model.rules.first.outlines.first.steps.first.block
 
       expect(model.parsing_data[:rows]).to be_nil
     end
 
-    it "does not store parsing data for a table row's children" do
+    it "does not store parsing data for a table row's children", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+      model = feature_model.rules.first.outlines.first.steps.first.block.rows.first
+
+      expect(model.parsing_data.cells).to be_nil
+    end
+
+    it "does not store parsing data for a table row's children", if: gherkin?((9..19)) do
       model = feature_model.rules.first.outlines.first.steps.first.block.rows.first
 
       expect(model.parsing_data[:cells]).to be_nil
@@ -272,7 +356,8 @@ RSpec.describe 'Adapter, Integration' do
 
   describe 'stuff that is in no way part of the public API and entirely subject to change' do
 
-    it 'provides a useful explosion message if it encounters an entirely new type of test' do
+    # Not going to worry about this possibility anymore because it has negligible utility and likelihood.
+    it 'provides a useful explosion message if it encounters an entirely new type of test', if: gherkin?((9..19)) do
       partial_feature_ast = { type: :Feature, location: { line: 1, column: 1 }, children: [{ some_unknown_type: {} }] }
 
       expect { adapter.adapt_feature(partial_feature_ast) }.to raise_error(ArgumentError, /Unknown.*some_unknown_type/)
