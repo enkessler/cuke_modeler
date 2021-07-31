@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/ModuleLength - Just not going to worry about this
+
 # Have to at least load some version of the gem before which version of the gem has been loaded can
 # be determined and the rest of the needed files can be loaded.
 require 'gherkin'
@@ -71,8 +73,8 @@ module CukeModeler
                                            { include_gherkin_document: true })
                               .to_a
 
-            error_message = messages.find { |message| message.parse_error }
-            gherkin_ast_message = messages.find { |message| message.gherkin_document }
+            error_message = messages.find(&:parse_error)
+            gherkin_ast_message = messages.find(&:gherkin_document)
 
             raise error_message.parse_error.message if error_message
 
@@ -192,3 +194,5 @@ module CukeModeler
 
   end
 end
+
+# rubocop:enable Metrics/ModuleLength

@@ -245,7 +245,7 @@ RSpec.describe 'Adapter, Integration' do
       expect(model.parsing_data[:data_table]).to be_nil
     end
 
-    it "does not store parsing data for a step's children, doc string", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do
+    it "does not store parsing data for a step's children, doc string", if: gherkin?((20..MOST_CURRENT_GHERKIN_VERSION)) do # rubocop:disable Layout/LineLength
       model = feature_model.rules.first.outlines.first.steps.last
 
       expect(model.parsing_data.doc_string).to be_nil

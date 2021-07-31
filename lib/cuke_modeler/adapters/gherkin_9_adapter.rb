@@ -314,7 +314,7 @@ module CukeModeler
 
     def adapt_test(test_ast)
       if (test_node?(test_ast) && test_has_examples?(test_ast)) ||
-        (test_node?(test_ast) && test_uses_outline_keyword?(test_ast))
+         (test_node?(test_ast) && test_uses_outline_keyword?(test_ast))
 
         adapt_outline(test_ast)
       elsif test_node?(test_ast)

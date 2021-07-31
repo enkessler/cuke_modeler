@@ -312,13 +312,15 @@ module CukeModeler
     end
 
     def clear_child_elements(ast, child_paths)
+      # rubocop:disable Security/Eval - This is not blind data
       child_paths.each do |traversal_path|
         # Wipe the value if it's there but don't add any attributes to the object if it didn't already have them
-        if eval("ast['cuke_modeler_parsing_data'].#{traversal_path.join('.')}")
+        if eval("ast['cuke_modeler_parsing_data'].#{traversal_path.join('.')}", binding, __FILE__, __LINE__)
           property_path = traversal_path[0..-2].join('.')
-          eval("ast['cuke_modeler_parsing_data']#{property_path.empty? ? '' : '.' + property_path}.instance_variable_set(\"@#{traversal_path.last}\", nil)")
+          eval("ast['cuke_modeler_parsing_data']#{property_path.empty? ? '' : '.' + property_path}.instance_variable_set(\"@#{traversal_path.last}\", nil)", binding, __FILE__, __LINE__) # rubocop:disable Layout/LineLength
         end
       end
+      # rubocop:enable Security/Eval
     end
 
     def test_has_examples?(ast_node)
