@@ -140,11 +140,26 @@ RSpec.describe 'Tag, Integration' do
       end
 
       it 'can get its rule (direct)', if: gherkin?((18..MOST_CURRENT_GHERKIN_VERSION)) do
-        skip('Fix this bug')
+        source_gherkin = "@rule_tag
+                          #{RULE_KEYWORD}: Test rule"
+
+        rule_model = CukeModeler::Rule.new(source_gherkin)
+        tag_model = rule_model.tags.first
+        ancestor = tag_model.get_ancestor(:rule)
+
+        expect(ancestor).to equal(rule_model)
       end
 
       it 'can get its rule (indirect)', if: gherkin?((18..MOST_CURRENT_GHERKIN_VERSION)) do
-        skip('Fix this bug')
+        source_gherkin = "#{RULE_KEYWORD}: Test rule
+                            @scenario_tag
+                            #{SCENARIO_KEYWORD}: Test scenario"
+
+        rule_model = CukeModeler::Rule.new(source_gherkin)
+        tag_model = rule_model.tests.first.tags.first
+        ancestor = tag_model.get_ancestor(:rule)
+
+        expect(ancestor).to equal(rule_model)
       end
 
       it 'can get its scenario' do

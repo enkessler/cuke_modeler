@@ -30,6 +30,7 @@ module CukeModeler
         directory: [Directory],
         feature_file: [FeatureFile],
         feature: [Feature],
+        rule: [Rule],
         test: [Scenario, Outline, Background],
         background: [Background],
         scenario: [Scenario],

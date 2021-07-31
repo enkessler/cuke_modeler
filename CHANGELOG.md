@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support added for more versions of the `cucumber-gherkin` gem
     - 20.x
 
+### Fixed
+- `Rule` models are now returnable from `Model#get_ancestor()`. Updating that method was missed when `Rule` models 
+  were first added.
+
 ## [3.10.0] - 2021-05-28
 
 ### Added
