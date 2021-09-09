@@ -39,11 +39,21 @@ Some guidelines when adding a new model
   Gherkin gem will get duplicated, which could result in a lot of extra data usage for large projects.
   
 ### Supporting additional versions of Gherkin
-
-In addition to making sure that the existing tests pass...
- - Update any tests that are specific to certain versions of Gherkin in order to make them run with the new version 
-   as well (if appropriate) or create a new version of the test that reflects the behavior of the added version.
- - If the grammar of Gherkin has changed, update any tests that would be impacted, such as those that use 'maximum' 
-   and 'minimum' sets of Gherkin.
- - Update any models that need new behavior due to changes in the grammar (e.g. `Rule`s going from untagged models to 
-   tagged models in Gherkin 18.x)
+1. Update `MOST_CURRENT_GHERKIN_VERSION` in `cuke_modeler_project_settings.rb` (so that test filters know what 
+   Gherkin ranges to use)
+2. Update the `cucumber-gherkin` runtime dependency in `cuke_moddler.gemspec` (so that the new version is allowed 
+   to be included in the gem bundle by Bundler)
+3. Update`gherkin_major_version_used` in the `Gemfile` to the new version (so that it is the one getting used 
+   during development)
+4. Run the [tests](#testing) and fix the failures until everything is green again. This will, at the very least, 
+   require the creation of a new adapter for the new Gherkin version (see existing adapters).
+5. In addition to making sure that the existing tests pass...
+     - Update any tests that are specific to certain versions of Gherkin in order to make them run with the new version 
+       as well (usually done automatically by Step 1) or create a new version of the test that reflects the behavior 
+       of the added version (see any test that uses Gherkin ranges as an example).
+     - If the grammar of Gherkin has changed, update any tests that would be impacted, such as those that use 'maximum' 
+       and 'minimum' sets of Gherkin.
+     - Update any models that need new behavior due to changes in the grammar (e.g. `Rule`s going from untagged models to 
+       tagged models in Gherkin 18.x)
+6. Create a testing gemfile (see `testing/gemfiles`) for the new Gherkin version
+7. Add the new testing gemfile to the CI matrix in the GitHub workflow file
