@@ -44,7 +44,8 @@ Some guidelines when adding a new model
 2. Update the `cucumber-gherkin` runtime dependency in `cuke_moddler.gemspec` (so that the new version is allowed 
    to be included in the gem bundle by Bundler)
 3. Update`gherkin_major_version_used` in the `Gemfile` to the new version (so that it is the one getting used 
-   during development)
+   during development). Also update `gherkin_major_versions_without_cucumber_support` if the new version does not have 
+   a version of `cucumber` that uses it (which is more often than not).
 4. Run the [tests](#testing) and fix the failures until everything is green again. This will, at the very least, 
    require the creation of a new adapter for the new Gherkin version (see existing adapters).
 5. In addition to making sure that the existing tests pass...
