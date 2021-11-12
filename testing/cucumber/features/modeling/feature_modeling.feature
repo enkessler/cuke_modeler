@@ -132,3 +132,10 @@ that feature.
         @model.source_line
       """
     Then the model returns "2"
+
+  Scenario: Modeling a feature's source column
+    When the feature's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "1"

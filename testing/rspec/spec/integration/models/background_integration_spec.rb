@@ -229,13 +229,27 @@ RSpec.describe 'Background, Integration' do
         end
 
         it "models the background's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
 
-                           #{BACKGROUND_KEYWORD}: foo
-                             #{STEP_KEYWORD} step"
+                          #{BACKGROUND_KEYWORD}: foo
+                            #{STEP_KEYWORD} step
+                        TEXT
           background = CukeModeler::Feature.new(source_text).background
 
           expect(background.source_line).to eq(3)
+        end
+
+        it "models the background's source column" do
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
+
+                          #{BACKGROUND_KEYWORD}: foo
+                            #{STEP_KEYWORD} step
+                        TEXT
+          background = CukeModeler::Feature.new(source_text).background
+
+          expect(background.source_column).to eq(3)
         end
 
         context 'a filled background' do

@@ -300,18 +300,34 @@ RSpec.describe 'DocString, Integration' do
         end
 
         it "models the doc string's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
 
                            #{SCENARIO_KEYWORD}:
                              #{STEP_KEYWORD} step
                                \"\"\"
                                foo
-                               \"\"\""
+                               \"\"\"
+                        TEXT
           doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
           expect(doc_string.source_line).to eq(5)
         end
 
+        it "models the doc string's source column" do
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
+
+                           #{SCENARIO_KEYWORD}:
+                             #{STEP_KEYWORD} step
+                               \"\"\"
+                               foo
+                               \"\"\"
+                        TEXT
+          doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
+
+          expect(doc_string.source_column).to eq(8)
+        end
       end
 
     end

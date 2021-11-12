@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing yet...
 
+## [3.14.0] - 2021-11-12
+
+### Added
+- Support source columns
+
 ## [3.13.0] - 2021-09-25
 
 ### Added

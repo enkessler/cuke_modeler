@@ -234,16 +234,30 @@ RSpec.describe 'Tag, Integration' do
         end
 
         it "models the tag's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
 
-                           @a_tag
-                           #{SCENARIO_KEYWORD}:
-                             #{STEP_KEYWORD} step"
+                          @a_tag
+                          #{SCENARIO_KEYWORD}:
+                            #{STEP_KEYWORD} step
+                        TEXT
           tag = CukeModeler::Feature.new(source_text).tests.first.tags.first
 
           expect(tag.source_line).to eq(3)
         end
 
+        it "models the tag's source column" do
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
+
+                          @a_tag
+                          #{SCENARIO_KEYWORD}:
+                            #{STEP_KEYWORD} step
+                        TEXT
+          tag = CukeModeler::Feature.new(source_text).tests.first.tags.first
+
+          expect(tag.source_column).to eq(3)
+        end
       end
 
     end

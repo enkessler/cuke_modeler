@@ -148,3 +148,28 @@ Feature: Outline modeling
         @model.source_line
       """
     Then the model returns "3"
+
+  Scenario: Modeling a outline's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario Outline:
+          * a step
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the outline model of that feature model
+      """
+        @model = @model.outlines.first
+      """
+    When the outline's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "3"

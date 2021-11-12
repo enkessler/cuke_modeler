@@ -148,3 +148,24 @@ in that rule.
         @model.source_line
       """
     Then the model returns "3"
+
+  Scenario: Modeling a rule's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+        Rule:
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the rule model of that feature model
+      """
+        @model = @model.rules.first
+      """
+    When the rule's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "3"

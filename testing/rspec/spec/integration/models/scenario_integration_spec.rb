@@ -224,13 +224,27 @@ RSpec.describe 'Scenario, Integration' do
         end
 
         it "models the scenario's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
 
-                           #{SCENARIO_KEYWORD}: foo
-                             #{STEP_KEYWORD} step"
+                          #{SCENARIO_KEYWORD}: foo
+                            #{STEP_KEYWORD} step
+                        TEXT
           scenario = CukeModeler::Feature.new(source_text).tests.first
 
           expect(scenario.source_line).to eq(3)
+        end
+
+        it "models the scenario's source column" do
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
+
+                          #{SCENARIO_KEYWORD}: foo
+                            #{STEP_KEYWORD} step
+                        TEXT
+          scenario = CukeModeler::Feature.new(source_text).tests.first
+
+          expect(scenario.source_column).to eq(3)
         end
 
 

@@ -278,12 +278,25 @@ RSpec.describe 'Rule, Integration' do
         end
 
         it "models the rule's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
 
-                           #{RULE_KEYWORD}:"
+                          #{RULE_KEYWORD}:
+                        TEXT
           rule = CukeModeler::Feature.new(source_text).rules.first
 
           expect(rule.source_line).to eq(3)
+        end
+
+        it "models the rule's source column" do
+          source_text = <<~TEXT
+                        #{FEATURE_KEYWORD}:
+
+                          #{RULE_KEYWORD}:
+                        TEXT
+          rule = CukeModeler::Feature.new(source_text).rules.first
+
+          expect(rule.source_column).to eq(3)
         end
 
 

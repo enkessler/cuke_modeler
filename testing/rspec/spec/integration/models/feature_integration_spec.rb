@@ -247,6 +247,13 @@ RSpec.describe 'Feature, Integration' do
           expect(feature.source_line).to eq(1)
         end
 
+        it "models the feature's source column" do
+          source_text = "#{FEATURE_KEYWORD}:"
+          feature = CukeModeler::Feature.new(source_text)
+
+          expect(feature.source_column).to eq(1)
+        end
+
 
         context 'a filled feature' do
 

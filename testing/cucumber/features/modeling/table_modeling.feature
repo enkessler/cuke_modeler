@@ -47,3 +47,27 @@ Feature: Table modeling
         @model.source_line
       """
     Then the model returns "5"
+
+  Scenario: Modeling a table's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario:
+          * a step
+            | value 1 |
+            | value 2 |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the table model inside of that feature model
+      """
+        @model = @model.tests.first.steps.first.block
+      """
+    When the table's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "7"
