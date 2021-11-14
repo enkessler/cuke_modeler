@@ -8,6 +8,7 @@ module CukeModeler
     # The line number where the element began in the source code
     attr_accessor :source_line
 
+    # The column number where the element began in the source code
     attr_accessor :source_column
 
     private
