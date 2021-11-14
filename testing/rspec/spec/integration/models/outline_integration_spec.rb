@@ -207,14 +207,14 @@ RSpec.describe 'Outline, Integration' do
 
         it "models the outline's source line" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                            #{OUTLINE_KEYWORD}: foo
-                              #{STEP_KEYWORD} step
-                            #{EXAMPLE_KEYWORD}:
-                              | param |
-                              | value |
-                        TEXT
+                #{OUTLINE_KEYWORD}: foo
+                  #{STEP_KEYWORD} step
+                #{EXAMPLE_KEYWORD}:
+                  | param |
+                  | value |
+          TEXT
           outline = CukeModeler::Feature.new(source_text).tests.first
 
           expect(outline.source_line).to eq(3)
@@ -222,14 +222,14 @@ RSpec.describe 'Outline, Integration' do
 
         it "models the outline's source column" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                            #{OUTLINE_KEYWORD}: foo
-                              #{STEP_KEYWORD} step
-                            #{EXAMPLE_KEYWORD}:
-                              | param |
-                              | value |
-                        TEXT
+                #{OUTLINE_KEYWORD}: foo
+                  #{STEP_KEYWORD} step
+                #{EXAMPLE_KEYWORD}:
+                  | param |
+                  | value |
+          TEXT
           outline = CukeModeler::Feature.new(source_text).tests.first
 
           expect(outline.source_column).to eq(5)

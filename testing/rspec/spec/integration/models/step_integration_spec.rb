@@ -156,11 +156,11 @@ RSpec.describe 'Step, Integration' do
 
         it "models the step's source line" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                          #{SCENARIO_KEYWORD}: foo
-                            #{STEP_KEYWORD} step
-                        TEXT
+              #{SCENARIO_KEYWORD}: foo
+                #{STEP_KEYWORD} step
+          TEXT
           step = CukeModeler::Feature.new(source_text).tests.first.steps.first
 
           expect(step.source_line).to eq(4)
@@ -168,11 +168,11 @@ RSpec.describe 'Step, Integration' do
 
         it "models the step's source column" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                          #{SCENARIO_KEYWORD}: foo
-                            #{STEP_KEYWORD} step
-                        TEXT
+              #{SCENARIO_KEYWORD}: foo
+                #{STEP_KEYWORD} step
+          TEXT
           step = CukeModeler::Feature.new(source_text).tests.first.steps.first
 
           expect(step.source_column).to eq(5)

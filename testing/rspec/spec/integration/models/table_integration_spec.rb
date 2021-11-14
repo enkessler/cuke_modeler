@@ -102,12 +102,12 @@ RSpec.describe 'Table, Integration' do
 
         it "models the table's source line" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                          #{SCENARIO_KEYWORD}:
-                            #{STEP_KEYWORD} step
-                              | value |
-                        TEXT
+              #{SCENARIO_KEYWORD}:
+                #{STEP_KEYWORD} step
+                  | value |
+          TEXT
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
           expect(table.source_line).to eq(5)
@@ -115,12 +115,12 @@ RSpec.describe 'Table, Integration' do
 
         it "models the table's source column" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                          #{SCENARIO_KEYWORD}:
-                            #{STEP_KEYWORD} step
-                              | value |
-                        TEXT
+              #{SCENARIO_KEYWORD}:
+                #{STEP_KEYWORD} step
+                  | value |
+          TEXT
           table = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
           expect(table.source_column).to eq(7)

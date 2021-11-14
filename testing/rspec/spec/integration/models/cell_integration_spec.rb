@@ -275,12 +275,12 @@ RSpec.describe 'Cell, Integration' do
 
         it "models the cell's source line" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                           #{SCENARIO_KEYWORD}:
-                             #{STEP_KEYWORD} a step
-                               | value |
-                        TEXT
+               #{SCENARIO_KEYWORD}:
+                 #{STEP_KEYWORD} a step
+                   | value |
+          TEXT
           cell = CukeModeler::Feature.new(source_text).tests.first.steps.first.block.rows.first.cells.first
 
           expect(cell.source_line).to eq(5)
@@ -288,12 +288,12 @@ RSpec.describe 'Cell, Integration' do
 
         it "models the cell's source column" do
           source_text = <<~TEXT
-                        #{FEATURE_KEYWORD}:
+            #{FEATURE_KEYWORD}:
 
-                           #{SCENARIO_KEYWORD}:
-                             #{STEP_KEYWORD} a step
-                               | value |
-                        TEXT
+               #{SCENARIO_KEYWORD}:
+                 #{STEP_KEYWORD} a step
+                   | value |
+          TEXT
           cell = CukeModeler::Feature.new(source_text).tests.first.steps.first.block.rows.first.cells.first
 
           expect(cell.source_column).to eq(10)
