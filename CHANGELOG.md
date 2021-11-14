@@ -6,12 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
-
-## [3.14.0] - 2021-11-12
-
 ### Added
-- Support source columns
+  - All models for Gherkin elements now track the column number from which they originate in a source file.
 
 ## [3.13.0] - 2021-09-25
 
