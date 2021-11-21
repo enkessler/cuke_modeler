@@ -41,7 +41,7 @@ Some guidelines when adding a new model
 ### Supporting additional versions of Gherkin
 1. Update `MOST_CURRENT_GHERKIN_VERSION` in `cuke_modeler_project_settings.rb` (so that test filters know what 
    Gherkin ranges to use)
-2. Update the `cucumber-gherkin` runtime dependency in `cuke_moddler.gemspec` (so that the new version is allowed 
+2. Update the `cucumber-gherkin` runtime dependency in `cuke_modeler.gemspec` (so that the new version is allowed 
    to be included in the gem bundle by Bundler)
 3. Update`gherkin_major_version_used` in the `Gemfile` to the new version (so that it is the one getting used 
    during development). Also update `gherkin_major_versions_without_cucumber_support` if the new version does not have 

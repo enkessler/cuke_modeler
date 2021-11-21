@@ -124,7 +124,7 @@ Feature: Outline modeling
       | @outline_tag_1 |
       | @outline_tag_2 |
 
-  Scenario: Modeling a outline's source line
+  Scenario: Modeling an outline's source line
     Given the following gherkin:
       """
       Feature:
@@ -149,7 +149,7 @@ Feature: Outline modeling
       """
     Then the model returns "3"
 
-  Scenario: Modeling a outline's source column
+  Scenario: Modeling an outline's source column
     Given the following gherkin:
       """
       Feature:
