@@ -20,6 +20,18 @@ shared_examples_for 'a sourced model' do
     expect(model.source_line).to eq(:some_other_source_line)
   end
 
+  it 'has a source column' do
+    expect(model).to respond_to(:source_column)
+  end
+
+  it 'can change its source column' do
+    expect(model).to respond_to(:source_column=)
+
+    model.source_column = :some_source_column
+    expect(model.source_column).to eq(:some_source_column)
+    model.source_column = :some_other_source_column
+    expect(model.source_column).to eq(:some_other_source_column)
+  end
 
   describe 'abstract instantiation' do
 
@@ -30,6 +42,10 @@ shared_examples_for 'a sourced model' do
 
       it 'starts with no source line' do
         expect(model.source_line).to be_nil
+      end
+
+      it 'starts with no source column' do
+        expect(model.source_column).to be_nil
       end
 
     end

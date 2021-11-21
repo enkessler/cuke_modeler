@@ -23,21 +23,21 @@ Feature: Background modeling
       """
 
 
-  Scenario: Modeling a backgrounds's keyword
+  Scenario: Modeling a background's keyword
     When the backgrounds's keyword is requested
       """
         @model.keyword
       """
     Then the model returns "Background"
 
-  Scenario: Modeling a backgrounds's name
+  Scenario: Modeling a background's name
     When the background's name is requested
       """
         @model.name
       """
     Then the model returns "Some general test setup stuff."
 
-  Scenario: Modeling a backgrounds's description
+  Scenario: Modeling a background's description
     When the background's description is requested
       """
         @model.description
@@ -50,7 +50,7 @@ Feature: Background modeling
           Even more.
       """
 
-  Scenario: Modeling a backgrounds's steps
+  Scenario: Modeling a background's steps
     When the background's steps are requested
       """
         @model.steps
@@ -60,7 +60,7 @@ Feature: Background modeling
       | another setup step |
       | an action step     |
 
-  Scenario: Modeling a backgrounds's source line
+  Scenario: Modeling a background's source line
     Given the following gherkin:
       """
       Feature:
@@ -79,5 +79,28 @@ Feature: Background modeling
     When the background's source line is requested
       """
         @model.source_line
+      """
+    Then the model returns "3"
+
+  Scenario: Modeling a background's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+
+        Background:
+          * a step
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the background model of that feature model
+      """
+        @model = @model.background
+      """
+    When the background's source column is requested
+      """
+        @model.source_column
       """
     Then the model returns "3"

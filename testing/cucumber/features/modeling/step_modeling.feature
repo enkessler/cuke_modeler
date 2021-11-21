@@ -50,6 +50,28 @@ Feature: Step modeling
       """
     Then the model returns "4"
 
+  Scenario: Modeling a step's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario:
+          * a step
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the step model inside of that feature model
+      """
+        @model = @model.tests.first.steps.first
+      """
+    When the step's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "5"
+
   Scenario: Modeling a step's table
     Given a step model based on the following gherkin:
       """

@@ -128,3 +128,28 @@ Feature: Example modeling
         @model.source_line
       """
     Then the model returns "5"
+
+  Scenario: Modeling an example's source column
+    Given the following gherkin:
+      """
+      Feature:
+
+        Scenario Outline:
+          * a step
+        Examples:
+          | param |
+          | value |
+      """
+    And a feature model based on that gherkin
+      """
+        @model = CukeModeler::Feature.new(<source_text>)
+      """
+    And the example model inside of that feature model
+      """
+        @model = @model.tests.first.examples.first
+      """
+    When the example's source column is requested
+      """
+        @model.source_column
+      """
+    Then the model returns "3"

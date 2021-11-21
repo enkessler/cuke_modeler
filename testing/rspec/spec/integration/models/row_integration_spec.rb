@@ -258,16 +258,33 @@ RSpec.describe 'Row, Integration' do
         end
 
         it "models the row's source line" do
-          source_text = "#{FEATURE_KEYWORD}: Test feature
+          source_text = <<~TEXT
+            #{FEATURE_KEYWORD}: Test feature
 
-                           #{OUTLINE_KEYWORD}: Test outline
-                             #{STEP_KEYWORD} a step
-                           #{EXAMPLE_KEYWORD}:
-                             | param |
-                             | value |"
+               #{OUTLINE_KEYWORD}: Test outline
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
+          TEXT
           row = CukeModeler::Feature.new(source_text).tests.first.examples.first.rows.first
 
           expect(row.source_line).to eq(6)
+        end
+
+        it "models the row's source column" do
+          source_text = <<~TEXT
+            #{FEATURE_KEYWORD}: Test feature
+
+               #{OUTLINE_KEYWORD}: Test outline
+                 #{STEP_KEYWORD} a step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
+          TEXT
+          row = CukeModeler::Feature.new(source_text).tests.first.examples.first.rows.first
+
+          expect(row.source_column).to eq(6)
         end
 
       end

@@ -173,16 +173,33 @@ RSpec.describe 'Example, Integration' do
         end
 
         it "models the example's source line" do
-          source_text = "#{FEATURE_KEYWORD}:
+          source_text = <<~TEXT
+            #{FEATURE_KEYWORD}:
 
-                           #{OUTLINE_KEYWORD}:
-                             #{STEP_KEYWORD} step
-                           #{EXAMPLE_KEYWORD}:
-                             | param |
-                             | value |"
+               #{OUTLINE_KEYWORD}:
+                 #{STEP_KEYWORD} step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
+          TEXT
           example = CukeModeler::Feature.new(source_text).tests.first.examples.first
 
           expect(example.source_line).to eq(5)
+        end
+
+        it "models the example's source column" do
+          source_text = <<~TEXT
+            #{FEATURE_KEYWORD}:
+
+               #{OUTLINE_KEYWORD}:
+                 #{STEP_KEYWORD} step
+               #{EXAMPLE_KEYWORD}:
+                 | param |
+                 | value |
+          TEXT
+          example = CukeModeler::Feature.new(source_text).tests.first.examples.first
+
+          expect(example.source_column).to eq(4)
         end
 
 
