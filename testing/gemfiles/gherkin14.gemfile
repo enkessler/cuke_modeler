@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
-# The minimum version of Cucumber that uses the `cucumber-gherkin` gem
-gem 'cucumber', '>=4.0.0.rc.4'
+# Using the other Cucumber because Gherkin 14 seems to be having trouble with JRuby on Windows
+gem 'cucumber', '2.2.0'
 
 
 gem 'cucumber-gherkin', '~> 14.0'
