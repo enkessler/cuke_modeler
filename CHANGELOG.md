@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.14.0] - 2021-11-22
+
 ### Added
   - All models for Gherkin elements now track the column number from which they originate in a source file.
 
@@ -409,7 +413,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.13.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.14.0...HEAD
+[3.14.0]: https://github.com/enkessler/cuke_modeler/compare/v3.13.0...v3.14.0
 [3.13.0]: https://github.com/enkessler/cuke_modeler/compare/v3.12.0...v3.13.0
 [3.12.0]: https://github.com/enkessler/cuke_modeler/compare/v3.11.0...v3.12.0
 [3.11.0]: https://github.com/enkessler/cuke_modeler/compare/v3.10.0...v3.11.0
