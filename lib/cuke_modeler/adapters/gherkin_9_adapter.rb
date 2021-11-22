@@ -40,6 +40,7 @@ module CukeModeler
       adapted_feature['name'] = feature_ast[:name]
       adapted_feature['description'] = feature_ast[:description] || ''
       adapted_feature['line'] = feature_ast[:location][:line]
+      adapted_feature['column'] = feature_ast[:location][:column]
 
       adapted_feature['elements'] = adapt_child_elements(feature_ast)
       adapted_feature['tags'] = adapt_tags(feature_ast)
@@ -60,6 +61,7 @@ module CukeModeler
       adapted_background['name'] = background_ast[:background][:name]
       adapted_background['description'] = background_ast[:background][:description] || ''
       adapted_background['line'] = background_ast[:background][:location][:line]
+      adapted_background['column'] = background_ast[:background][:location][:column]
 
       adapted_background['steps'] = adapt_steps(background_ast[:background])
 
@@ -79,6 +81,7 @@ module CukeModeler
       adapted_rule['name'] = rule_ast[:rule][:name]
       adapted_rule['description'] = rule_ast[:rule][:description] || ''
       adapted_rule['line'] = rule_ast[:rule][:location][:line]
+      adapted_rule['column'] = rule_ast[:rule][:location][:column]
 
       adapted_rule['elements'] = adapt_child_elements(rule_ast[:rule])
 
@@ -99,6 +102,7 @@ module CukeModeler
       adapted_scenario['name'] = test_ast[:scenario][:name]
       adapted_scenario['description'] = test_ast[:scenario][:description] || ''
       adapted_scenario['line'] = test_ast[:scenario][:location][:line]
+      adapted_scenario['column'] = test_ast[:scenario][:location][:column]
 
       adapted_scenario['tags'] = adapt_tags(test_ast[:scenario])
       adapted_scenario['steps'] = adapt_steps(test_ast[:scenario])
@@ -121,6 +125,7 @@ module CukeModeler
       adapted_outline['name'] = test_ast[:scenario][:name]
       adapted_outline['description'] = test_ast[:scenario][:description] || ''
       adapted_outline['line'] = test_ast[:scenario][:location][:line]
+      adapted_outline['column'] = test_ast[:scenario][:location][:column]
 
       adapted_outline['tags'] = adapt_tags(test_ast[:scenario])
       adapted_outline['steps'] = adapt_steps(test_ast[:scenario])
@@ -142,6 +147,7 @@ module CukeModeler
       adapted_example['keyword'] = example_ast[:keyword]
       adapted_example['name'] = example_ast[:name]
       adapted_example['line'] = example_ast[:location][:line]
+      adapted_example['column'] = example_ast[:location][:column]
       adapted_example['description'] = example_ast[:description] || ''
 
       adapted_example['rows'] = []
@@ -165,6 +171,7 @@ module CukeModeler
 
       adapted_tag['name'] = tag_ast[:name]
       adapted_tag['line'] = tag_ast[:location][:line]
+      adapted_tag['column'] = tag_ast[:location][:column]
 
       adapted_tag
     end
@@ -178,6 +185,7 @@ module CukeModeler
 
       adapted_comment['text'] = comment_ast[:text]
       adapted_comment['line'] = comment_ast[:location][:line]
+      adapted_comment['column'] = comment_ast[:location][:column]
 
       adapted_comment
     end
@@ -194,6 +202,7 @@ module CukeModeler
       adapted_step['keyword'] = step_ast[:keyword]
       adapted_step['name'] = step_ast[:text]
       adapted_step['line'] = step_ast[:location][:line]
+      adapted_step['column'] = step_ast[:location][:column]
 
       if step_ast[:doc_string]
         adapted_step['doc_string'] = adapt_doc_string(step_ast[:doc_string])
@@ -214,6 +223,7 @@ module CukeModeler
       adapted_doc_string['value'] = doc_string_ast[:content]
       adapted_doc_string['content_type'] = doc_string_ast[:media_type]
       adapted_doc_string['line'] = doc_string_ast[:location][:line]
+      adapted_doc_string['column'] = doc_string_ast[:location][:column]
 
       adapted_doc_string
     end
@@ -231,6 +241,7 @@ module CukeModeler
         adapted_step_table['rows'] << adapt_table_row(row)
       end
       adapted_step_table['line'] = step_table_ast[:location][:line]
+      adapted_step_table['column'] = step_table_ast[:location][:column]
 
       adapted_step_table
     end
@@ -244,6 +255,7 @@ module CukeModeler
       clear_child_elements(adapted_table_row, [[:cells]])
 
       adapted_table_row['line'] = table_row_ast[:location][:line]
+      adapted_table_row['column'] = table_row_ast[:location][:column]
 
       adapted_table_row['cells'] = []
       table_row_ast[:cells].each do |row|
@@ -262,6 +274,7 @@ module CukeModeler
 
       adapted_cell['value'] = cell_ast[:value]
       adapted_cell['line'] = cell_ast[:location][:line]
+      adapted_cell['column'] = cell_ast[:location][:column]
 
       adapted_cell
     end
