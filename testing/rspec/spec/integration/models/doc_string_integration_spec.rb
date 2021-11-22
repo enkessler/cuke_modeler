@@ -305,9 +305,9 @@ RSpec.describe 'DocString, Integration' do
 
                #{SCENARIO_KEYWORD}:
                  #{STEP_KEYWORD} step
-                   \"\"\"
+                   """
                    foo
-                   \"\"\"
+                   """
           TEXT
           doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
@@ -320,9 +320,9 @@ RSpec.describe 'DocString, Integration' do
 
                #{SCENARIO_KEYWORD}:
                  #{STEP_KEYWORD} step
-                   \"\"\"
+                   """
                    foo
-                   \"\"\"
+                   """
           TEXT
           doc_string = CukeModeler::Feature.new(source_text).tests.first.steps.first.block
 
