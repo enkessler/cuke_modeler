@@ -30,6 +30,7 @@ require 'rubygems/mock_gem_ui'
 # implementation.
 
 # TODO: choose randomly from Gherkin::DIALECTS once I figure out how to handle encodings...
+# But never use 'en-au' because there are tests that assume that that's not the current language
 test_dialect = %w[en en-lol en-pirate en-Scouse].sample
 puts "Testing with dialect '#{test_dialect}'..."
 
