@@ -152,8 +152,6 @@ module CukeModeler
 
             gherkin_ast_message[:gherkin_document]
           end
-        else
-          raise("Unknown Gherkin version: '#{gherkin_version}'")
       end
       # rubocop:enable Lint/DuplicateMethods
 
