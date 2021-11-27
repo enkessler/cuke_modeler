@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+Nothing yet...
+
+## [3.15.0] - 2021-11-27
+
 ### Added
   - The language of a feature (e.g. 'en', 'hi', 'zh-CN', etc.) is now a modeled attribute on `Feature` models.
 
@@ -414,7 +418,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Initial release
 
 
-[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.14.0...HEAD
+[Unreleased]: https://github.com/enkessler/cuke_modeler/compare/v3.15.0...HEAD
+[3.15.0]: https://github.com/enkessler/cuke_modeler/compare/v3.14.0...v3.15.0
 [3.14.0]: https://github.com/enkessler/cuke_modeler/compare/v3.13.0...v3.14.0
 [3.13.0]: https://github.com/enkessler/cuke_modeler/compare/v3.12.0...v3.13.0
 [3.12.0]: https://github.com/enkessler/cuke_modeler/compare/v3.11.0...v3.12.0
