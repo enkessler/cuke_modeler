@@ -60,7 +60,6 @@ RSpec.describe 'FeatureFile, Unit', unit_test: true do
       expect(feature_file).to respond_to(:name)
     end
 
-
     it 'derives its file name from its path' do
       feature_file.path = 'path/to/foo'
 
