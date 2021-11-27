@@ -36,6 +36,7 @@ module CukeModeler
       clear_child_elements(adapted_feature, [[:tags],
                                              [:children]])
 
+      adapted_feature['language'] = feature_ast[:language]
       adapted_feature['keyword'] = feature_ast[:keyword]
       adapted_feature['name'] = feature_ast[:name]
       adapted_feature['description'] = feature_ast[:description] || ''

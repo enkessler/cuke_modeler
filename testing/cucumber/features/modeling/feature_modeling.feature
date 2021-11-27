@@ -8,6 +8,7 @@ that feature.
   Background:
     Given the following gherkin:
       """
+      # language: en
       @tag_1 @tag_2
       Feature: Feature Foo
 
@@ -131,7 +132,7 @@ that feature.
       """
         @model.source_line
       """
-    Then the model returns "2"
+    Then the model returns "3"
 
   Scenario: Modeling a feature's source column
     When the feature's source column is requested
@@ -139,3 +140,10 @@ that feature.
         @model.source_column
       """
     Then the model returns "1"
+
+  Scenario: Modeling a feature's language
+    When the feature's language is requested
+      """
+        @model.language
+      """
+    Then the model returns "en"

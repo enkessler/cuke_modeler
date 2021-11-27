@@ -12,7 +12,8 @@ RSpec.describe 'Feature, Integration' do
   let(:maximum_viable_gherkin) do
     tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
 
-    "@tag1 @tag2 @tag3
+    "# language: #{CukeModeler::Parsing.dialect}
+     @tag1 @tag2 @tag3
      #{FEATURE_KEYWORD}: A feature with everything it could have
 
      Including a description
@@ -258,7 +259,8 @@ RSpec.describe 'Feature, Integration' do
         context 'a filled feature' do
 
           let(:source_text) {
-            "@tag_1 @tag_2
+            "# language: #{CukeModeler::Parsing.dialect}
+             @tag_1 @tag_2
              #{FEATURE_KEYWORD}: Feature Foo
 
                  Some feature description.
@@ -292,6 +294,10 @@ RSpec.describe 'Feature, Integration' do
           }
           let(:feature) { clazz.new(source_text) }
 
+
+          it "models the feature's language" do
+            expect(feature.language).to eq(CukeModeler::Parsing.dialect)
+          end
 
           it "models the feature's name" do
             expect(feature.name).to eq('Feature Foo')
@@ -342,6 +348,11 @@ RSpec.describe 'Feature, Integration' do
           let(:source_text) { "#{FEATURE_KEYWORD}:" }
           let(:feature) { clazz.new(source_text) }
 
+
+          # A language is always used, even if it's just the default language
+          it "models the feature's language" do
+            expect(feature.language).to eq(CukeModeler::Parsing.dialect)
+          end
 
           it "models the feature's name" do
             expect(feature.name).to eq('')

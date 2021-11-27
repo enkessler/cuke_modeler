@@ -6,7 +6,8 @@ RSpec.describe 'FeatureFile, Integration' do
   let(:clazz) { CukeModeler::FeatureFile }
   let(:minimum_viable_gherkin) { '' }
   let(:maximum_viable_gherkin) do
-    "# feature comment
+    "# language: #{CukeModeler::Parsing.dialect}
+     # feature comment
      @tag1 @tag2 @tag3
      #{FEATURE_KEYWORD}: A feature with everything it could have
 

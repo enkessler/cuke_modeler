@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Added
+  - The language of a feature (e.g. 'en', 'hi', 'zh-CN', etc.) is now a modeled attribute on `Feature` models.
 
 ## [3.14.0] - 2021-11-22
 

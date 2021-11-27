@@ -30,6 +30,19 @@ RSpec.describe 'Feature, Unit', unit_test: true do
       expect { clazz.new(parsed_element) }.to raise_error(ArgumentError)
     end
 
+    it 'has a language' do
+      expect(feature).to respond_to(:language)
+    end
+
+    it 'can change its language' do
+      expect(feature).to respond_to(:language=)
+
+      feature.language = :some_language
+      expect(feature.language).to eq(:some_language)
+      feature.language = :some_other_language
+      expect(feature.language).to eq(:some_other_language)
+    end
+
     it 'has a background' do
       expect(feature).to respond_to(:background)
     end
@@ -126,6 +139,10 @@ RSpec.describe 'Feature, Unit', unit_test: true do
 
       let(:feature) { clazz.new }
 
+
+      it 'starts with no language' do
+        expect(feature.language).to be_nil
+      end
 
       it 'starts with no background' do
         expect(feature.background).to be_nil

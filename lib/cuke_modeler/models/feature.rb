@@ -10,6 +10,9 @@ module CukeModeler
     include Sourceable
 
 
+    # The language for the feature
+    attr_accessor :language
+
     # The keyword for the feature
     attr_accessor :keyword
 

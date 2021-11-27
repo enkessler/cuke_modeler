@@ -15,7 +15,8 @@ RSpec.describe 'Adapter, Integration' do
     let(:source_text) do
       tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
 
-      "# feature comment
+      "# language: #{CukeModeler::Parsing.dialect}
+       # feature comment
        @tag1 @tag2 @tag3
        #{FEATURE_KEYWORD}: A feature with everything it could have
 

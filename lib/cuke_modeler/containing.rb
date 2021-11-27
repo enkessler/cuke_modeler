@@ -137,6 +137,7 @@ module CukeModeler
     def populate_feature(feature_object, parsed_feature_data)
       populate_parsing_data(feature_object, parsed_feature_data)
       populate_source_location(feature_object, parsed_feature_data)
+      populate_language(feature_object, parsed_feature_data)
       populate_keyword(feature_object, parsed_feature_data)
       populate_name(feature_object, parsed_feature_data)
       populate_description(feature_object, parsed_feature_data)
@@ -189,6 +190,10 @@ module CukeModeler
       populate_comment_text(comment_object, processed_comment_data)
       populate_parsing_data(comment_object, processed_comment_data)
       populate_source_location(comment_object, processed_comment_data)
+    end
+
+    def populate_language(feature_model, parsed_feature_data)
+      feature_model.language = parsed_feature_data['language']
     end
 
     def populate_comment_text(comment_model, parsed_comment_data)
