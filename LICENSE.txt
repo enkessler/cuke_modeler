@@ -1,4 +1,4 @@
-Copyright (c) 2014-2021 Eric Kessler, et al
+Copyright (c) 2014-2022 Eric Kessler, et al
 
 MIT License
 
