@@ -1,0 +1,14 @@
+source 'https://rubygems.org'
+
+gemspec path: '../../'
+
+# rubocop:disable Bundler/DuplicatedGem
+if RUBY_VERSION =~ /^2\.[345]/
+  gem 'cucumber', '2.2.0' # No recent version of cucumber that supports Ruby < 2.6 and cucumber-gherkin 23
+else
+  # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+  gem 'cucumber', '>=4.0.0.rc.4'
+end
+# rubocop:enable Bundler/DuplicatedGem
+
+gem 'cucumber-gherkin', '~> 23.0'
