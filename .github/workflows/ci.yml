@@ -32,6 +32,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
+      JRUBY_OPTS: '-J-Djdk.io.File.enableADS=true' # Because of a JDK bug that might get fixed at some point
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
