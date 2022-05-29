@@ -13,5 +13,9 @@ else
 end
 # rubocop:enable Bundler/DuplicatedGem
 
+if ChildProcess.jruby?
+  gem 'jruby-win32ole'  # Some versions of Cucumber rely on this and it seems to not be automatically included
+end
+
 
 gem 'cucumber-gherkin', '~> 18.0'
