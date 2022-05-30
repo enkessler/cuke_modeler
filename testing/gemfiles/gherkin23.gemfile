@@ -11,5 +11,4 @@ else
 end
 # rubocop:enable Bundler/DuplicatedGem
 
-
 gem 'cucumber-gherkin', '~> 23.0'
