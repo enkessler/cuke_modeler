@@ -34,6 +34,10 @@ jobs:
           # Hits some kind of Java bug
           - os: windows-latest
             ruby-version: jruby-9.3.4.0
+            gemfile: gherkin20
+
+          - os: windows-latest
+            ruby-version: jruby-9.3.4.0
             gemfile: gherkin15
 
     runs-on: ${{ matrix.os }}
