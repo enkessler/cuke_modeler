@@ -14,9 +14,5 @@ else
 end
 # rubocop:enable Bundler/DuplicatedGem
 
-# JRuby + Windows
-if (RUBY_PLATFORM == 'java') && (RbConfig::CONFIG['host_os'] =~ /mingw32|mswin32/)
-  gem 'jruby-win32ole'  # Some versions of Cucumber rely on this and it seems to not be automatically included
-end
 
 gem 'cucumber-gherkin', '~> 15.0'

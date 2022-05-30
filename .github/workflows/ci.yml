@@ -27,9 +27,14 @@ jobs:
           - os: windows-latest
             ruby-version: '2.3'
 
-          # JRuby being JRuby
+#          # JRuby being JRuby
+#          - os: windows-latest
+#            ruby-version: 'jruby-9.1.17.0'
+
+          # Hits some kind of Java bug
           - os: windows-latest
-            ruby-version: 'jruby-9.1.17.0'
+            ruby-version: jruby-9.3.4.0
+            gemfile: gherkin15
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
