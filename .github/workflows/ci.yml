@@ -17,7 +17,7 @@ jobs:
                         'jruby-9.1.17.0', 'jruby-9.3.4.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
-                   gherkin21, gherkin22, gherkin23, gherkin24]
+                   gherkin21, gherkin22, gherkin23, gherkin24, gherkin25]
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
