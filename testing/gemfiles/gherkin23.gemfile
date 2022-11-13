@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
+if RUBY_VERSION =~ /^2\.[3]/
+  gem 'childprocess', '< 4.0' # Requires Ruby 2.4 at this version
+end
+
 # rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION =~ /^2\.[345]/
   gem 'cucumber', '2.2.0' # No recent version of cucumber that supports Ruby < 2.6 and cucumber-gherkin 23
