@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
+if RUBY_VERSION =~ /^2\.[345]/
+  gem 'minitest', '< 5.16.0' # Requires Ruby 2.6 at this version
+end
+
 # Using the other Cucumber because Gherkin 14 seems to be having trouble with JRuby on Windows
 gem 'cucumber', '2.2.0'
 
