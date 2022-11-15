@@ -11,6 +11,7 @@ jobs:
 
   test_ubuntu:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
@@ -43,6 +44,7 @@ jobs:
 
   test_macos:
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
@@ -74,6 +76,7 @@ jobs:
         if: matrix.ruby-version != '2.3' && matrix.ruby-version != 'jruby-9.1.17.0'
 
   test_windows:
+    fail-fast: false
     strategy:
       matrix:
         os: [windows-latest]
