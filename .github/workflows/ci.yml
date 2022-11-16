@@ -76,8 +76,8 @@ jobs:
         if: matrix.ruby-version != '2.3' && matrix.ruby-version != 'jruby-9.1.17.0'
 
   test_windows:
-    fail-fast: false
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
