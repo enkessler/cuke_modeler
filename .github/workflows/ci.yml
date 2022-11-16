@@ -11,6 +11,7 @@ jobs:
 
   test_ubuntu:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
@@ -43,13 +44,14 @@ jobs:
 
   test_macos:
     strategy:
+      fail-fast: false
       matrix:
         os: [macos-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
                         'jruby-9.1.17.0', 'jruby-9.3.4.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
-                   gherkin21, gherkin22, gherkin23, gherkin24]
+                   gherkin21, gherkin22, gherkin23, gherkin24, gherkin25]
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -75,13 +77,14 @@ jobs:
 
   test_windows:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
                         'jruby-9.1.17.0', 'jruby-9.3.4.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
-                   gherkin21, gherkin22, gherkin23, gherkin24]
+                   gherkin21, gherkin22, gherkin23, gherkin24, gherkin25]
         exclude:
           # Just not worth it to get these working and no additional and meaningful proof is provided by these
           # combinations, given the other combinations that are being tested.

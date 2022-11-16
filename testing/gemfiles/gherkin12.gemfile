@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
+if RUBY_VERSION =~ /^2\.[345]/
+  gem 'minitest', '< 5.16.0' # Requires Ruby 2.6 at this version
+end
+
 # Only versions of Cucumber that rely on the old `gherkin3` gem can be used
 # with versions of the gherkin gem for which there was never a cucumber release
 gem 'cucumber', '2.2.0'
