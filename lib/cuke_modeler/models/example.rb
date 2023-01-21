@@ -44,7 +44,7 @@ module CukeModeler
       # A quick 'deep clone' so that the input isn't modified
       row = Marshal.load(Marshal.dump(row))
 
-      values = if row.is_a?(Array)
+      values = if row.is_a?(Array) # rubocop:disable Style/CaseLikeIf # False positive
                  row
                elsif row.is_a?(Hash)
                  # There is no guarantee that the user built up their hash with the keys in the same order as
@@ -64,7 +64,7 @@ module CukeModeler
     def remove_row(row_removed)
       return if argument_rows.empty?
 
-      values = if row_removed.is_a?(Array)
+      values = if row_removed.is_a?(Array) # rubocop:disable Style/CaseLikeIf # False positive
                  row_removed
                elsif row_removed.is_a?(Hash)
                  # There is no guarantee that the user built up their hash with the keys in the same order as
@@ -99,7 +99,7 @@ module CukeModeler
     end
 
     # Building strings just isn't pretty
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/AbcSize
 
     # Returns a string representation of this model. For an example model,
     # this will be Gherkin text that is equivalent to the example being modeled.
@@ -116,7 +116,7 @@ module CukeModeler
       text
     end
 
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize
 
 
     private

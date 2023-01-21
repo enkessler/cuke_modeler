@@ -1,6 +1,7 @@
 require 'simplecov-lcov'
 
 raise('This should never happen') unless ENV['CUKE_MODELER_SIMPLECOV_COMMAND_NAME']
+
 SimpleCov.command_name(ENV['CUKE_MODELER_SIMPLECOV_COMMAND_NAME'])
 
 

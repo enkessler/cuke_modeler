@@ -202,7 +202,7 @@ RSpec.describe 'the gem' do
                                                 end
                                                 .requirement.requirements.map(&:join)
 
-      # Note: No lower bound is specified because 9.x was the first release of the gem
+      # NOTE: No lower bound is specified because 9.x was the first release of the gem
       expect(cucumber_gherkin_version_limits).to match_array(['<26.0'])
     end
 

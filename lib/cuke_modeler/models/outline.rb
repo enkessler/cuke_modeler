@@ -47,7 +47,7 @@ module CukeModeler
     end
 
     # Building strings just isn't pretty
-    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/AbcSize
 
     # Returns a string representation of this model. For an outline model,
     # this will be Gherkin text that is equivalent to the outline being modeled.
@@ -64,7 +64,7 @@ module CukeModeler
       text
     end
 
-    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/AbcSize
 
 
     private

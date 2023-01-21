@@ -330,14 +330,14 @@ RSpec.describe 'Example, Integration' do
       end
 
       it 'can add a new row as a hash, non-string values' do
-        source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|\n|value1|value2|"
+        source = "#{EXAMPLE_KEYWORD}:\n|param_1|param_2|\n|value_1|value_2|"
         example = clazz.new(source)
 
-        new_row = { :param1 => 'value3', 'param2' => 4 }
+        new_row = { :param_1 => 'value_3', 'param_2' => 4 }
         example.add_row(new_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
-        expect(row_cell_values).to eq([['value1', 'value2'], ['value3', '4']])
+        expect(row_cell_values).to eq([['value_1', 'value_2'], ['value_3', '4']])
       end
 
       it 'can add a new row as a hash, random key order' do
@@ -363,14 +363,14 @@ RSpec.describe 'Example, Integration' do
       end
 
       it 'can add a new row as an array, non-string values' do
-        source = "#{EXAMPLE_KEYWORD}:\n|param1|param2|param3|\n|value1|value2|value3|"
+        source = "#{EXAMPLE_KEYWORD}:\n|param_1|param_2|param_3|\n|value_1|value_2|value_3|"
         example = clazz.new(source)
 
-        new_row = [:value4, 5, 'value6']
+        new_row = [:value_4, 5, 'value_6']
         example.add_row(new_row)
         row_cell_values = example.argument_rows.collect { |row| row.cells.map(&:value) }
 
-        expect(row_cell_values).to eq([['value1', 'value2', 'value3'], ['value4', '5', 'value6']])
+        expect(row_cell_values).to eq([['value_1', 'value_2', 'value_3'], ['value_4', '5', 'value_6']])
       end
 
       it 'can only use a Hash or an Array to add a new row' do

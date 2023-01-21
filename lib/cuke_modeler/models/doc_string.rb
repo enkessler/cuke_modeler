@@ -55,7 +55,7 @@ module CukeModeler
     end
 
     def content_output_string
-      content.nil? || content.empty? ? '' : content.gsub('"""', '\"\"\"') + "\n"
+      content.nil? || content.empty? ? '' : "#{content.gsub('"""', '\"\"\"')}\n"
     end
 
   end

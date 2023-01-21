@@ -34,8 +34,6 @@ module CukeModeler
     private
 
 
-    # It's only considered complex because of how deeply nested cells are in the tree. It's not REALLY complex.
-    # rubocop:disable Metrics/AbcSize
     def parse_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}: Fake feature to parse
@@ -47,7 +45,6 @@ module CukeModeler
 
       parsed_file['feature']['elements'].first['steps'].first['table']['rows'].first['cells'].first
     end
-    # rubocop:enable Metrics/AbcSize
 
   end
 

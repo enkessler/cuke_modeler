@@ -76,11 +76,9 @@ module CukeModeler
 
     def process_feature_file(file_path)
       source_text = IO.read(file_path)
-
       feature_file_data = Parsing.parse_text(source_text, file_path)
-      feature_file_data = feature_file_data.merge({ 'path' => file_path })
 
-      feature_file_data
+      feature_file_data.merge({ 'path' => file_path })
     end
 
   end

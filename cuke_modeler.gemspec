@@ -46,9 +46,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rainbow', '< 4.0.0'
   spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  # RuboCop drops Ruby 2.3 support after this version and we need to maintain Ruby 2.3 compatibility when writing code
-  # for this gem
-  spec.add_development_dependency 'rubocop', '< 0.82.0'
+  # Running recent RuboCop versions requires a recent version of Ruby but it can still lint against Ruby 2.3 styles
+  spec.add_development_dependency 'rubocop', '< 2.0'
   spec.add_development_dependency 'simplecov', '< 1.0'
   spec.add_development_dependency 'simplecov-lcov', '< 1.0'
   spec.add_development_dependency 'test-unit', '< 4.0.0'

@@ -16,11 +16,16 @@ module CukeModeler
       # This should be overridden by a child class
     end
 
+    # It's a lazy implementation but it's mandatory for the class to define this method
+    # rubocop:disable Lint/UselessMethodDefinition
+
     # Returns a string representation of this model.
     def to_s
       # This should be overridden by a child class
       super
     end
+
+    # rubocop:enable Lint/UselessMethodDefinition
 
     # Returns the model objects that belong to this model.
     def children

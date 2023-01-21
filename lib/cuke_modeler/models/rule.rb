@@ -60,9 +60,6 @@ module CukeModeler
       models
     end
 
-    # Building strings just isn't pretty
-    # rubocop:disable Metrics/AbcSize
-
     # Returns a string representation of this model. For a rule model,
     # this will be Gherkin text that is equivalent to the rule being modeled.
     def to_s
@@ -76,7 +73,6 @@ module CukeModeler
 
       text
     end
-    # rubocop:enable Metrics/AbcSize
 
 
     private

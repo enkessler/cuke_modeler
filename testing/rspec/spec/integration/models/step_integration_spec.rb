@@ -272,7 +272,7 @@ RSpec.describe 'Step, Integration' do
 
         context 'compared to a step that has different text' do
 
-          let(:compared_step) { clazz.new(step_text + ' plus some more') }
+          let(:compared_step) { clazz.new("#{step_text} plus some more") }
 
           it 'considers them to not be equal' do
             assert_bidirectional_inequality(base_step, compared_step)
@@ -282,7 +282,7 @@ RSpec.describe 'Step, Integration' do
 
         context 'compared to a step that has a table' do
 
-          let(:compared_step) { clazz.new(step_text + "\n | foo |") }
+          let(:compared_step) { clazz.new("#{step_text}\n | foo |") }
 
           it 'considers them to not be equal' do
             assert_bidirectional_inequality(base_step, compared_step)
@@ -292,7 +292,7 @@ RSpec.describe 'Step, Integration' do
 
         context 'compared to a step that has a doc string' do
 
-          let(:compared_step) { clazz.new(step_text + "\n \"\"\"\n foo\n\"\"\"") }
+          let(:compared_step) { clazz.new("#{step_text}\n \"\"\"\n foo\n\"\"\"") }
 
           it 'considers them to not be equal' do
             assert_bidirectional_inequality(base_step, compared_step)
@@ -318,7 +318,7 @@ RSpec.describe 'Step, Integration' do
 
           context 'compared to a step that has a different table' do
 
-            let(:compared_step) { clazz.new(step_text + "\n | a different table |") }
+            let(:compared_step) { clazz.new("#{step_text}\n | a different table |") }
 
             it 'considers them to not be equal' do
               assert_bidirectional_inequality(base_step, compared_step)
@@ -346,7 +346,7 @@ RSpec.describe 'Step, Integration' do
 
           context 'compared to a step that has a different doc string' do
 
-            let(:compared_step) { clazz.new("#{step_text}\n\"\"\"\n#{content + 'different'}\n\"\"\"") }
+            let(:compared_step) { clazz.new("#{step_text}\n\"\"\"\n#{content}different\n\"\"\"") }
 
             it 'considers them to not be equal' do
               assert_bidirectional_inequality(base_step, compared_step)
