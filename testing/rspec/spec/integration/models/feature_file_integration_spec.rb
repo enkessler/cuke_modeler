@@ -166,7 +166,7 @@ RSpec.describe 'FeatureFile, Integration' do
       let(:feature_file) { clazz.new(feature_file_path) }
 
       before(:each) do
-        File.open(feature_file_path, 'w') { |file| file.write(source_text) }
+        File.write(feature_file_path, source_text)
       end
 
       it "models the feature file's name" do
@@ -247,7 +247,7 @@ RSpec.describe 'FeatureFile, Integration' do
                            | value |
                        # final comment"
 
-        File.open(feature_file_path, 'w') { |file| file.write(source_text) }
+        File.write(feature_file_path, source_text)
 
         feature_file = clazz.new(feature_file_path)
         comments = feature_file.comments.map(&:text)
@@ -302,7 +302,7 @@ RSpec.describe 'FeatureFile, Integration' do
                                                                             directory: directory_path) }
 
       before(:each) do
-        File.open(feature_file_path, 'w') { |file| file.write("#{FEATURE_KEYWORD}: Test feature") }
+        File.write(feature_file_path, "#{FEATURE_KEYWORD}: Test feature")
       end
 
       let(:directory_model) { CukeModeler::Directory.new(directory_path) }
@@ -334,7 +334,7 @@ RSpec.describe 'FeatureFile, Integration' do
         let(:feature_file) { clazz.new(feature_file_path) }
 
         before(:each) do
-          File.open(feature_file_path, 'w') { |file| file.write(source_text) }
+          File.write(feature_file_path, source_text)
         end
 
 

@@ -52,7 +52,7 @@ module CukeModeler
     end
 
     def trim_leading_spaces(description)
-      non_blank_lines = description.select { |line| line =~ /\S/ }
+      non_blank_lines = description.grep(/\S/)
 
       fewest_spaces = non_blank_lines.collect { |line| line[/^\s*/].length }.min || 0
 

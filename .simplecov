@@ -1,8 +1,6 @@
 require 'simplecov-lcov'
 
-raise('This should never happen') unless ENV['CUKE_MODELER_SIMPLECOV_COMMAND_NAME']
-
-SimpleCov.command_name(ENV['CUKE_MODELER_SIMPLECOV_COMMAND_NAME'])
+SimpleCov.command_name(ENV.fetch('CUKE_MODELER_SIMPLECOV_COMMAND_NAME'))
 
 
 SimpleCov::Formatter::LcovFormatter.config do |config|
@@ -15,7 +13,7 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([SimpleCov::Forma
 
 SimpleCov.start do
   root __dir__
-  coverage_dir "#{ENV['CUKE_MODELER_REPORT_FOLDER']}/coverage"
+  coverage_dir "#{ENV.fetch('CUKE_MODELER_REPORT_FOLDER')}/coverage"
 
   add_filter '/testing/'
   add_filter '/environments/'

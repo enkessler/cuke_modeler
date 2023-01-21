@@ -1,7 +1,7 @@
 Given(/^(?:a|the) directory "([^"]*)"$/) do |directory_name|
   @test_directory = "#{@root_test_directory}/#{directory_name}"
 
-  FileUtils.mkdir(@test_directory) unless File.exist?(@test_directory)
+  FileUtils.mkdir_p(@test_directory)
 end
 
 And(/^(?:a|the) file "([^"]*)"$/) do |file_name|
@@ -18,7 +18,7 @@ end
 And(/^the file "([^"]*)":$/) do |file_name, file_text|
   file_path = "#{@root_test_directory}/#{file_name}"
 
-  File.open(file_path, 'w') { |file| file.write(file_text) }
+  File.write(file_path, file_text)
 end
 
 Given(/^the following gherkin:$/) do |text|

@@ -22,7 +22,7 @@ module CukeModeler
         options[:directory] ||= create_directory
 
         file_path = "#{options[:directory]}/#{options[:name]}#{options[:extension]}"
-        File.open(file_path, 'w') { |file| file.write(options[:text]) }
+        File.write(file_path, options[:text])
 
         file_path
       end

@@ -4,8 +4,8 @@ namespace 'cuke_modeler' do
   task :clear_report_directory do
     puts Rainbow('Clearing report directory...').cyan
 
-    FileUtils.remove_dir(ENV['CUKE_MODELER_REPORT_FOLDER'], true)
-    FileUtils.mkdir(ENV['CUKE_MODELER_REPORT_FOLDER'])
+    FileUtils.remove_dir(ENV.fetch('CUKE_MODELER_REPORT_FOLDER'), true)
+    FileUtils.mkdir(ENV.fetch('CUKE_MODELER_REPORT_FOLDER'))
   end
 
   desc 'Removes existing test results and code coverage'

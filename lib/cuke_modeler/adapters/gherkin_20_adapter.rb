@@ -327,15 +327,23 @@ module CukeModeler
 
     def clear_child_elements(ast, child_paths)
       # rubocop:disable Security/Eval - This is not blind data
+      # rubocop:disable Style/DocumentDynamicEvalDefinition - Nice idea but bad detection ability
       child_paths.each do |traversal_path|
-        # Wipe the value if it's there but don't add any attributes to the object if it didn't already have them
+        # Don't add any properties to the object if it didn't already have them
+        # e.g. ast['cuke_modeler_parsing_data'].background.steps
+        # e.g. ast['cuke_modeler_parsing_data'].data_table
         next unless eval("ast['cuke_modeler_parsing_data'].#{traversal_path.join('.')}", binding, __FILE__, __LINE__)
 
+
+        # Determine the path to the property and wipe it
         property_path = traversal_path[0..-2].join('.')
         property_path = property_path.empty? ? '' : ".#{property_path}"
+
+        # e.g. ast['cuke_modeler_parsing_data'].scenario.instance_variable_set("@steps", nil)
+        # e.g. ast['cuke_modeler_parsing_data'].instance_variable_set("@tags", nil)
         eval("ast['cuke_modeler_parsing_data']#{property_path}.instance_variable_set(\"@#{traversal_path.last}\", nil)", binding, __FILE__, __LINE__) # rubocop:disable Layout/LineLength
       end
-      # rubocop:enable Security/Eval
+      # rubocop:enable Security/Eval, Style/DocumentDynamicEvalDefinition
     end
 
     def test_has_examples?(ast_node)

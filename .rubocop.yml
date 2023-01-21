@@ -1,5 +1,8 @@
 AllCops:
+  # The oldest version of Ruby supported by this gem
   TargetRubyVersion: 2.3
+  # Gotta catch 'em all!
+  NewCops: enable
 
 # These linters are not enabled by default
 Lint/RaiseException:
