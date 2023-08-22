@@ -11,10 +11,40 @@ Then(/^all of them can be output as text appropriate to the model type$/) do |co
   end
 end
 
+Then(/^all of them can provide a custom inspection output$/) do |code_text|
+  original_text = code_text
+
+  @available_model_classes.each do |clazz|
+    code_text = original_text.gsub('<model_class>', clazz.to_s)
+
+    expect(clazz.instance_method(:inspect).owner).to equal(clazz), "#{clazz} does not override #inspect"
+
+    # Make sure that the example code is valid
+    expect { eval(code_text) }.to_not raise_error
+  end
+end
+
 Then(/^the following text is provided:$/) do |expected_text|
   expected_text = expected_text.sub('<path_to>', @root_test_directory)
+                               .sub('<object_id>', @model.object_id.to_s)
 
   expect(@output).to eq(expected_text)
+end
+
+And(/^the inspection values are of the form:$/) do |expected_pattern|
+  original_pattern = expected_pattern
+
+  @available_model_classes.each do |clazz|
+    model = clazz.new
+    output = model.inspect
+
+    expected_pattern = original_pattern.sub('<model_class>', clazz.to_s.match(/CukeModeler::(.*)/)[1])
+                                       .sub('<object_id>', model.object_id.to_s)
+                                       .sub('<some_meaningful_attribute>', '@\w+')
+                                       .sub('<attribute_value>', '.*')
+
+    expect(output).to match(expected_pattern), "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
+  end
 end
 
 Then(/^all of them can be contained inside of another model$/) do |code_text|

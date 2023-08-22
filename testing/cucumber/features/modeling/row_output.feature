@@ -1,20 +1,24 @@
 Feature: Row output
 
-  A row model's string output is a Gherkin representation of itself. As such, output from a row model can be used as input for the same kind of model.
+  A row model's string output is a Gherkin representation of itself and its most relevant attribute for
+  inspection is the collection of cells of the row that it models.
 
 
-  Scenario: Outputting a row model
+  Background:
     Given the following gherkin:
       """
       |foo|bar|
       """
     And a row model based on that gherkin
       """
-        @model = CukeModeler::Row.new(<source_text>)
+      @model = CukeModeler::Row.new(<source_text>)
       """
+
+
+  Scenario: Stringify a row model
     When the model is output as a string
       """
-        @model.to_s
+      @model.to_s
       """
     Then the following text is provided:
       """
@@ -22,5 +26,15 @@ Feature: Row output
       """
     And the output can be used to make an equivalent model
       """
-        CukeModeler::Row.new(@model.to_s)
+      CukeModeler::Row.new(@model.to_s)
+      """
+
+  Scenario: Inspect a row model
+    When the model is inspected
+      """
+      @model.inspect
+      """
+    Then the following text is provided:
+      """
+      #<CukeModeler::Row:<object_id> @cells: ["foo", "bar"]>
       """

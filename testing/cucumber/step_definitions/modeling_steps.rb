@@ -13,6 +13,10 @@ When(/^the model is output as a string$/) do |code_text|
   @output = eval(code_text)
 end
 
+When(/^the model is inspected$/) do |code_text|
+  @output = eval(code_text)
+end
+
 And(/^a(?:n)? \w+(?: \w+)? model based on that gherkin$/) do |code_text|
   code_text = code_text.gsub('<source_text>', "'#{@source_text}'")
 

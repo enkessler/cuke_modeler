@@ -1,9 +1,10 @@
 Feature: Outline output
 
-  An outline model's string output is a Gherkin representation of itself. As such, output from an outline model can be used as input for the same kind of model.
+  An outline model's string output is a Gherkin representation of itself and its most relevant attribute for
+  inspection is the name of the outline that it models.
 
 
-  Scenario: Outputting an outline model
+  Background:
     Given the following gherkin:
       """
       @tag1@tag2
@@ -33,11 +34,14 @@ Feature: Outline output
       """
     And an outline model based on that gherkin
       """
-        @model = CukeModeler::Outline.new(<source_text>)
+      @model = CukeModeler::Outline.new(<source_text>)
       """
+
+
+  Scenario: Stringify an outline model
     When the model is output as a string
       """
-        @model.to_s
+      @model.to_s
       """
     Then the following text is provided:
       """
@@ -69,5 +73,15 @@ Feature: Outline output
       """
     And the output can be used to make an equivalent model
       """
-        CukeModeler::Outline.new(@model.to_s)
+      CukeModeler::Outline.new(@model.to_s)
+      """
+
+  Scenario: Inspect an outline model
+    When the model is inspected
+      """
+      @model.inspect
+      """
+    Then the following text is provided:
+      """
+      #<CukeModeler::Outline:<object_id> @name: "An outline with everything that it could have">
       """
