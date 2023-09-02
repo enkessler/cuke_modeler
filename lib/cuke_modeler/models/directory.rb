@@ -46,6 +46,14 @@ module CukeModeler
       path.to_s
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a directory model, this will be the path of the
+    # directory.
+    def inspect
+      "#<#{self.class.name}:#{object_id} @path: #{@path.inspect}>"
+    end
+
 
     private
 

@@ -15,9 +15,7 @@ RSpec.describe 'Directory, Integration' do
 
   describe 'unique behavior' do
 
-
     describe 'modeling directories' do
-
 
       context 'with an existing directory' do
 
@@ -199,28 +197,33 @@ RSpec.describe 'Directory, Integration' do
 
     describe 'directory output' do
 
-      context 'from source text' do
+      describe 'stringification' do
 
-        let(:directory_path) { CukeModeler::FileHelper.create_directory }
-        let(:directory_model) { clazz.new(directory_path) }
+        context 'from source text' do
+
+          let(:directory_path) { CukeModeler::FileHelper.create_directory }
+          let(:directory_model) { clazz.new(directory_path) }
 
 
-        it 'can output a directory' do
-          directory_output = directory_model.to_s
+          it 'can be remade from its own stringified output' do
+            source    = CukeModeler::FileHelper.create_directory
+            directory = clazz.new(source)
 
-          expect(directory_output).to eq(directory_path)
+            directory_output        = directory.to_s
+            remade_directory_output = clazz.new(directory_output).to_s
+
+            expect(remade_directory_output).to eq(directory_output)
+          end
+
+          # The minimal and maximal directory case
+          it 'can output a directory' do
+            directory_output = directory_model.to_s
+
+            expect(directory_output).to eq(directory_path)
+          end
+
         end
 
-      end
-
-      it 'can be remade from its own output' do
-        source = CukeModeler::FileHelper.create_directory
-        directory = clazz.new(source)
-
-        directory_output = directory.to_s
-        remade_directory_output = clazz.new(directory_output).to_s
-
-        expect(remade_directory_output).to eq(directory_output)
       end
 
     end

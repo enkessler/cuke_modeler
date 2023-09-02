@@ -109,13 +109,52 @@ RSpec.describe 'Directory, Unit', unit_test: true do
 
     describe 'directory output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:directory) { clazz.new }
+        it 'can inspect a directory that has a path' do
+          directory.path   = 'foo'
+          directory_output = directory.inspect
+
+          expect(directory_output).to eq('#<CukeModeler::Directory:<object_id> @path: "foo">'
+                                           .sub('<object_id>', directory.object_id.to_s))
+        end
+
+        it "can inspect a directory that doesn't have a path" do
+          directory.path   = nil
+          directory_output = directory.inspect
+
+          expect(directory_output).to eq('#<CukeModeler::Directory:<object_id> @path: nil>'
+                                           .sub('<object_id>', directory.object_id.to_s))
+        end
+
+      end
 
 
-        it 'can output an empty directory' do
-          expect { directory.to_s }.to_not raise_error
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
+
+          let(:directory) { clazz.new }
+
+          it 'can stringify a directory that has only a path' do
+            directory.path = 'foo'
+
+            expect(directory.to_s).to eq('foo')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid file paths and so don't have any useful output
+            # but they need to at least not explode
+
+            # The minimal directory case
+            it 'can stringify an empty directory' do
+              expect { directory.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end
