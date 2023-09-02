@@ -30,6 +30,7 @@ RSpec.describe 'Outline, Integration' do
 
   end
 
+
   describe 'unique behavior' do
 
     it 'can be instantiated with the minimum viable Gherkin' do
@@ -56,6 +57,7 @@ RSpec.describe 'Outline, Integration' do
         CukeModeler::Parsing.dialect = original_dialect
       end
     end
+
 
     describe 'parsing data' do
 
@@ -438,219 +440,231 @@ RSpec.describe 'Outline, Integration' do
 
     describe 'outline output' do
 
-      it 'can be remade from its own output' do
-        source = "@tag1 @tag2 @tag3
-                  #{OUTLINE_KEYWORD}: An outline with everything it could have
+      describe 'stringification' do
 
-                  Some description.
-                  Some more description.
+        context 'from source text' do
 
-                    #{STEP_KEYWORD} a step
-                      | value |
-                    #{STEP_KEYWORD} a <value> step
-                      \"\"\"
-                        some string
-                      \"\"\"
+          it 'can be remade from its own stringified output' do
+            source  = "@tag1 @tag2 @tag3
+                       #{OUTLINE_KEYWORD}: An outline with everything it could have
 
-        #{EXAMPLE_KEYWORD}:
+                       Some description.
+                       Some more description.
 
-                  Some description.
-                  Some more description.
+                         #{STEP_KEYWORD} a step
+                           | value |
+                         #{STEP_KEYWORD} a <value> step
+                           \"\"\"
+                             some string
+                           \"\"\"
 
-                    | value |
-                    | x     |
+             #{EXAMPLE_KEYWORD}:
 
-                  @example_tag
-                  #{EXAMPLE_KEYWORD}:
-                    | value |
-                    | y     |"
-        outline = clazz.new(source)
+                       Some description.
+                       Some more description.
 
-        outline_output = outline.to_s
-        remade_outline_output = clazz.new(outline_output).to_s
+                         | value |
+                         | x     |
 
-        expect(remade_outline_output).to eq(outline_output)
-      end
+                       @example_tag
+                       #{EXAMPLE_KEYWORD}:
+                         | value |
+                         | y     |"
+            outline = clazz.new(source)
 
+            outline_output        = outline.to_s
+            remade_outline_output = clazz.new(outline_output).to_s
 
-      context 'from source text' do
+            expect(remade_outline_output).to eq(outline_output)
+          end
 
-        it 'can output an empty outline' do
-          source = ["#{OUTLINE_KEYWORD}:"]
-          source = source.join("\n")
-          outline = clazz.new(source)
+          # The minimal outline case
+          it 'can stringify an empty outline' do
+            source  = ["#{OUTLINE_KEYWORD}:"]
+            source  = source.join("\n")
+            outline = clazz.new(source)
 
-          outline_output = outline.to_s.split("\n", -1)
+            outline_output = outline.to_s.split("\n", -1)
 
-          expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:"])
+            expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:"])
+          end
+
+          it 'can stringify an outline that has a name' do
+            source  = ["#{OUTLINE_KEYWORD}: test outline"]
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(["#{OUTLINE_KEYWORD}: test outline"])
+          end
+
+          it 'can stringify an outline that has a description' do
+            source  = ["#{OUTLINE_KEYWORD}:",
+                       'Some description.',
+                       'Some more description.']
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
+                                          '',
+                                          'Some description.',
+                                          'Some more description.'])
+          end
+
+          it 'can stringify an outline that has steps' do
+            source  = ["#{OUTLINE_KEYWORD}:",
+                       "  #{STEP_KEYWORD} a step",
+                       '    | value |',
+                       "  #{STEP_KEYWORD} another step",
+                       '    """',
+                       '    some string',
+                       '    """']
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
+                                          "  #{STEP_KEYWORD} a step",
+                                          '    | value |',
+                                          "  #{STEP_KEYWORD} another step",
+                                          '    """',
+                                          '    some string',
+                                          '    """'])
+          end
+
+          it 'can stringify an outline that has tags' do
+            source  = ['@tag1 @tag2',
+                       '@tag3',
+                       "#{OUTLINE_KEYWORD}:"]
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{OUTLINE_KEYWORD}:"])
+          end
+
+          it 'can stringify an outline that has examples' do
+            source  = ["#{OUTLINE_KEYWORD}:",
+                       "#{STEP_KEYWORD} a step",
+                       "#{EXAMPLE_KEYWORD}:",
+                       '| value |',
+                       '| x     |',
+                       "#{EXAMPLE_KEYWORD}:",
+                       '| value |',
+                       '| y     |']
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
+                                          "  #{STEP_KEYWORD} a step",
+                                          '',
+                                          "#{EXAMPLE_KEYWORD}:",
+                                          '  | value |',
+                                          '  | x     |',
+                                          '',
+                                          "#{EXAMPLE_KEYWORD}:",
+                                          '  | value |',
+                                          '  | y     |'])
+          end
+
+          # The maximal outline case
+          it 'can stringify an outline that has everything' do
+            source  = ['@tag1 @tag2 @tag3',
+                       "#{OUTLINE_KEYWORD}: A outline with everything it could have",
+                       'Including a description',
+                       'and then some.',
+                       "#{STEP_KEYWORD} a step",
+                       '|value|',
+                       "#{STEP_KEYWORD} another step",
+                       '"""',
+                       'some string',
+                       '"""',
+                       '',
+                       "#{EXAMPLE_KEYWORD}:",
+                       '',
+                       'Some description.',
+                       'Some more description.',
+                       '',
+                       '| value |',
+                       '| x     |',
+                       '',
+                       '@example_tag',
+                       "#{EXAMPLE_KEYWORD}:",
+                       '| value |',
+                       '| y     |']
+            source  = source.join("\n")
+            outline = clazz.new(source)
+
+            outline_output = outline.to_s.split("\n", -1)
+
+            expect(outline_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{OUTLINE_KEYWORD}: A outline with everything it could have",
+                                          '',
+                                          'Including a description',
+                                          'and then some.',
+                                          '',
+                                          "  #{STEP_KEYWORD} a step",
+                                          '    | value |',
+                                          "  #{STEP_KEYWORD} another step",
+                                          '    """',
+                                          '    some string',
+                                          '    """',
+                                          '',
+                                          "#{EXAMPLE_KEYWORD}:",
+                                          '',
+                                          'Some description.',
+                                          'Some more description.',
+                                          '',
+                                          '  | value |',
+                                          '  | x     |',
+                                          '',
+                                          '@example_tag',
+                                          "#{EXAMPLE_KEYWORD}:",
+                                          '  | value |',
+                                          '  | y     |'])
+          end
+
         end
 
-        it 'can output a outline that has a name' do
-          source = ["#{OUTLINE_KEYWORD}: test outline"]
-          source = source.join("\n")
-          outline = clazz.new(source)
 
-          outline_output = outline.to_s.split("\n", -1)
+        context 'from abstract instantiation' do
 
-          expect(outline_output).to eq(["#{OUTLINE_KEYWORD}: test outline"])
-        end
-
-        it 'can output a outline that has a description' do
-          source = ["#{OUTLINE_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n", -1)
-
-          expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
-
-        it 'can output a outline that has steps' do
-          source = ["#{OUTLINE_KEYWORD}:",
-                    "  #{STEP_KEYWORD} a step",
-                    '    | value |',
-                    "  #{STEP_KEYWORD} another step",
-                    '    """',
-                    '    some string',
-                    '    """']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n", -1)
-
-          expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
-                                        "  #{STEP_KEYWORD} a step",
-                                        '    | value |',
-                                        "  #{STEP_KEYWORD} another step",
-                                        '    """',
-                                        '    some string',
-                                        '    """'])
-        end
-
-        it 'can output a outline that has tags' do
-          source = ['@tag1 @tag2',
-                    '@tag3',
-                    "#{OUTLINE_KEYWORD}:"]
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n", -1)
-
-          expect(outline_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{OUTLINE_KEYWORD}:"])
-        end
-
-        it 'can output a outline that has examples' do
-          source = ["#{OUTLINE_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step",
-                    "#{EXAMPLE_KEYWORD}:",
-                    '| value |',
-                    '| x     |',
-                    "#{EXAMPLE_KEYWORD}:",
-                    '| value |',
-                    '| y     |']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n", -1)
-
-          expect(outline_output).to eq(["#{OUTLINE_KEYWORD}:",
-                                        "  #{STEP_KEYWORD} a step",
-                                        '',
-                                        "#{EXAMPLE_KEYWORD}:",
-                                        '  | value |',
-                                        '  | x     |',
-                                        '',
-                                        "#{EXAMPLE_KEYWORD}:",
-                                        '  | value |',
-                                        '  | y     |'])
-        end
-
-        it 'can output a outline that has everything' do
-          source = ['@tag1 @tag2 @tag3',
-                    "#{OUTLINE_KEYWORD}: A outline with everything it could have",
-                    'Including a description',
-                    'and then some.',
-                    "#{STEP_KEYWORD} a step",
-                    '|value|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some string',
-                    '"""',
-                    '',
-                    "#{EXAMPLE_KEYWORD}:",
-                    '',
-                    'Some description.',
-                    'Some more description.',
-                    '',
-                    '| value |',
-                    '| x     |',
-                    '',
-                    '@example_tag',
-                    "#{EXAMPLE_KEYWORD}:",
-                    '| value |',
-                    '| y     |']
-          source = source.join("\n")
-          outline = clazz.new(source)
-
-          outline_output = outline.to_s.split("\n", -1)
-
-          expect(outline_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{OUTLINE_KEYWORD}: A outline with everything it could have",
-                                        '',
-                                        'Including a description',
-                                        'and then some.',
-                                        '',
-                                        "  #{STEP_KEYWORD} a step",
-                                        '    | value |',
-                                        "  #{STEP_KEYWORD} another step",
-                                        '    """',
-                                        '    some string',
-                                        '    """',
-                                        '',
-                                        "#{EXAMPLE_KEYWORD}:",
-                                        '',
-                                        'Some description.',
-                                        'Some more description.',
-                                        '',
-                                        '  | value |',
-                                        '  | x     |',
-                                        '',
-                                        '@example_tag',
-                                        "#{EXAMPLE_KEYWORD}:",
-                                        '  | value |',
-                                        '  | y     |'])
-        end
-
-      end
+          let(:outline) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:outline) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify an outline that has only tags' do
+              outline.tags = [CukeModeler::Tag.new]
 
-        it 'can output an outline that has only tags' do
-          outline.tags = [CukeModeler::Tag.new]
+              expect { outline.to_s }.to_not raise_error
+            end
 
-          expect { outline.to_s }.to_not raise_error
-        end
+            it 'can stringify an outline that has only steps' do
+              outline.steps = [CukeModeler::Step.new]
 
-        it 'can output an outline that has only steps' do
-          outline.steps = [CukeModeler::Step.new]
+              expect { outline.to_s }.to_not raise_error
+            end
 
-          expect { outline.to_s }.to_not raise_error
-        end
+            it 'can stringify an outline that has only examples' do
+              outline.examples = [CukeModeler::Example.new]
 
-        it 'can output an outline that has only examples' do
-          outline.examples = [CukeModeler::Example.new]
+              expect { outline.to_s }.to_not raise_error
+            end
 
-          expect { outline.to_s }.to_not raise_error
+          end
+
         end
 
       end

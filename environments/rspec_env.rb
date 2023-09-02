@@ -18,6 +18,7 @@ require_relative '../testing/rspec/spec/unit/shared/prepopulated_models_unit_spe
 require_relative '../testing/rspec/spec/unit/shared/sourced_models_unit_specs'
 require_relative '../testing/rspec/spec/unit/shared/parsed_models_unit_specs'
 require_relative '../testing/rspec/spec/unit/shared/keyworded_models_unit_specs'
+require_relative '../testing/rspec/spec/unit/shared/inspectable_models_unit_specs'
 
 require_relative '../testing/dialect_helper'
 require_relative '../testing/helper_methods'

@@ -9,6 +9,7 @@ shared_examples_for 'a model' do
     it_should_behave_like 'a nested model'
     it_should_behave_like 'a containing model'
     it_should_behave_like 'a stringifiable model'
+    it_should_behave_like 'an inspectable model'
 
   end
 

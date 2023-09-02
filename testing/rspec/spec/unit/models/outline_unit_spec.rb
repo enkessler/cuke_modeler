@@ -81,31 +81,65 @@ RSpec.describe 'Outline, Unit', unit_test: true do
 
     describe 'outline output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:outline) { clazz.new }
+        it "can inspect an outline that doesn't have a name" do
+          outline.name   = nil
+          outline_output = outline.inspect
 
-
-        it 'can output an empty outline' do
-          expect { outline.to_s }.to_not raise_error
+          expect(outline_output).to eq('#<CukeModeler::Outline:<object_id> @name: nil>'
+                                         .sub('<object_id>', outline.object_id.to_s))
         end
 
-        it 'can output an outline that has only a keyword' do
-          outline.keyword = 'foo'
+        it "can inspect an outline that has a name" do
+          outline.name   = 'a name'
+          outline_output = outline.inspect
 
-          expect(outline.to_s).to eq('foo:')
+          expect(outline_output).to eq('#<CukeModeler::Outline:<object_id> @name: "a name">'
+                                         .sub('<object_id>', outline.object_id.to_s))
         end
 
-        it 'can output an outline that has only a name' do
-          outline.name = 'a name'
+      end
 
-          expect { outline.to_s }.to_not raise_error
-        end
 
-        it 'can output an outline that has only a description' do
-          outline.description = 'a description'
+      describe 'stringification' do
 
-          expect { outline.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:outline) { clazz.new }
+
+
+          # The minimal outline case
+          it 'can stringify an outline that has only a keyword' do
+            outline.keyword = 'foo'
+
+            expect(outline.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty outline' do
+              expect { outline.to_s }.to_not raise_error
+            end
+
+            it 'can stringify an outline that has only a name' do
+              outline.name = 'a name'
+
+              expect { outline.to_s }.to_not raise_error
+            end
+
+            it 'can stringify an outline that has only a description' do
+              outline.description = 'a description'
+
+              expect { outline.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end
