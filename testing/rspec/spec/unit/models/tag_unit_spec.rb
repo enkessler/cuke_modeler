@@ -55,13 +55,53 @@ RSpec.describe 'Tag, Unit', unit_test: true do
 
   describe 'tag output' do
 
-    context 'from abstract instantiation' do
+    describe 'inspection' do
 
-      let(:tag) { clazz.new }
+      it "can inspect a tag that doesn't have a name" do
+        model.name   = nil
+        model_output = model.inspect
+
+        expect(model_output).to eq('#<CukeModeler::Tag:<object_id> @name: nil>'
+                                     .sub('<object_id>', model.object_id.to_s))
+      end
+
+      it 'can inspect a tag that has a name' do
+        model.name   = 'foo'
+        model_output = model.inspect
+
+        expect(model_output).to eq('#<CukeModeler::Tag:<object_id> @name: "foo">'
+                                     .sub('<object_id>', model.object_id.to_s))
+      end
+
+    end
 
 
-      it 'can output an empty tag' do
-        expect { tag.to_s }.to_not raise_error
+    describe 'stringification' do
+
+      context 'from abstract instantiation' do
+
+        let(:tag) { clazz.new }
+
+
+        # The minimal tag case
+        it 'can stringify a tag that has only a name' do
+          tag.name = '@foo'
+
+          expect(tag.to_s).to eq('@foo')
+        end
+
+
+        describe 'edge cases' do
+
+          # These cases would not produce valid Gherkin and so don't have any useful output
+          # but they need to at least not explode
+
+          it 'can stringify an empty tag' do
+            expect { tag.to_s }.to_not raise_error
+          end
+
+        end
+
       end
 
     end
