@@ -59,18 +59,50 @@ RSpec.describe 'Table, Unit', unit_test: true do
 
     describe 'table output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:table) { clazz.new }
+        it "can inspect a table that doesn't have rows (empty)" do
+          table.rows        = []
+          table_output = table.inspect
+
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: []>'
+                                       .sub('<object_id>', table.object_id.to_s))
+        end
+
+        it "can inspect a table that doesn't have rows (nil)" do
+          table.rows        = nil
+          table_output = table.inspect
+
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: nil>'
+                                       .sub('<object_id>', table.object_id.to_s))
+        end
+
+      end
 
 
-        it 'can output an empty table' do
-          expect { table.to_s }.to_not raise_error
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
+
+          let(:table) { clazz.new }
+
+
+          describe 'edge cases' do
+
+          # These cases would not produce valid Gherkin and so don't have any useful output
+          # but they need to at least not explode
+
+          it 'can stringify an empty table' do
+            expect { table.to_s }.to_not raise_error
+          end
+
         end
 
       end
 
     end
+
+  end
 
   end
 

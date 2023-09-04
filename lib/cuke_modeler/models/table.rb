@@ -36,6 +36,15 @@ module CukeModeler
       rows.empty? ? '' : rows.collect { |row| row_output_string(row) }.join("\n")
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a table model, this will be the rows of the table.
+    def inspect
+      row_output = @rows&.collect{|row| row.cells.collect{|cell| cell.value}}
+
+      "#<#{self.class.name}:#{object_id} @rows: #{row_output.inspect}>"
+    end
+
 
     private
 

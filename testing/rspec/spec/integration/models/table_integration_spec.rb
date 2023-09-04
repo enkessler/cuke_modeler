@@ -4,7 +4,7 @@ require_relative '../../../../../environments/rspec_env'
 RSpec.describe 'Table, Integration' do
 
   let(:clazz) { CukeModeler::Table }
-  let(:minimum_viable_gherkin) { '| a table |' }
+  let(:minimum_viable_gherkin) { '| a table |' } # TODO: Not really the minimum viable Gherkin. Update.
   let(:maximum_viable_gherkin) do
     '| a     | bigger  |
      | table | element |'
@@ -289,84 +289,158 @@ RSpec.describe 'Table, Integration' do
 
     describe 'table output' do
 
-      it 'can be remade from its own output' do
-        source = "| value1 | value2 |
-                  | value3 | value4 |"
-        table = clazz.new(source)
+      describe 'inspection' do
 
-        table_output = table.to_s
-        remade_table_output = clazz.new(table_output).to_s
-
-        expect(remade_table_output).to eq(table_output)
-      end
-
-      # This behavior should already be taken care of by the cell object's output method, but
-      # the table object has to adjust that output in order to properly buffer column width
-      # and it is possible that during that process it messes up the cell's output.
-
-      it 'can correctly output a row that has special characters in it' do
-        source = ['| a value with \| |',
-                  '| a value with \\\\ |',
-                  '| a value with \\\\ and \| |']
-        source = source.join("\n")
-        table = clazz.new(source)
-
-        table_output = table.to_s.split("\n", -1)
-
-        expect(table_output).to eq(['| a value with \|        |',
-                                    '| a value with \\\\        |',
-                                    '| a value with \\\\ and \| |'])
-      end
-
-      context 'from source text' do
-
-        it 'can output an table that has a single row' do
-          source = ['|value1|value2|']
+        it 'can inspect a table that has a single cell' do
+          source = ['|value1|']
           source = source.join("\n")
-          table = clazz.new(source)
+          table  = clazz.new(source)
 
-          table_output = table.to_s.split("\n", -1)
+          table_output = table.inspect
 
-          expect(table_output).to eq(['| value1 | value2 |'])
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: [["value1"]]>'
+                                       .sub('<object_id>', table.object_id.to_s))
         end
 
-        it 'can output an table that has multiple rows' do
+        it 'can inspect a table that has a single row' do
+          source = ['|value1|value2|']
+          source = source.join("\n")
+          table  = clazz.new(source)
+
+          table_output = table.inspect
+
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: [["value1", "value2"]]>'
+                                       .sub('<object_id>', table.object_id.to_s))
+        end
+
+        it 'can inspect a table that has multiple rows' do
           source = ['|value1|value2|',
                     '|value3|value4|']
           source = source.join("\n")
-          table = clazz.new(source)
+          table  = clazz.new(source)
 
-          table_output = table.to_s.split("\n", -1)
+          table_output = table.inspect
 
-          expect(table_output).to eq(['| value1 | value2 |',
-                                      '| value3 | value4 |'])
-        end
-
-        it 'buffers row cells based on the longest value in a column' do
-          source = "|value 1| x|
-                    |y|value 2|
-                    |a|b|"
-          table = clazz.new(source)
-
-          table_output = table.to_s.split("\n", -1)
-
-          expect(table_output).to eq(['| value 1 | x       |',
-                                      '| y       | value 2 |',
-                                      '| a       | b       |'])
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: [["value1", "value2"], ["value3", "value4"]]>'
+                                       .sub('<object_id>', table.object_id.to_s))
         end
 
       end
 
 
-      context 'from abstract instantiation' do
+      describe 'stringification' do
 
-        let(:table) { clazz.new }
+        context 'from source text' do
+
+          it 'can be remade from its own stringified output' do
+            source = "| value1 | value2 |
+                      | value3 | value4 |"
+            table  = clazz.new(source)
+
+            table_output        = table.to_s
+            remade_table_output = clazz.new(table_output).to_s
+
+            expect(remade_table_output).to eq(table_output)
+          end
+
+          # This behavior should already be taken care of by the cell object's output method, but
+          # the table object has to adjust that output in order to properly buffer column width
+          # and it is possible that during that process it messes up the cell's output.
+
+          it 'can correctly stringify a row that has special characters in it' do
+            source = ['| a value with \| |',
+                      '| a value with \\\\ |',
+                      '| a value with \\\\ and \| |']
+            source = source.join("\n")
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['| a value with \|        |',
+                                        '| a value with \\\\        |',
+                                        '| a value with \\\\ and \| |'])
+          end
+
+          # TODO: Check other versions of Gherkin to see if rows potentially being nil is normal behavior. Update table specs as needed.
+          # Tentative specification. Not official API yet.
+          it 'can stringify a minimal table' do
+            skip('investigate further')
+            source = ['||']
+            source = source.join("\n")
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['|  |'])
+          end
+
+          it 'can stringify a table that has a single cell' do
+            source = ['|value1|']
+            source = source.join("\n")
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['| value1 |'])
+          end
+
+          it 'can stringify a table that has a single row' do
+            source = ['|value1|value2|']
+            source = source.join("\n")
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['| value1 | value2 |'])
+          end
+
+          # The maximal outline case
+          it 'can stringify a table that has multiple rows' do
+            source = ['|value1|value2|',
+                      '|value3|value4|']
+            source = source.join("\n")
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['| value1 | value2 |',
+                                        '| value3 | value4 |'])
+          end
+
+          it 'buffers row cells based on the longest value in a column' do
+            source = "|value 1| x|
+                    |y|value 2|
+                    |a|b|"
+            table  = clazz.new(source)
+
+            table_output = table.to_s.split("\n", -1)
+
+            expect(table_output).to eq(['| value 1 | x       |',
+                                        '| y       | value 2 |',
+                                        '| a       | b       |'])
+          end
 
 
-        it 'can output a table that only has rows' do
-          table.rows = [CukeModeler::Row.new]
+          context 'from abstract instantiation' do
 
-          expect { table.to_s }.to_not raise_error
+            let(:table) { clazz.new }
+
+
+            describe 'edge cases' do
+
+              # These cases would not produce valid Gherkin and so don't have any useful output
+              # but they need to at least not explode
+
+              it 'can stringify a table that only has rows' do
+                table.rows = [CukeModeler::Row.new] # Note that the row lacks any cells
+
+                expect { table.to_s }.to_not raise_error
+              end
+
+            end
+
+          end
+
         end
 
       end
