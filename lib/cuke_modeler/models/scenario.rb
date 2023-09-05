@@ -61,6 +61,13 @@ module CukeModeler
 
     # rubocop:enable Metrics/AbcSize
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a scenario model, this will be the name of the scenario.
+    def inspect
+      "#<#{self.class.name}:#{object_id} @name: #{name.inspect}>"
+    end
+
 
     private
 

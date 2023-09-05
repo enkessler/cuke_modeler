@@ -50,31 +50,65 @@ RSpec.describe 'Scenario, Unit', unit_test: true do
 
     describe 'scenario output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:scenario) { clazz.new }
+        it "can inspect a scenario that doesn't have a name" do
+          scenario.name   = nil
+          scenario_output = scenario.inspect
 
-
-        it 'can output an empty scenario' do
-          expect { scenario.to_s }.to_not raise_error
+          expect(scenario_output).to eq('#<CukeModeler::Scenario:<object_id> @name: nil>'
+                                          .sub('<object_id>', scenario.object_id.to_s))
         end
 
-        it 'can output a scenario that has only a keyword' do
-          scenario.keyword = 'foo'
+        it "can inspect a scenario that has a name" do
+          scenario.name   = 'a name'
+          scenario_output = scenario.inspect
 
-          expect(scenario.to_s).to eq('foo:')
+          expect(scenario_output).to eq('#<CukeModeler::Scenario:<object_id> @name: "a name">'
+                                          .sub('<object_id>', scenario.object_id.to_s))
         end
 
-        it 'can output a scenario that has only a name' do
-          scenario.name = 'a name'
+      end
 
-          expect { scenario.to_s }.to_not raise_error
-        end
 
-        it 'can output a scenario that has only a description' do
-          scenario.description = 'a description'
+      describe 'stringification' do
 
-          expect { scenario.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:scenario) { clazz.new }
+
+
+          # The minimal scenario case
+          it 'can stringify a scenario that has only a keyword' do
+            scenario.keyword = 'foo'
+
+            expect(scenario.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty scenario' do
+              expect { scenario.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a scenario that has only a name' do
+              scenario.name = 'a name'
+
+              expect { scenario.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a scenario that has only a description' do
+              scenario.description = 'a description'
+
+              expect { scenario.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

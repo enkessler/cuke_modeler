@@ -397,148 +397,160 @@ RSpec.describe 'Scenario, Integration' do
 
     describe 'scenario output' do
 
-      it 'can be remade from its own output' do
-        source = "@tag1 @tag2 @tag3
-                  #{SCENARIO_KEYWORD}: A scenario with everything it could have
+      describe 'stringification' do
 
-                  Including a description
-                  and then some.
+        context 'from source text' do
 
-                    #{STEP_KEYWORD} a step
-                      | value |
-                    #{STEP_KEYWORD} another step
-                      \"\"\"
-                      some string
-                      \"\"\""
-        scenario = clazz.new(source)
+          it 'can be remade from its own stringified output' do
+            source   = "@tag1 @tag2 @tag3
+                        #{SCENARIO_KEYWORD}: A scenario with everything it could have
 
-        scenario_output = scenario.to_s
-        remade_scenario_output = clazz.new(scenario_output).to_s
+                        Including a description
+                        and then some.
 
-        expect(remade_scenario_output).to eq(scenario_output)
-      end
+                          #{STEP_KEYWORD} a step
+                            | value |
+                          #{STEP_KEYWORD} another step
+                            \"\"\"
+                            some string
+                            \"\"\""
+            scenario = clazz.new(source)
 
+            scenario_output        = scenario.to_s
+            remade_scenario_output = clazz.new(scenario_output).to_s
 
-      context 'from source text' do
+            expect(remade_scenario_output).to eq(scenario_output)
+          end
 
-        it 'can output an empty scenario' do
-          source = ["#{SCENARIO_KEYWORD}:"]
-          source = source.join("\n")
-          scenario = clazz.new(source)
+          # The minimal scenario case
+          it 'can stringify an empty scenario' do
+            source   = ["#{SCENARIO_KEYWORD}:"]
+            source   = source.join("\n")
+            scenario = clazz.new(source)
 
-          scenario_output = scenario.to_s.split("\n", -1)
+            scenario_output = scenario.to_s.split("\n", -1)
 
-          expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:"])
+            expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:"])
+          end
+
+          it 'can stringify a scenario that has a name' do
+            source   = ["#{SCENARIO_KEYWORD}: test scenario"]
+            source   = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n", -1)
+
+            expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}: test scenario"])
+          end
+
+          it 'can stringify a scenario that has a description' do
+            source   = ["#{SCENARIO_KEYWORD}:",
+                        'Some description.',
+                        'Some more description.']
+            source   = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n", -1)
+
+            expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:",
+                                           '',
+                                           'Some description.',
+                                           'Some more description.'])
+          end
+
+          it 'can stringify a scenario that has steps' do
+            source   = ["#{SCENARIO_KEYWORD}:",
+                        "#{STEP_KEYWORD} a step",
+                        '|value|',
+                        "#{STEP_KEYWORD} another step",
+                        '"""',
+                        'some string',
+                        '"""']
+            source   = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n", -1)
+
+            expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:",
+                                           "  #{STEP_KEYWORD} a step",
+                                           '    | value |',
+                                           "  #{STEP_KEYWORD} another step",
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+          end
+
+          it 'can stringify a scenario that has tags' do
+            source   = ['@tag1 @tag2',
+                        '@tag3',
+                        "#{SCENARIO_KEYWORD}:"]
+            source   = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n", -1)
+
+            expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
+                                           "#{SCENARIO_KEYWORD}:"])
+          end
+
+          # The maximal scenario case
+          it 'can stringify a scenario that has everything' do
+            source   = ['@tag1 @tag2 @tag3',
+                        "#{SCENARIO_KEYWORD}: A scenario with everything it could have",
+                        'Including a description',
+                        'and then some.',
+                        "#{STEP_KEYWORD} a step",
+                        '|value|',
+                        "#{STEP_KEYWORD} another step",
+                        '"""',
+                        'some string',
+                        '"""']
+            source   = source.join("\n")
+            scenario = clazz.new(source)
+
+            scenario_output = scenario.to_s.split("\n", -1)
+
+            expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
+                                           "#{SCENARIO_KEYWORD}: A scenario with everything it could have",
+                                           '',
+                                           'Including a description',
+                                           'and then some.',
+                                           '',
+                                           "  #{STEP_KEYWORD} a step",
+                                           '    | value |',
+                                           "  #{STEP_KEYWORD} another step",
+                                           '    """',
+                                           '    some string',
+                                           '    """'])
+          end
+
         end
 
-        it 'can output a scenario that has a name' do
-          source = ["#{SCENARIO_KEYWORD}: test scenario"]
-          source = source.join("\n")
-          scenario = clazz.new(source)
 
-          scenario_output = scenario.to_s.split("\n", -1)
+        context 'from abstract instantiation' do
 
-          expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}: test scenario"])
-        end
-
-        it 'can output a scenario that has a description' do
-          source = ["#{SCENARIO_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          scenario = clazz.new(source)
-
-          scenario_output = scenario.to_s.split("\n", -1)
-
-          expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:",
-                                         '',
-                                         'Some description.',
-                                         'Some more description.'])
-        end
-
-        it 'can output a scenario that has steps' do
-          source = ["#{SCENARIO_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step",
-                    '|value|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some string',
-                    '"""']
-          source = source.join("\n")
-          scenario = clazz.new(source)
-
-          scenario_output = scenario.to_s.split("\n", -1)
-
-          expect(scenario_output).to eq(["#{SCENARIO_KEYWORD}:",
-                                         "  #{STEP_KEYWORD} a step",
-                                         '    | value |',
-                                         "  #{STEP_KEYWORD} another step",
-                                         '    """',
-                                         '    some string',
-                                         '    """'])
-        end
-
-        it 'can output a scenario that has tags' do
-          source = ['@tag1 @tag2',
-                    '@tag3',
-                    "#{SCENARIO_KEYWORD}:"]
-          source = source.join("\n")
-          scenario = clazz.new(source)
-
-          scenario_output = scenario.to_s.split("\n", -1)
-
-          expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
-                                         "#{SCENARIO_KEYWORD}:"])
-        end
-
-        it 'can output a scenario that has everything' do
-          source = ['@tag1 @tag2 @tag3',
-                    "#{SCENARIO_KEYWORD}: A scenario with everything it could have",
-                    'Including a description',
-                    'and then some.',
-                    "#{STEP_KEYWORD} a step",
-                    '|value|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some string',
-                    '"""']
-          source = source.join("\n")
-          scenario = clazz.new(source)
-
-          scenario_output = scenario.to_s.split("\n", -1)
-
-          expect(scenario_output).to eq(['@tag1 @tag2 @tag3',
-                                         "#{SCENARIO_KEYWORD}: A scenario with everything it could have",
-                                         '',
-                                         'Including a description',
-                                         'and then some.',
-                                         '',
-                                         "  #{STEP_KEYWORD} a step",
-                                         '    | value |',
-                                         "  #{STEP_KEYWORD} another step",
-                                         '    """',
-                                         '    some string',
-                                         '    """'])
-        end
-
-      end
+          let(:scenario) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:scenario) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify a scenario that has only tags' do
+              scenario.tags = [CukeModeler::Tag.new]
 
-        it 'can output a scenario that has only tags' do
-          scenario.tags = [CukeModeler::Tag.new]
+              expect { scenario.to_s }.to_not raise_error
+            end
 
-          expect { scenario.to_s }.to_not raise_error
-        end
+            it 'can stringify a scenario that has only steps' do
+              scenario.steps = [CukeModeler::Step.new]
 
-        it 'can output a scenario that has only steps' do
-          scenario.steps = [CukeModeler::Step.new]
+              expect { scenario.to_s }.to_not raise_error
+            end
 
-          expect { scenario.to_s }.to_not raise_error
+          end
+
         end
 
       end
