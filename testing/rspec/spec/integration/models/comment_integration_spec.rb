@@ -4,7 +4,7 @@ require_relative '../../../../../environments/rspec_env'
 RSpec.describe 'Comment, Integration' do
 
   let(:clazz) { CukeModeler::Comment }
-  let(:minimum_viable_gherkin) { '# a comment' }
+  let(:minimum_viable_gherkin) { '# a comment' } # TODO: Not really the minimum viable Gherkin. Update.
   let(:maximum_viable_gherkin) { '# a comment' }
 
 
@@ -177,24 +177,28 @@ RSpec.describe 'Comment, Integration' do
 
     describe 'comment output' do
 
-      it 'can be remade from its own output' do
-        source = '# a comment'
-        comment = clazz.new(source)
+      describe 'stringification' do
 
-        comment_output = comment.to_s
-        remade_comment_output = clazz.new(comment_output).to_s
+        context 'from source text' do
 
-        expect(remade_comment_output).to eq(comment_output)
-      end
+          it 'can be remade from its own stringified output' do
+            source  = '# a comment'
+            comment = clazz.new(source)
 
+            comment_output        = comment.to_s
+            remade_comment_output = clazz.new(comment_output).to_s
 
-      context 'from source text' do
+            expect(remade_comment_output).to eq(comment_output)
+          end
 
-        it 'can output a comment' do
-          source = '# a comment'
-          comment = clazz.new(source)
+          # The minimal and maximal comment case
+          it 'can stringify a comment that has text' do
+            source  = '# a comment'
+            comment = clazz.new(source)
 
-          expect(comment.to_s).to eq('# a comment')
+            expect(comment.to_s).to eq('# a comment')
+          end
+
         end
 
       end

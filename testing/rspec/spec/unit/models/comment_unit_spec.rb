@@ -56,13 +56,53 @@ RSpec.describe 'Comment, Unit', unit_test: true do
 
   describe 'comment output' do
 
-    context 'from abstract instantiation' do
+    describe 'inspection' do
 
-      let(:comment) { clazz.new }
+      it 'can inspect a comment that has text' do
+        model.text   = 'foo'
+        model_output = model.inspect
+
+        expect(model_output).to eq('#<CukeModeler::Comment:<object_id> @text: "foo">'
+                                     .sub('<object_id>', model.object_id.to_s))
+      end
+
+      it "can inspect a comment that doesn't have text" do
+        model.text   = nil
+        model_output = model.inspect
+
+        expect(model_output).to eq('#<CukeModeler::Comment:<object_id> @text: nil>'
+                                     .sub('<object_id>', model.object_id.to_s))
+      end
+
+    end
 
 
-      it 'can output an empty comment' do
-        expect { comment.to_s }.to_not raise_error
+    describe 'stringification' do
+
+      context 'from abstract instantiation' do
+
+        let(:comment) { clazz.new }
+
+
+        # The minimal comment case
+        it 'can stringify a comment that has only text' do
+          comment.text = 'foo'
+
+          expect(comment.to_s).to eq('foo')
+        end
+
+
+        describe 'edge cases' do
+
+          # These cases would not produce valid Gherkin and so don't have any useful output
+          # but they need to at least not explode
+
+          it 'can stringify an empty comment' do
+            expect { comment.to_s }.to_not raise_error
+          end
+
+        end
+
       end
 
     end

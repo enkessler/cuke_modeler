@@ -29,6 +29,13 @@ module CukeModeler
       text || ''
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a comment model, this will be the text of the comment.
+    def inspect
+      "#<#{self.class.name}:#{object_id} @text: #{text.inspect}>"
+    end
+
 
     private
 
