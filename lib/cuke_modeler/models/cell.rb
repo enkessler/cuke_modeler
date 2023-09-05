@@ -30,6 +30,13 @@ module CukeModeler
       @value ? @value.gsub('\\', '\\\\\\').gsub('|', '\|') : ''
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a comment model, this will be the value of the cell.
+    def inspect
+      "#<#{self.class.name}:#{object_id} @value: #{value.inspect}>"
+    end
+
 
     private
 

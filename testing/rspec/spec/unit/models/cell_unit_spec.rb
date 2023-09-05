@@ -54,13 +54,53 @@ RSpec.describe 'Cell, Unit', unit_test: true do
 
     describe 'cell output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:cell) { clazz.new }
+        it "can inspect a cell that doesn't have a value" do
+          cell.value  = nil
+          cell_output = cell.inspect
+
+          expect(cell_output).to eq('#<CukeModeler::Cell:<object_id> @value: nil>'
+                                      .sub('<object_id>', cell.object_id.to_s))
+        end
+
+        it "can inspect a cell that has a value" do
+          cell.value  = 'foo'
+          cell_output = cell.inspect
+
+          expect(cell_output).to eq('#<CukeModeler::Cell:<object_id> @value: "foo">'
+                                      .sub('<object_id>', cell.object_id.to_s))
+        end
+
+      end
 
 
-        it 'can output an empty cell' do
-          expect { cell.to_s }.to_not raise_error
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
+
+          let(:cell) { clazz.new }
+
+
+          # The minimal cell case
+          it 'can stringify a cell that has only a value' do
+            cell.value = 'foo'
+
+            expect(cell.to_s).to eq('foo')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty cell' do
+              expect { cell.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

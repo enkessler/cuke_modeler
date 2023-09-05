@@ -306,62 +306,66 @@ RSpec.describe 'Cell, Integration' do
 
     describe 'cell output' do
 
-      it 'can be remade from its own output' do
-        source = 'a \\\\ complex \| cell'
-        cell = clazz.new(source)
+      describe 'stringification' do
 
-        cell_output = cell.to_s
-        remade_cell_output = clazz.new(cell_output).to_s
+        context 'from source text' do
 
-        expect(remade_cell_output).to eq(cell_output)
-      end
+          it 'can be remade from its own stringified output' do
+            source = 'a \\\\ complex \| cell'
+            cell   = clazz.new(source)
 
+            cell_output        = cell.to_s
+            remade_cell_output = clazz.new(cell_output).to_s
 
-      context 'from source text' do
+            expect(remade_cell_output).to eq(cell_output)
+          end
 
-        it 'can output a cell' do
-          source = 'a cell'
-          cell = clazz.new(source)
+          # The minimal and maximal cell case
+          it 'can stringify a cell that has a value' do
+            source = 'a cell'
+            cell   = clazz.new(source)
 
-          expect(cell.to_s).to eq('a cell')
-        end
+            expect(cell.to_s).to eq('a cell')
+          end
 
-        #  Because vertical bars mark the beginning and end of a cell, any vertical bars inside
-        #  of the cell (which would have had to have been escaped to get inside of the cell in
-        #  the first place) will be escaped when outputted so as to retain the quality of being
-        #  able to use the output directly as Gherkin.
+          #  Because vertical bars mark the beginning and end of a cell, any vertical bars inside
+          #  of the cell (which would have had to have been escaped to get inside of the cell in
+          #  the first place) will be escaped when outputted so as to retain the quality of being
+          #  able to use the output directly as Gherkin.
 
-        it 'can output a cell that has vertical bars in it' do
-          source = 'cell with a \| in it'
-          cell = clazz.new(source)
+          it 'can stringify a cell that has vertical bars in it' do
+            source = 'cell with a \| in it'
+            cell   = clazz.new(source)
 
-          cell_output = cell.to_s
+            cell_output = cell.to_s
 
-          expect(cell_output).to eq('cell with a \| in it')
-        end
+            expect(cell_output).to eq('cell with a \| in it')
+          end
 
-        #  Because backslashes are used to escape special characters, any backslashes inside
-        #  of the cell (which would have had to have been escaped to get inside of the cell in
-        #  the first place) will be escaped when outputted so as to retain the quality of being
-        #  able to use the output directly as Gherkin.
+          #  Because backslashes are used to escape special characters, any backslashes inside
+          #  of the cell (which would have had to have been escaped to get inside of the cell in
+          #  the first place) will be escaped when outputted so as to retain the quality of being
+          #  able to use the output directly as Gherkin.
 
-        it 'can output a cell that has backslashes in it' do
-          source = 'cell with a \\\\ in it'
-          cell = clazz.new(source)
+          it 'can stringify a cell that has backslashes in it' do
+            source = 'cell with a \\\\ in it'
+            cell   = clazz.new(source)
 
-          cell_output = cell.to_s
+            cell_output = cell.to_s
 
-          expect(cell_output).to eq('cell with a \\\\ in it')
-        end
+            expect(cell_output).to eq('cell with a \\\\ in it')
+          end
 
-        # Depending on the order in which special characters are escaped, extra backslashes might occur.
-        it 'can output a cell that has several kinds of special characters in it' do
-          source = 'cell with a \\\\ and \| in it'
-          cell = clazz.new(source)
+          # Depending on the order in which special characters are escaped, extra backslashes might occur.
+          it 'can stringify a cell that has several kinds of special characters in it' do
+            source = 'cell with a \\\\ and \| in it'
+            cell   = clazz.new(source)
 
-          cell_output = cell.to_s
+            cell_output = cell.to_s
 
-          expect(cell_output).to eq('cell with a \\\\ and \| in it')
+            expect(cell_output).to eq('cell with a \\\\ and \| in it')
+          end
+
         end
 
       end
