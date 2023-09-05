@@ -47,31 +47,65 @@ RSpec.describe 'Background, Unit', unit_test: true do
 
     describe 'background output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:background) { clazz.new }
+        it "can inspect a background that doesn't have a name" do
+          background.name   = nil
+          background_output = background.inspect
 
-
-        it 'can output an empty background' do
-          expect { background.to_s }.to_not raise_error
+          expect(background_output).to eq('#<CukeModeler::Background:<object_id> @name: nil>'
+                                            .sub('<object_id>', background.object_id.to_s))
         end
 
-        it 'can output a background that has only a keyword' do
-          background.keyword = 'foo'
+        it 'can inspect a background that has a name' do
+          background.name   = 'a name'
+          background_output = background.inspect
 
-          expect(background.to_s).to eq('foo:')
+          expect(background_output).to eq('#<CukeModeler::Background:<object_id> @name: "a name">'
+                                            .sub('<object_id>', background.object_id.to_s))
         end
 
-        it 'can output a background that has only a name' do
-          background.name = 'a name'
+      end
 
-          expect { background.to_s }.to_not raise_error
-        end
 
-        it 'can output a background that has only a description' do
-          background.description = 'a description'
+      describe 'stringification' do
 
-          expect { background.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:background) { clazz.new }
+
+
+          # The minimal outline case
+          it 'can stringify a background that has only a keyword' do
+            background.keyword = 'foo'
+
+            expect(background.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty background' do
+              expect { background.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a background that has only a name' do
+              background.name = 'a name'
+
+              expect { background.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a background that has only a description' do
+              background.description = 'a description'
+
+              expect { background.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

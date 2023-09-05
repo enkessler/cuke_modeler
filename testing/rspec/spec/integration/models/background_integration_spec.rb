@@ -390,126 +390,138 @@ RSpec.describe 'Background, Integration' do
 
     describe 'background output' do
 
-      it 'can be remade from its own output' do
-        source = "#{BACKGROUND_KEYWORD}: A background with everything it could have
+      describe 'stringification' do
 
-                  Including a description
-                  and then some.
+        context 'from source text' do
 
-                    #{STEP_KEYWORD} a step
-                      | value |
-                    #{STEP_KEYWORD} another step
-                      \"\"\"
-                      some string
-                      \"\"\""
-        background = clazz.new(source)
+          it 'can be remade from its own stringified output' do
+            source     = "#{BACKGROUND_KEYWORD}: A background with everything it could have
 
-        background_output = background.to_s
-        remade_background_output = clazz.new(background_output).to_s
+                          Including a description
+                          and then some.
 
-        expect(remade_background_output).to eq(background_output)
-      end
+                            #{STEP_KEYWORD} a step
+                              | value |
+                            #{STEP_KEYWORD} another step
+                              \"\"\"
+                              some string
+                              \"\"\""
+            background = clazz.new(source)
 
+            background_output        = background.to_s
+            remade_background_output = clazz.new(background_output).to_s
 
-      context 'from source text' do
+            expect(remade_background_output).to eq(background_output)
+          end
 
-        it 'can output an empty background' do
-          source = ["#{BACKGROUND_KEYWORD}:"]
-          source = source.join("\n")
-          background = clazz.new(source)
+          # The minimal outline case
+          it 'can stringify an empty background' do
+            source     = ["#{BACKGROUND_KEYWORD}:"]
+            source     = source.join("\n")
+            background = clazz.new(source)
 
-          background_output = background.to_s.split("\n", -1)
+            background_output = background.to_s.split("\n", -1)
 
-          expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:"])
+            expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:"])
+          end
+
+          it 'can stringify a background that has a name' do
+            source     = ["#{BACKGROUND_KEYWORD}: test background"]
+            source     = source.join("\n")
+            background = clazz.new(source)
+
+            background_output = background.to_s.split("\n", -1)
+
+            expect(background_output).to eq(["#{BACKGROUND_KEYWORD}: test background"])
+          end
+
+          it 'can stringify a background that has a description' do
+            source     = ["#{BACKGROUND_KEYWORD}:",
+                          'Some description.',
+                          'Some more description.']
+            source     = source.join("\n")
+            background = clazz.new(source)
+
+            background_output = background.to_s.split("\n", -1)
+
+            expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:",
+                                             '',
+                                             'Some description.',
+                                             'Some more description.'])
+          end
+
+          it 'can stringify a background that has steps' do
+            source     = ["#{BACKGROUND_KEYWORD}:",
+                          "#{STEP_KEYWORD} a step",
+                          '|value|',
+                          "#{STEP_KEYWORD} another step",
+                          '"""',
+                          'some string',
+                          '"""']
+            source     = source.join("\n")
+            background = clazz.new(source)
+
+            background_output = background.to_s.split("\n", -1)
+
+            expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:",
+                                             "  #{STEP_KEYWORD} a step",
+                                             '    | value |',
+                                             "  #{STEP_KEYWORD} another step",
+                                             '    """',
+                                             '    some string',
+                                             '    """'])
+          end
+
+          # The maximal background case
+          it 'can stringify a background that has everything' do
+            source     = ["#{BACKGROUND_KEYWORD}: A background with everything it could have",
+                          'Including a description',
+                          'and then some.',
+                          "#{STEP_KEYWORD} a step",
+                          '|value|',
+                          "#{STEP_KEYWORD} another step",
+                          '"""',
+                          'some string',
+                          '"""']
+            source     = source.join("\n")
+            background = clazz.new(source)
+
+            background_output = background.to_s.split("\n", -1)
+
+            expect(background_output).to eq(["#{BACKGROUND_KEYWORD}: A background with everything it could have",
+                                             '',
+                                             'Including a description',
+                                             'and then some.',
+                                             '',
+                                             "  #{STEP_KEYWORD} a step",
+                                             '    | value |',
+                                             "  #{STEP_KEYWORD} another step",
+                                             '    """',
+                                             '    some string',
+                                             '    """'])
+          end
+
         end
 
-        it 'can output a background that has a name' do
-          source = ["#{BACKGROUND_KEYWORD}: test background"]
-          source = source.join("\n")
-          background = clazz.new(source)
 
-          background_output = background.to_s.split("\n", -1)
+        context 'from abstract instantiation' do
 
-          expect(background_output).to eq(["#{BACKGROUND_KEYWORD}: test background"])
-        end
-
-        it 'can output a background that has a description' do
-          source = ["#{BACKGROUND_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          background = clazz.new(source)
-
-          background_output = background.to_s.split("\n", -1)
-
-          expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:",
-                                           '',
-                                           'Some description.',
-                                           'Some more description.'])
-        end
-
-        it 'can output a background that has steps' do
-          source = ["#{BACKGROUND_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step",
-                    '|value|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some string',
-                    '"""']
-          source = source.join("\n")
-          background = clazz.new(source)
-
-          background_output = background.to_s.split("\n", -1)
-
-          expect(background_output).to eq(["#{BACKGROUND_KEYWORD}:",
-                                           "  #{STEP_KEYWORD} a step",
-                                           '    | value |',
-                                           "  #{STEP_KEYWORD} another step",
-                                           '    """',
-                                           '    some string',
-                                           '    """'])
-        end
-
-        it 'can output a background that has everything' do
-          source = ["#{BACKGROUND_KEYWORD}: A background with everything it could have",
-                    'Including a description',
-                    'and then some.',
-                    "#{STEP_KEYWORD} a step",
-                    '|value|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some string',
-                    '"""']
-          source = source.join("\n")
-          background = clazz.new(source)
-
-          background_output = background.to_s.split("\n", -1)
-
-          expect(background_output).to eq(["#{BACKGROUND_KEYWORD}: A background with everything it could have",
-                                           '',
-                                           'Including a description',
-                                           'and then some.',
-                                           '',
-                                           "  #{STEP_KEYWORD} a step",
-                                           '    | value |',
-                                           "  #{STEP_KEYWORD} another step",
-                                           '    """',
-                                           '    some string',
-                                           '    """'])
-        end
-
-      end
+          let(:background) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:background) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify a background that has only steps' do
+              background.steps = [CukeModeler::Step.new]
 
-        it 'can output a background that has only steps' do
-          background.steps = [CukeModeler::Step.new]
+              expect { background.to_s }.to_not raise_error
+            end
 
-          expect { background.to_s }.to_not raise_error
+          end
+
         end
 
       end
