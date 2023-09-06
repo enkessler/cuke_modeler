@@ -77,19 +77,57 @@ RSpec.describe 'Step, Unit', unit_test: true do
 
     describe 'step output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:step) { clazz.new }
+        it 'can inspect a step that has text' do
+          step.text   = 'foo'
+          step_output = step.inspect
 
-
-        it 'can output an empty step' do
-          expect { step.to_s }.to_not raise_error
+          expect(step_output).to eq('#<CukeModeler::Step:<object_id> @text: "foo">'
+                                      .sub('<object_id>', step.object_id.to_s))
         end
 
-        it 'can output a step that has only a text' do
-          step.text = 'step text'
+        it "can inspect a step that doesn't have text" do
+          step.text   = nil
+          step_output = step.inspect
 
-          expect { step.to_s }.to_not raise_error
+          expect(step_output).to eq('#<CukeModeler::Step:<object_id> @text: nil>'
+                                      .sub('<object_id>', step.object_id.to_s))
+        end
+
+      end
+
+
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
+
+          let(:step) { clazz.new }
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty step' do
+              expect { step.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a step that has only a keyword' do
+              step.keyword = 'foo'
+
+              expect { step.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a step that has only text' do
+              step.text = 'step text'
+
+              expect { step.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

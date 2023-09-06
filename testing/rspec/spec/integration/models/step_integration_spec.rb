@@ -520,103 +520,108 @@ RSpec.describe 'Step, Integration' do
 
     describe 'step output' do
 
-      context 'from source text' do
+      describe 'stringification' do
 
-        context 'with no block' do
+        context 'from source text' do
 
-          let(:source_text) { ["#{STEP_KEYWORD} a step"].join("\n") }
-          let(:step) { clazz.new(source_text) }
+          # The minimal step case
+          it 'can stringify a step that has text' do
+            source = ["#{STEP_KEYWORD} a step"]
+            source = source.join("\n")
+            step   = clazz.new(source)
 
-          it 'can output a step' do
             step_output = step.to_s.split("\n", -1)
 
             expect(step_output).to eq(["#{STEP_KEYWORD} a step"])
           end
 
-          it 'can be remade from its own output' do
-            step_output = step.to_s
-            remade_step_output = clazz.new(step_output).to_s
 
-            expect(remade_step_output).to eq(step_output)
+          context 'a step with a table' do
+
+            let(:source_text) {
+              ["#{STEP_KEYWORD} a step",
+               '  | value1 | value2 |',
+               '  | value3 | value4 |'].join("\n")
+            }
+            let(:step) { clazz.new(source_text) }
+
+
+            # One of the maximal step cases
+            it 'can stringify a step that has a table' do
+              step_output = step.to_s.split("\n", -1)
+
+              expect(step_output).to eq(["#{STEP_KEYWORD} a step",
+                                         '  | value1 | value2 |',
+                                         '  | value3 | value4 |'])
+            end
+
+            it 'can be remade from its own stringified output' do
+              step_output        = step.to_s
+              remade_step_output = clazz.new(step_output).to_s
+
+              expect(remade_step_output).to eq(step_output)
+            end
+
+          end
+
+
+          context 'a step with a doc string' do
+
+            let(:source_text) {
+              ["#{STEP_KEYWORD} a step",
+               '  """',
+               '  some text',
+               '  """'].join("\n")
+            }
+            let(:step) { clazz.new(source_text) }
+
+
+            # One of the maximal step cases
+            it 'can stringify a step that has a doc string' do
+              step_output = step.to_s.split("\n", -1)
+
+              expect(step_output).to eq(["#{STEP_KEYWORD} a step",
+                                         '  """',
+                                         '  some text',
+                                         '  """'])
+            end
+
+            it 'can be remade from its own stringified output' do
+              step_output        = step.to_s
+              remade_step_output = clazz.new(step_output).to_s
+
+              expect(remade_step_output).to eq(step_output)
+            end
+
           end
 
         end
 
-        context 'a step with a table' do
 
-          let(:source_text) {
-            ["#{STEP_KEYWORD} a step",
-             '  | value1 | value2 |',
-             '  | value3 | value4 |'].join("\n")
-          }
-          let(:step) { clazz.new(source_text) }
+        context 'from abstract instantiation' do
+
+          let(:step) { clazz.new }
 
 
-          it 'can output a step that has a table' do
-            step_output = step.to_s.split("\n", -1)
+          describe 'edge cases' do
 
-            expect(step_output).to eq(["#{STEP_KEYWORD} a step",
-                                       '  | value1 | value2 |',
-                                       '  | value3 | value4 |'])
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify a step that has only a table' do
+              step.block = CukeModeler::Table.new
+
+              expect { step.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a step that has only a doc string' do
+              step.block = CukeModeler::DocString.new
+
+              expect { step.to_s }.to_not raise_error
+            end
 
           end
 
-          it 'can be remade from its own output' do
-            step_output = step.to_s
-            remade_step_output = clazz.new(step_output).to_s
-
-            expect(remade_step_output).to eq(step_output)
-          end
-
-        end
-
-        context 'a step with a doc string' do
-
-          let(:source_text) {
-            ["#{STEP_KEYWORD} a step",
-             '  """',
-             '  some text',
-             '  """'].join("\n")
-          }
-          let(:step) { clazz.new(source_text) }
-
-
-          it 'can output a step that has a doc string' do
-            step_output = step.to_s.split("\n", -1)
-
-            expect(step_output).to eq(["#{STEP_KEYWORD} a step",
-                                       '  """',
-                                       '  some text',
-                                       '  """'])
-          end
-
-          it 'can be remade from its own output' do
-            step_output = step.to_s
-            remade_step_output = clazz.new(step_output).to_s
-
-            expect(remade_step_output).to eq(step_output)
-          end
-
-        end
-
-      end
-
-
-      context 'from abstract instantiation' do
-
-        let(:step) { clazz.new }
-
-
-        it 'can output a step that has only a table' do
-          step.block = CukeModeler::Table.new
-
-          expect { step.to_s }.to_not raise_error
-        end
-
-        it 'can output a step that has only a doc string' do
-          step.block = CukeModeler::DocString.new
-
-          expect { step.to_s }.to_not raise_error
         end
 
       end
