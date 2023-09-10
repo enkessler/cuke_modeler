@@ -335,117 +335,122 @@ RSpec.describe 'DocString, Integration' do
 
     describe 'doc string output' do
 
-      it 'can be remade from its own output' do
-        source = ['"""" the type',
-                  "#{STEP_KEYWORD} a step",
-                  '  \"\"\"',
-                  '  that also has a doc string',
-                  '  \"\"\"',
-                  '"""']
-        source = source.join("\n")
-        doc_string = clazz.new(source)
+      describe 'stringification' do
 
-        doc_string_output = doc_string.to_s
-        remade_doc_string_output = clazz.new(doc_string_output).to_s
+        context 'from source text' do
 
-        expect(remade_doc_string_output).to eq(doc_string_output)
-      end
+          it 'can be remade from its own stringified output' do
+            source = ['"""" the type',
+                      "#{STEP_KEYWORD} a step",
+                      '  \"\"\"',
+                      '  that also has a doc string',
+                      '  \"\"\"',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
+            doc_string_output = doc_string.to_s
+            remade_doc_string_output = clazz.new(doc_string_output).to_s
 
-      context 'from source text' do
+            expect(remade_doc_string_output).to eq(doc_string_output)
+          end
 
-        it 'can output an empty doc string' do
-          source = ['"""',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          # The minimal doc string case
+          it 'can stringify an empty doc string' do
+            source = ['"""',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['"""', '"""'])
-        end
+            expect(doc_string_output).to eq(['"""', '"""'])
+          end
 
-        it 'can output a doc string that has a content type' do
-          source = ['""" foo',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          it 'can stringify a doc string that has a content type' do
+            source = ['""" foo',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['""" foo',
-                                           '"""'])
-        end
+            expect(doc_string_output).to eq(['""" foo',
+                                             '"""'])
+          end
 
-        it 'can output a doc_string that has contents' do
-          source = ['"""',
-                    'foo',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          it 'can stringify a doc_string that has contents' do
+            source = ['"""',
+                      'foo',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['"""',
-                                           'foo',
-                                           '"""'])
-        end
+            expect(doc_string_output).to eq(['"""',
+                                             'foo',
+                                             '"""'])
+          end
 
-        #  Since triple double quotes mark the beginning and end of a doc string, any triple
-        #  double quotes inside of the doc string (which would have had to have been escaped
-        #  to get inside in the first place) will be escaped when outputted so as to
-        #  retain the quality of being able to use the output directly as gherkin.
+          #  Since triple double quotes mark the beginning and end of a doc string, any triple
+          #  double quotes inside of the doc string (which would have had to have been escaped
+          #  to get inside in the first place) will be escaped when outputted so as to
+          #  retain the quality of being able to use the output directly as gherkin.
 
-        it 'can output a doc_string that has triple double quotes in the contents' do
-          source = ['"""',
-                    'a \"\"\"',
-                    '\"\"\" again',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          it 'can output a doc_string that has triple double quotes in the contents' do
+            source = ['"""',
+                      'a \"\"\"',
+                      '\"\"\" again',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['"""',
-                                           'a \"\"\"',
-                                           '\"\"\" again',
-                                           '"""'])
-        end
+            expect(doc_string_output).to eq(['"""',
+                                             'a \"\"\"',
+                                             '\"\"\" again',
+                                             '"""'])
+          end
 
-        # Double quotes that are not three (or more) in a row do not seem to need and special escaping when
-        # used in Gherkin. Therefore they should be left alone.
-        it 'only escapes triple double quotes' do
-          source = ['"""',
-                    'change these \"\"\"\"\"\"',
-                    'but leave " and "" alone',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          # Double quotes that are not three (or more) in a row do not seem to need and special escaping when
+          # used in Gherkin. Therefore they should be left alone.
+          it 'only escapes triple double quotes' do
+            source = ['"""',
+                      'change these \"\"\"\"\"\"',
+                      'but leave " and "" alone',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['"""',
-                                           'change these \"\"\"\"\"\"',
-                                           'but leave " and "" alone',
-                                           '"""'])
-        end
+            expect(doc_string_output).to eq(['"""',
+                                             'change these \"\"\"\"\"\"',
+                                             'but leave " and "" alone',
+                                             '"""'])
+          end
 
-        it 'can output a doc string that has everything' do
-          source = ['""" type foo',
-                    '\"\"\"',
-                    'bar',
-                    '\"\"\"',
-                    '"""']
-          source = source.join("\n")
-          doc_string = clazz.new(source)
+          # The maximal doc string case
+          it 'can output a doc string that has everything' do
+            source = ['""" type foo',
+                      '\"\"\"',
+                      'bar',
+                      '\"\"\"',
+                      '"""']
+            source = source.join("\n")
+            doc_string = clazz.new(source)
 
-          doc_string_output = doc_string.to_s.split("\n", -1)
+            doc_string_output = doc_string.to_s.split("\n", -1)
 
-          expect(doc_string_output).to eq(['""" type foo',
-                                           '\"\"\"',
-                                           'bar',
-                                           '\"\"\"',
-                                           '"""'])
+            expect(doc_string_output).to eq(['""" type foo',
+                                             '\"\"\"',
+                                             'bar',
+                                             '\"\"\"',
+                                             '"""'])
+          end
+
         end
 
       end

@@ -34,6 +34,14 @@ module CukeModeler
       text << '"""'
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class, object ID, and its most meaningful
+    # attribute. For a doc string model, this will be the content of
+    # the doc string.
+    def inspect
+      "#<#{self.class.name}:#{object_id} @content: #{content.inspect}>"
+    end
+
 
     private
 

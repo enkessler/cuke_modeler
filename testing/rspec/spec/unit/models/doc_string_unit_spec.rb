@@ -70,27 +70,53 @@ RSpec.describe 'DocString, Unit', unit_test: true do
 
     describe 'doc string output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        context 'a new doc string object' do
+        it "can inspect a doc string that doesn't have content" do
+          doc_string.content = nil
+          doc_string_output  = doc_string.inspect
+
+          expect(doc_string_output).to eq('#<CukeModeler::DocString:<object_id> @content: nil>'
+                                            .sub('<object_id>', doc_string.object_id.to_s))
+        end
+
+        it "can inspect a doc string that has content" do
+          doc_string.content = 'foo'
+          doc_string_output  = doc_string.inspect
+
+          expect(doc_string_output).to eq('#<CukeModeler::DocString:<object_id> @content: "foo">'
+                                            .sub('<object_id>', doc_string.object_id.to_s))
+        end
+
+      end
+
+
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
 
           let(:doc_string) { clazz.new }
 
 
-          it 'can output an empty doc string' do
-            expect { doc_string.to_s }.to_not raise_error
+          # The minimal doc string case
+          it 'can stringify an empty doc string' do
+            doc_string_output = doc_string.to_s.split("\n", -1)
+
+            expect(doc_string_output).to eq(['"""', '"""'])
           end
 
-          it 'can output a doc string that has only a content type' do
+          it 'can stringify a doc string that has only a content type' do
             doc_string.content_type = 'some type'
+            doc_string_output       = doc_string.to_s.split("\n", -1)
 
-            expect { doc_string.to_s }.to_not raise_error
+            expect(doc_string_output).to eq(['""" some type', '"""'])
           end
 
-          it 'can output a doc string that has only content' do
+          it 'can stringify a doc string that has only content' do
             doc_string.content = 'foo'
+            doc_string_output  = doc_string.to_s.split("\n", -1)
 
-            expect { doc_string.to_s }.to_not raise_error
+            expect(doc_string_output).to eq(['"""', 'foo', '"""'])
           end
 
         end

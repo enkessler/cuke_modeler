@@ -46,5 +46,5 @@ Feature: Doc string output
       """
     Then the following text is provided:
       """
-      #<CukeModeler::DocString:<object_id> @content: "Some text\n\n  some more text\n\n">
+      #<CukeModeler::DocString:<object_id> @content: "Some text\n\n  some more text\n">
       """
