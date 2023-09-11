@@ -97,31 +97,64 @@ RSpec.describe 'Example, Unit', unit_test: true do
 
     describe 'example output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:example) { clazz.new }
+        it "can inspect an example that doesn't have a name" do
+          example.name   = nil
+          example_output = example.inspect
 
-
-        it 'can output an empty example' do
-          expect { example.to_s }.to_not raise_error
+          expect(example_output).to eq('#<CukeModeler::Example:<object_id> @name: nil>'
+                                         .sub('<object_id>', example.object_id.to_s))
         end
 
-        it 'can output an example that has only a keyword' do
-          example.keyword = 'foo'
+        it "can inspect an example that has a name" do
+          example.name   = 'a name'
+          example_output = example.inspect
 
-          expect(example.to_s).to eq('foo:')
+          expect(example_output).to eq('#<CukeModeler::Example:<object_id> @name: "a name">'
+                                         .sub('<object_id>', example.object_id.to_s))
         end
 
-        it 'can output an example that has only a name' do
-          example.name = 'a name'
+      end
 
-          expect { example.to_s }.to_not raise_error
-        end
 
-        it 'can output an example that has only a description' do
-          example.description = 'a description'
+      describe 'stringification' do
 
-          expect { example.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:example) { clazz.new }
+
+
+          it 'can stringify an example that has only a keyword' do
+            example.keyword = 'foo'
+
+            expect(example.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty example' do
+              expect { example.to_s }.to_not raise_error
+            end
+
+            it 'can stringify an example that has only a name' do
+              example.name = 'a name'
+
+              expect { example.to_s }.to_not raise_error
+            end
+
+            it 'can stringify an example that has only a description' do
+              example.description = 'a description'
+
+              expect { example.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

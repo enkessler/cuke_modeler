@@ -606,8 +606,12 @@ RSpec.describe 'Example, Integration' do
 
     describe 'example output' do
 
-      it 'can be remade from its own output' do
-        source = "@tag1 @tag2 @tag3
+      describe 'stringification' do
+
+        context 'from source text' do
+
+          it 'can be remade from its own stringified output' do
+            source  = "@tag1 @tag2 @tag3
                   #{EXAMPLE_KEYWORD}: with everything it could have
 
                   Some description.
@@ -616,178 +620,185 @@ RSpec.describe 'Example, Integration' do
                     | param1 | param2 |
                     | value1 | value2 |
                     | value3 | value4 |"
-        example = clazz.new(source)
+            example = clazz.new(source)
 
-        example_output = example.to_s
-        remade_example_output = clazz.new(example_output).to_s
+            example_output        = example.to_s
+            remade_example_output = clazz.new(example_output).to_s
 
-        expect(remade_example_output).to eq(example_output)
-      end
+            expect(remade_example_output).to eq(example_output)
+          end
 
+          # This behavior should already be taken care of by the cell object's output method, but
+          # the example object has to adjust that output in order to properly buffer column width
+          # and it is possible that during that process it messes up the cell's output.
 
-      # This behavior should already be taken care of by the cell object's output method, but
-      # the example object has to adjust that output in order to properly buffer column width
-      # and it is possible that during that process it messes up the cell's output.
+          it 'can correctly stringify a row that has special characters in it' do
+            source  = ["#{EXAMPLE_KEYWORD}:",
+                       '  | param with \| |',
+                       '  | a value with \| and \\\\ |',
+                       '  | a value with \\\\ |']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-      it 'can correctly output a row that has special characters in it' do
-        source = ["#{EXAMPLE_KEYWORD}:",
-                  '  | param with \| |',
-                  '  | a value with \| and \\\\ |',
-                  '  | a value with \\\\ |']
-        source = source.join("\n")
-        example = clazz.new(source)
+            example_output = example.to_s.split("\n", -1)
 
-        example_output = example.to_s.split("\n", -1)
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
+                                          '  | param with \|          |',
+                                          '  | a value with \| and \\\\ |',
+                                          '  | a value with \\\\        |'])
+          end
 
-        expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
-                                      '  | param with \|          |',
-                                      '  | a value with \| and \\\\ |',
-                                      '  | a value with \\\\        |'])
-      end
+          # The minimal example case
+          it 'can stringify an empty example' do
+            source  = ["#{EXAMPLE_KEYWORD}:"]
+            source  = source.join("\n")
+            example = clazz.new(source)
 
+            example_output = example.to_s.split("\n", -1)
 
-      context 'from source text' do
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:"])
+          end
 
-        it 'can output an empty example' do
-          source = ["#{EXAMPLE_KEYWORD}:"]
-          source = source.join("\n")
-          example = clazz.new(source)
+          it 'can stringify an example that has a name' do
+            source  = ["#{EXAMPLE_KEYWORD}: test example"]
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:"])
-        end
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}: test example"])
+          end
 
-        it 'can output an example that has a name' do
-          source = ["#{EXAMPLE_KEYWORD}: test example"]
-          source = source.join("\n")
-          example = clazz.new(source)
+          it 'can stringify an example that has a description' do
+            source  = ["#{EXAMPLE_KEYWORD}:",
+                       'Some description.',
+                       'Some more description.']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}: test example"])
-        end
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
+                                          '',
+                                          'Some description.',
+                                          'Some more description.'])
+          end
 
-        it 'can output an example that has a description' do
-          source = ["#{EXAMPLE_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          example = clazz.new(source)
+          it 'can stringify an example that has a single row' do
+            source  = ["#{EXAMPLE_KEYWORD}:",
+                       '|param1|param2|']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
+                                          '  | param1 | param2 |'])
+          end
 
-        it 'can output an example that has a single row' do
-          source = ["#{EXAMPLE_KEYWORD}:",
-                    '|param1|param2|']
-          source = source.join("\n")
-          example = clazz.new(source)
+          it 'can stringify an example that has multiple rows' do
+            source  = ["#{EXAMPLE_KEYWORD}:",
+                       '|param1|param2|',
+                       '|value1|value2|',
+                       '|value3|value4|']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
-                                        '  | param1 | param2 |'])
-        end
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
+                                          '  | param1 | param2 |',
+                                          '  | value1 | value2 |',
+                                          '  | value3 | value4 |'])
+          end
 
-        it 'can output an example that has multiple rows' do
-          source = ["#{EXAMPLE_KEYWORD}:",
-                    '|param1|param2|',
-                    '|value1|value2|',
-                    '|value3|value4|']
-          source = source.join("\n")
-          example = clazz.new(source)
+          it 'can stringify an example that has tags' do
+            source  = ['@tag1',
+                       '@tag2 @tag3',
+                       "#{EXAMPLE_KEYWORD}:",
+                       '|param1|param2|',
+                       '|value1|value2|',
+                       '|value3|value4|']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
-                                        '  | param1 | param2 |',
-                                        '  | value1 | value2 |',
-                                        '  | value3 | value4 |'])
-        end
+            expect(example_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{EXAMPLE_KEYWORD}:",
+                                          '  | param1 | param2 |',
+                                          '  | value1 | value2 |',
+                                          '  | value3 | value4 |'])
+          end
 
-        it 'can output an example that has tags' do
-          source = ['@tag1',
-                    '@tag2 @tag3',
-                    "#{EXAMPLE_KEYWORD}:",
-                    '|param1|param2|',
-                    '|value1|value2|',
-                    '|value3|value4|']
-          source = source.join("\n")
-          example = clazz.new(source)
+          # The maximal example case
+          it 'can stringify an example that has everything' do
+            source  = ['@tag1',
+                       '@tag2 @tag3',
+                       "#{EXAMPLE_KEYWORD}: with everything it could have",
+                       'Some description.',
+                       'Some more description.',
+                       '|param1|param2|',
+                       '|value1|value2|',
+                       '|value3|value4|']
+            source  = source.join("\n")
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{EXAMPLE_KEYWORD}:",
-                                        '  | param1 | param2 |',
-                                        '  | value1 | value2 |',
-                                        '  | value3 | value4 |'])
-        end
+            expect(example_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{EXAMPLE_KEYWORD}: with everything it could have",
+                                          '',
+                                          'Some description.',
+                                          'Some more description.',
+                                          '',
+                                          '  | param1 | param2 |',
+                                          '  | value1 | value2 |',
+                                          '  | value3 | value4 |'])
+          end
 
-        it 'can output an example that has everything' do
-          source = ['@tag1',
-                    '@tag2 @tag3',
-                    "#{EXAMPLE_KEYWORD}: with everything it could have",
-                    'Some description.',
-                    'Some more description.',
-                    '|param1|param2|',
-                    '|value1|value2|',
-                    '|value3|value4|']
-          source = source.join("\n")
-          example = clazz.new(source)
-
-          example_output = example.to_s.split("\n", -1)
-
-          expect(example_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{EXAMPLE_KEYWORD}: with everything it could have",
-                                        '',
-                                        'Some description.',
-                                        'Some more description.',
-                                        '',
-                                        '  | param1 | param2 |',
-                                        '  | value1 | value2 |',
-                                        '  | value3 | value4 |'])
-        end
-
-        it 'buffers row cells based on the longest value in a column' do
-          source = "#{EXAMPLE_KEYWORD}:
+          it 'buffers row cells based on the longest value in a column' do
+            source  = "#{EXAMPLE_KEYWORD}:
                     |parameter 1| x|
                     |y|value 1|
                     |a|b|"
-          example = clazz.new(source)
+            example = clazz.new(source)
 
-          example_output = example.to_s.split("\n", -1)
+            example_output = example.to_s.split("\n", -1)
 
-          expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
-                                        '  | parameter 1 | x       |',
-                                        '  | y           | value 1 |',
-                                        '  | a           | b       |'])
+            expect(example_output).to eq(["#{EXAMPLE_KEYWORD}:",
+                                          '  | parameter 1 | x       |',
+                                          '  | y           | value 1 |',
+                                          '  | a           | b       |'])
+          end
+
         end
 
-      end
+
+        context 'from abstract instantiation' do
+
+          let(:example) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:example) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify an example that has only tags' do
+              example.tags = [CukeModeler::Tag.new]
 
-        it 'can output an example that has only tags' do
-          example.tags = [CukeModeler::Tag.new]
+              expect { example.to_s }.to_not raise_error
+            end
 
-          expect { example.to_s }.to_not raise_error
-        end
+            it 'can stringify an example that has only rows' do
+              example.rows = [CukeModeler::Row.new]
 
-        it 'can output an example that has only rows' do
-          example.rows = [CukeModeler::Row.new]
+              expect { example.to_s }.to_not raise_error
+            end
 
-          expect { example.to_s }.to_not raise_error
+          end
+
         end
 
       end
