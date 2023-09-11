@@ -326,34 +326,33 @@ RSpec.describe 'FeatureFile, Integration' do
 
     describe 'feature file output' do
 
-      context 'from source text' do
+      describe 'stringification' do
 
-        let(:source_text) { "#{FEATURE_KEYWORD}: Test feature" }
-        let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: '',
-                                                                              name: 'feature_file_test_file') }
-        let(:feature_file) { clazz.new(feature_file_path) }
+        context 'from source text' do
 
-        before(:each) do
-          File.write(feature_file_path, source_text)
+          let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature",
+                                                                                name: 'feature_file_test_file') }
+          let(:feature_file) { clazz.new(feature_file_path) }
+
+
+          # The minimal and maximal feature file case
+          it 'can stringify a feature file' do
+            feature_file_output = feature_file.to_s
+
+            expect(feature_file_output).to eq(feature_file_path)
+          end
+
+          it 'can be remade from its own stringified output' do
+            feature_file = clazz.new(feature_file_path)
+
+            feature_file_output        = feature_file.to_s
+            remade_feature_file_output = clazz.new(feature_file_output).to_s
+
+            expect(remade_feature_file_output).to eq(feature_file_output)
+          end
+
         end
 
-
-        it 'can output a feature file' do
-          feature_file_output = feature_file.to_s
-
-          expect(feature_file_output).to eq(feature_file_path)
-        end
-
-      end
-
-      it 'can be remade from its own output' do
-        path = CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}:", name: 'feature_file_test_file')
-        feature_file = clazz.new(path)
-
-        feature_file_output = feature_file.to_s
-        remade_feature_file_output = clazz.new(feature_file_output).to_s
-
-        expect(remade_feature_file_output).to eq(feature_file_output)
       end
 
     end

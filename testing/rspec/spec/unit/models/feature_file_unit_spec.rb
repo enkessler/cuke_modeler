@@ -106,13 +106,52 @@ RSpec.describe 'FeatureFile, Unit', unit_test: true do
 
     describe 'feature file output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:feature_file) { clazz.new }
+        it 'can inspect a feature file that has a path' do
+          feature_file.path   = 'foo'
+          feature_file_output = feature_file.inspect
+
+          expect(feature_file_output).to eq('#<CukeModeler::FeatureFile:<object_id> @path: "foo">'
+                                              .sub('<object_id>', feature_file.object_id.to_s))
+        end
+
+        it "can inspect a feature file that doesn't have a path" do
+          feature_file.path   = nil
+          feature_file_output = feature_file.inspect
+
+          expect(feature_file_output).to eq('#<CukeModeler::FeatureFile:<object_id> @path: nil>'
+                                              .sub('<object_id>', feature_file.object_id.to_s))
+        end
+
+      end
+
+      describe 'stringification' do
+
+        context 'from abstract instantiation' do
+
+          let(:feature_file) { clazz.new }
 
 
-        it 'can output an empty feature file' do
-          expect { feature_file.to_s }.to_not raise_error
+          it 'can stringify a feature file that has only a path' do
+            feature_file.path = 'foo'
+
+            expect(feature_file.to_s).to eq('foo')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid file paths and so don't have any useful output
+            # but they need to at least not explode
+
+            # The minimal feature_file case
+            it 'can stringify an empty feature_file' do
+              expect { feature_file.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end
