@@ -161,31 +161,64 @@ RSpec.describe 'Feature, Unit', unit_test: true do
 
     describe 'feature output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:feature) { clazz.new }
+        it "can inspect a feature that doesn't have a name" do
+          feature.name   = nil
+          feature_output = feature.inspect
 
-
-        it 'can output an empty feature' do
-          expect { feature.to_s }.to_not raise_error
+          expect(feature_output).to eq('#<CukeModeler::Feature:<object_id> @name: nil>'
+                                         .sub('<object_id>', feature.object_id.to_s))
         end
 
-        it 'can output a feature that has only a keyword' do
-          feature.keyword = 'foo'
+        it "can inspect a feature that has a name" do
+          feature.name   = 'a name'
+          feature_output = feature.inspect
 
-          expect(feature.to_s).to eq('foo:')
+          expect(feature_output).to eq('#<CukeModeler::Feature:<object_id> @name: "a name">'
+                                         .sub('<object_id>', feature.object_id.to_s))
         end
 
-        it 'can output a feature that has only a name' do
-          feature.name = 'a name'
+      end
 
-          expect { feature.to_s }.to_not raise_error
-        end
 
-        it 'can output a feature that has only a description' do
-          feature.description = 'a description'
+      describe 'stringification' do
 
-          expect { feature.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:feature) { clazz.new }
+
+
+          it 'can stringify a feature that has only a keyword' do
+            feature.keyword = 'foo'
+
+            expect(feature.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty feature' do
+              expect { feature.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a feature that has only a name' do
+              feature.name = 'a name'
+
+              expect { feature.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a feature that has only a description' do
+              feature.description = 'a description'
+
+              expect { feature.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end

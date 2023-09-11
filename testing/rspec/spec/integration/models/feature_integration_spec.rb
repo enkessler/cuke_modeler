@@ -448,348 +448,360 @@ RSpec.describe 'Feature, Integration' do
 
     describe 'feature output' do
 
-      it 'can be remade from its own output' do
-        source = "@tag1 @tag2 @tag3
-                  #{FEATURE_KEYWORD}: A feature with everything it could have
+      describe 'stringification' do
 
-                  Including a description
-                  and then some.
+        context 'from source text' do
 
-                    #{BACKGROUND_KEYWORD}: non-nested background
+          it 'can be remade from its own stringified output' do
+            source = "@tag1 @tag2 @tag3
+                      #{FEATURE_KEYWORD}: A feature with everything it could have
 
-                    Background
-                    description
+                      Including a description
+                      and then some.
 
-                      #{STEP_KEYWORD} a step
-                        | value1 |
-                        | value2 |
-                      #{STEP_KEYWORD} another step
+                        #{BACKGROUND_KEYWORD}: non-nested background
 
-                    @scenario_tag
-                    #{SCENARIO_KEYWORD}: non-nested scenario
+                        Background
+                        description
 
-                    Scenario
-                    description
+                          #{STEP_KEYWORD} a step
+                            | value1 |
+                            | value2 |
+                          #{STEP_KEYWORD} another step
 
-                      #{STEP_KEYWORD} a step
-                      #{STEP_KEYWORD} another step
-                        \"\"\" with content type
-                        some text
-                        \"\"\"
+                        @scenario_tag
+                        #{SCENARIO_KEYWORD}: non-nested scenario
 
-                    #{RULE_KEYWORD}: a rule
+                        Scenario
+                        description
 
-                    Rule description
+                          #{STEP_KEYWORD} a step
+                          #{STEP_KEYWORD} another step
+                            \"\"\" with content type
+                            some text
+                            \"\"\"
 
-                    #{BACKGROUND_KEYWORD}: nested background
-                      #{STEP_KEYWORD} a step
+                        #{RULE_KEYWORD}: a rule
 
-                      @outline_tag
-                      #{OUTLINE_KEYWORD}: nested outline
+                        Rule description
 
-                      Outline
-                      description
+                        #{BACKGROUND_KEYWORD}: nested background
+                          #{STEP_KEYWORD} a step
 
-                        #{STEP_KEYWORD} a step
-                          | value2 |
-                        #{STEP_KEYWORD} another step
-                          \"\"\"
-                          some text
-                          \"\"\"
+                          @outline_tag
+                          #{OUTLINE_KEYWORD}: nested outline
 
-                      @example_tag
-                      #{EXAMPLE_KEYWORD}:
+                          Outline
+                          description
 
-                      Example
-                      description
+                            #{STEP_KEYWORD} a step
+                              | value2 |
+                            #{STEP_KEYWORD} another step
+                              \"\"\"
+                              some text
+                              \"\"\"
 
-                        | param |
-                        | value |
-                      #{EXAMPLE_KEYWORD}: additional example
+                          @example_tag
+                          #{EXAMPLE_KEYWORD}:
 
-                  #{RULE_KEYWORD}: another rule
+                          Example
+                          description
 
-                  Which is empty"
+                            | param |
+                            | value |
+                          #{EXAMPLE_KEYWORD}: additional example
 
-        feature = clazz.new(source)
+                      #{RULE_KEYWORD}: another rule
 
-        feature_output = feature.to_s
-        remade_feature_output = clazz.new(feature_output).to_s
+                      Which is empty"
 
-        expect(remade_feature_output).to eq(feature_output)
-      end
+            feature = clazz.new(source)
 
+            feature_output        = feature.to_s
+            remade_feature_output = clazz.new(feature_output).to_s
 
-      context 'from source text' do
+            expect(remade_feature_output).to eq(feature_output)
+          end
 
-        it 'can output an empty feature' do
-          source = ["#{FEATURE_KEYWORD}:"]
-          source = source.join("\n")
-          feature = clazz.new(source)
+          # The minimal feature case
+          it 'can stringify an empty feature' do
+            source  = ["#{FEATURE_KEYWORD}:"]
+            source  = source.join("\n")
+            feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n", -1)
+            feature_output = feature.to_s.split("\n", -1)
 
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:"])
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:"])
+          end
+
+          it 'can stringify a feature that has a name' do
+            source  = ["#{FEATURE_KEYWORD}: test feature"]
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}: test feature"])
+          end
+
+          it 'can stringify a feature that has a description' do
+            source  = ["#{FEATURE_KEYWORD}:",
+                       'Some description.',
+                       'Some more description.']
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                          '',
+                                          'Some description.',
+                                          'Some more description.'])
+          end
+
+          it 'can stringify a feature that has tags' do
+            source  = ['@tag1 @tag2',
+                       '@tag3',
+                       "#{FEATURE_KEYWORD}:"]
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{FEATURE_KEYWORD}:"])
+          end
+
+          it 'can stringify a feature that has a background' do
+            source  = ["#{FEATURE_KEYWORD}:",
+                       "#{BACKGROUND_KEYWORD}:",
+                       "#{STEP_KEYWORD} a step"]
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                          '',
+                                          "  #{BACKGROUND_KEYWORD}:",
+                                          "    #{STEP_KEYWORD} a step"])
+          end
+
+          it 'can stringify a feature that has a rule' do
+            source = ["#{FEATURE_KEYWORD}:",
+                      "#{RULE_KEYWORD}:",
+                      "#{SCENARIO_KEYWORD}:",
+                      "#{STEP_KEYWORD} a step"]
+
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                          '',
+                                          "  #{RULE_KEYWORD}:",
+                                          '',
+                                          "    #{SCENARIO_KEYWORD}:",
+                                          "      #{STEP_KEYWORD} a step"])
+          end
+
+          it 'can stringify a feature that has a scenario' do
+            source  = ["#{FEATURE_KEYWORD}:",
+                       "#{SCENARIO_KEYWORD}:",
+                       "#{STEP_KEYWORD} a step"]
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                          '',
+                                          "  #{SCENARIO_KEYWORD}:",
+                                          "    #{STEP_KEYWORD} a step"])
+          end
+
+          it 'can stringify a feature that has an outline' do
+            source  = ["#{FEATURE_KEYWORD}:",
+                       "#{OUTLINE_KEYWORD}:",
+                       "#{STEP_KEYWORD} a step",
+                       "#{EXAMPLE_KEYWORD}:",
+                       '|param|',
+                       '|value|']
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
+                                          '',
+                                          "  #{OUTLINE_KEYWORD}:",
+                                          "    #{STEP_KEYWORD} a step",
+                                          '',
+                                          "  #{EXAMPLE_KEYWORD}:",
+                                          '    | param |',
+                                          '    | value |'])
+          end
+
+          # The maximal outline case
+          it 'can stringify a feature that has everything' do
+            source  = ['@tag1 @tag2 @tag3',
+                       "#{FEATURE_KEYWORD}: A feature with everything it could have",
+                       'Including a description',
+                       'and then some.',
+                       "#{BACKGROUND_KEYWORD}: non-nested background",
+                       'Background',
+                       'description',
+                       "#{STEP_KEYWORD} a step",
+                       '|value1|',
+                       '|value2|',
+                       "#{STEP_KEYWORD} another step",
+                       '@scenario_tag',
+                       "#{SCENARIO_KEYWORD}: non-nested scenario",
+                       'Scenario',
+                       'description',
+                       "#{STEP_KEYWORD} a step",
+                       "#{STEP_KEYWORD} another step",
+                       '""" with content type',
+                       'some text',
+                       '"""',
+                       "#{RULE_KEYWORD}: a rule",
+                       'Rule description ',
+                       "#{BACKGROUND_KEYWORD}: nested background",
+                       "#{STEP_KEYWORD} a step",
+                       '@outline_tag',
+                       "#{OUTLINE_KEYWORD}: nested outline",
+                       'Outline',
+                       'description',
+                       "#{STEP_KEYWORD} a step",
+                       '|value2|',
+                       "#{STEP_KEYWORD} another step",
+                       '"""',
+                       'some text',
+                       '"""',
+                       '@example_tag',
+                       "#{EXAMPLE_KEYWORD}:",
+                       'Example',
+                       'description',
+                       '|param|',
+                       '|value|',
+                       "#{EXAMPLE_KEYWORD}: additional example",
+                       "#{RULE_KEYWORD}: another rule",
+                       'Which is empty']
+            source  = source.join("\n")
+            feature = clazz.new(source)
+
+            feature_output = feature.to_s.split("\n", -1)
+
+            expect(feature_output).to eq(['@tag1 @tag2 @tag3',
+                                          "#{FEATURE_KEYWORD}: A feature with everything it could have",
+                                          '',
+                                          'Including a description',
+                                          'and then some.',
+                                          '',
+                                          "  #{BACKGROUND_KEYWORD}: non-nested background",
+                                          '',
+                                          '  Background',
+                                          '  description',
+                                          '',
+                                          "    #{STEP_KEYWORD} a step",
+                                          '      | value1 |',
+                                          '      | value2 |',
+                                          "    #{STEP_KEYWORD} another step",
+                                          '',
+                                          '  @scenario_tag',
+                                          "  #{SCENARIO_KEYWORD}: non-nested scenario",
+                                          '',
+                                          '  Scenario',
+                                          '  description',
+                                          '',
+                                          "    #{STEP_KEYWORD} a step",
+                                          "    #{STEP_KEYWORD} another step",
+                                          '      """ with content type',
+                                          '      some text',
+                                          '      """',
+                                          '',
+                                          "  #{RULE_KEYWORD}: a rule",
+                                          '',
+                                          '  Rule description',
+                                          '',
+                                          "    #{BACKGROUND_KEYWORD}: nested background",
+                                          "      #{STEP_KEYWORD} a step",
+                                          '',
+                                          '    @outline_tag',
+                                          "    #{OUTLINE_KEYWORD}: nested outline",
+                                          '',
+                                          '    Outline',
+                                          '    description',
+                                          '',
+                                          "      #{STEP_KEYWORD} a step",
+                                          '        | value2 |',
+                                          "      #{STEP_KEYWORD} another step",
+                                          '        """',
+                                          '        some text',
+                                          '        """',
+                                          '',
+                                          '    @example_tag',
+                                          "    #{EXAMPLE_KEYWORD}:",
+                                          '',
+                                          '    Example',
+                                          '    description',
+                                          '',
+                                          '      | param |',
+                                          '      | value |',
+                                          '',
+                                          "    #{EXAMPLE_KEYWORD}: additional example",
+                                          '',
+                                          "  #{RULE_KEYWORD}: another rule",
+                                          '',
+                                          '  Which is empty'])
+          end
+
         end
 
-        it 'can output a feature that has a name' do
-          source = ["#{FEATURE_KEYWORD}: test feature"]
-          source = source.join("\n")
-          feature = clazz.new(source)
 
-          feature_output = feature.to_s.split("\n", -1)
+        context 'from abstract instantiation' do
 
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}: test feature"])
-        end
-
-        it 'can output a feature that has a description' do
-          source = ["#{FEATURE_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
-                                        '',
-                                        'Some description.',
-                                        'Some more description.'])
-        end
-
-        it 'can output a feature that has tags' do
-          source = ['@tag1 @tag2',
-                    '@tag3',
-                    "#{FEATURE_KEYWORD}:"]
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{FEATURE_KEYWORD}:"])
-        end
-
-        it 'can output a feature that has a background' do
-          source = ["#{FEATURE_KEYWORD}:",
-                    "#{BACKGROUND_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step"]
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
-                                        '',
-                                        "  #{BACKGROUND_KEYWORD}:",
-                                        "    #{STEP_KEYWORD} a step"])
-        end
-
-        it 'can output a feature that has a rule' do
-          source = ["#{FEATURE_KEYWORD}:",
-                    "#{RULE_KEYWORD}:",
-                    "#{SCENARIO_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step"]
-
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
-                                        '',
-                                        "  #{RULE_KEYWORD}:",
-                                        '',
-                                        "    #{SCENARIO_KEYWORD}:",
-                                        "      #{STEP_KEYWORD} a step"])
-        end
-
-        it 'can output a feature that has a scenario' do
-          source = ["#{FEATURE_KEYWORD}:",
-                    "#{SCENARIO_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step"]
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
-                                        '',
-                                        "  #{SCENARIO_KEYWORD}:",
-                                        "    #{STEP_KEYWORD} a step"])
-        end
-
-        it 'can output a feature that has an outline' do
-          source = ["#{FEATURE_KEYWORD}:",
-                    "#{OUTLINE_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step",
-                    "#{EXAMPLE_KEYWORD}:",
-                    '|param|',
-                    '|value|']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(["#{FEATURE_KEYWORD}:",
-                                        '',
-                                        "  #{OUTLINE_KEYWORD}:",
-                                        "    #{STEP_KEYWORD} a step",
-                                        '',
-                                        "  #{EXAMPLE_KEYWORD}:",
-                                        '    | param |',
-                                        '    | value |'])
-        end
-
-        it 'can output a feature that has everything' do
-          source = ['@tag1 @tag2 @tag3',
-                    "#{FEATURE_KEYWORD}: A feature with everything it could have",
-                    'Including a description',
-                    'and then some.',
-                    "#{BACKGROUND_KEYWORD}: non-nested background",
-                    'Background',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    '|value1|',
-                    '|value2|',
-                    "#{STEP_KEYWORD} another step",
-                    '@scenario_tag',
-                    "#{SCENARIO_KEYWORD}: non-nested scenario",
-                    'Scenario',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    "#{STEP_KEYWORD} another step",
-                    '""" with content type',
-                    'some text',
-                    '"""',
-                    "#{RULE_KEYWORD}: a rule",
-                    'Rule description ',
-                    "#{BACKGROUND_KEYWORD}: nested background",
-                    "#{STEP_KEYWORD} a step",
-                    '@outline_tag',
-                    "#{OUTLINE_KEYWORD}: nested outline",
-                    'Outline',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    '|value2|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    'some text',
-                    '"""',
-                    '@example_tag',
-                    "#{EXAMPLE_KEYWORD}:",
-                    'Example',
-                    'description',
-                    '|param|',
-                    '|value|',
-                    "#{EXAMPLE_KEYWORD}: additional example",
-                    "#{RULE_KEYWORD}: another rule",
-                    'Which is empty']
-          source = source.join("\n")
-          feature = clazz.new(source)
-
-          feature_output = feature.to_s.split("\n", -1)
-
-          expect(feature_output).to eq(['@tag1 @tag2 @tag3',
-                                        "#{FEATURE_KEYWORD}: A feature with everything it could have",
-                                        '',
-                                        'Including a description',
-                                        'and then some.',
-                                        '',
-                                        "  #{BACKGROUND_KEYWORD}: non-nested background",
-                                        '',
-                                        '  Background',
-                                        '  description',
-                                        '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        '      | value1 |',
-                                        '      | value2 |',
-                                        "    #{STEP_KEYWORD} another step",
-                                        '',
-                                        '  @scenario_tag',
-                                        "  #{SCENARIO_KEYWORD}: non-nested scenario",
-                                        '',
-                                        '  Scenario',
-                                        '  description',
-                                        '',
-                                        "    #{STEP_KEYWORD} a step",
-                                        "    #{STEP_KEYWORD} another step",
-                                        '      """ with content type',
-                                        '      some text',
-                                        '      """',
-                                        '',
-                                        "  #{RULE_KEYWORD}: a rule",
-                                        '',
-                                        '  Rule description',
-                                        '',
-                                        "    #{BACKGROUND_KEYWORD}: nested background",
-                                        "      #{STEP_KEYWORD} a step",
-                                        '',
-                                        '    @outline_tag',
-                                        "    #{OUTLINE_KEYWORD}: nested outline",
-                                        '',
-                                        '    Outline',
-                                        '    description',
-                                        '',
-                                        "      #{STEP_KEYWORD} a step",
-                                        '        | value2 |',
-                                        "      #{STEP_KEYWORD} another step",
-                                        '        """',
-                                        '        some text',
-                                        '        """',
-                                        '',
-                                        '    @example_tag',
-                                        "    #{EXAMPLE_KEYWORD}:",
-                                        '',
-                                        '    Example',
-                                        '    description',
-                                        '',
-                                        '      | param |',
-                                        '      | value |',
-                                        '',
-                                        "    #{EXAMPLE_KEYWORD}: additional example",
-                                        '',
-                                        "  #{RULE_KEYWORD}: another rule",
-                                        '',
-                                        '  Which is empty'])
-        end
-
-      end
+          let(:feature) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:feature) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify a feature that has only tags' do
+              feature.tags = [CukeModeler::Tag.new]
 
-        it 'can output a feature that has only tags' do
-          feature.tags = [CukeModeler::Tag.new]
+              expect { feature.to_s }.to_not raise_error
+            end
 
-          expect { feature.to_s }.to_not raise_error
-        end
+            it 'can stringify a feature that has only a background' do
+              feature.background = [CukeModeler::Background.new]
 
-        it 'can output a feature that has only a background' do
-          feature.background = [CukeModeler::Background.new]
+              expect { feature.to_s }.to_not raise_error
+            end
 
-          expect { feature.to_s }.to_not raise_error
-        end
+            it 'can stringify a feature that has only rules' do
+              feature.rules = [CukeModeler::Rule.new]
 
-        it 'can output a feature that has only rules' do
-          feature.rules = [CukeModeler::Rule.new]
+              expect { feature.to_s }.to_not raise_error
+            end
 
-          expect { feature.to_s }.to_not raise_error
-        end
+            it 'can stringify a feature that has only scenarios' do
+              feature.tests = [CukeModeler::Scenario.new]
 
-        it 'can output a feature that has only scenarios' do
-          feature.tests = [CukeModeler::Scenario.new]
+              expect { feature.to_s }.to_not raise_error
+            end
 
-          expect { feature.to_s }.to_not raise_error
-        end
+            it 'can stringify a feature that has only outlines' do
+              feature.tests = [CukeModeler::Outline.new]
 
-        it 'can output a feature that has only outlines' do
-          feature.tests = [CukeModeler::Outline.new]
+              expect { feature.to_s }.to_not raise_error
+            end
 
-          expect { feature.to_s }.to_not raise_error
+          end
+
         end
 
       end
