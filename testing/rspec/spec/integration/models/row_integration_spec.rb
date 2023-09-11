@@ -294,31 +294,95 @@ RSpec.describe 'Row, Integration' do
 
     describe 'row output' do
 
-      it 'can be remade from its own output' do
-        source = '| value1 | value2 |'
-        row = clazz.new(source)
+      describe 'inspection' do
 
-        row_output = row.to_s
-        remade_row_output = clazz.new(row_output).to_s
+        it 'can inspect a row that has a single cell' do
+          source = '|value1|'
+          row    = clazz.new(source)
 
-        expect(remade_row_output).to eq(row_output)
+          row_output = row.inspect
+
+          expect(row_output).to eq('#<CukeModeler::Row:<object_id> @cells: ["value1"]>'
+                                     .sub('<object_id>', row.object_id.to_s))
+        end
+
+        it 'can inspect a row that has multiple cells' do
+          source = '|value1|value2|'
+          row    = clazz.new(source)
+
+          row_output = row.inspect
+
+          expect(row_output).to eq('#<CukeModeler::Row:<object_id> @cells: ["value1", "value2"]>'
+                                     .sub('<object_id>', row.object_id.to_s))
+        end
+
       end
 
 
-      context 'from source text' do
+      describe 'stringification' do
 
-        it 'can output a row' do
-          source = '| some value |'
-          row = clazz.new(source)
+        context 'from source text' do
 
-          expect(row.to_s).to eq('| some value |')
+          it 'can be remade from its own stringified output' do
+            source = '| value1 | value2 |'
+            row    = clazz.new(source)
+
+            row_output        = row.to_s
+            remade_row_output = clazz.new(row_output).to_s
+
+            expect(remade_row_output).to eq(row_output)
+          end
+
+          # TODO: Check other versions of Gherkin to see if cells potentially being nil is normal behavior. Update row specs as needed.
+          # Tentative specification. Not official API yet.
+          it 'can stringify a minimal row' do
+            skip('investigate further')
+            source = ['||']
+            source = source.join("\n")
+            row    = CukeModeler::Row.new(source)
+
+            row_output = row.to_s.split("\n", -1)
+
+            expect(row_output).to eq(['|  |'])
+          end
+
+          # The minimal row case
+          it 'can stringify a row with a single cell' do
+            source = '| some value |'
+            row    = clazz.new(source)
+
+            expect(row.to_s).to eq('| some value |')
+          end
+
+          # The maximal row case
+          it 'can stringify a row with multiple cells' do
+            source = '| some value | some other value |'
+            row    = clazz.new(source)
+
+            expect(row.to_s).to eq('| some value | some other value |')
+          end
+
         end
 
-        it 'can output a row with multiple cells' do
-          source = '| some value | some other value |'
-          row = clazz.new(source)
 
-          expect(row.to_s).to eq('| some value | some other value |')
+        context 'from abstract instantiation' do
+
+          let(:row) { clazz.new }
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify a row that only has cells' do
+              row.cells = [CukeModeler::Cell.new] # Note that the cell lacks a value
+
+              expect { row.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end
