@@ -4,7 +4,8 @@ Feature: Rule output
   inspection is the name of the rule that it models.
 
 
-  Background:
+  @gherkin_min_version_18
+  Scenario: Stringify a rule model
     Given the following gherkin:
       """
       @tag1@tag2
@@ -50,10 +51,6 @@ Feature: Rule output
       """
       @model = CukeModeler::Rule.new(<source_text>)
       """
-
-
-  @gherkin_min_version_18
-  Scenario: Stringify a rule model
     When the model is output as a string
       """
       @model.to_s
@@ -118,11 +115,22 @@ Feature: Rule output
       """
 
   Scenario: Inspect a rule model
+    Given the following gherkin:
+      """
+      Rule: some rule
+
+        Scenario: a scenario
+          * a step
+      """
+    And a rule model based on that gherkin
+      """
+      @model = CukeModeler::Rule.new(<source_text>)
+      """
     When the model is inspected
       """
       @model.inspect
       """
     Then the following text is provided:
       """
-      #<CukeModeler::Rule:<object_id> @name: "A rule with everything it could have">
+      #<CukeModeler::Rule:<object_id> @name: "some rule">
       """
