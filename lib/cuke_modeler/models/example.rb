@@ -44,7 +44,7 @@ module CukeModeler
       # A quick 'deep clone' so that the input isn't modified
       row = Marshal.load(Marshal.dump(row))
 
-      values = if row.is_a?(Array) # rubocop:disable Style/CaseLikeIf # False positive
+      values = if row.is_a?(Array)
                  row
                elsif row.is_a?(Hash)
                  # There is no guarantee that the user built up their hash with the keys in the same order as
@@ -64,7 +64,7 @@ module CukeModeler
     def remove_row(row_removed)
       return if argument_rows.empty?
 
-      values = if row_removed.is_a?(Array) # rubocop:disable Style/CaseLikeIf # False positive
+      values = if row_removed.is_a?(Array)
                  row_removed
                elsif row_removed.is_a?(Hash)
                  # There is no guarantee that the user built up their hash with the keys in the same order as

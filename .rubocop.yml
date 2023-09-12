@@ -75,3 +75,8 @@ Security/Eval:
 
 Layout/HashAlignment:
   EnforcedHashRocketStyle: table
+
+# The gemspec is the source of truth for a gem. Also, enough wacky things happen in this
+# project's gemfiles that we don't need more stuff going in there.
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec

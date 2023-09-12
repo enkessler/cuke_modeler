@@ -185,7 +185,7 @@ module CukeModeler
     end
 
     def get_word(word_set)
-      word_set = word_set.is_a?(Array) ? word_set : word_set.split('|')
+      word_set = word_set.split('|') unless word_set.is_a?(Array)
 
       word_set.first
     end

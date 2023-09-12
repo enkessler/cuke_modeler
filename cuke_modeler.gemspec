@@ -47,7 +47,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rainbow', '< 4.0.0'
   spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  # Running recent RuboCop versions requires a recent version of Ruby but it can still lint against Ruby 2.3 styles
+  # Running recent RuboCop versions requires a recent version of Ruby but it can still lint against Ruby 2.3 styles.
+  # Can't set a lower bound because RuboCop will still get installed in the testing environments for earlier Rubies,
+  # even if it never actually gets run. Current "minimum" version is 1.44.0.
   spec.add_development_dependency 'rubocop', '< 2.0'
   spec.add_development_dependency 'simplecov', '< 1.0'
   spec.add_development_dependency 'simplecov-lcov', '< 1.0'
