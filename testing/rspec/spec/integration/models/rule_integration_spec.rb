@@ -459,268 +459,273 @@ RSpec.describe 'Rule, Integration' do
 
     describe 'rule output' do
 
-      it 'can be remade from its own output' do
-        tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
+      describe 'stringification' do
 
-        source = "#{tag_text}#{RULE_KEYWORD}: A rule with everything it could have
+        context 'from source text' do
 
-                  Including a description
-                  and then some.
+          it 'can be remade from its own stringified output' do
+            tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
 
-                    #{BACKGROUND_KEYWORD}: a background
+            source = "#{tag_text}#{RULE_KEYWORD}: A rule with everything it could have
 
-                    Background
-                    description
+                      Including a description
+                      and then some.
 
-                      #{STEP_KEYWORD} a step
-                        | value1 |
-                        | value2 |
-                      #{STEP_KEYWORD} another step
+                        #{BACKGROUND_KEYWORD}: a background
 
-                    @scenario_tag
-                    #{SCENARIO_KEYWORD}: a scenario
+                        Background
+                        description
 
-                    Scenario
-                    description
+                          #{STEP_KEYWORD} a step
+                            | value1 |
+                            | value2 |
+                          #{STEP_KEYWORD} another step
 
-                      #{STEP_KEYWORD} a step
-                      #{STEP_KEYWORD} another step
-                        \"\"\" with content type
-                        some text
-                        \"\"\"
+                        @scenario_tag
+                        #{SCENARIO_KEYWORD}: a scenario
 
-                    @outline_tag
-                    #{OUTLINE_KEYWORD}: an outline
+                        Scenario
+                        description
 
-                    Outline
-                    description
+                          #{STEP_KEYWORD} a step
+                          #{STEP_KEYWORD} another step
+                            \"\"\" with content type
+                            some text
+                            \"\"\"
 
-                      #{STEP_KEYWORD} a step
-                        | value2 |
-                      #{STEP_KEYWORD} another step
-                        \"\"\"
-                        some text
-                        \"\"\"
+                        @outline_tag
+                        #{OUTLINE_KEYWORD}: an outline
 
-                    @example_tag
-                    #{EXAMPLE_KEYWORD}:
+                        Outline
+                        description
 
-                    Example
-                    description
+                          #{STEP_KEYWORD} a step
+                            | value2 |
+                          #{STEP_KEYWORD} another step
+                            \"\"\"
+                            some text
+                            \"\"\"
 
-                      | param |
-                      | value |
-                    #{EXAMPLE_KEYWORD}: additional example"
+                        @example_tag
+                        #{EXAMPLE_KEYWORD}:
 
-        rule = clazz.new(source)
+                        Example
+                        description
 
-        rule_output = rule.to_s
-        remade_rule_output = clazz.new(rule_output).to_s
+                          | param |
+                          | value |
+                        #{EXAMPLE_KEYWORD}: additional example"
 
-        expect(remade_rule_output).to eq(rule_output)
-      end
+            rule = clazz.new(source)
 
+            rule_output        = rule.to_s
+            remade_rule_output = clazz.new(rule_output).to_s
 
-      context 'from source text' do
+            expect(remade_rule_output).to eq(rule_output)
+          end
 
-        it 'can output an empty rule' do
-          source = ["#{RULE_KEYWORD}:"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+          # The minimal rule case
+          it 'can stringify an empty rule' do
+            source = ["#{RULE_KEYWORD}:"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}:"])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}:"])
+          end
 
-        it 'can output a rule that has a name' do
-          source = ["#{RULE_KEYWORD}: test rule"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has a name' do
+            source = ["#{RULE_KEYWORD}: test rule"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}: test rule"])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}: test rule"])
+          end
 
-        it 'can output a rule that has a description' do
-          source = ["#{RULE_KEYWORD}:",
-                    'Some description.',
-                    'Some more description.']
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has a description' do
+            source = ["#{RULE_KEYWORD}:",
+                      'Some description.',
+                      'Some more description.']
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}:",
-                                     '',
-                                     'Some description.',
-                                     'Some more description.'])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}:",
+                                       '',
+                                       'Some description.',
+                                       'Some more description.'])
+          end
 
-        it 'can output a rule that has tags', if: gherkin?((18..MOST_CURRENT_GHERKIN_VERSION)) do
-          source = ['@tag1 @tag2',
-                    '@tag3',
-                    "#{RULE_KEYWORD}:"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has tags', if: gherkin?((18..MOST_CURRENT_GHERKIN_VERSION)) do
+            source = ['@tag1 @tag2',
+                      '@tag3',
+                      "#{RULE_KEYWORD}:"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(['@tag1 @tag2 @tag3',
-                                     "#{RULE_KEYWORD}:"])
-        end
+            expect(rule_output).to eq(['@tag1 @tag2 @tag3',
+                                       "#{RULE_KEYWORD}:"])
+          end
 
-        it 'can output a rule that has a background' do
-          source = ["#{RULE_KEYWORD}:",
-                    "#{BACKGROUND_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has a background' do
+            source = ["#{RULE_KEYWORD}:",
+                      "#{BACKGROUND_KEYWORD}:",
+                      "#{STEP_KEYWORD} a step"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}:",
-                                     '',
-                                     "  #{BACKGROUND_KEYWORD}:",
-                                     "    #{STEP_KEYWORD} a step"])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}:",
+                                       '',
+                                       "  #{BACKGROUND_KEYWORD}:",
+                                       "    #{STEP_KEYWORD} a step"])
+          end
 
-        it 'can output a rule that has a scenario' do
-          source = ["#{RULE_KEYWORD}:",
-                    "#{SCENARIO_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has a scenario' do
+            source = ["#{RULE_KEYWORD}:",
+                      "#{SCENARIO_KEYWORD}:",
+                      "#{STEP_KEYWORD} a step"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}:",
-                                     '',
-                                     "  #{SCENARIO_KEYWORD}:",
-                                     "    #{STEP_KEYWORD} a step"])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}:",
+                                       '',
+                                       "  #{SCENARIO_KEYWORD}:",
+                                       "    #{STEP_KEYWORD} a step"])
+          end
 
-        it 'can output a rule that has an outline' do
-          source = ["#{RULE_KEYWORD}:",
-                    "#{OUTLINE_KEYWORD}:",
-                    "#{STEP_KEYWORD} a step",
-                    "#{EXAMPLE_KEYWORD}:",
-                    '|param|',
-                    '|value|']
-          source = source.join("\n")
-          rule = clazz.new(source)
+          it 'can stringify a rule that has an outline' do
+            source = ["#{RULE_KEYWORD}:",
+                      "#{OUTLINE_KEYWORD}:",
+                      "#{STEP_KEYWORD} a step",
+                      "#{EXAMPLE_KEYWORD}:",
+                      '|param|',
+                      '|value|']
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expect(rule_output).to eq(["#{RULE_KEYWORD}:",
-                                     '',
-                                     "  #{OUTLINE_KEYWORD}:",
-                                     "    #{STEP_KEYWORD} a step",
-                                     '',
-                                     "  #{EXAMPLE_KEYWORD}:",
-                                     '    | param |',
-                                     '    | value |'])
-        end
+            expect(rule_output).to eq(["#{RULE_KEYWORD}:",
+                                       '',
+                                       "  #{OUTLINE_KEYWORD}:",
+                                       "    #{STEP_KEYWORD} a step",
+                                       '',
+                                       "  #{EXAMPLE_KEYWORD}:",
+                                       '    | param |',
+                                       '    | value |'])
+          end
 
-        it 'can output a rule that has everything' do
-          tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
+          # The maximal rule case
+          it 'can stringify a rule that has everything' do
+            tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
 
-          source = ["#{tag_text}#{RULE_KEYWORD}: A rule with everything it could have",
-                    'Including a description',
-                    'and then some.',
-                    "#{BACKGROUND_KEYWORD}: a background",
-                    'Background',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    '|value1|',
-                    '|value2|',
-                    "#{STEP_KEYWORD} another step",
-                    '@scenario_tag',
-                    "#{SCENARIO_KEYWORD}: a scenario",
-                    'Scenario',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    "#{STEP_KEYWORD} another step",
-                    '""" with content type',
-                    '  some text',
-                    '"""',
-                    '@outline_tag',
-                    "#{OUTLINE_KEYWORD}: an outline",
-                    'Outline',
-                    'description',
-                    "#{STEP_KEYWORD} a step",
-                    '|value2|',
-                    "#{STEP_KEYWORD} another step",
-                    '"""',
-                    '  some text',
-                    '"""',
-                    '@example_tag',
-                    "#{EXAMPLE_KEYWORD}:",
-                    'Example',
-                    'description',
-                    '|param|',
-                    '|value|',
-                    "#{EXAMPLE_KEYWORD}: additional example"]
-          source = source.join("\n")
-          rule = clazz.new(source)
+            source = ["#{tag_text}#{RULE_KEYWORD}: A rule with everything it could have",
+                      'Including a description',
+                      'and then some.',
+                      "#{BACKGROUND_KEYWORD}: a background",
+                      'Background',
+                      'description',
+                      "#{STEP_KEYWORD} a step",
+                      '|value1|',
+                      '|value2|',
+                      "#{STEP_KEYWORD} another step",
+                      '@scenario_tag',
+                      "#{SCENARIO_KEYWORD}: a scenario",
+                      'Scenario',
+                      'description',
+                      "#{STEP_KEYWORD} a step",
+                      "#{STEP_KEYWORD} another step",
+                      '""" with content type',
+                      '  some text',
+                      '"""',
+                      '@outline_tag',
+                      "#{OUTLINE_KEYWORD}: an outline",
+                      'Outline',
+                      'description',
+                      "#{STEP_KEYWORD} a step",
+                      '|value2|',
+                      "#{STEP_KEYWORD} another step",
+                      '"""',
+                      '  some text',
+                      '"""',
+                      '@example_tag',
+                      "#{EXAMPLE_KEYWORD}:",
+                      'Example',
+                      'description',
+                      '|param|',
+                      '|value|',
+                      "#{EXAMPLE_KEYWORD}: additional example"]
+            source = source.join("\n")
+            rule   = clazz.new(source)
 
-          rule_output = rule.to_s.split("\n", -1)
+            rule_output = rule.to_s.split("\n", -1)
 
-          expected_output = ["#{RULE_KEYWORD}: A rule with everything it could have",
-                             '',
-                             'Including a description',
-                             'and then some.',
-                             '',
-                             "  #{BACKGROUND_KEYWORD}: a background",
-                             '',
-                             '  Background',
-                             '  description',
-                             '',
-                             "    #{STEP_KEYWORD} a step",
-                             '      | value1 |',
-                             '      | value2 |',
-                             "    #{STEP_KEYWORD} another step",
-                             '',
-                             '  @scenario_tag',
-                             "  #{SCENARIO_KEYWORD}: a scenario",
-                             '',
-                             '  Scenario',
-                             '  description',
-                             '',
-                             "    #{STEP_KEYWORD} a step",
-                             "    #{STEP_KEYWORD} another step",
-                             '      """ with content type',
-                             '        some text',
-                             '      """',
-                             '',
-                             '  @outline_tag',
-                             "  #{OUTLINE_KEYWORD}: an outline",
-                             '',
-                             '  Outline',
-                             '  description',
-                             '',
-                             "    #{STEP_KEYWORD} a step",
-                             '      | value2 |',
-                             "    #{STEP_KEYWORD} another step",
-                             '      """',
-                             '        some text',
-                             '      """',
-                             '',
-                             '  @example_tag',
-                             "  #{EXAMPLE_KEYWORD}:",
-                             '',
-                             '  Example',
-                             '  description',
-                             '',
-                             '    | param |',
-                             '    | value |',
-                             '',
-                             "  #{EXAMPLE_KEYWORD}: additional example"]
+            expected_output = ["#{RULE_KEYWORD}: A rule with everything it could have",
+                               '',
+                               'Including a description',
+                               'and then some.',
+                               '',
+                               "  #{BACKGROUND_KEYWORD}: a background",
+                               '',
+                               '  Background',
+                               '  description',
+                               '',
+                               "    #{STEP_KEYWORD} a step",
+                               '      | value1 |',
+                               '      | value2 |',
+                               "    #{STEP_KEYWORD} another step",
+                               '',
+                               '  @scenario_tag',
+                               "  #{SCENARIO_KEYWORD}: a scenario",
+                               '',
+                               '  Scenario',
+                               '  description',
+                               '',
+                               "    #{STEP_KEYWORD} a step",
+                               "    #{STEP_KEYWORD} another step",
+                               '      """ with content type',
+                               '        some text',
+                               '      """',
+                               '',
+                               '  @outline_tag',
+                               "  #{OUTLINE_KEYWORD}: an outline",
+                               '',
+                               '  Outline',
+                               '  description',
+                               '',
+                               "    #{STEP_KEYWORD} a step",
+                               '      | value2 |',
+                               "    #{STEP_KEYWORD} another step",
+                               '      """',
+                               '        some text',
+                               '      """',
+                               '',
+                               '  @example_tag',
+                               "  #{EXAMPLE_KEYWORD}:",
+                               '',
+                               '  Example',
+                               '  description',
+                               '',
+                               '    | param |',
+                               '    | value |',
+                               '',
+                               "  #{EXAMPLE_KEYWORD}: additional example"]
 
-          expected_output.unshift('@tag1 @tag2 @tag3') unless gherkin?(gherkin_versions_with_untagged_rules)
+            expected_output.unshift('@tag1 @tag2 @tag3') unless gherkin?(gherkin_versions_with_untagged_rules)
 
-          expect(rule_output).to eq(expected_output)
+            expect(rule_output).to eq(expected_output)
+          end
+
         end
 
       end
@@ -730,28 +735,36 @@ RSpec.describe 'Rule, Integration' do
 
         let(:rule) { clazz.new }
 
-        it 'can output a rule that has only tags' do
-          rule.tags = [CukeModeler::Tag.new]
 
-          expect { rule.to_s }.to_not raise_error
-        end
+        describe 'edge cases' do
 
-        it 'can output a rule that has only a background' do
-          rule.background = [CukeModeler::Background.new]
+          # These cases would not produce valid Gherkin and so don't have any useful output
+          # but they need to at least not explode
 
-          expect { rule.to_s }.to_not raise_error
-        end
+          it 'can output a rule that has only tags' do
+            rule.tags = [CukeModeler::Tag.new]
 
-        it 'can output a rule that has only scenarios' do
-          rule.tests = [CukeModeler::Scenario.new]
+            expect { rule.to_s }.to_not raise_error
+          end
 
-          expect { rule.to_s }.to_not raise_error
-        end
+          it 'can output a rule that has only a background' do
+            rule.background = [CukeModeler::Background.new]
 
-        it 'can output a rule that has only outlines' do
-          rule.tests = [CukeModeler::Outline.new]
+            expect { rule.to_s }.to_not raise_error
+          end
 
-          expect { rule.to_s }.to_not raise_error
+          it 'can output a rule that has only scenarios' do
+            rule.tests = [CukeModeler::Scenario.new]
+
+            expect { rule.to_s }.to_not raise_error
+          end
+
+          it 'can output a rule that has only outlines' do
+            rule.tests = [CukeModeler::Outline.new]
+
+            expect { rule.to_s }.to_not raise_error
+          end
+
         end
 
       end

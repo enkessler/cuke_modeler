@@ -125,31 +125,64 @@ RSpec.describe 'Rule, Unit', unit_test: true do
 
     describe 'rule output' do
 
-      context 'from abstract instantiation' do
+      describe 'inspection' do
 
-        let(:rule) { clazz.new }
+        it "can inspect a rule that doesn't have a name" do
+          rule.name   = nil
+          rule_output = rule.inspect
 
-
-        it 'can output an empty rule' do
-          expect { rule.to_s }.to_not raise_error
+          expect(rule_output).to eq('#<CukeModeler::Rule:<object_id> @name: nil>'
+                                      .sub('<object_id>', rule.object_id.to_s))
         end
 
-        it 'can output a rule that has only a keyword' do
-          rule.keyword = 'foo'
+        it "can inspect a rule that has a name" do
+          rule.name   = 'a name'
+          rule_output = rule.inspect
 
-          expect(rule.to_s).to eq('foo:')
+          expect(rule_output).to eq('#<CukeModeler::Rule:<object_id> @name: "a name">'
+                                      .sub('<object_id>', rule.object_id.to_s))
         end
 
-        it 'can output a rule that has only a name' do
-          rule.name = 'a name'
+      end
 
-          expect { rule.to_s }.to_not raise_error
-        end
 
-        it 'can output a feature that has only a description' do
-          rule.description = 'a description'
+      describe 'stringification' do
 
-          expect { rule.to_s }.to_not raise_error
+        context 'from abstract instantiation' do
+
+          let(:rule) { clazz.new }
+
+
+          it 'can stringify a rule that has only a keyword' do
+            rule.keyword = 'foo'
+
+            expect(rule.to_s).to eq('foo:')
+          end
+
+
+          describe 'edge cases' do
+
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify an empty rule' do
+              expect { rule.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a rule that has only a name' do
+              rule.name = 'a name'
+
+              expect { rule.to_s }.to_not raise_error
+            end
+
+            it 'can stringify a rule that has only a description' do
+              rule.description = 'a description'
+
+              expect { rule.to_s }.to_not raise_error
+            end
+
+          end
+
         end
 
       end
