@@ -32,5 +32,11 @@ module CukeModeler
       []
     end
 
+    # See `Object#inspect`. Returns some basic information about the
+    # object, including its class and object ID.
+    def inspect
+      "#<#{self.class.name}:#{object_id}>"
+    end
+
   end
 end

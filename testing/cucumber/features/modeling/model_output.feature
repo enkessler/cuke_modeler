@@ -21,6 +21,9 @@ Feature: Model output
       """
 
   Scenario: Inspect a model
+
+  Note: The base model class, `CukeModeler::Model` lacks any "meaningful attributes"
+
     Given the models provided by CukeModeler
     Then all of them can provide a custom inspection output
       """
@@ -31,4 +34,8 @@ Feature: Model output
     And the inspection values are of the form:
       """
       #<CukeModeler::<model_class>:<object_id> <some_meaningful_attribute>: <attribute_value>>
+      """
+    But the base model class inspection value is of the form:
+      """
+      #<CukeModeler::<model_class>:<object_id>>
       """

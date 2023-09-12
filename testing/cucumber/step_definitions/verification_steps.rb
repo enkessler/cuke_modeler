@@ -32,9 +32,12 @@ Then(/^the following text is provided:$/) do |expected_text|
 end
 
 And(/^the inspection values are of the form:$/) do |expected_pattern|
-  original_pattern = expected_pattern
+  original_pattern               = expected_pattern
+  non_standard_inspection_models = [CukeModeler::Model]
 
   @available_model_classes.each do |clazz|
+    next if non_standard_inspection_models.include?(clazz)
+
     model = clazz.new
     output = model.inspect
 
@@ -45,6 +48,17 @@ And(/^the inspection values are of the form:$/) do |expected_pattern|
 
     expect(output).to match(expected_pattern), "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
   end
+end
+
+But(/^the base model class inspection value is of the form:$/) do |expected_pattern|
+  clazz  = CukeModeler::Model
+  model  = clazz.new
+  output = model.inspect
+
+  expected_pattern = expected_pattern.sub('<model_class>', clazz.to_s.match(/CukeModeler::(.*)/)[1])
+                                     .sub('<object_id>', model.object_id.to_s)
+
+  expect(output).to match(expected_pattern), "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
 end
 
 Then(/^all of them can be contained inside of another model$/) do |code_text|
