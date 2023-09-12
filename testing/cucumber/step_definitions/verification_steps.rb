@@ -46,7 +46,8 @@ And(/^the inspection values are of the form:$/) do |expected_pattern|
                                        .sub('<some_meaningful_attribute>', '@\w+')
                                        .sub('<attribute_value>', '.*')
 
-    expect(output).to match(expected_pattern), "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
+    message = "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
+    expect(output).to match(expected_pattern), message
   end
 end
 
@@ -58,7 +59,8 @@ But(/^the base model class inspection value is of the form:$/) do |expected_patt
   expected_pattern = expected_pattern.sub('<model_class>', clazz.to_s.match(/CukeModeler::(.*)/)[1])
                                      .sub('<object_id>', model.object_id.to_s)
 
-  expect(output).to match(expected_pattern), "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
+  message = "#{clazz} did not provide the expected inspection value\nexpected: #{expected_pattern}\nactual: #{output}"
+  expect(output).to match(expected_pattern), message
 end
 
 Then(/^all of them can be contained inside of another model$/) do |code_text|

@@ -330,7 +330,7 @@ RSpec.describe 'FeatureFile, Integration' do
 
         context 'from source text' do
 
-          let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature",
+          let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature", # rubocop:disable Layout/LineLength
                                                                                 name: 'feature_file_test_file') }
           let(:feature_file) { clazz.new(feature_file_path) }
 

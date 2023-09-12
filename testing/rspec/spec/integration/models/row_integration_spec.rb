@@ -333,7 +333,8 @@ RSpec.describe 'Row, Integration' do
             expect(remade_row_output).to eq(row_output)
           end
 
-          # TODO: Check other versions of Gherkin to see if cells potentially being nil is normal behavior. Update row specs as needed.
+          # TODO: Check other versions of Gherkin to see if cells potentially being nil is normal behavior. Update
+          # row specs as needed.
           # Tentative specification. Not official API yet.
           it 'can stringify a minimal row' do
             skip('investigate further')

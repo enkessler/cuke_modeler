@@ -41,7 +41,7 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a row model, this will be the cells of the row.
     def inspect
-      cell_output = @cells&.collect { |cell| cell.value }
+      cell_output = @cells&.collect(&:value)
 
       "#<#{self.class.name}:#{object_id} @cells: #{cell_output.inspect}>"
     end

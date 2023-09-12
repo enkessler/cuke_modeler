@@ -80,7 +80,7 @@ RSpec.describe 'DocString, Unit', unit_test: true do
                                             .sub('<object_id>', doc_string.object_id.to_s))
         end
 
-        it "can inspect a doc string that has content" do
+        it 'can inspect a doc string that has content' do
           doc_string.content = 'foo'
           doc_string_output  = doc_string.inspect
 

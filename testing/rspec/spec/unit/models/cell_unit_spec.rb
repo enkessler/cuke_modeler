@@ -64,7 +64,7 @@ RSpec.describe 'Cell, Unit', unit_test: true do
                                       .sub('<object_id>', cell.object_id.to_s))
         end
 
-        it "can inspect a cell that has a value" do
+        it 'can inspect a cell that has a value' do
           cell.value  = 'foo'
           cell_output = cell.inspect
 

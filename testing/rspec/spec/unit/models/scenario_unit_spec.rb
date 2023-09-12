@@ -60,7 +60,7 @@ RSpec.describe 'Scenario, Unit', unit_test: true do
                                           .sub('<object_id>', scenario.object_id.to_s))
         end
 
-        it "can inspect a scenario that has a name" do
+        it 'can inspect a scenario that has a name' do
           scenario.name   = 'a name'
           scenario_output = scenario.inspect
 

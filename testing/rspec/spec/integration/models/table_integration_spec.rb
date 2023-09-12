@@ -321,7 +321,7 @@ RSpec.describe 'Table, Integration' do
 
           table_output = table.inspect
 
-          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: [["value1", "value2"], ["value3", "value4"]]>'
+          expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: [["value1", "value2"], ["value3", "value4"]]>' # rubocop:disable Layout/LineLength
                                        .sub('<object_id>', table.object_id.to_s))
         end
 
@@ -361,7 +361,8 @@ RSpec.describe 'Table, Integration' do
                                         '| a value with \\\\ and \| |'])
           end
 
-          # TODO: Check other versions of Gherkin to see if rows potentially being nil is normal behavior. Update table specs as needed.
+          # TODO: Check other versions of Gherkin to see if rows potentially being nil is normal behavior. Update
+          # table specs as needed.
           # Tentative specification. Not official API yet.
           it 'can stringify a minimal table' do
             skip('investigate further')

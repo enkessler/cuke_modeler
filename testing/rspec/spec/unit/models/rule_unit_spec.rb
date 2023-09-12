@@ -135,7 +135,7 @@ RSpec.describe 'Rule, Unit', unit_test: true do
                                       .sub('<object_id>', rule.object_id.to_s))
         end
 
-        it "can inspect a rule that has a name" do
+        it 'can inspect a rule that has a name' do
           rule.name   = 'a name'
           rule_output = rule.inspect
 

@@ -107,7 +107,7 @@ RSpec.describe 'Example, Unit', unit_test: true do
                                          .sub('<object_id>', example.object_id.to_s))
         end
 
-        it "can inspect an example that has a name" do
+        it 'can inspect an example that has a name' do
           example.name   = 'a name'
           example_output = example.inspect
 

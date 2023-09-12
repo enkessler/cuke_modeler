@@ -48,7 +48,7 @@ RSpec.describe 'Table, Unit', unit_test: true do
     end
 
     it 'contains rows' do
-      rows = [:row_1, :row_2]
+      rows       = [:row_1, :row_2]
       everything = rows
 
       table.rows = rows
@@ -62,7 +62,7 @@ RSpec.describe 'Table, Unit', unit_test: true do
       describe 'inspection' do
 
         it "can inspect a table that doesn't have rows (empty)" do
-          table.rows        = []
+          table.rows   = []
           table_output = table.inspect
 
           expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: []>'
@@ -70,7 +70,7 @@ RSpec.describe 'Table, Unit', unit_test: true do
         end
 
         it "can inspect a table that doesn't have rows (nil)" do
-          table.rows        = nil
+          table.rows   = nil
           table_output = table.inspect
 
           expect(table_output).to eq('#<CukeModeler::Table:<object_id> @rows: nil>'
@@ -89,11 +89,13 @@ RSpec.describe 'Table, Unit', unit_test: true do
 
           describe 'edge cases' do
 
-          # These cases would not produce valid Gherkin and so don't have any useful output
-          # but they need to at least not explode
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
-          it 'can stringify an empty table' do
-            expect { table.to_s }.to_not raise_error
+            it 'can stringify an empty table' do
+              expect { table.to_s }.to_not raise_error
+            end
+
           end
 
         end
@@ -101,8 +103,6 @@ RSpec.describe 'Table, Unit', unit_test: true do
       end
 
     end
-
-  end
 
   end
 

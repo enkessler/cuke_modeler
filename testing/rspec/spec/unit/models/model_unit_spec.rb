@@ -25,7 +25,7 @@ RSpec.describe 'Model, Unit' do
 
       describe 'inspection' do
 
-        it "can inspect a model" do
+        it 'can inspect a model' do
           model_output = model.inspect
 
           expect(model_output).to eq('#<CukeModeler::Model:<object_id>>'

@@ -171,7 +171,7 @@ RSpec.describe 'Feature, Unit', unit_test: true do
                                          .sub('<object_id>', feature.object_id.to_s))
         end
 
-        it "can inspect a feature that has a name" do
+        it 'can inspect a feature that has a name' do
           feature.name   = 'a name'
           feature_output = feature.inspect
 

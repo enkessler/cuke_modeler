@@ -91,7 +91,7 @@ RSpec.describe 'Outline, Unit', unit_test: true do
                                          .sub('<object_id>', outline.object_id.to_s))
         end
 
-        it "can inspect an outline that has a name" do
+        it 'can inspect an outline that has a name' do
           outline.name   = 'a name'
           outline_output = outline.inspect
 
