@@ -1,7 +1,3 @@
-When(/^it is outputted$/) do
-  @output = @model.to_s
-end
-
 When(/^the models are compared$/) do
   @results = []
 
