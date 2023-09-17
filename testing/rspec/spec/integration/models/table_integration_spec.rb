@@ -395,7 +395,7 @@ RSpec.describe 'Table, Integration' do
             expect(table_output).to eq(['| value1 | value2 |'])
           end
 
-          # The maximal outline case
+          # The maximal table case
           it 'can stringify a table that has multiple rows' do
             source = ['|value1|value2|',
                       '|value3|value4|']
@@ -421,23 +421,23 @@ RSpec.describe 'Table, Integration' do
                                         '| a       | b       |'])
           end
 
-
-          context 'from abstract instantiation' do
-
-            let(:table) { clazz.new }
+        end
 
 
-            describe 'edge cases' do
+        context 'from abstract instantiation' do
 
-              # These cases would not produce valid Gherkin and so don't have any useful output
-              # but they need to at least not explode
+          let(:table) { clazz.new }
 
-              it 'can stringify a table that only has rows' do
-                table.rows = [CukeModeler::Row.new] # Note that the row lacks any cells
 
-                expect { table.to_s }.to_not raise_error
-              end
+          describe 'edge cases' do
 
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
+
+            it 'can stringify a table that only has rows' do
+              table.rows = [CukeModeler::Row.new] # Note that the row lacks any cells
+
+              expect { table.to_s }.to_not raise_error
             end
 
           end

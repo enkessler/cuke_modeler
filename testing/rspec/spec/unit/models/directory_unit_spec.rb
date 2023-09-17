@@ -136,6 +136,8 @@ RSpec.describe 'Directory, Unit', unit_test: true do
 
           let(:directory) { clazz.new }
 
+
+          # The maximal directory case
           it 'can stringify a directory that has only a path' do
             directory.path = 'foo'
 

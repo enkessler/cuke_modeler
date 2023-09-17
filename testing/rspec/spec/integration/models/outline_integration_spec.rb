@@ -458,7 +458,7 @@ RSpec.describe 'Outline, Integration' do
                              some string
                            \"\"\"
 
-             #{EXAMPLE_KEYWORD}:
+                       #{EXAMPLE_KEYWORD}:
 
                        Some description.
                        Some more description.

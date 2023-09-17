@@ -82,7 +82,7 @@ RSpec.describe 'Cell, Unit', unit_test: true do
           let(:cell) { clazz.new }
 
 
-          # The minimal cell case
+          # The maximal cell case
           it 'can stringify a cell that has only a value' do
             cell.value = 'foo'
 
@@ -95,6 +95,7 @@ RSpec.describe 'Cell, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal cell case
             it 'can stringify an empty cell' do
               expect { cell.to_s }.to_not raise_error
             end

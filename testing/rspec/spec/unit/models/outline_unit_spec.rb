@@ -109,7 +109,6 @@ RSpec.describe 'Outline, Unit', unit_test: true do
           let(:outline) { clazz.new }
 
 
-          # The minimal outline case
           it 'can stringify an outline that has only a keyword' do
             outline.keyword = 'foo'
 
@@ -122,6 +121,7 @@ RSpec.describe 'Outline, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal outline case
             it 'can stringify an empty outline' do
               expect { outline.to_s }.to_not raise_error
             end

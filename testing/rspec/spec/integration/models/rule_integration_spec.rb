@@ -728,41 +728,41 @@ RSpec.describe 'Rule, Integration' do
 
         end
 
-      end
+
+        context 'from abstract instantiation' do
+
+          let(:rule) { clazz.new }
 
 
-      context 'from abstract instantiation' do
+          describe 'edge cases' do
 
-        let(:rule) { clazz.new }
+            # These cases would not produce valid Gherkin and so don't have any useful output
+            # but they need to at least not explode
 
+            it 'can stringify a rule that has only tags' do
+              rule.tags = [CukeModeler::Tag.new]
 
-        describe 'edge cases' do
+              expect { rule.to_s }.to_not raise_error
+            end
 
-          # These cases would not produce valid Gherkin and so don't have any useful output
-          # but they need to at least not explode
+            it 'can stringify a rule that has only a background' do
+              rule.background = [CukeModeler::Background.new]
 
-          it 'can output a rule that has only tags' do
-            rule.tags = [CukeModeler::Tag.new]
+              expect { rule.to_s }.to_not raise_error
+            end
 
-            expect { rule.to_s }.to_not raise_error
-          end
+            it 'can stringify a rule that has only scenarios' do
+              rule.tests = [CukeModeler::Scenario.new]
 
-          it 'can output a rule that has only a background' do
-            rule.background = [CukeModeler::Background.new]
+              expect { rule.to_s }.to_not raise_error
+            end
 
-            expect { rule.to_s }.to_not raise_error
-          end
+            it 'can stringify a rule that has only outlines' do
+              rule.tests = [CukeModeler::Outline.new]
 
-          it 'can output a rule that has only scenarios' do
-            rule.tests = [CukeModeler::Scenario.new]
+              expect { rule.to_s }.to_not raise_error
+            end
 
-            expect { rule.to_s }.to_not raise_error
-          end
-
-          it 'can output a rule that has only outlines' do
-            rule.tests = [CukeModeler::Outline.new]
-
-            expect { rule.to_s }.to_not raise_error
           end
 
         end

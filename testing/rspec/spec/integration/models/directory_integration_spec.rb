@@ -216,7 +216,7 @@ RSpec.describe 'Directory, Integration' do
           end
 
           # The minimal and maximal directory case
-          it 'can output a directory' do
+          it 'can stringify a directory' do
             directory_output = directory_model.to_s
 
             expect(directory_output).to eq(directory_path)

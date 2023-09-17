@@ -165,6 +165,7 @@ RSpec.describe 'Rule, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal rule case
             it 'can stringify an empty rule' do
               expect { rule.to_s }.to_not raise_error
             end

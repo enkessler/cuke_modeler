@@ -92,6 +92,7 @@ RSpec.describe 'Table, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal table case
             it 'can stringify an empty table' do
               expect { table.to_s }.to_not raise_error
             end

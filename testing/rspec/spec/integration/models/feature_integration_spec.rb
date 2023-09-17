@@ -643,7 +643,7 @@ RSpec.describe 'Feature, Integration' do
                                           '    | value |'])
           end
 
-          # The maximal outline case
+          # The maximal feature case
           it 'can stringify a feature that has everything' do
             source  = ['@tag1 @tag2 @tag3',
                        "#{FEATURE_KEYWORD}: A feature with everything it could have",

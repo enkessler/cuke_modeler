@@ -398,7 +398,7 @@ RSpec.describe 'DocString, Integration' do
           #  to get inside in the first place) will be escaped when outputted so as to
           #  retain the quality of being able to use the output directly as gherkin.
 
-          it 'can output a doc_string that has triple double quotes in the contents' do
+          it 'can stringify a doc_string that has triple double quotes in the contents' do
             source = ['"""',
                       'a \"\"\"',
                       '\"\"\" again',
@@ -433,7 +433,7 @@ RSpec.describe 'DocString, Integration' do
           end
 
           # The maximal doc string case
-          it 'can output a doc string that has everything' do
+          it 'can stringify a doc string that has everything' do
             source = ['""" type foo',
                       '\"\"\"',
                       'bar',

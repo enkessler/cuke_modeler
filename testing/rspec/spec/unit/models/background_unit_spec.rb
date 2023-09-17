@@ -75,7 +75,6 @@ RSpec.describe 'Background, Unit', unit_test: true do
           let(:background) { clazz.new }
 
 
-          # The minimal outline case
           it 'can stringify a background that has only a keyword' do
             background.keyword = 'foo'
 
@@ -88,6 +87,7 @@ RSpec.describe 'Background, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal background case
             it 'can stringify an empty background' do
               expect { background.to_s }.to_not raise_error
             end

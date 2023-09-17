@@ -133,6 +133,7 @@ RSpec.describe 'FeatureFile, Unit', unit_test: true do
           let(:feature_file) { clazz.new }
 
 
+          # The maximal feature file case
           it 'can stringify a feature file that has only a path' do
             feature_file.path = 'foo'
 
@@ -145,7 +146,7 @@ RSpec.describe 'FeatureFile, Unit', unit_test: true do
             # These cases would not produce valid file paths and so don't have any useful output
             # but they need to at least not explode
 
-            # The minimal feature_file case
+            # The minimal feature file case
             it 'can stringify an empty feature_file' do
               expect { feature_file.to_s }.to_not raise_error
             end

@@ -92,6 +92,7 @@ RSpec.describe 'Row, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal row case
             it 'can stringify an empty row' do
               expect { row.to_s }.to_not raise_error
             end

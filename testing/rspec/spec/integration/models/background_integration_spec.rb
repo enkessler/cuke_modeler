@@ -414,7 +414,7 @@ RSpec.describe 'Background, Integration' do
             expect(remade_background_output).to eq(background_output)
           end
 
-          # The minimal outline case
+          # The minimal background case
           it 'can stringify an empty background' do
             source     = ["#{BACKGROUND_KEYWORD}:"]
             source     = source.join("\n")

@@ -201,6 +201,7 @@ RSpec.describe 'Feature, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal feature case
             it 'can stringify an empty feature' do
               expect { feature.to_s }.to_not raise_error
             end

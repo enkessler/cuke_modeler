@@ -110,6 +110,7 @@ RSpec.describe 'Step, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal step case
             it 'can stringify an empty step' do
               expect { step.to_s }.to_not raise_error
             end

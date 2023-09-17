@@ -45,8 +45,9 @@ RSpec.describe 'Model, Unit' do
           describe 'edge cases' do
 
             # The base model class isn't meant to be used directly, so any stringified output
-            # is inherently unspecified and just needs to not explode
+            # is inherently undefined and just needs to not explode
 
+            # The minimal model case
             it 'can stringify an empty model' do
               expect { model.to_s }.to_not raise_error
             end

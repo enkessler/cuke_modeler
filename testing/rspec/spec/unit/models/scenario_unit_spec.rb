@@ -78,7 +78,6 @@ RSpec.describe 'Scenario, Unit', unit_test: true do
           let(:scenario) { clazz.new }
 
 
-          # The minimal scenario case
           it 'can stringify a scenario that has only a keyword' do
             scenario.keyword = 'foo'
 
@@ -91,6 +90,7 @@ RSpec.describe 'Scenario, Unit', unit_test: true do
             # These cases would not produce valid Gherkin and so don't have any useful output
             # but they need to at least not explode
 
+            # The minimal scenario case
             it 'can stringify an empty scenario' do
               expect { scenario.to_s }.to_not raise_error
             end
