@@ -37,13 +37,13 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.3', '< 4.0'
 
-  spec.add_runtime_dependency 'cucumber-gherkin', '< 27.0'
+  spec.add_runtime_dependency 'cucumber-gherkin', '< 28.0'
 
   spec.add_development_dependency 'bundler', '< 3.0'
   spec.add_development_dependency 'childprocess', '< 5.0'
   spec.add_development_dependency 'ffi', '< 2.0' # This is an invisible dependency for the `childprocess` gem on Windows
   # Cucumber 4.x is the earliest version to use cucumber-gherkin
-  spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 8.0.0'
+  spec.add_development_dependency 'cucumber', '>= 4.0.0', '< 10.0.0'
   spec.add_development_dependency 'rainbow', '< 4.0.0'
   spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'

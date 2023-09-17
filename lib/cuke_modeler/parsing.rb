@@ -9,7 +9,7 @@ require 'gherkin'
 # an 'adapter' appropriate to the version of the *cucumber-gherkin* gem that has been activated.
 gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
 gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
-supported_gherkin_versions = (9..26)
+supported_gherkin_versions = (9..27)
 
 raise("Unknown Gherkin version: '#{gherkin_version}'") unless supported_gherkin_versions.include?(gherkin_major_version)
 
@@ -63,7 +63,7 @@ module CukeModeler
       # inside of it, so I'm leaving this here in case it changes again
       # rubocop:disable Lint/DuplicateMethods
       case gherkin_major_version
-        when 20, 21, 22, 23, 24, 25, 26
+        when 20, 21, 22, 23, 24, 25, 26, 27
           # TODO: make these methods private?
           # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
