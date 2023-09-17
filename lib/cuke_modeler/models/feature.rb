@@ -103,7 +103,9 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a feature model, this will be the name of the feature.
     def inspect
-      "#<#{self.class.name}:#{object_id} @name: #{name.inspect}>"
+      base = super
+
+      "#{base.chop} @name: #{name.inspect}>"
     end
 
 

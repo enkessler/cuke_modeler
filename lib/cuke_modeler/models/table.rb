@@ -42,7 +42,9 @@ module CukeModeler
     def inspect
       row_output = @rows&.collect { |row| row.cells.collect(&:value) }
 
-      "#<#{self.class.name}:#{object_id} @rows: #{row_output.inspect}>"
+      base = super
+
+      "#{base.chop} @rows: #{row_output.inspect}>"
     end
 
 

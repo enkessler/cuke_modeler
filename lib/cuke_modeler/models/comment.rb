@@ -33,7 +33,9 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a comment model, this will be the text of the comment.
     def inspect
-      "#<#{self.class.name}:#{object_id} @text: #{text.inspect}>"
+      base = super
+
+      "#{base.chop} @text: #{text.inspect}>"
     end
 
 

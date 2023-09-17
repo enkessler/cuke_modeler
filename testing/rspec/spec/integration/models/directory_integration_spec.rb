@@ -206,8 +206,7 @@ RSpec.describe 'Directory, Integration' do
 
 
           it 'can be remade from its own stringified output' do
-            source    = CukeModeler::FileHelper.create_directory
-            directory = clazz.new(source)
+            directory = clazz.new(directory_path)
 
             directory_output        = directory.to_s
             remade_directory_output = clazz.new(directory_output).to_s

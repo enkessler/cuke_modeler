@@ -34,7 +34,9 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a cell model, this will be the value of the cell.
     def inspect
-      "#<#{self.class.name}:#{object_id} @value: #{value.inspect}>"
+      base = super
+
+      "#{base.chop} @value: #{value.inspect}>"
     end
 
 

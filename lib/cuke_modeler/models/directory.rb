@@ -51,7 +51,9 @@ module CukeModeler
     # attribute. For a directory model, this will be the path of the
     # directory.
     def inspect
-      "#<#{self.class.name}:#{object_id} @path: #{@path.inspect}>"
+      base = super
+
+      "#{base.chop} @path: #{@path.inspect}>"
     end
 
 

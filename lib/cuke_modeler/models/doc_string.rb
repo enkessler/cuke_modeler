@@ -39,7 +39,9 @@ module CukeModeler
     # attribute. For a doc string model, this will be the content of
     # the doc string.
     def inspect
-      "#<#{self.class.name}:#{object_id} @content: #{content.inspect}>"
+      base = super
+
+      "#{base.chop} @content: #{content.inspect}>"
     end
 
 

@@ -52,7 +52,9 @@ module CukeModeler
     # attribute. For a feature file model, this will be the path of
     # the feature file.
     def inspect
-      "#<#{self.class.name}:#{object_id} @path: #{@path.inspect}>"
+      base = super
+
+      "#{base.chop} @path: #{@path.inspect}>"
     end
 
 
