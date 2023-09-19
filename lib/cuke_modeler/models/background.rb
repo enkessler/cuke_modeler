@@ -57,10 +57,10 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a background model, this will be the name of the
     # background.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @name: #{name.inspect}>"
+      "#{super.chop} @name: #{name.inspect}>"
     end
 
 

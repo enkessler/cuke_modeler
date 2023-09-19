@@ -17,6 +17,19 @@ When(/^the model is inspected$/) do |code_text|
   @output = eval(code_text)
 end
 
+When(/^using (?:non-)?verbose inspection$/) do |code_text|
+  @output = Hash.new { |hash, key| hash[key] = {} }
+
+  @available_model_classes.each do |clazz|
+    code = code_text.sub('<model_class>', clazz.to_s)
+                    .gsub('model', '@model') # Changing variable type so that it is available in this step
+                                             # definition but without making thing looks weird in the feature file # rubocop:disable Layout/CommentIndentation
+
+    @output[clazz][:output] = eval(code)
+    @output[clazz][:model]  = @model
+  end
+end
+
 And(/^a(?:n)? \w+(?: \w+)? model based on that gherkin$/) do |code_text|
   code_text = code_text.gsub('<source_text>', "'#{@source_text}'")
 

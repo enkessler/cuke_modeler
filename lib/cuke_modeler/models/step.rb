@@ -56,10 +56,10 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a step model, this will be the text of the step.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @text: #{@text.inspect}>"
+      "#{super.chop} @text: #{@text.inspect}>"
     end
 
 

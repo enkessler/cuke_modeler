@@ -77,10 +77,10 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a rule model, this will be the name of the rule.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @name: #{@name.inspect}>"
+      "#{super.chop} @name: #{@name.inspect}>"
     end
 
 

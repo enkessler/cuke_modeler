@@ -34,7 +34,9 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class and object ID.
-    def inspect
+    def inspect(verbose: false)
+      return super() if verbose
+
       "#<#{self.class.name}:#{object_id}>"
     end
 

@@ -38,10 +38,10 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a doc string model, this will be the content of
     # the doc string.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @content: #{content.inspect}>"
+      "#{super.chop} @content: #{content.inspect}>"
     end
 
 

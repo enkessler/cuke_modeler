@@ -51,10 +51,10 @@ module CukeModeler
     # object, including its class, object ID, and its most meaningful
     # attribute. For a feature file model, this will be the path of
     # the feature file.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @path: #{@path.inspect}>"
+      "#{super.chop} @path: #{@path.inspect}>"
     end
 
 

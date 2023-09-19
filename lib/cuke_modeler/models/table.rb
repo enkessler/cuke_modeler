@@ -39,12 +39,12 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a table model, this will be the rows of the table.
-    def inspect
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
+
       row_output = @rows&.collect { |row| row.cells.collect(&:value) }
 
-      base = super
-
-      "#{base.chop} @rows: #{row_output.inspect}>"
+      "#{super.chop} @rows: #{row_output.inspect}>"
     end
 
 

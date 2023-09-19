@@ -5,8 +5,8 @@ Feature: Model output
   output is in a format that can be used to create the same kind of model.
 
   Due to the nested nature of model relationships, the default output of `#inspect` can get...lengthy. For this reason,
-  all models use a custom inspection method that provides a minimal but useful amount of information on the model
-  object.
+  all models override `#inspect` to make it provide a minimal but useful amount of information on the model object.
+  Switching between the minimal and the verbose (i.e. default Ruby behavior) version is controlled by a flag.
 
   See the model output documentation for specific models for details.
 
@@ -39,3 +39,23 @@ Feature: Model output
       """
       #<CukeModeler::<model_class>:<object_id>>
       """
+
+  Scenario: Controlling inspection output
+
+  Note: Non-verbose inspection is the default behavior for models
+
+    Given the models provided by CukeModeler
+    When using non-verbose inspection
+    """
+    model = <model_class>.new
+
+    model.inspect(verbose: false)
+    """
+    Then the custom model inspection is used
+    When using verbose inspection
+    """
+    model = <model_class>.new
+
+    model.inspect(verbose: true)
+    """
+    Then the default Ruby inspection is used

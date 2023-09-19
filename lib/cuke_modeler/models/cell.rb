@@ -33,10 +33,10 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a cell model, this will be the value of the cell.
-    def inspect
-      base = super
+    def inspect(verbose: false)
+      return super(verbose: verbose) if verbose
 
-      "#{base.chop} @value: #{value.inspect}>"
+      "#{super.chop} @value: #{value.inspect}>"
     end
 
 

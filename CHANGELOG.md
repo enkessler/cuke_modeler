@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
  - `#inspect` for models now returns a reasonably small set of details for the model instead of the potentially 
    huge screen dump of information. Not considered a breaking change because the API never specified the behavior 
-   of `#inspect` (it was just using the default Ruby implementation). 
+   of `#inspect` (it was just using the default Ruby implementation). Default Ruby inspection can still be triggered, 
+   if desired (see documentation).
 
 ## [3.19.0] - 2023-1-22
 

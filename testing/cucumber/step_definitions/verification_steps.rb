@@ -32,11 +32,10 @@ Then(/^the following text is provided:$/) do |expected_text|
 end
 
 And(/^the inspection values are of the form:$/) do |expected_pattern|
-  original_pattern               = expected_pattern
-  non_standard_inspection_models = [CukeModeler::Model]
+  original_pattern = expected_pattern
 
   @available_model_classes.each do |clazz|
-    next if non_standard_inspection_models.include?(clazz)
+    next if clazz == CukeModeler::Model
 
     model = clazz.new
     output = model.inspect
@@ -153,6 +152,35 @@ Then(/^all of them provide access to the parsing data that was used to create th
     code_text.gsub!('<source_text>', '')
 
     expect { eval(code_text) }.to_not raise_error
+  end
+end
+
+Then(/^the custom model inspection is used$/) do
+  @available_model_classes.each do |clazz|
+    expected_pattern = if clazz == CukeModeler::Model
+                         '#<CukeModeler::<model_class>:<object_id>>'
+                       else
+                         '#<CukeModeler::<model_class>:<object_id> <some_meaningful_attribute>: <attribute_value>>'
+                       end
+
+    output           = @output[clazz][:output]
+    expected_pattern = expected_pattern.sub('<model_class>', clazz.to_s.match(/CukeModeler::(.*)/)[1])
+                                       .sub('<object_id>', '\d+')
+                                       .sub('<some_meaningful_attribute>', '@\w+')
+                                       .sub('<attribute_value>', '.*')
+
+    expect(output).to match(expected_pattern), "#{clazz} did not provide the custom inspection output"
+  end
+end
+
+Then(/^the default Ruby inspection is used$/) do
+  @available_model_classes.each do |clazz|
+    default_method = clazz.ancestors.find { |ancestor| ancestor.name == 'Object' }.instance_method(:inspect)
+
+    output         = @output[clazz][:output]
+    default_output = default_method.bind(@output[clazz][:model]).call
+
+    expect(output).to eq(default_output), "#{clazz} did not provide the default inspection output"
   end
 end
 
