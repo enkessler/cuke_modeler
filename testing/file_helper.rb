@@ -9,7 +9,7 @@ module CukeModeler
     class << self
 
       def create_feature_file(options = {})
-        options[:text] ||= 'Feature:'
+        options[:text] ||= "#{CukeModeler::DialectHelper.feature_keyword}:"
         options[:name] ||= 'test_file'
 
         create_file(text: options[:text], name: options[:name], extension: '.feature', directory: options[:directory])
