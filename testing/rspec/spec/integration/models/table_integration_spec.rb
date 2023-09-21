@@ -9,11 +9,13 @@ RSpec.describe 'Table, Integration' do
     '| a     | bigger  |
      | table | element |'
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -331,17 +333,6 @@ RSpec.describe 'Table, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source = "| value1 | value2 |
-                      | value3 | value4 |"
-            table  = clazz.new(source)
-
-            table_output        = table.to_s
-            remade_table_output = clazz.new(table_output).to_s
-
-            expect(remade_table_output).to eq(table_output)
-          end
 
           # This behavior should already be taken care of by the cell object's output method, but
           # the table object has to adjust that output in order to properly buffer column width

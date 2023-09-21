@@ -70,11 +70,13 @@ RSpec.describe 'FeatureFile, Integration' do
          | value |
      # final comment"
   end
+  let(:maximal_string_input) { CukeModeler::FileHelper.create_feature_file }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -330,8 +332,7 @@ RSpec.describe 'FeatureFile, Integration' do
 
         context 'from source text' do
 
-          let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file(text: "#{FEATURE_KEYWORD}: Test feature", # rubocop:disable Layout/LineLength
-                                                                                name: 'feature_file_test_file') }
+          let(:feature_file_path) { CukeModeler::FileHelper.create_feature_file }
           let(:feature_file) { clazz.new(feature_file_path) }
 
 
@@ -340,15 +341,6 @@ RSpec.describe 'FeatureFile, Integration' do
             feature_file_output = feature_file.to_s
 
             expect(feature_file_output).to eq(feature_file_path)
-          end
-
-          it 'can be remade from its own stringified output' do
-            feature_file = clazz.new(feature_file_path)
-
-            feature_file_output        = feature_file.to_s
-            remade_feature_file_output = clazz.new(feature_file_output).to_s
-
-            expect(remade_feature_file_output).to eq(feature_file_output)
           end
 
         end

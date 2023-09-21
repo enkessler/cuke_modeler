@@ -6,11 +6,13 @@ RSpec.describe 'Tag, Integration' do
   let(:clazz) { CukeModeler::Tag }
   let(:minimum_viable_gherkin) { '@a_tag' }
   let(:maximum_viable_gherkin) { '@a_tag' }
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -268,16 +270,6 @@ RSpec.describe 'Tag, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source = '@some_tag'
-            tag    = clazz.new(source)
-
-            tag_output        = tag.to_s
-            remade_tag_output = clazz.new(tag_output).to_s
-
-            expect(remade_tag_output).to eq(tag_output)
-          end
 
           # The minimal and maximal tag case
           it 'can stringify a tag that has a name' do

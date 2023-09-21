@@ -62,11 +62,13 @@ RSpec.describe 'Rule, Integration' do
          | value |
        #{EXAMPLE_KEYWORD}: additional example"
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -462,67 +464,6 @@ RSpec.describe 'Rule, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            tag_text = gherkin?(gherkin_versions_with_untagged_rules) ? '' : "@tag1 @tag2 @tag3\n"
-
-            source = "#{tag_text}#{RULE_KEYWORD}: A rule with everything it could have
-
-                      Including a description
-                      and then some.
-
-                        #{BACKGROUND_KEYWORD}: a background
-
-                        Background
-                        description
-
-                          #{STEP_KEYWORD} a step
-                            | value1 |
-                            | value2 |
-                          #{STEP_KEYWORD} another step
-
-                        @scenario_tag
-                        #{SCENARIO_KEYWORD}: a scenario
-
-                        Scenario
-                        description
-
-                          #{STEP_KEYWORD} a step
-                          #{STEP_KEYWORD} another step
-                            \"\"\" with content type
-                            some text
-                            \"\"\"
-
-                        @outline_tag
-                        #{OUTLINE_KEYWORD}: an outline
-
-                        Outline
-                        description
-
-                          #{STEP_KEYWORD} a step
-                            | value2 |
-                          #{STEP_KEYWORD} another step
-                            \"\"\"
-                            some text
-                            \"\"\"
-
-                        @example_tag
-                        #{EXAMPLE_KEYWORD}:
-
-                        Example
-                        description
-
-                          | param |
-                          | value |
-                        #{EXAMPLE_KEYWORD}: additional example"
-
-            rule = clazz.new(source)
-
-            rule_output        = rule.to_s
-            remade_rule_output = clazz.new(rule_output).to_s
-
-            expect(remade_rule_output).to eq(rule_output)
-          end
 
           # The minimal rule case
           it 'can stringify an empty rule' do

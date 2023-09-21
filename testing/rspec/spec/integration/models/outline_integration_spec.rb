@@ -22,11 +22,13 @@ RSpec.describe 'Outline, Integration' do
        | param |
        | value |"
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -443,40 +445,6 @@ RSpec.describe 'Outline, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source  = "@tag1 @tag2 @tag3
-                       #{OUTLINE_KEYWORD}: An outline with everything it could have
-
-                       Some description.
-                       Some more description.
-
-                         #{STEP_KEYWORD} a step
-                           | value |
-                         #{STEP_KEYWORD} a <value> step
-                           \"\"\"
-                             some string
-                           \"\"\"
-
-                       #{EXAMPLE_KEYWORD}:
-
-                       Some description.
-                       Some more description.
-
-                         | value |
-                         | x     |
-
-                       @example_tag
-                       #{EXAMPLE_KEYWORD}:
-                         | value |
-                         | y     |"
-            outline = clazz.new(source)
-
-            outline_output        = outline.to_s
-            remade_outline_output = clazz.new(outline_output).to_s
-
-            expect(remade_outline_output).to eq(outline_output)
-          end
 
           # The minimal outline case
           it 'can stringify an empty outline' do

@@ -75,11 +75,13 @@ RSpec.describe 'Feature, Integration' do
 
        Which is empty"
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -451,77 +453,6 @@ RSpec.describe 'Feature, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source = "@tag1 @tag2 @tag3
-                      #{FEATURE_KEYWORD}: A feature with everything it could have
-
-                      Including a description
-                      and then some.
-
-                        #{BACKGROUND_KEYWORD}: non-nested background
-
-                        Background
-                        description
-
-                          #{STEP_KEYWORD} a step
-                            | value1 |
-                            | value2 |
-                          #{STEP_KEYWORD} another step
-
-                        @scenario_tag
-                        #{SCENARIO_KEYWORD}: non-nested scenario
-
-                        Scenario
-                        description
-
-                          #{STEP_KEYWORD} a step
-                          #{STEP_KEYWORD} another step
-                            \"\"\" with content type
-                            some text
-                            \"\"\"
-
-                        #{RULE_KEYWORD}: a rule
-
-                        Rule description
-
-                        #{BACKGROUND_KEYWORD}: nested background
-                          #{STEP_KEYWORD} a step
-
-                          @outline_tag
-                          #{OUTLINE_KEYWORD}: nested outline
-
-                          Outline
-                          description
-
-                            #{STEP_KEYWORD} a step
-                              | value2 |
-                            #{STEP_KEYWORD} another step
-                              \"\"\"
-                              some text
-                              \"\"\"
-
-                          @example_tag
-                          #{EXAMPLE_KEYWORD}:
-
-                          Example
-                          description
-
-                            | param |
-                            | value |
-                          #{EXAMPLE_KEYWORD}: additional example
-
-                      #{RULE_KEYWORD}: another rule
-
-                      Which is empty"
-
-            feature = clazz.new(source)
-
-            feature_output        = feature.to_s
-            remade_feature_output = clazz.new(feature_output).to_s
-
-            expect(remade_feature_output).to eq(feature_output)
-          end
 
           # The minimal feature case
           it 'can stringify an empty feature' do

@@ -4,11 +4,13 @@ require_relative '../../../../../environments/rspec_env'
 RSpec.describe 'Directory, Integration' do
 
   let(:clazz) { CukeModeler::Directory }
+  let(:maximal_string_input) { CukeModeler::FileHelper.create_directory }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -204,15 +206,6 @@ RSpec.describe 'Directory, Integration' do
           let(:directory_path) { CukeModeler::FileHelper.create_directory }
           let(:directory_model) { clazz.new(directory_path) }
 
-
-          it 'can be remade from its own stringified output' do
-            directory = clazz.new(directory_path)
-
-            directory_output        = directory.to_s
-            remade_directory_output = clazz.new(directory_output).to_s
-
-            expect(remade_directory_output).to eq(directory_output)
-          end
 
           # The minimal and maximal directory case
           it 'can stringify a directory' do

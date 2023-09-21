@@ -6,11 +6,13 @@ RSpec.describe 'Comment, Integration' do
   let(:clazz) { CukeModeler::Comment }
   let(:minimum_viable_gherkin) { '# a comment' } # TODO: Not really the minimum viable Gherkin. Update.
   let(:maximum_viable_gherkin) { '# a comment' }
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -180,16 +182,6 @@ RSpec.describe 'Comment, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source  = '# a comment'
-            comment = clazz.new(source)
-
-            comment_output        = comment.to_s
-            remade_comment_output = clazz.new(comment_output).to_s
-
-            expect(remade_comment_output).to eq(comment_output)
-          end
 
           # The minimal and maximal comment case
           it 'can stringify a comment that has text' do

@@ -17,11 +17,13 @@ RSpec.describe 'Example, Integration' do
        | value 1 |
        | value 2 |"
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -609,24 +611,6 @@ RSpec.describe 'Example, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source  = "@tag1 @tag2 @tag3
-                  #{EXAMPLE_KEYWORD}: with everything it could have
-
-                  Some description.
-                  Some more description.
-
-                    | param1 | param2 |
-                    | value1 | value2 |
-                    | value3 | value4 |"
-            example = clazz.new(source)
-
-            example_output        = example.to_s
-            remade_example_output = clazz.new(example_output).to_s
-
-            expect(remade_example_output).to eq(example_output)
-          end
 
           # This behavior should already be taken care of by the cell object's output method, but
           # the example object has to adjust that output in order to properly buffer column width

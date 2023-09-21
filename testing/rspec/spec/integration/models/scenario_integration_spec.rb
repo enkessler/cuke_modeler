@@ -20,11 +20,13 @@ RSpec.describe 'Scenario, Integration' do
          some text
          \"\"\""
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -400,27 +402,6 @@ RSpec.describe 'Scenario, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source   = "@tag1 @tag2 @tag3
-                        #{SCENARIO_KEYWORD}: A scenario with everything it could have
-
-                        Including a description
-                        and then some.
-
-                          #{STEP_KEYWORD} a step
-                            | value |
-                          #{STEP_KEYWORD} another step
-                            \"\"\"
-                            some string
-                            \"\"\""
-            scenario = clazz.new(source)
-
-            scenario_output        = scenario.to_s
-            remade_scenario_output = clazz.new(scenario_output).to_s
-
-            expect(remade_scenario_output).to eq(scenario_output)
-          end
 
           # The minimal scenario case
           it 'can stringify an empty scenario' do

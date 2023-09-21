@@ -16,11 +16,14 @@ RSpec.describe 'Step, Integration' do
          some text
        \"\"\""
   end
+  let(:maximal_string_input) { maximum_viable_gherkin_table }
+  let(:maximal_string_input_2) { maximum_viable_gherkin_doc_string }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -555,13 +558,6 @@ RSpec.describe 'Step, Integration' do
                                          '  | value3 | value4 |'])
             end
 
-            it 'can be remade from its own stringified output' do
-              step_output        = step.to_s
-              remade_step_output = clazz.new(step_output).to_s
-
-              expect(remade_step_output).to eq(step_output)
-            end
-
           end
 
 
@@ -584,13 +580,6 @@ RSpec.describe 'Step, Integration' do
                                          '  """',
                                          '  some text',
                                          '  """'])
-            end
-
-            it 'can be remade from its own stringified output' do
-              step_output        = step.to_s
-              remade_step_output = clazz.new(step_output).to_s
-
-              expect(remade_step_output).to eq(step_output)
             end
 
           end

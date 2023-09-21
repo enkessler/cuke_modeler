@@ -6,11 +6,13 @@ RSpec.describe 'Row, Integration' do
   let(:clazz) { CukeModeler::Row }
   let(:minimum_viable_gherkin) { '| single cell row |' }
   let(:maximum_viable_gherkin) { '| multiple | cell | row |' }
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -322,16 +324,6 @@ RSpec.describe 'Row, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source = '| value1 | value2 |'
-            row    = clazz.new(source)
-
-            row_output        = row.to_s
-            remade_row_output = clazz.new(row_output).to_s
-
-            expect(remade_row_output).to eq(row_output)
-          end
 
           # TODO: Check other versions of Gherkin to see if cells potentially being nil is normal behavior. Update
           # row specs as needed.

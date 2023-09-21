@@ -19,11 +19,13 @@ RSpec.describe 'Background, Integration' do
          some text
          \"\"\""
   end
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -393,26 +395,6 @@ RSpec.describe 'Background, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source     = "#{BACKGROUND_KEYWORD}: A background with everything it could have
-
-                          Including a description
-                          and then some.
-
-                            #{STEP_KEYWORD} a step
-                              | value |
-                            #{STEP_KEYWORD} another step
-                              \"\"\"
-                              some string
-                              \"\"\""
-            background = clazz.new(source)
-
-            background_output        = background.to_s
-            remade_background_output = clazz.new(background_output).to_s
-
-            expect(remade_background_output).to eq(background_output)
-          end
 
           # The minimal background case
           it 'can stringify an empty background' do

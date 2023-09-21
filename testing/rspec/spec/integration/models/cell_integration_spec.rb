@@ -6,11 +6,13 @@ RSpec.describe 'Cell, Integration' do
   let(:clazz) { CukeModeler::Cell }
   let(:minimum_viable_gherkin) { '' }
   let(:maximum_viable_gherkin) { 'a cell' }
+  let(:maximal_string_input) { maximum_viable_gherkin }
 
 
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
+    it_should_behave_like 'a stringifiable model, integration'
 
   end
 
@@ -309,16 +311,6 @@ RSpec.describe 'Cell, Integration' do
       describe 'stringification' do
 
         context 'from source text' do
-
-          it 'can be remade from its own stringified output' do
-            source = 'a \\\\ complex \| cell'
-            cell   = clazz.new(source)
-
-            cell_output        = cell.to_s
-            remade_cell_output = clazz.new(cell_output).to_s
-
-            expect(remade_cell_output).to eq(cell_output)
-          end
 
           # The minimal and maximal cell case
           it 'can stringify a cell that has a value' do
