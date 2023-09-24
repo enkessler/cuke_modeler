@@ -466,7 +466,7 @@ RSpec.describe 'Rule, Integration' do
         context 'from source text' do
 
           # The minimal rule case
-          it 'can stringify an empty rule' do
+          it 'can stringify a rule that has a keyword' do
             source = ["#{RULE_KEYWORD}:"]
             source = source.join("\n")
             rule   = clazz.new(source)

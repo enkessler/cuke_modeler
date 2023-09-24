@@ -447,7 +447,7 @@ RSpec.describe 'Outline, Integration' do
         context 'from source text' do
 
           # The minimal outline case
-          it 'can stringify an empty outline' do
+          it 'can stringify an outline that has a keyword' do
             source  = ["#{OUTLINE_KEYWORD}:"]
             source  = source.join("\n")
             outline = clazz.new(source)

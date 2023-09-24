@@ -404,7 +404,7 @@ RSpec.describe 'Scenario, Integration' do
         context 'from source text' do
 
           # The minimal scenario case
-          it 'can stringify an empty scenario' do
+          it 'can stringify a scenario that has a keyword' do
             source   = ["#{SCENARIO_KEYWORD}:"]
             source   = source.join("\n")
             scenario = clazz.new(source)

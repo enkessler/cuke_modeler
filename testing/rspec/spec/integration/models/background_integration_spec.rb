@@ -397,7 +397,7 @@ RSpec.describe 'Background, Integration' do
         context 'from source text' do
 
           # The minimal background case
-          it 'can stringify an empty background' do
+          it 'can stringify a background that has a keyword' do
             source     = ["#{BACKGROUND_KEYWORD}:"]
             source     = source.join("\n")
             background = clazz.new(source)

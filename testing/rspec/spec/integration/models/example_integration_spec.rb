@@ -633,7 +633,7 @@ RSpec.describe 'Example, Integration' do
           end
 
           # The minimal example case
-          it 'can stringify an empty example' do
+          it 'can stringify an example that has a keyword' do
             source  = ["#{EXAMPLE_KEYWORD}:"]
             source  = source.join("\n")
             example = clazz.new(source)

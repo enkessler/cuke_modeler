@@ -455,7 +455,7 @@ RSpec.describe 'Feature, Integration' do
         context 'from source text' do
 
           # The minimal feature case
-          it 'can stringify an empty feature' do
+          it 'can stringify a feature that has a keyword' do
             source  = ["#{FEATURE_KEYWORD}:"]
             source  = source.join("\n")
             feature = clazz.new(source)
