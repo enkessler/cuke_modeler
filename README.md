@@ -119,11 +119,11 @@ that feature is ultimately run with SpecFlow (Cucumber for C#), Lettuce
 
 ### <a id="projects"></a>Other gems that are powered by **cuke_modeler**
 
-  * [cql](https://github.com/enkessler/cql)
-  * [cuketagger](https://github.com/enkessler/cuketagger)
-  * [cuke_cataloger](https://github.com/enkessler/cuke_cataloger)
-  * [cuke_slicer](https://github.com/grange-insurance/cuke_slicer)
-  * [cuke_linter](https://github.com/enkessler/cuke_linter)
+  * [cql](https://github.com/enkessler/cql) - A convenient DSL for querying modeled Gherkin documents
+  * [cuketagger](https://github.com/enkessler/cuketagger) - A tool for adding tags to feature files
+  * [cuke_cataloger](https://github.com/enkessler/cuke_cataloger) - Easily add uniques IDs to every test case in a suite
+  * [cuke_slicer](https://github.com/enkessler/cuke_slicer) - Break a test suite down into discrete test cases for easy parallel distribution
+  * [cuke_linter](https://github.com/enkessler/cuke_linter) - Identify common code smells in your Gherkin
 
 
 ## Development and Contributing
