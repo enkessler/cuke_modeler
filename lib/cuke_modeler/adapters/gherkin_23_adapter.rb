@@ -7,7 +7,7 @@ module CukeModeler
   # An adapter that can convert the output of version 23.x of the *cucumber-gherkin* gem into input that is consumable
   # by this gem.
 
-  class Gherkin23Adapter < Gherkin20Adapter
+  class Gherkin23Adapter < Gherkin20Adapter; end
 
-  end
+  private_constant :Gherkin23Adapter
 end

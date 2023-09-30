@@ -55,6 +55,9 @@ module CukeModeler
       end
 
 
+      private
+
+
       gherkin_version = Gem.loaded_specs['cucumber-gherkin'].version.version
       gherkin_major_version = gherkin_version.match(/^(\d+)\./)[1].to_i
 
@@ -64,8 +67,6 @@ module CukeModeler
       # rubocop:disable Lint/DuplicateMethods
       case gherkin_major_version
         when 20, 21, 22, 23, 24, 25, 26, 27
-          # TODO: make these methods private?
-          # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
             messages = Gherkin.from_source(filename,
@@ -81,8 +82,6 @@ module CukeModeler
             gherkin_ast_message.gherkin_document
           end
         when 19
-          # TODO: make these methods private?
-          # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
             messages = Gherkin.from_source(filename,
@@ -98,8 +97,6 @@ module CukeModeler
             gherkin_ast_message[:gherkinDocument]
           end
         when 13, 14, 15, 16, 17, 18
-          # TODO: make these methods private?
-          # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
             messages = Gherkin.from_source(filename,
@@ -115,8 +112,6 @@ module CukeModeler
             gherkin_ast_message[:gherkin_document]
           end
         when 12
-          # TODO: make these methods private?
-          # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
             messages = Gherkin.from_source(filename,
@@ -134,8 +129,6 @@ module CukeModeler
             gherkin_ast_message[:gherkin_document]
           end
         when 9, 10, 11
-          # TODO: make these methods private?
-          # NOT A PART OF THE PUBLIC API
           # The method to use for parsing Gherkin text
           def parsing_method(source_text, filename)
             messages = Gherkin.from_source(filename,
@@ -155,7 +148,6 @@ module CukeModeler
       end
       # rubocop:enable Lint/DuplicateMethods
 
-      # NOT A PART OF THE PUBLIC API
       # The adapter to use when converting an AST to a standard internal shape
       define_method('adapter_class') do
         CukeModeler.const_get("Gherkin#{gherkin_major_version}Adapter")

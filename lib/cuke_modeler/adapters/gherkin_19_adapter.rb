@@ -58,4 +58,6 @@ module CukeModeler
     end
 
   end
+
+  private_constant :Gherkin19Adapter
 end

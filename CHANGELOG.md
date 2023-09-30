@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
+### Changed
+ - Finally made various parts of the codebase private in the Ruby sense of the word instead of only 
+   being marked as private by comments. Not a breaking change because the stuff was already declared to 
+   be not part of the public API.
 
 
 ## [3.20.0] - 2023-9-21

@@ -371,6 +371,8 @@ module CukeModeler
     end
 
   end
+
+  private_constant :Gherkin9Adapter
 end
 
 # rubocop:enable Metrics/ClassLength, Metrics/AbcSize, Metrics/MethodLength

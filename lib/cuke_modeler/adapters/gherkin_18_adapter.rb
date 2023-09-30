@@ -21,4 +21,6 @@ module CukeModeler
     end
 
   end
+
+  private_constant :Gherkin18Adapter
 end
