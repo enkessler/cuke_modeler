@@ -1,10 +1,12 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
-  # A mix-in module containing methods used by models that represent an element that has steps.
+  # @api private
+  #
+  # A mix-in module containing methods used by models that represent an element that has steps. Internal helper class.
   module Stepped
 
-
+    # @api
+    #
     # The step models contained by this model
     attr_accessor :steps
 

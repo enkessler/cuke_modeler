@@ -1,7 +1,8 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
-  # A class providing some basic and common adapter functionality.
+  # @api private
+  #
+  # A class providing some basic and common adapter functionality. Internal helper class.
   class GherkinBaseAdapter
 
     private

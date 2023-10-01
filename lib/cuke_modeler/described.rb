@@ -1,9 +1,13 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
-  # A mix-in module containing methods used by models that represent an element that has a description.
+  # @api private
+  #
+  # A mix-in module containing methods used by models that represent an element that has a
+  # description. Internal helper class.
   module Described
 
+    # @api
+    #
     # The description of the element
     attr_accessor :description
 

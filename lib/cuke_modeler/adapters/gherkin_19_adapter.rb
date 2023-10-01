@@ -3,9 +3,10 @@ require_relative 'gherkin_18_adapter'
 
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
+  # @api private
+  #
   # An adapter that can convert the output of version 19.x of the *cucumber-gherkin* gem into input that is consumable
-  # by this gem.
+  # by this gem. Internal helper class.
   class Gherkin19Adapter < Gherkin18Adapter
 
     # Adapts the AST sub-tree that is rooted at the given step node.

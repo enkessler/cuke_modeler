@@ -3,12 +3,15 @@
 
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
-  # A mix-in module containing methods used by models that contain other models.
+  # @api private
+  #
+  # A mix-in module containing methods used by models that contain other models. Internal helper class.
   module Containing
 
     include Enumerable
 
+    # @api
+    #
     # Executes the given code block with this model and every model that is a child of this model. Exact
     # order of model tree traversal is not guaranteed beyond the first model traversed, which will be the
     # model that called this method. If no block is provided, an `Enumerator` is returned instead.
@@ -21,6 +24,8 @@ module CukeModeler
       end
     end
 
+    # @api
+    #
     # Executes the given code block with every model that is a child of this model.
     # DEPRECATED: use `Enumerable` module methods instead
     def each_descendant(&block)
@@ -30,6 +35,8 @@ module CukeModeler
       end
     end
 
+    # @api
+    #
     # Executes the given code block with this model and every model that is a child of this model.
     # DEPRECATED: use `Enumerable` module methods instead
     def each_model(&block)

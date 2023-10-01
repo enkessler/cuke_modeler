@@ -1,14 +1,19 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
+  # @api private
+  #
   # A mix-in module containing methods used by models that are nested inside
-  # of other models.
+  # of other models. Internal helper class.
   module Nested
 
+    # @api
+    #
     # The parent model that contains this model
     attr_accessor :parent_model
 
 
+    # @api
+    #
     # Returns the ancestor model of this model that matches the given type.
     def get_ancestor(ancestor_type)
       target_classes = classes_for_type(ancestor_type)

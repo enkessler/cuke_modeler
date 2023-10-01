@@ -1,9 +1,12 @@
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
-  # A mix-in module containing methods used by models that represent an element that has a name.
+  # @api private
+  #
+  # A mix-in module containing methods used by models that represent an element that has a name. Internal helper class.
   module Named
 
+    # @api
+    #
     # The name of the element
     attr_accessor :name
 

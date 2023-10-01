@@ -5,9 +5,10 @@ require_relative 'gherkin_base_adapter'
 
 module CukeModeler
 
-  # NOT A PART OF THE PUBLIC API
+  # @api private
+  #
   # An adapter that can convert the output of version 9.x of the *cucumber-gherkin* gem into input that is consumable
-  # by this gem.
+  # by this gem. Internal helper class.
   class Gherkin9Adapter < GherkinBaseAdapter
 
     # Adapts the given AST into the shape that this gem expects
