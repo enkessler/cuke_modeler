@@ -25,9 +25,9 @@ module CukeModeler
     end
 
     # @api
+    # @deprecated Use `Enumerable` module methods instead
     #
     # Executes the given code block with every model that is a child of this model.
-    # DEPRECATED: use `Enumerable` module methods instead
     def each_descendant(&block)
       children.each do |child_model|
         block.call(child_model)
@@ -36,9 +36,9 @@ module CukeModeler
     end
 
     # @api
+    # @deprecated Use `Enumerable` module methods instead
     #
     # Executes the given code block with this model and every model that is a child of this model.
-    # DEPRECATED: use `Enumerable` module methods instead
     def each_model(&block)
       block.call(self)
 

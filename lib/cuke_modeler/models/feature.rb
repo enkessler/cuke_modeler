@@ -58,8 +58,10 @@ module CukeModeler
       @tests.select { |test| test.is_a? Outline }
     end
 
-    # TODO: Remove this method on next major version release
-    # DEPRECATED
+    # TODO: Remove this and other deprecated methods on next major version release
+
+    # @deprecated See CHANGELOG
+    #
     # Returns the number of test cases contained in the feature. A test case is a
     # single set of test values, such as an individual scenario or one example row
     # of an outline.
