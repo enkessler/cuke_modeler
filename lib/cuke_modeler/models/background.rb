@@ -17,6 +17,12 @@ module CukeModeler
 
     # Creates a new Background object and, if *source_text* is provided, populates
     # the object.
+    #
+    # @example
+    #   Background.new
+    #   Background.new("Background:\n  * a step")
+    #
+    # @param (see Model#initialize)
     def initialize(source_text = nil)
       @steps = []
 

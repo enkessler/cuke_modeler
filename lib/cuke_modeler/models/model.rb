@@ -6,9 +6,22 @@ module CukeModeler
     include Nested
     include Containing
 
+    # TODO: add @example tags to other methods
+    # TODO: add @option/param tags to other methods
+    # TODO: add @raise tags to other methods
+    # TODO: add @return tags to other methods
+    # TODO: add @yield/@yieldparam/@yieldreturn tags to other methods
 
     # Creates a new Model object and, if *source_text* is provided,
-    # populates the object.
+    # populates the object. For the base model class, there is nothing
+    # to populate.
+    #
+    # @example
+    #   Model.new
+    #   Model.new('some valid Gherkin')
+    #
+    # @param source_text [String] The Gherkin string that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
     def initialize(source_text = nil)
       error_message = "Can only create models from Strings but was given a #{source_text.class}."
       raise(ArgumentError, error_message) if source_text && !source_text.is_a?(String)

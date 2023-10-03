@@ -14,6 +14,12 @@ module CukeModeler
 
     # Creates a new Cell object and, if *source_text* is provided, populates
     # the object.
+    #
+    # @example
+    #   Cell.new
+    #   Cell.new('some value')
+    #
+    # @param (see Model#initialize)
     def initialize(source_text = nil)
       super(source_text)
 
