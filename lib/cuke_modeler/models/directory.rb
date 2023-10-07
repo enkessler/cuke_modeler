@@ -16,18 +16,18 @@ module CukeModeler
 
     # Creates a new Directory object and, if *directory_path* is provided,
     # populates the object.
+    #
+    # @example
+    #   Directory.new
+    #   Directory.new('some/directory/path')
+    #
+    # @param directory_path [String] The directory path that will be used to populate the model
     def initialize(directory_path = nil)
       @path = directory_path
       @feature_files = []
       @directories = []
 
       super(directory_path)
-
-      return unless directory_path
-      raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exist?(directory_path)
-
-      processed_directory_data = process_directory(directory_path)
-      populate_directory(self, processed_directory_data)
     end
 
     # Returns the name of the modeled directory.
@@ -60,6 +60,12 @@ module CukeModeler
     private
 
 
+    def process_source(directory_path)
+      raise(ArgumentError, "Unknown directory: #{directory_path.inspect}") unless File.exist?(directory_path)
+
+      process_directory(directory_path)
+    end
+
     def process_directory(directory_path)
       directory_data = { 'path'          => directory_path,
                          'directories'   => [],
@@ -89,6 +95,18 @@ module CukeModeler
       feature_file_data = Parsing.parse_text(source_text, file_path)
 
       feature_file_data.merge({ 'path' => file_path })
+    end
+
+    def populate_model(processed_directory_data)
+      @path = processed_directory_data['path']
+
+      processed_directory_data['directories'].each do |directory_data|
+        @directories << build_child_model(Directory, directory_data)
+      end
+
+      processed_directory_data['feature_files'].each do |feature_file_data|
+        @feature_files << build_child_model(FeatureFile, feature_file_data)
+      end
     end
 
   end

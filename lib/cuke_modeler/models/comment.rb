@@ -16,11 +16,6 @@ module CukeModeler
     # object.
     def initialize(source_text = nil)
       super(source_text)
-
-      return unless source_text
-
-      parsed_comment_data = parse_source(source_text)
-      populate_comment(self, parsed_comment_data)
     end
 
     # Returns a string representation of this model. For a comment model,
@@ -42,13 +37,23 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "\n#{dialect_feature_keyword}: Fake feature to parse"
       source_text = "# language: #{Parsing.dialect}\n" + source_text + base_file_string
 
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_comment.feature')
 
       parsed_file['comments'].last
+    end
+
+    def populate_model(processed_comment_data)
+      populate_comment_text(processed_comment_data)
+      populate_parsing_data(processed_comment_data)
+      populate_source_location(processed_comment_data)
+    end
+
+    def populate_comment_text(parsed_comment_data)
+      @text = parsed_comment_data['text'].strip
     end
 
   end

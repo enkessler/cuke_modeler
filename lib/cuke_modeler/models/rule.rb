@@ -28,11 +28,6 @@ module CukeModeler
       @tests = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_rule_data = parse_source(source_text)
-      populate_rule(self, parsed_rule_data)
     end
 
     # Returns *true* if the rule contains a background, *false* otherwise.
@@ -87,13 +82,23 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_rule.feature')
 
       parsed_file['feature']['elements'].first
+    end
+
+    def populate_model(parsed_rule_data)
+      populate_parsing_data(parsed_rule_data)
+      populate_source_location(parsed_rule_data)
+      populate_keyword(parsed_rule_data)
+      populate_name(parsed_rule_data)
+      populate_description(parsed_rule_data)
+      populate_tags(parsed_rule_data)
+      populate_children(parsed_rule_data)
     end
 
     def background_output_string

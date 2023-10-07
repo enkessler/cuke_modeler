@@ -14,8 +14,8 @@ module CukeModeler
     private
 
 
-    def populate_parsing_data(model, parsed_model_data)
-      model.parsing_data = parsed_model_data['cuke_modeler_parsing_data']
+    def populate_parsing_data(parsed_model_data)
+      @parsing_data = parsed_model_data['cuke_modeler_parsing_data']
     end
 
   end

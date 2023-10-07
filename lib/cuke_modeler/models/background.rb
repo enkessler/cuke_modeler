@@ -22,16 +22,11 @@ module CukeModeler
     #   Background.new
     #   Background.new("Background:\n  * a step")
     #
-    # @param (see Model#initialize)
+    # @param source_text [String] The Gherkin text that will be used to populate the model
     def initialize(source_text = nil)
       @steps = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_background_data = parse_source(source_text)
-      populate_background(self, parsed_background_data)
     end
 
     # Returns *true* if the two models have equivalent steps and *false* otherwise.
@@ -73,13 +68,22 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}\n#{dialect_feature_keyword}: Fake feature to parse\n"
       source_text = base_file_string + source_text
 
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_background.feature')
 
       parsed_file['feature']['elements'].first
+    end
+
+    def populate_model(parsed_background_data)
+      populate_parsing_data(parsed_background_data)
+      populate_keyword(parsed_background_data)
+      populate_name(parsed_background_data)
+      populate_description(parsed_background_data)
+      populate_source_location(parsed_background_data)
+      populate_steps(parsed_background_data)
     end
 
   end

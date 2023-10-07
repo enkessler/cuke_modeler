@@ -23,12 +23,6 @@ module CukeModeler
       @comments = []
 
       super(file_path)
-
-      return unless file_path
-      raise(ArgumentError, "Unknown file: #{file_path.inspect}") unless File.exist?(file_path)
-
-      processed_feature_file_data = process_feature_file(file_path)
-      populate_featurefile(self, processed_feature_file_data)
     end
 
     # Returns the name of the modeled feature file.
@@ -60,12 +54,26 @@ module CukeModeler
 
     private
 
+    def process_source(file_path)
+      raise(ArgumentError, "Unknown file: #{file_path.inspect}") unless File.exist?(file_path)
 
-    def process_feature_file(file_path)
-      source_text = File.read(file_path)
+      source_text       = File.read(file_path)
       feature_file_data = Parsing.parse_text(source_text, file_path)
 
       feature_file_data.merge({ 'path' => file_path })
+    end
+
+    def populate_model(processed_feature_file_data)
+      populate_parsing_data(processed_feature_file_data)
+      @path = processed_feature_file_data['path']
+
+      if processed_feature_file_data['feature']
+        @feature = build_child_model(Feature, processed_feature_file_data['feature'])
+      end
+
+      processed_feature_file_data['comments'].each do |comment_data|
+        @comments << build_child_model(Comment, comment_data)
+      end
     end
 
   end

@@ -28,11 +28,6 @@ module CukeModeler
       @rows = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_example_data = parse_source(source_text)
-      populate_example(self, parsed_example_data)
     end
 
     # Adds a row to the example table. The row can be given as a Hash of
@@ -131,7 +126,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}: Fake feature to parse
                             #{dialect_outline_keyword}:
@@ -141,6 +136,22 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_example.feature')
 
       parsed_file['feature']['elements'].first['examples'].first
+    end
+
+    def populate_model(parsed_example_data)
+      populate_parsing_data(parsed_example_data)
+      populate_keyword(parsed_example_data)
+      populate_source_location(parsed_example_data)
+      populate_name(parsed_example_data)
+      populate_description(parsed_example_data)
+      populate_tags(parsed_example_data)
+      populate_example_rows(parsed_example_data)
+    end
+
+    def populate_example_rows(parsed_example_data)
+      parsed_example_data['rows'].each do |row_data|
+        @rows << build_child_model(Row, row_data)
+      end
     end
 
     def determine_buffer_size(index)

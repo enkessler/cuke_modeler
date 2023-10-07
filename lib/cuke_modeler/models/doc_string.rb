@@ -19,11 +19,6 @@ module CukeModeler
     # the object.
     def initialize(source_text = nil)
       super(source_text)
-
-      return unless source_text
-
-      parsed_doc_string_data = parse_source(source_text)
-      populate_docstring(self, parsed_doc_string_data)
     end
 
     # Returns a string representation of this model. For a doc string model,
@@ -48,7 +43,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}:
                             #{dialect_scenario_keyword}:
@@ -58,6 +53,21 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_doc_string.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['doc_string']
+    end
+
+    def populate_model(parsed_doc_string_data)
+      populate_content_type(parsed_doc_string_data)
+      populate_content(parsed_doc_string_data)
+      populate_parsing_data(parsed_doc_string_data)
+      populate_source_location(parsed_doc_string_data)
+    end
+
+    def populate_content_type(parsed_doc_string_data)
+      @content_type = parsed_doc_string_data['content_type']
+    end
+
+    def populate_content(parsed_doc_string_data)
+      @content = parsed_doc_string_data['value']
     end
 
     def content_type_output_string

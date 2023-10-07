@@ -18,8 +18,8 @@ module CukeModeler
       name.nil? || name.empty? ? '' : " #{name}"
     end
 
-    def populate_name(model, parsed_model_data)
-      model.name = parsed_model_data['name']
+    def populate_name(parsed_model_data)
+      @name = parsed_model_data['name']
     end
 
   end

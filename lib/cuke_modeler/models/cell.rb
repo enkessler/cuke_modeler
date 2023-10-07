@@ -19,14 +19,9 @@ module CukeModeler
     #   Cell.new
     #   Cell.new('some value')
     #
-    # @param (see Model#initialize)
+    # @param source_text [String] The Gherkin text that will be used to populate the model
     def initialize(source_text = nil)
       super(source_text)
-
-      return unless source_text
-
-      parsed_cell_data = parse_source(source_text)
-      populate_cell(self, parsed_cell_data)
     end
 
     # Returns a string representation of this model. For a cell model,
@@ -49,7 +44,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}: Fake feature to parse
                             #{dialect_scenario_keyword}:
@@ -59,6 +54,16 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_cell.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['table']['rows'].first['cells'].first
+    end
+
+    def populate_model(parsed_cell_data)
+      populate_cell_value(parsed_cell_data)
+      populate_source_location(parsed_cell_data)
+      populate_parsing_data(parsed_cell_data)
+    end
+
+    def populate_cell_value(parsed_cell_data)
+      @value = parsed_cell_data['value']
     end
 
   end

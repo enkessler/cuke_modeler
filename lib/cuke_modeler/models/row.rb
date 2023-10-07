@@ -17,11 +17,6 @@ module CukeModeler
       @cells = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_row_data = parse_source(source_text)
-      populate_row(self, parsed_row_data)
     end
 
     # Returns the model objects that belong to this model.
@@ -52,7 +47,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}: Fake feature to parse
                             #{dialect_scenario_keyword}:
@@ -62,6 +57,18 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_row.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['table']['rows'].first
+    end
+
+    def populate_model(parsed_row_data)
+      populate_source_location(parsed_row_data)
+      populate_row_cells(parsed_row_data)
+      populate_parsing_data(parsed_row_data)
+    end
+
+    def populate_row_cells(parsed_row_data)
+      parsed_row_data['cells'].each do |cell_data|
+        @cells << build_child_model(Cell, cell_data)
+      end
     end
 
   end

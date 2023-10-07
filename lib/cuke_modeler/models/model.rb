@@ -18,15 +18,18 @@ module CukeModeler
     #
     # @example
     #   Model.new
-    #   Model.new('some valid Gherkin')
+    #   Model.new('some source text')
     #
-    # @param source_text [String] The Gherkin string that will be used to populate the model
+    # @param source_text [String] The string that will be used to populate the model
     # @raise [ArgumentError] If *source_text* is not a String
     def initialize(source_text = nil)
       error_message = "Can only create models from Strings but was given a #{source_text.class}."
       raise(ArgumentError, error_message) if source_text && !source_text.is_a?(String)
 
-      # This should be overridden by a child class
+      return unless source_text
+
+      source_data = process_source(source_text)
+      populate_model(source_data)
     end
 
     # It's a lazy implementation but it's mandatory for the class to define this method

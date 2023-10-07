@@ -35,11 +35,11 @@ module CukeModeler
       tags.map(&:name).join(' ')
     end
 
-    def populate_tags(model, parsed_model_data)
+    def populate_tags(parsed_model_data)
       return unless parsed_model_data['tags']
 
       parsed_model_data['tags'].each do |tag|
-        model.tags << build_child_model(Tag, tag)
+        @tags << build_child_model(Tag, tag)
       end
     end
 

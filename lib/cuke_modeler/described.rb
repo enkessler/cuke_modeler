@@ -32,8 +32,8 @@ module CukeModeler
       description.nil? || description.empty?
     end
 
-    def populate_description(model, parsed_model_data)
-      model.description = trimmed_description(parsed_model_data['description'])
+    def populate_description(parsed_model_data)
+      @description = trimmed_description(parsed_model_data['description'])
     end
 
     def trimmed_description(description)

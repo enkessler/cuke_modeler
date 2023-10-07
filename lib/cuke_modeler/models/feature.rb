@@ -34,11 +34,6 @@ module CukeModeler
       @tests = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_feature_data = parse_source(source_text)
-      populate_feature(self, parsed_feature_data)
     end
 
     # Returns *true* if the feature contains a background, *false* otherwise.
@@ -114,10 +109,25 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_feature.feature')
 
       parsed_file['feature']
+    end
+
+    def populate_model(parsed_feature_data)
+      populate_parsing_data(parsed_feature_data)
+      populate_source_location(parsed_feature_data)
+      populate_language(parsed_feature_data)
+      populate_keyword(parsed_feature_data)
+      populate_name(parsed_feature_data)
+      populate_description(parsed_feature_data)
+      populate_tags(parsed_feature_data)
+      populate_children(parsed_feature_data)
+    end
+
+    def populate_language(parsed_feature_data)
+      @language = parsed_feature_data['language']
     end
 
     def background_output_string

@@ -16,11 +16,6 @@ module CukeModeler
     # object.
     def initialize(source_text = nil)
       super(source_text)
-
-      return unless source_text
-
-      parsed_tag_data = parse_source(source_text)
-      populate_tag(self, parsed_tag_data)
     end
 
     # Returns a string representation of this model. For a tag model,
@@ -42,7 +37,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "\n#{dialect_feature_keyword}: Fake feature to parse"
       source_text = "# language: #{Parsing.dialect}\n" + source_text + base_file_string
 
@@ -51,8 +46,15 @@ module CukeModeler
       parsed_file['feature']['tags'].first
     end
 
-    def populate_name(model, parsed_model_data)
-      model.name = parsed_model_data['name']
+    def populate_model(processed_tag_data)
+      populate_name(processed_tag_data)
+      populate_parsing_data(processed_tag_data)
+      populate_source_location(processed_tag_data)
+    end
+
+    # TODO: Use Named mix-in module
+    def populate_name(parsed_model_data)
+      @name = parsed_model_data['name']
     end
 
   end

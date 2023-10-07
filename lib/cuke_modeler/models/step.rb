@@ -22,11 +22,6 @@ module CukeModeler
     # object.
     def initialize(source_text = nil)
       super(source_text)
-
-      return unless source_text
-
-      parsed_step_data = parse_source(source_text)
-      populate_step(self, parsed_step_data)
     end
 
     # Returns *true* if the two steps have the same base text (i.e. minus any keyword,
@@ -66,7 +61,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}: Fake feature to parse
                             #{dialect_scenario_keyword}:\n"
@@ -75,6 +70,26 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_step.feature')
 
       parsed_file['feature']['elements'].first['steps'].first
+    end
+
+    def populate_model(parsed_step_data)
+      populate_text(parsed_step_data)
+      populate_block(parsed_step_data)
+      populate_keyword(parsed_step_data)
+      populate_source_location(parsed_step_data)
+      populate_parsing_data(parsed_step_data)
+    end
+
+    def populate_text(parsed_step_data)
+      @text = parsed_step_data['name']
+    end
+
+    def populate_block(parsed_step_data)
+      @block = if parsed_step_data['table']
+                 build_child_model(Table, parsed_step_data['table'])
+               elsif parsed_step_data['doc_string']
+                 build_child_model(DocString, parsed_step_data['doc_string'])
+               end
     end
 
     def text_matches?(other_step)

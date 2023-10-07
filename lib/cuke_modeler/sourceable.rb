@@ -20,9 +20,9 @@ module CukeModeler
     private
 
 
-    def populate_source_location(model, parsed_model_data)
-      model.source_line = parsed_model_data['line']
-      model.source_column = parsed_model_data['column']
+    def populate_source_location(parsed_model_data)
+      @source_line = parsed_model_data['line']
+      @source_column = parsed_model_data['column']
     end
 
   end

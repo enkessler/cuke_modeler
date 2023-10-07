@@ -18,11 +18,6 @@ module CukeModeler
       @rows = []
 
       super(source_text)
-
-      return unless source_text
-
-      parsed_table_data = parse_source(source_text)
-      populate_table(self, parsed_table_data)
     end
 
     # Returns the model objects that belong to this model.
@@ -51,7 +46,7 @@ module CukeModeler
     private
 
 
-    def parse_source(source_text)
+    def process_source(source_text)
       base_file_string = "# language: #{Parsing.dialect}
       #{dialect_feature_keyword}:
                             #{dialect_scenario_keyword}:
@@ -61,6 +56,18 @@ module CukeModeler
       parsed_file = Parsing.parse_text(source_text, 'cuke_modeler_stand_alone_table.feature')
 
       parsed_file['feature']['elements'].first['steps'].first['table']
+    end
+
+    def populate_model(parsed_table_data)
+      populate_row_models(parsed_table_data)
+      populate_parsing_data(parsed_table_data)
+      populate_source_location(parsed_table_data)
+    end
+
+    def populate_row_models(parsed_table_data)
+      parsed_table_data['rows'].each do |row_data|
+        @rows << build_child_model(Row, row_data)
+      end
     end
 
     def row_output_string(row)
