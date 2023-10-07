@@ -15,7 +15,6 @@ RSpec.describe 'Table, Integration' do
   describe 'common behavior' do
 
     it_should_behave_like 'a model, integration'
-    it_should_behave_like 'a stringifiable model, integration'
 
   end
 

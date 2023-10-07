@@ -20,6 +20,26 @@ RSpec.describe 'Model, Unit' do
       expect(model.children).to be_empty
     end
 
+    describe 'model population' do
+
+      context 'from source text' do
+
+        describe 'edge cases' do
+
+          # The base model class doesn't represent anything specific, so what it does with its string input
+          # is inherently undefined and just needs to not explode
+
+          # The minimal model case
+          it 'can be instantiated with string input' do
+            expect { clazz.new('some string') }.to_not raise_error
+          end
+
+        end
+
+      end
+
+    end
+
 
     describe 'model output' do
 
@@ -44,7 +64,7 @@ RSpec.describe 'Model, Unit' do
 
           describe 'edge cases' do
 
-            # The base model class isn't meant to be used directly, so any stringified output
+            # The base model class doesn't represent anything specific, so any stringified output
             # is inherently undefined and just needs to not explode
 
             # The minimal model case

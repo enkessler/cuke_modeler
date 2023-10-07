@@ -37,7 +37,6 @@ module CukeModeler
 
     # Returns a string representation of this model.
     def to_s
-      # This should be overridden by a child class
       super
     end
 
@@ -54,6 +53,18 @@ module CukeModeler
       return super() if verbose
 
       "#<#{self.class.name}:#{object_id}>"
+    end
+
+
+    private
+
+
+    def process_source(source_text)
+      # No-op
+    end
+
+    def populate_model(model_data)
+      # No-op
     end
 
   end

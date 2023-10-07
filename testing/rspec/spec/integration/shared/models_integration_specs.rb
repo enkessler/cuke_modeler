@@ -7,6 +7,12 @@ shared_examples_for 'a model, integration' do
   let(:model) { clazz.new }
 
 
+  describe 'common behavior' do
+
+    it_should_behave_like 'a stringifiable model, integration'
+
+  end
+
   describe 'unique behavior' do
 
     it 'inherits from the common model class' do
