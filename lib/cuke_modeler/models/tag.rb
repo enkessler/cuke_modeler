@@ -6,10 +6,7 @@ module CukeModeler
     include Parsing
     include Parsed
     include Sourceable
-
-
-    # The name of the tag
-    attr_accessor :name
+    include Named
 
 
     # Creates a new Tag object and, if *source_text* is provided, populates the
@@ -50,11 +47,6 @@ module CukeModeler
       populate_name(processed_tag_data)
       populate_parsing_data(processed_tag_data)
       populate_source_location(processed_tag_data)
-    end
-
-    # TODO: Use Named mix-in module
-    def populate_name(parsed_model_data)
-      @name = parsed_model_data['name']
     end
 
   end
