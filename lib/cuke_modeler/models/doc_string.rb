@@ -17,12 +17,25 @@ module CukeModeler
 
     # Creates a new DocString object and, if *source_text* is provided, populates
     # the object.
+    #
+    # @example
+    #   DocString.new
+    #   DocString.new("\"\"\" some_type\n  foo\n\"\"\"")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [DocString] A new DocString instance
     def initialize(source_text = nil)
       super(source_text)
     end
 
     # Returns a string representation of this model. For a doc string model,
     # this will be Gherkin text that is equivalent to the doc string being modeled.
+    #
+    # @example
+    #   doc_string.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = "\"\"\"#{content_type_output_string}\n"
       text << content_output_string
@@ -32,7 +45,16 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a doc string model, this will be the content of
-    # the doc string.
+    # the doc string. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   doc_string.inspect
+    #   doc_string.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
