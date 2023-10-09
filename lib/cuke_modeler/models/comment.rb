@@ -14,12 +14,25 @@ module CukeModeler
 
     # Creates a new Comment object and, if *source_text* is provided, populates the
     # object.
+    #
+    # @example
+    #   Comment.new
+    #   Comment.new('# A comment')
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Comment] A new Comment instance
     def initialize(source_text = nil)
       super(source_text)
     end
 
     # Returns a string representation of this model. For a comment model,
     # this will be Gherkin text that is equivalent to the comment being modeled.
+    #
+    # @example
+    #   comment.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text || ''
     end
@@ -27,6 +40,15 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a comment model, this will be the text of the comment.
+    # If *verbose* is true, provides default Ruby inspection behavior instead.
+    #
+    # @example
+    #   comment.inspect
+    #   comment.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
