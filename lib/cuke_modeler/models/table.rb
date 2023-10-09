@@ -14,19 +14,38 @@ module CukeModeler
 
     # Creates a new Table object and, if *source_text* is provided, populates
     # the object.
+    #
+    # @example
+    #   Table.new
+    #   Table.new("|value_1|value_2|\n|value_3|value_4|")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Table] A new Table instance
     def initialize(source_text = nil)
       @rows = []
 
       super(source_text)
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Table model, these would be any associated Row models.
+    #
+    # @example
+    #   table.children
+    #
+    # @return [Array<Model>] A collection of child models
     def children
       rows
     end
 
     # Returns a string representation of this model. For a table model,
     # this will be Gherkin text that is equivalent to the table being modeled.
+    #
+    # @example
+    #   table.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       rows.empty? ? '' : rows.collect { |row| row_output_string(row) }.join("\n")
     end
@@ -34,6 +53,16 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a table model, this will be the rows of the table.
+    # If *verbose* is true, provides default Ruby inspection behavior
+    # instead.
+    #
+    # @example
+    #   table.inspect
+    #   table.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
