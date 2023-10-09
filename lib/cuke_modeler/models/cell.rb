@@ -20,12 +20,19 @@ module CukeModeler
     #   Cell.new('some value')
     #
     # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Cell] A new Cell instance
     def initialize(source_text = nil)
       super(source_text)
     end
 
     # Returns a string representation of this model. For a cell model,
     # this will be Gherkin text that is equivalent to the cell being modeled.
+    #
+    # @example
+    #   cell.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       # Vertical bars and backslashes are special characters that need to be escaped
       @value ? @value.gsub('\\', '\\\\\\').gsub('|', '\|') : ''
@@ -33,7 +40,17 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a cell model, this will be the value of the cell.
+    # attribute. For a cell model, this will be the value of the
+    # cell. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   cell.inspect
+    #   cell.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
