@@ -22,6 +22,8 @@ module CukeModeler
     #   Directory.new('some/directory/path')
     #
     # @param directory_path [String] The directory path that will be used to populate the model
+    # @raise [ArgumentError] If *directory_path* is not a String
+    # @return [Directory] A new Directory instance
     def initialize(directory_path = nil)
       @path = directory_path
       @feature_files = []
@@ -31,17 +33,35 @@ module CukeModeler
     end
 
     # Returns the name of the modeled directory.
+    #
+    # @example
+    #   d = Directory.new('some/directory/foo')
+    #   d.name  #=> 'foo'
+    #
+    # @return [String] The name of the directory
     def name
       File.basename(@path.gsub('\\', '/')) if @path
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Directory model, these would be any associated Directory and FeatureFile
+    # models.
+    #
+    # @example
+    #   directory.children
+    #
+    # @return [Array<Model>] A collection of child models
     def children
       @feature_files + @directories
     end
 
-    # Returns a string representation of this model. For a directory
+    # Returns a string representation of this model. For a Directory
     # model, this will be the path of the modeled directory.
+    #
+    # @example
+    #   directory.to_s #=> 'some/directory/path'
+    #
+    # @return [String] A string representation of this model
     def to_s
       path.to_s
     end
@@ -49,7 +69,16 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a directory model, this will be the path of the
-    # directory.
+    # directory. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   directory.inspect
+    #   directory.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
