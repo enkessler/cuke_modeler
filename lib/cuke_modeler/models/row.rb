@@ -13,19 +13,38 @@ module CukeModeler
 
     # Creates a new Row object and, if *source_text* is provided, populates
     # the object.
+    #
+    # @example
+    #   Row.new
+    #   Row.new('|value_1|value_2|')
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Row] A new Row instance
     def initialize(source_text = nil)
       @cells = []
 
       super(source_text)
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Row model, these would be any associated Cell models.
+    #
+    # @example
+    #   row.children
+    #
+    # @return [Array<Model>] A collection of child models
     def children
       @cells
     end
 
     # Returns a string representation of this model. For a row model,
     # this will be Gherkin text that is equivalent to the row being modeled.
+    #
+    # @example
+    #   row.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text_cells = cells.map(&:to_s)
 
@@ -35,6 +54,16 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For a row model, this will be the cells of the row.
+    # If *verbose* is true, provides default Ruby inspection behavior
+    # instead.
+    #
+    # @example
+    #   row.inspect
+    #   row.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
