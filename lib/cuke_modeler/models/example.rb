@@ -23,6 +23,14 @@ module CukeModeler
 
     # Creates a new Example object and, if *source_text* is provided,
     # populates the object.
+    #
+    # @example
+    #   Example.new
+    #   Example.new("|param_1|param_2|\n|value_1|value_2|")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Example] A new Example instance
     def initialize(source_text = nil)
       @tags = []
       @rows = []
@@ -30,9 +38,20 @@ module CukeModeler
       super(source_text)
     end
 
+    # TODO: Deprecate using symbol keys in a Hash
+
     # Adds a row to the example table. The row can be given as a Hash of
     # parameters and their corresponding values or as an Array of values which
     # will be assigned in order.
+    #
+    # @example
+    #   example.add_row({'param1' => 'value1', 'param2' => 'value2'})
+    #   example.add_row({param1: 'value1', param2: 'value2'})
+    #   example.add_row(['value1', 'value2'])
+    #
+    # @param row [Hash, Array<String>] The the cell values to use for the added row
+    # @raise [ArgumentError] If *row* is not a Hash or Array
+    # @raise [Exception] If the model has no initial parameter row
     def add_row(row)
       raise('Cannot add a row. No parameters have been set.') if rows.empty?
 
@@ -53,42 +72,74 @@ module CukeModeler
       @rows << Row.new("|#{values.join('|')}|")
     end
 
+    # TODO: Add exception if using symbol keys in a Hash
+
     # Removes a row from the example table. The row can be given as a Hash of
     # parameters and their corresponding values or as an Array of values
     # which will be assigned in order.
-    def remove_row(row_removed)
+    #
+    # @example
+    #   example.remove_row({'param1' => 'value1', 'param2' => 'value2'})
+    #   example.remove_row(['value1', 'value2'])
+    #
+    # @param row [Hash, Array<String>] The the cell values to use for the added row
+    # @raise [ArgumentError] If *row* is not a Hash or Array
+    def remove_row(row)
       return if argument_rows.empty?
 
-      values = if row_removed.is_a?(Array)
-                 row_removed
-               elsif row_removed.is_a?(Hash)
+      values = if row.is_a?(Array)
+                 row
+               elsif row.is_a?(Hash)
                  # There is no guarantee that the user built up their hash with the keys in the same order as
                  # the parameter row and so the values have to be ordered by us.
-                 ordered_row_values(row_removed)
+                 ordered_row_values(row)
                else
-                 raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row_removed.class}")
+                 raise(ArgumentError, "Can only remove row from a Hash or an Array but received #{row.class}")
                end
 
       location = index_for_values(values.map(&:to_s).map(&:strip))
       @rows.delete_at(location + 1) if location
     end
 
-    # The argument rows in the example table
+    # Returns the Row models associated with the argument rows
+    # in the example table
+    #
+    # @example
+    #   example.argument_rows
+    #
+    # @return [Array<Row>] The argument row models
     def argument_rows
       rows[1..rows.count] || []
     end
 
-    # The parameter row for the example table
+    # Returns the Row model associated with the parameter row
+    # in the example table
+    #
+    # @example
+    #   example.parameter_row
+    #
+    # @return [Row, nil] The parameter row model
     def parameter_row
       rows.first
     end
 
     # Returns the parameters of the example table
+    #
+    # @example
+    #   example.parameters #=> ['param_1', 'param_2']
+    #
+    # @return [Array<String>] The parameters
     def parameters
       parameter_row ? parameter_row.cells.map(&:value) : []
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For an
+    # Example model, these would be any associated Row or Tag models.
+    #
+    # @example
+    #   example.children
+    #
+    # @return [Array<Row, Tag>] A collection of child models
     def children
       rows + tags
     end
@@ -96,8 +147,13 @@ module CukeModeler
     # Building strings just isn't pretty
     # rubocop:disable Metrics/AbcSize
 
-    # Returns a string representation of this model. For an example model,
+    # Returns a string representation of this model. For an Example model,
     # this will be Gherkin text that is equivalent to the example being modeled.
+    #
+    # @example
+    #   example.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = ''
 
@@ -116,6 +172,16 @@ module CukeModeler
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
     # attribute. For an example model, this will be the name of the example.
+    # If *verbose* is true, provides default Ruby inspection behavior
+    # instead.
+    #
+    # @example
+    #   example.inspect
+    #   example.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
