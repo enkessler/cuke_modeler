@@ -21,6 +21,14 @@ module CukeModeler
 
     # Creates a new Outline object and, if *source_text* is provided, populates the
     # object.
+    #
+    # @example
+    #   Outline.new
+    #   Outline.new("Scenario Outline:\n  * a step")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Outline] A new Outline instance
     def initialize(source_text = nil)
       @steps = []
       @tags = []
@@ -29,14 +37,28 @@ module CukeModeler
       super(source_text)
     end
 
-    # Returns *true* if the two models have equivalent steps and *false* otherwise.
+    # Compares this model with another object. Returns *true* if the two objects
+    # have equivalent steps and *false* otherwise.
+    #
+    # @example
+    #   outline_1 == outline_2
+    #
+    # @param other [Object] The object to compare this model with
+    # @return [Boolean] Whether the two objects are equivalent
     def ==(other)
       return false unless other.respond_to?(:steps)
 
       steps == other.steps
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For
+    # an Outline model, these would be any associated Step, Tag, or
+    # Example models.
+    #
+    # @example
+    #   outline.children
+    #
+    # @return [Array<Step, Tag, Example>] A collection of child models
     def children
       examples + steps + tags
     end
@@ -46,6 +68,11 @@ module CukeModeler
 
     # Returns a string representation of this model. For an outline model,
     # this will be Gherkin text that is equivalent to the outline being modeled.
+    #
+    # @example
+    #   outline.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = ''
 
@@ -63,7 +90,17 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For an outline model, this will be the name of the outline.
+    # attribute. For an outline model, this will be the name of the
+    # outline. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   outline.inspect
+    #   outline.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
