@@ -28,6 +28,14 @@ module CukeModeler
 
     # Creates a new Feature object and, if *source_text* is provided, populates the
     # object.
+    #
+    # @example
+    #   Feature.new
+    #   Feature.new("Feature:\nThis is a feature")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Feature] A new Feature instance
     def initialize(source_text = nil)
       @tags = []
       @rules = []
@@ -37,6 +45,11 @@ module CukeModeler
     end
 
     # Returns *true* if the feature contains a background, *false* otherwise.
+    #
+    # @example
+    #   feature.background?
+    #
+    # @return [Boolean] Whether the feature contains a background
     def background?
       !@background.nil?
     end
@@ -44,11 +57,21 @@ module CukeModeler
     alias has_background? background?
 
     # Returns the scenario models contained in the feature.
+    #
+    # @example
+    #   feature.scenarios
+    #
+    # @return [Array<Scenario>] Child Scenario models
     def scenarios
       @tests.select { |test| test.is_a? Scenario }
     end
 
     # Returns the outline models contained in the feature.
+    #
+    # @example
+    #   feature.outlines
+    #
+    # @return [Array<Outline>] Child Outline models
     def outlines
       @tests.select { |test| test.is_a? Outline }
     end
@@ -60,6 +83,11 @@ module CukeModeler
     # Returns the number of test cases contained in the feature. A test case is a
     # single set of test values, such as an individual scenario or one example row
     # of an outline.
+    #
+    # @example
+    #   feature.test_case_count
+    #
+    # @return [Integer] The count of test cases
     def test_case_count
       scenarios.count + outlines.reduce(0) do |outline_sum, outline|
         outline_sum + outline.examples.reduce(0) do |example_sum, example|
@@ -68,7 +96,14 @@ module CukeModeler
       end
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Feature model, these would be any associated Rule, Background,
+    # Scenario, Outline, or Tag models.
+    #
+    # @example
+    #   feature.children
+    #
+    # @return [Array<Rule, Background, Scenario, Outline, Tag>] A collection of child models
     def children
       models = rules + tests + tags
       models << background if background
@@ -81,6 +116,11 @@ module CukeModeler
 
     # Returns a string representation of this model. For a feature model,
     # this will be Gherkin text that is equivalent to the feature being modeled.
+    #
+    # @example
+    #   feature.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = ''
 
@@ -98,7 +138,17 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a feature model, this will be the name of the feature.
+    # attribute. For a feature model, this will be the name of the
+    # feature. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   feature.inspect
+    #   feature.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
