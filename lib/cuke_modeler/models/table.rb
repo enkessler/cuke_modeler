@@ -34,7 +34,7 @@ module CukeModeler
     # @example
     #   table.children
     #
-    # @return [Array<Model>] A collection of child models
+    # @return [Array<Row>] A collection of child models
     def children
       rows
     end

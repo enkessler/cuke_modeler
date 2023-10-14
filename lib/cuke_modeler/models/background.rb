@@ -54,7 +54,7 @@ module CukeModeler
     # @example
     #   background.children
     #
-    # @return [Array<Model>] A collection of child models
+    # @return [Array<Step>] A collection of child models
     def children
       steps
     end

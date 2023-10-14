@@ -38,7 +38,7 @@ module CukeModeler
     #   d = Directory.new('some/directory/foo')
     #   d.name  #=> 'foo'
     #
-    # @return [String] The name of the directory
+    # @return [String, nil] The name of the directory
     def name
       File.basename(@path.gsub('\\', '/')) if @path
     end
@@ -50,7 +50,7 @@ module CukeModeler
     # @example
     #   directory.children
     #
-    # @return [Array<Model>] A collection of child models
+    # @return [Array<Directory, FeatureFile>] A collection of child models
     def children
       @feature_files + @directories
     end

@@ -50,7 +50,7 @@ module CukeModeler
     # @example
     #   feature_file.children
     #
-    # @return [Array<Model>] A collection of child models
+    # @return [Array<Feature>] A collection of child models
     def children
       @feature ? [@feature] : []
     end
