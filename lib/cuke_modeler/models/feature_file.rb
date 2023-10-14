@@ -55,7 +55,7 @@ module CukeModeler
       @feature ? [@feature] : []
     end
 
-    # Returns a string representation of this model. For a feature file
+    # Returns a string representation of this model. For a FeatureFile
     # model, this will be the path of the modeled feature file.
     #
     # @example
@@ -68,7 +68,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a feature file model, this will be the path of
+    # attribute. For a FeatureFile model, this will be the path of
     # the feature file. If *verbose* is true, provides default Ruby
     # inspection behavior instead.
     #

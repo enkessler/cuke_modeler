@@ -29,7 +29,7 @@ module CukeModeler
       super(source_text)
     end
 
-    # Returns a string representation of this model. For a doc string model,
+    # Returns a string representation of this model. For a DocString model,
     # this will be Gherkin text that is equivalent to the doc string being modeled.
     #
     # @example
@@ -44,8 +44,8 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a doc string model, this will be the content of
-    # the doc string. If *verbose* is true, provides default Ruby inspection
+    # attribute. For a DocString model, this will be the content of the
+    # doc string. If *verbose* is true, provides default Ruby inspection
     # behavior instead.
     #
     # @example

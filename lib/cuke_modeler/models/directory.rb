@@ -68,7 +68,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a directory model, this will be the path of the
+    # attribute. For a Directory model, this will be the path of the
     # directory. If *verbose* is true, provides default Ruby inspection
     # behavior instead.
     #

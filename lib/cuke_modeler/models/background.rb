@@ -79,7 +79,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a background model, this will be the name of the
+    # attribute. For a Background model, this will be the name of the
     # background. If *verbose* is true, provides default Ruby inspection
     # behavior instead.
     #

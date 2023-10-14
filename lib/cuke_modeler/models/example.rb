@@ -171,9 +171,9 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For an example model, this will be the name of the example.
-    # If *verbose* is true, provides default Ruby inspection behavior
-    # instead.
+    # attribute. For an Example model, this will be the name of the
+    # example. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
     #
     # @example
     #   example.inspect

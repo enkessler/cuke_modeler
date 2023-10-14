@@ -23,7 +23,7 @@ module CukeModeler
       super(source_text)
     end
 
-    # Returns a string representation of this model. For a tag model,
+    # Returns a string representation of this model. For a Tag model,
     # this will be Gherkin text that is equivalent to the tag being modeled.
     #
     # @example
@@ -36,7 +36,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a tag model, this will be the name of the tag. If
+    # attribute. For a Tag model, this will be the name of the tag. If
     # *verbose* is true, provides default Ruby inspection behavior instead.
     #
     # @example

@@ -38,7 +38,7 @@ module CukeModeler
       @cells
     end
 
-    # Returns a string representation of this model. For a row model,
+    # Returns a string representation of this model. For a Row model,
     # this will be Gherkin text that is equivalent to the row being modeled.
     #
     # @example
@@ -53,7 +53,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a row model, this will be the cells of the row.
+    # attribute. For a Row model, this will be the cells of the row.
     # If *verbose* is true, provides default Ruby inspection behavior
     # instead.
     #

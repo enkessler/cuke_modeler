@@ -85,7 +85,7 @@ module CukeModeler
       models
     end
 
-    # Returns a string representation of this model. For a rule model,
+    # Returns a string representation of this model. For a Rule model,
     # this will be Gherkin text that is equivalent to the rule being modeled.
     #
     # @example
@@ -106,7 +106,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a rule model, this will be the name of the rule.
+    # attribute. For a Rule model, this will be the name of the rule.
     # If *verbose* is true, provides default Ruby inspection behavior
     # instead.
     #

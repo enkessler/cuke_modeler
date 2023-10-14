@@ -66,7 +66,7 @@ module CukeModeler
     # Building strings just isn't pretty
     # rubocop:disable Metrics/AbcSize
 
-    # Returns a string representation of this model. For an outline model,
+    # Returns a string representation of this model. For an Outline model,
     # this will be Gherkin text that is equivalent to the outline being modeled.
     #
     # @example
@@ -90,7 +90,7 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For an outline model, this will be the name of the
+    # attribute. For an Outline model, this will be the name of the
     # outline. If *verbose* is true, provides default Ruby inspection
     # behavior instead.
     #
