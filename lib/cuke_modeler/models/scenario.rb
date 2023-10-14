@@ -18,6 +18,14 @@ module CukeModeler
 
     # Creates a new Scenario object and, if *source_text* is provided, populates the
     # object.
+    #
+    # @example
+    #   Scenario.new
+    #   Scenario.new("Scenario:\n  * a step")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Scenario] A new Scenario instance
     def initialize(source_text = nil)
       @steps = []
       @tags = []
@@ -25,14 +33,27 @@ module CukeModeler
       super(source_text)
     end
 
-    # Returns *true* if the two models have equivalent steps and *false* otherwise.
+    # Compares this model with another object. Returns *true* if the two objects
+    # have equivalent steps and *false* otherwise.
+    #
+    # @example
+    #   scenario_1 == scenario_2
+    #
+    # @param other [Object] The object to compare this model with
+    # @return [Boolean] Whether the two objects are equivalent
     def ==(other)
       return false unless other.respond_to?(:steps)
 
       steps == other.steps
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Scenario model, these would be any associated Step or Tag models.
+    #
+    # @example
+    #   scenario.children
+    #
+    # @return [Array<Step, Tag>] A collection of child models
     def children
       steps + tags
     end
@@ -42,6 +63,11 @@ module CukeModeler
 
     # Returns a string representation of this model. For a scenario model,
     # this will be Gherkin text that is equivalent to the scenario being modeled.
+    #
+    # @example
+    #   scenario.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = ''
 
@@ -58,7 +84,17 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a scenario model, this will be the name of the scenario.
+    # attribute. For a scenario model, this will be the name of the
+    # scenario. If *verbose* is true, provides default Ruby inspection
+    # behavior instead.
+    #
+    # @example
+    #   scenario.inspect
+    #   scenario.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
