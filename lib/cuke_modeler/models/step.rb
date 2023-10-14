@@ -20,12 +20,26 @@ module CukeModeler
 
     # Creates a new Step object and, if *source_text* is provided, populates the
     # object.
+    #
+    # @example
+    #   Step.new
+    #   Step.new("Given a step")
+    #
+    # @param source_text [String] The Gherkin text that will be used to populate the model
+    # @raise [ArgumentError] If *source_text* is not a String
+    # @return [Step] A new Step instance
     def initialize(source_text = nil)
       super(source_text)
     end
 
-    # Returns *true* if the two steps have the same base text (i.e. minus any keyword,
-    # table, or doc string and *false* otherwise.
+    # Compares this model with another object. Returns *true* if the two objects
+    # have the same base text, table, and doc string and *false* otherwise.
+    #
+    # @example
+    #   step_1 == step_2
+    #
+    # @param other [Object] The object to compare this model with
+    # @return [Boolean] Whether the two objects are equivalent
     def ==(other)
       return false unless other.is_a?(CukeModeler::Step)
 
@@ -34,13 +48,24 @@ module CukeModeler
         doc_string_matches?(other)
     end
 
-    # Returns the model objects that belong to this model.
+    # Returns the model objects that are children of this model. For a
+    # Step model, these would be any associated Table or DocString models.
+    #
+    # @example
+    #   step.children
+    #
+    # @return [Array<Table, DocString>] A collection of child models
     def children
       block ? [block] : []
     end
 
-    # Returns a string representation of this model. For a step model,
+    # Returns a string representation of this model. For a Step model,
     # this will be Gherkin text that is equivalent to the step being modeled.
+    #
+    # @example
+    #   step.to_s
+    #
+    # @return [String] A string representation of this model
     def to_s
       text = "#{keyword} #{self.text}"
       text << "\n#{block.to_s.split("\n").collect { |line| "  #{line}" }.join("\n")}" if block
@@ -50,7 +75,17 @@ module CukeModeler
 
     # See `Object#inspect`. Returns some basic information about the
     # object, including its class, object ID, and its most meaningful
-    # attribute. For a step model, this will be the text of the step.
+    # attribute. For a Step model, this will be the text of the step.
+    # If *verbose* is true, provides default Ruby inspection behavior
+    # instead.
+    #
+    # @example
+    #   step.inspect
+    #   step.inspect(verbose: true)
+    #
+    # @param verbose [Boolean] Whether or not to return the full details of
+    #   the object. Defaults to false.
+    # @return [String] A string representation of this model
     def inspect(verbose: false)
       return super(verbose: verbose) if verbose
 
