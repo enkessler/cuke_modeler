@@ -23,6 +23,7 @@ module CukeModeler
     #
     # @param directory_path [String] The directory path that will be used to populate the model
     # @raise [ArgumentError] If *directory_path* is not a String
+    # @raise [ArgumentError] If the directory path does not exist
     # @return [Directory] A new Directory instance
     def initialize(directory_path = nil)
       @path = directory_path

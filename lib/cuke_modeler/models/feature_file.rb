@@ -25,6 +25,7 @@ module CukeModeler
     #
     # @param file_path [String] The file path that will be used to populate the model
     # @raise [ArgumentError] If *file_path* is not a String
+    # @raise [ArgumentError] If the file path does not exist
     # @return [FeatureFile] A new FeatureFile instance
     def initialize(file_path = nil)
       @path = file_path

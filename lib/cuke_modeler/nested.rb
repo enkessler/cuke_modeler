@@ -23,6 +23,7 @@ module CukeModeler
     #   model.get_ancestor(:directory)
     #
     # @param ancestor_type [Symbol] The ancestor type to get
+    # @raise [ArgumentError] If the passed type is not a valid model type
     # @return [Model, nil] The ancestor model, if one is found
     def get_ancestor(ancestor_type)
       target_classes = classes_for_type(ancestor_type)

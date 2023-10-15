@@ -47,6 +47,8 @@ module CukeModeler
       #
       # @param source_text [String] The Gherkin text to parse
       # @param filename [String] The file name associated with the parsed text. Used for error messages.
+      # @raise [ArgumentError] If *source_text* is not a String
+      # @raise [ArgumentError] If *source_text* does not parse cleanly
       # @return [Hash] An AST of the text
       def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
         unless source_text.is_a?(String)

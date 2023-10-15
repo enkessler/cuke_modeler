@@ -8,7 +8,6 @@ module CukeModeler
 
     # TODO: add @example tags to other methods
     # TODO: add @option/param tags to other methods
-    # TODO: add @raise tags to other methods
     # TODO: add @return tags to other methods
     # TODO: add @yield/@yieldparam/@yieldreturn tags to other methods
 
