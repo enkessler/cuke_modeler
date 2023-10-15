@@ -7,11 +7,20 @@ module CukeModeler
 
     include Enumerable
 
+    # TODO: Have this method return `self` so that method chaining can be done?
+
     # @api
     #
     # Executes the given code block with this model and every model that is a child of this model. Exact
     # order of model tree traversal is not guaranteed beyond the first model traversed, which will be the
     # model that called this method. If no block is provided, an `Enumerator` is returned instead.
+    #
+    # @example
+    #   model.each
+    #   model.each { |model| puts model.inspect }
+    #
+    # @yieldparam [Model] The current model being visited
+    # @return [Enumerable] if no block is given
     def each(&block)
       if block
         block.call(self)
@@ -25,6 +34,11 @@ module CukeModeler
     # @deprecated Use `Enumerable` module methods instead
     #
     # Executes the given code block with every model that is a child of this model.
+    #
+    # @example
+    #   model.each_descendant { |model| puts model.inspect }
+    #
+    # @yieldparam [Model] The current model being visited
     def each_descendant(&block)
       children.each do |child_model|
         block.call(child_model)
@@ -36,6 +50,11 @@ module CukeModeler
     # @deprecated Use `Enumerable` module methods instead
     #
     # Executes the given code block with this model and every model that is a child of this model.
+    #
+    # @example
+    #   model.each_model { |model| puts model.inspect }
+    #
+    # @yieldparam [Model] The current model being visited
     def each_model(&block)
       block.call(self)
 

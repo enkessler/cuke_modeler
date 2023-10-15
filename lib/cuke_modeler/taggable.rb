@@ -16,6 +16,11 @@ module CukeModeler
     #
     # Returns the models for tags which are indirectly assigned to the element (i.e. they
     # have been inherited from a parent element).
+    #
+    # @example
+    #   model.applied_tags
+    #
+    # @return [Array<Tag>] Applied tag models
     def applied_tags
       parent_model.respond_to?(:all_tags) ? parent_model.all_tags : []
     end
@@ -23,6 +28,11 @@ module CukeModeler
     # @api
     #
     # Returns models for all of the tags which are applicable to the element.
+    #
+    # @example
+    #   model.all_tags
+    #
+    # @return [Array<Tag>] All tag models
     def all_tags
       applied_tags + @tags
     end

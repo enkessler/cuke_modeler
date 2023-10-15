@@ -37,9 +37,17 @@ module CukeModeler
         Gherkin::DIALECTS
       end
 
-      # Parses the Cucumber feature given in *source_text* and returns a hash representation of
+      # Parses the Cucumber feature given in *source_text* and returns a Hash representation of
       # its logical structure. This is a standardized AST that should remain consistent across
       # different versions of `cucumber-gherkin`
+      #
+      # @example
+      #   Parsing.parse_text('Feature: Some feature')
+      #   Parsing.parse_text('Feature: Some feature', 'my.feature')
+      #
+      # @param source_text [String] The Gherkin text to parse
+      # @param filename [String] The file name associated with the parsed text. Used for error messages.
+      # @return [Hash] An AST of the text
       def parse_text(source_text, filename = 'cuke_modeler_fake_file.feature')
         unless source_text.is_a?(String)
           raise(ArgumentError, "Text to parse must be a String but got #{source_text.class}")

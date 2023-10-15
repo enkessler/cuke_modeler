@@ -11,10 +11,19 @@ module CukeModeler
     # The parent model that contains this model
     attr_accessor :parent_model
 
+    # TODO: Use an Enum type instead of symbols as arguments?
 
     # @api
     #
-    # Returns the ancestor model of this model that matches the given type.
+    # Returns the ancestor model of this model that matches the given type. Available
+    # types are simply snake_case versions of the model Class names. Additionally, a
+    # special type *:test* will return either a Scenario or an Outline model.
+    #
+    # @example
+    #   model.get_ancestor(:directory)
+    #
+    # @param ancestor_type [Symbol] The ancestor type to get
+    # @return [Model, nil] The ancestor model, if one is found
     def get_ancestor(ancestor_type)
       target_classes = classes_for_type(ancestor_type)
 
