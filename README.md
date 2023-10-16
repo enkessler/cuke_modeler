@@ -11,7 +11,6 @@ Developer stuff:
 [![Build Status](https://github.com/enkessler/cuke_modeler/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/enkessler/cuke_modeler/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Coverage Status](https://coveralls.io/repos/github/enkessler/cuke_modeler/badge.svg?branch=master)](https://coveralls.io/github/enkessler/cuke_modeler?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/83986d8f7a918fed9707/maintainability)](https://codeclimate.com/github/enkessler/cuke_modeler/maintainability)
-[![Inline docs](http://inch-ci.org/github/enkessler/cuke_modeler.svg?branch=master)](https://inch-ci.org/github/enkessler/cuke_modeler)
 
 ---
 
