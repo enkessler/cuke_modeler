@@ -13,6 +13,12 @@ namespace 'cuke_modeler' do
     puts Rainbow('All code documented').green
   end
 
+  desc 'Generate documentation with YARD'
+  task :generate_documentation do
+    puts Rainbow('Generating code documentation...').cyan
+    puts `yard`
+  end
+
   # NOTE: There are currently no places to host the feature files but these tasks could be useful when there
   # are places again.
 
