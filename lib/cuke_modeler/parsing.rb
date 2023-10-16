@@ -28,11 +28,21 @@ module CukeModeler
 
 
       # The dialect that will be used to parse snippets of Gherkin text
+      #
+      # @example
+      #   Parsing.dialect
+      #
+      # @return [String] The current dialect. Defaults to 'en'.
       def dialect
         @dialect || 'en'
       end
 
-      # The dialects currently known by the gherkin gem
+      # The dialects currently known by the cucumber-gherkin gem. See *Gherkin::DIALECTS*.
+      #
+      # @example
+      #   Parsing.dialects
+      #
+      # @return [Hash] The dialect data
       def dialects
         Gherkin::DIALECTS
       end

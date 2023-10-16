@@ -6,10 +6,6 @@ module CukeModeler
     include Nested
     include Containing
 
-    # TODO: add @example tags to other methods
-    # TODO: add @option/param tags to other methods
-    # TODO: add @return tags to other methods
-    # TODO: add @yield/@yieldparam/@yieldreturn tags to other methods
 
     # Creates a new Model object and, if *source_text* is provided,
     # populates the object. For the base model class, there is nothing
