@@ -19,7 +19,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27 ]
+                   gherkin27, gherkin28 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
@@ -59,7 +59,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27 ]
+                   gherkin27, gherkin28 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
@@ -99,7 +99,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27 ]
+                   gherkin27, gherkin28 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
