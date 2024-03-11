@@ -175,7 +175,8 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - run: bundle exec rake cuke_modeler:check_documentation
+      - name: Run documentation check
+        run: bundle exec rake cuke_modeler:check_documentation
 
   lint_code:
     runs-on: ubuntu-latest
@@ -187,4 +188,5 @@ jobs:
         with:
           ruby-version: '3.0'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - run: bundle exec rake cuke_modeler:rubocop
+      - name: Run RuboCop
+        run: bundle exec rake cuke_modeler:rubocop
