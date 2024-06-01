@@ -11,7 +11,7 @@ module CukeModeler
 
     # Adapts the AST sub-tree that is rooted at the given rule node.
     def adapt_rule(rule_ast)
-      adapted_rule = super(rule_ast)
+      adapted_rule = super
 
       clear_child_elements(adapted_rule, [[:rule, :tags]])
 

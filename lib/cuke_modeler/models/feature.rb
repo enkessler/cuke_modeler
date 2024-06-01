@@ -41,7 +41,7 @@ module CukeModeler
       @rules = []
       @tests = []
 
-      super(source_text)
+      super
     end
 
     # Returns *true* if the feature contains a background, *false* otherwise.
@@ -150,7 +150,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @name: #{name.inspect}>"
     end

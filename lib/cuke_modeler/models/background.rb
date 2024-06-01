@@ -28,7 +28,7 @@ module CukeModeler
     def initialize(source_text = nil)
       @steps = []
 
-      super(source_text)
+      super
     end
 
     # TODO: Have (all) models be equivalent if they have the same #to_s output. Would
@@ -91,7 +91,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @name: #{name.inspect}>"
     end

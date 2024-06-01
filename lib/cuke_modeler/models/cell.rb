@@ -23,7 +23,7 @@ module CukeModeler
     # @raise [ArgumentError] If *source_text* is not a String
     # @return [Cell] A new Cell instance
     def initialize(source_text = nil)
-      super(source_text)
+      super
     end
 
     # Returns a string representation of this model. For a Cell model,
@@ -52,7 +52,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @value: #{value.inspect}>"
     end

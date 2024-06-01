@@ -11,7 +11,7 @@ module CukeModeler
 
     # Adapts the AST sub-tree that is rooted at the given step node.
     def adapt_step(step_ast)
-      adapted_step = super(step_ast)
+      adapted_step = super
 
       clear_child_elements(adapted_step, [[:dataTable],
                                           [:docString]])
@@ -27,7 +27,7 @@ module CukeModeler
 
     # Adapts the AST sub-tree that is rooted at the given doc string node.
     def adapt_doc_string(doc_string_ast)
-      adapted_doc_string = super(doc_string_ast)
+      adapted_doc_string = super
 
       adapted_doc_string['content_type'] = doc_string_ast[:mediaType]
 
@@ -36,7 +36,7 @@ module CukeModeler
 
     # Adapts the AST sub-tree that is rooted at the given example node.
     def adapt_example(example_ast)
-      adapted_example = super(example_ast)
+      adapted_example = super
 
       clear_child_elements(adapted_example, [[:tableHeader],
                                              [:tableBody]])

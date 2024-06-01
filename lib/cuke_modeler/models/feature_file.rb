@@ -31,7 +31,7 @@ module CukeModeler
       @path = file_path
       @comments = []
 
-      super(file_path)
+      super
     end
 
     # Returns the name of the modeled feature file.
@@ -81,7 +81,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @path: #{@path.inspect}>"
     end

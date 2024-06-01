@@ -20,7 +20,7 @@ module CukeModeler
     # @raise [ArgumentError] If *source_text* is not a String
     # @return [Tag] A new Tag instance
     def initialize(source_text = nil)
-      super(source_text)
+      super
     end
 
     # Returns a string representation of this model. For a Tag model,
@@ -47,7 +47,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @name: #{@name.inspect}>"
     end

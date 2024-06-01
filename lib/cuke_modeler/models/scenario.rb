@@ -30,7 +30,7 @@ module CukeModeler
       @steps = []
       @tags = []
 
-      super(source_text)
+      super
     end
 
     # Compares this model with another object. Returns *true* if the two objects
@@ -96,7 +96,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @name: #{name.inspect}>"
     end

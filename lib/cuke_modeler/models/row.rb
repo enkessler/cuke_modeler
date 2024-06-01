@@ -24,7 +24,7 @@ module CukeModeler
     def initialize(source_text = nil)
       @cells = []
 
-      super(source_text)
+      super
     end
 
     # Returns the model objects that are children of this model. For a
@@ -65,7 +65,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       cell_output = @cells&.collect(&:value)
 

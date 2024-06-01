@@ -29,7 +29,7 @@ module CukeModeler
     # @raise [ArgumentError] If *source_text* is not a String
     # @return [Step] A new Step instance
     def initialize(source_text = nil)
-      super(source_text)
+      super
     end
 
     # Compares this model with another object. Returns *true* if the two objects
@@ -87,7 +87,7 @@ module CukeModeler
     #   the object. Defaults to false.
     # @return [String] A string representation of this model
     def inspect(verbose: false)
-      return super(verbose: verbose) if verbose
+      return super if verbose
 
       "#{super.chop} @text: #{@text.inspect}>"
     end

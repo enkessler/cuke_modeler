@@ -312,19 +312,15 @@ module CukeModeler
     def adapt_child_elements(element_ast)
       return [] unless element_ast[:children]
 
-      adapted_children = []
-
-      element_ast[:children].each do |child_element|
-        adapted_children << if child_element[:background]
-                              adapt_background(child_element)
-                            elsif child_element[:rule]
-                              adapt_rule(child_element)
-                            else
-                              adapt_test(child_element)
-                            end
+      element_ast[:children].map do |child_element|
+        if child_element[:background]
+          adapt_background(child_element)
+        elsif child_element[:rule]
+          adapt_rule(child_element)
+        else
+          adapt_test(child_element)
+        end
       end
-
-      adapted_children
     end
 
     def adapt_test(test_ast)

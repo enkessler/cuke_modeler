@@ -69,21 +69,13 @@ shared_examples_for 'a containing model' do
       end
 
       it 'iterates through all of the models in its tree' do
-        names = []
-
-        root_model.each do |model_node|
-          names << model_node.name
-        end
+        names = root_model.map(&:name)
 
         expect(names).to match_array(['top level model', 'child object 1', 'child object 2', 'grandchild object'])
       end
 
       it 'iterates over the root model first' do
-        names = []
-
-        root_model.each do |model_node|
-          names << model_node.name
-        end
+        names = root_model.map(&:name)
 
         expect(names.first).to eq('top level model')
       end
@@ -92,7 +84,7 @@ shared_examples_for 'a containing model' do
 
     context 'without children' do
 
-      let(:parent_model) do
+      let(:root_model) do
         m = clazz.new
 
         # Not all models have a name, so making sure that this one does
@@ -110,11 +102,7 @@ shared_examples_for 'a containing model' do
       end
 
       it 'iterates through all of the models in its tree' do
-        names = []
-
-        parent_model.each do |model_node|
-          names << model_node.name
-        end
+        names = root_model.map(&:name)
 
         expect(names).to match_array(['top level model'])
       end
