@@ -83,19 +83,19 @@ jobs:
 
           # Newer versions of Ruby (>=2.6) can handle ARM, so they can run on the latest MacOS instead of an older one
           - os: macos-13
-            ruby: 2.7
+            ruby-version: 2.7
           - os: macos-13
-            ruby: 3.0
+            ruby-version: 3.0
           # Older versions of Ruby (<2.6) need AMD, so they can only run on an older MacOS instead of the latest one
           - os: macos-latest
-            ruby: 2.3
+            ruby-version: 2.3
           - os: macos-latest
-            ruby: 2.5
+            ruby-version: 2.5
           # These JRuby versions are not available on MacOS 14 (which is currently the latest MacOS available), so they can only run on an older one
           - os: macos-latest
-            ruby: jruby-9.1.17.0
+            ruby-version: jruby-9.1.17.0
           - os: macos-latest
-            ruby: jruby-9.3.4.0
+            ruby-version: jruby-9.3.4.0
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
