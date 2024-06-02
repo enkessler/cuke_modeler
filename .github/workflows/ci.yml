@@ -57,7 +57,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest]
+        # TODO: Split the MacOS job into two jobs ('test_macos_older' and 'test_macos_newer') with different OS
+        # portions of the matrix instead of having one job with clunky exclusions?
+
+        os: [macos-latest, macos-13]
         ruby-version: [ '2.3', '2.5', '2.7', '3.0',
                         'jruby-9.1.17.0', 'jruby-9.3.4.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
@@ -74,6 +77,26 @@ jobs:
             gemfile: gherkin28
           - ruby-version: jruby-9.1.17.0
             gemfile: gherkin28
+
+          # Note: GitHub Actions 'include' can't override any matrix values. It can only add them. So an exhaustive
+          # list of exclusions has to be used instead if we want to work with just one job matrix.
+
+          # Newer versions of Ruby (>=2.6) can handle ARM, so they can run on the latest MacOS instead of an older one
+          - os: macos-13
+            ruby: 2.7
+          - os: macos-13
+            ruby: 3.0
+          # Older versions of Ruby (<2.6) need AMD, so they can only run on an older MacOS instead of the latest one
+          - os: macos-latest
+            ruby: 2.3
+          - os: macos-latest
+            ruby: 2.5
+          # These JRuby versions are not available on MacOS 14 (which is currently the latest MacOS available), so they can only run on an older one
+          - os: macos-latest
+            ruby: jruby-9.1.17.0
+          - os: macos-latest
+            ruby: jruby-9.3.4.0
+
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
