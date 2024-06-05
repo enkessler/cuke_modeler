@@ -97,6 +97,14 @@ jobs:
           - os: macos-latest
             ruby-version: jruby-9.3.4.0
 
+
+          # Just not worth it to get these working and no additional and meaningful proof is provided by these
+          # combinations, given the other combinations that are being tested.
+
+          # Hits some kind of Java issue
+          - os: macos-13
+            ruby-version: jruby-9.1.17.0
+
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
