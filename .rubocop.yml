@@ -80,3 +80,7 @@ Layout/HashAlignment:
 # project's gemfiles that we don't need more stuff going in there.
 Gemspec/DevelopmentDependencies:
   EnforcedStyle: gemspec
+# Additionally, easily distinguishing between runtime and development dependencies is important
+# when they live in the same place.
+Gemspec/AddRuntimeDependency:
+  Enabled: false
