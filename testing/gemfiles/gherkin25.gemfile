@@ -2,4 +2,11 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
+if RUBY_VERSION =~ /^2\.[3456]/
+  gem 'cucumber', '2.2.0' # No recent version of cucumber that supports Ruby < 2.7 and cucumber-gherkin 25
+else
+  # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+  gem 'cucumber', '>=4.0.0.rc.4'
+end
+
 gem 'cucumber-gherkin', '~> 25.0'
