@@ -6,8 +6,4 @@ if RUBY_VERSION =~ /^2\.3/
   gem 'childprocess', '< 4.0' # Requires Ruby 2.4 at this version
 end
 
-# Only versions of Cucumber that rely on the old `gherkin3` gem can be used
-# with versions of the gherkin gem for which there was never a cucumber release
-gem 'cucumber', '2.2.0'
-
 gem 'cucumber-gherkin', '~> 24.0'
