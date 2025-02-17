@@ -19,7 +19,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27, gherkin28, gherkin29, gherkin30 ]
+                   gherkin27, gherkin28, gherkin29, gherkin30, gherkin31 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
@@ -52,6 +52,17 @@ jobs:
             gemfile: gherkin30
           - ruby-version: jruby-9.3.4.0
             gemfile: gherkin30
+
+          - ruby-version: 2.3
+            gemfile: gherkin31
+          - ruby-version: 2.5
+            gemfile: gherkin31
+          - ruby-version: 2.7
+            gemfile: gherkin31
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin31
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin31
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
@@ -89,7 +100,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27, gherkin28, gherkin29, gherkin30 ]
+                   gherkin27, gherkin28, gherkin29, gherkin30, gherkin31 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
@@ -122,6 +133,17 @@ jobs:
             gemfile: gherkin30
           - ruby-version: jruby-9.3.4.0
             gemfile: gherkin30
+
+          - ruby-version: 2.3
+            gemfile: gherkin31
+          - ruby-version: 2.5
+            gemfile: gherkin31
+          - ruby-version: 2.7
+            gemfile: gherkin31
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin31
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin31
 
           # Note: GitHub Actions 'include' can't override any matrix values. It can only add them. So an exhaustive
           # list of exclusions has to be used instead if we want to work with just one job matrix.
@@ -183,7 +205,7 @@ jobs:
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
-                   gherkin27, gherkin28, gherkin29, gherkin30 ]
+                   gherkin27, gherkin28, gherkin29, gherkin30, gherkin31 ]
         exclude:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
@@ -216,6 +238,17 @@ jobs:
             gemfile: gherkin30
           - ruby-version: jruby-9.3.4.0
             gemfile: gherkin30
+
+          - ruby-version: 2.3
+            gemfile: gherkin31
+          - ruby-version: 2.5
+            gemfile: gherkin31
+          - ruby-version: 2.7
+            gemfile: gherkin31
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin31
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin31
 
           # Just not worth it to get these working and no additional and meaningful proof is provided by these
           # combinations, given the other combinations that are being tested.
