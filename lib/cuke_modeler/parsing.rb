@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ModuleLength - Just not going to worry about this
+# rubocop:disable Metrics/ModuleLength -- Just not going to worry about this
 
 # Have to at least load some version of the gem before which version of the gem has been loaded can
 # be determined and the rest of the needed files can be loaded.

@@ -323,8 +323,8 @@ module CukeModeler
     end
 
     def clear_child_elements(ast, child_paths)
-      # rubocop:disable Security/Eval - This is not blind data
-      # rubocop:disable Style/DocumentDynamicEvalDefinition - Nice idea but bad detection ability
+      # rubocop:disable Security/Eval -- This is not blind data
+      # rubocop:disable Style/DocumentDynamicEvalDefinition -- Nice idea but bad detection ability
       child_paths.each do |traversal_path|
         # Don't add any properties to the object if it didn't already have them
         # e.g. ast['cuke_modeler_parsing_data'].background.steps
