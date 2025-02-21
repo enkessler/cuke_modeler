@@ -339,7 +339,7 @@ jobs:
         if: matrix.ruby-version != '2.3' && matrix.ruby-version != 'jruby-9.1.17.0'
 
   test_finish:
-    needs: [ test_macos, test_ubuntu, test_windows ]
+    needs: [ test_macos, test_ubuntu_ruby, test_ubuntu_jruby, test_windows ]
     runs-on: ubuntu-latest
     steps:
       - name: Coveralls Finished
