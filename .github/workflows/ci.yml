@@ -9,13 +9,12 @@ on:
 
 jobs:
 
-  test_ubuntu:
+  test_ubuntu_ruby:
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        ruby-version: [ '2.3', '2.5', '2.7', '3.0',
-                        'jruby-9.1.17.0', 'jruby-9.3.4.0']
+        ruby-version: [ '2.3', '2.5', '2.7', '3.0']
         gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
                    gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
@@ -24,11 +23,7 @@ jobs:
           # Requires at least Ruby 2.5
           - ruby-version: 2.3
             gemfile: gherkin27
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin27
           - ruby-version: 2.3
-            gemfile: gherkin28
-          - ruby-version: jruby-9.1.17.0
             gemfile: gherkin28
           # Requires at least Ruby 3.0
           - ruby-version: 2.3
@@ -37,20 +32,12 @@ jobs:
             gemfile: gherkin29
           - ruby-version: 2.7
             gemfile: gherkin29
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin29
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin29
 
           - ruby-version: 2.3
             gemfile: gherkin30
           - ruby-version: 2.5
             gemfile: gherkin30
           - ruby-version: 2.7
-            gemfile: gherkin30
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin30
-          - ruby-version: jruby-9.3.4.0
             gemfile: gherkin30
 
           - ruby-version: 2.3
@@ -59,6 +46,60 @@ jobs:
             gemfile: gherkin31
           - ruby-version: 2.7
             gemfile: gherkin31
+
+    runs-on: ${{ matrix.os }}
+    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+      BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
+      # Leaving in case JRuby get added to the latest Ubuntu again
+      # JRUBY_OPTS: '-J-Djdk.io.File.enableADS=true' # Because of a JDK bug that might get fixed at some point
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - name: Run CI Rake task
+        run: bundle exec rake cuke_modeler:test_everything
+      - name: Push code coverage to Coveralls (conditional)
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          path-to-lcov: "./reports/coverage/lcov/lcov.info"
+          parallel: true
+          flag-name: run-${{ matrix.os }}-${{ matrix.ruby-version }}-${{ matrix.gemfile }}
+        # Newer Rubies and non-JRubies only
+        if: matrix.ruby-version != '2.3' && matrix.ruby-version != 'jruby-9.1.17.0'
+
+  # JRuby is not currently available on the latest Ubuntu build
+  test_ubuntu_jruby:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04]
+        ruby-version: [ 'jruby-9.1.17.0', 'jruby-9.3.4.0']
+        gemfile: [ gherkin9, gherkin10, gherkin11, gherkin12, gherkin13, gherkin14,
+                   gherkin15, gherkin16, gherkin17, gherkin18, gherkin19, gherkin20,
+                   gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
+                   gherkin27, gherkin28, gherkin29, gherkin30, gherkin31 ]
+        exclude:
+          # Requires at least Ruby 2.5
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin27
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin28
+          # Requires at least Ruby 3.0
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin29
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin29
+
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin30
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin30
+
           - ruby-version: jruby-9.1.17.0
             gemfile: gherkin31
           - ruby-version: jruby-9.3.4.0
