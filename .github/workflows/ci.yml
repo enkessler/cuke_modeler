@@ -386,7 +386,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.3'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run documentation check
         run: bundle exec rake cuke_modeler:check_documentation
@@ -399,7 +399,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.3'
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - name: Run RuboCop
         run: bundle exec rake cuke_modeler:rubocop
