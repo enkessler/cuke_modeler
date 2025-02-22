@@ -25,7 +25,7 @@ require_relative '../testing/dialect_helper'
 require_relative '../testing/helper_methods'
 require_relative '../testing/model_factory'
 
-require 'rubygems/mock_gem_ui'
+require 'rubygems/user_interaction'
 
 
 # Use a random dialect for testing in order to avoid hard coded language assumptions in the

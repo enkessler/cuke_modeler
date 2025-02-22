@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
     'bug_tracker_uri'       => 'https://github.com/enkessler/cuke_modeler/issues',
     'changelog_uri'         => 'https://github.com/enkessler/cuke_modeler/blob/master/CHANGELOG.md',
     'documentation_uri'     => 'https://www.rubydoc.info/gems/cuke_modeler',
-    'homepage_uri'          => 'https://github.com/enkessler/cuke_modeler',
     'source_code_uri'       => 'https://github.com/enkessler/cuke_modeler',
     'rubygems_mfa_required' => 'true'
   }

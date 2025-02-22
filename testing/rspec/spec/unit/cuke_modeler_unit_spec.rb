@@ -15,10 +15,14 @@ RSpec.describe 'the gem' do
 
 
   it 'validates cleanly' do
-    mock_ui = Gem::MockGemUi.new
-    Gem::DefaultUserInteraction.use_ui(mock_ui) { @gemspec.validate }
+    ins = StringIO.new
+    outs = StringIO.new
+    errs = StringIO.new
+    mock_ui = Gem::StreamUI.new(ins, outs, errs)
 
-    expect(mock_ui.error).to_not match(/warn/i)
+    # Strict validation. No warnings allowed.
+    expect { Gem::DefaultUserInteraction.use_ui(mock_ui) { @gemspec.validate(true, true) } }
+      .to_not raise_error, errs.string
   end
 
   it 'is named correctly' do
@@ -104,10 +108,6 @@ RSpec.describe 'the gem' do
 
     it 'links to the source code' do
       expect(@gemspec.metadata['source_code_uri']).to eq('https://github.com/enkessler/cuke_modeler')
-    end
-
-    it 'links to the home page of the project' do
-      expect(@gemspec.metadata['homepage_uri']).to eq(@gemspec.homepage)
     end
 
     it 'links to the gem documentation' do
