@@ -212,6 +212,10 @@ jobs:
             gemfile: gherkin32
           - ruby-version: 3.0
             gemfile: gherkin32
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin32
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin32
           - ruby-version: jruby-9.4.12.0
             gemfile: gherkin32
 
@@ -328,6 +332,10 @@ jobs:
           - ruby-version: 2.7
             gemfile: gherkin32
           - ruby-version: 3.0
+            gemfile: gherkin32
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin32
+          - ruby-version: jruby-9.3.4.0
             gemfile: gherkin32
           - ruby-version: jruby-9.4.12.0
             gemfile: gherkin32
