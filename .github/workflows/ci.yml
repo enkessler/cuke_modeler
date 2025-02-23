@@ -115,6 +115,10 @@ jobs:
           - ruby-version: jruby-9.3.4.0
             gemfile: gherkin31
           # Requires at least Ruby 3.2
+          - ruby-version: jruby-9.1.17.0
+            gemfile: gherkin32
+          - ruby-version: jruby-9.3.4.0
+            gemfile: gherkin32
           - ruby-version: jruby-9.4.12.0
             gemfile: gherkin32
 
