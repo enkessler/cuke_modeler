@@ -15,14 +15,14 @@ RSpec.describe 'the gem' do
 
 
   it 'validates cleanly' do
-    ins = StringIO.new
-    outs = StringIO.new
-    errs = StringIO.new
-    mock_ui = Gem::StreamUI.new(ins, outs, errs)
+    in_stream = StringIO.new
+    out_stream = StringIO.new
+    error_stream = StringIO.new
+    mock_ui = Gem::StreamUI.new(in_stream, out_stream, error_stream)
 
-    # Strict validation. No warnings allowed.
-    expect { Gem::DefaultUserInteraction.use_ui(mock_ui) { @gemspec.validate(true, true) } }
-      .to_not raise_error, errs.string
+    Gem::DefaultUserInteraction.use_ui(mock_ui) { @gemspec.validate }
+
+    expect(error_stream.string).to_not match(/warn/i)
   end
 
   it 'is named correctly' do
