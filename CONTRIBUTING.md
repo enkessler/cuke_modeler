@@ -65,8 +65,8 @@ Some guidelines when adding a new model
 2. Update the [CHANGELOG](https://github.com/enkessler/cuke_modeler/blob/master/CHANGELOG.md)
     - Document any changes that were not documented as they were made
     - Make a new section for the release and a new unreleased section
-    - Make a the new release header a link (see existing release links)
+    - Make a new release header a link (see existing release links)
 3. Make sure that the `cuke_modeler:prerelease_check` Rake task is passing
-4. Tag the commit that the release is built from with a `vX.X.X` tag
-5. Build the new gem version with `gem build cuke_modeler.gemspec`
-6. Publish the gem to RubyGems with `gem push cuke_modeler-X.X.X.gem`
+4. Build the gem and tag the commit that it was built from using the `build_and_tag` 
+   Rake task or manually with `git tag vX.Y.Z` and `gem build cuke_modeler.gemspec`
+5. Publish the gem to RubyGems with `gem push cuke_modeler-X.Y.Z.gem`
