@@ -399,7 +399,7 @@ jobs:
 
           # Hitting some kind of JRuby/Windows/ruby-setup/who knows bug
           - os: windows-latest
-          - ruby-version: jruby-9.1.17.0
+            ruby-version: jruby-9.1.17.0
 
           # Hits some kind of Java bug
           - os: windows-latest
