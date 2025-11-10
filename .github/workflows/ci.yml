@@ -432,15 +432,6 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-        if: matrix.ruby-version != 'jruby-9.1.17.0'
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          # This version of JRuby has a Bundler 2.x bug. Use bundler 1.x instead.
-          bundler: '1.17.3'
-          ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-        if: matrix.ruby-version == 'jruby-9.1.17.0'
       - name: Run CI Rake task
         run: bundle exec rake cuke_modeler:test_everything
       - name: Push code coverage to Coveralls (conditional)
