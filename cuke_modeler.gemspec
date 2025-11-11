@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
   # Cucumber 4.x is the earliest version to use the 'cucumber-gherkin' gem but some test configurations need to use
   # Cucumber 2.2.0 so that it uses the 'gherkin3' gem instead. Using any other Cucumber version <4.x aside from 2.2.0
   # can cause namespace problems between 'cucumber-gherkin' and 'gherkin' (the gem used by <4.x versions of Cucumber).
-  spec.add_development_dependency 'cucumber', '>= 2.2.0', '< 10.0.0'
+  spec.add_development_dependency 'cucumber', '>= 2.2.0', '< 11.0.0'
   spec.add_development_dependency 'rainbow', '< 4.0.0'
   spec.add_development_dependency 'rake', '< 14.0.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
