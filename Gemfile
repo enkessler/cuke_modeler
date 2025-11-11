@@ -4,8 +4,8 @@ source 'http://rubygems.org'
 gemspec
 
 
-gherkin_major_version_used = 34
-gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19, 21, 28, 29, 30, 31, 32]
+gherkin_major_version_used = 35
+gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19, 21, 28, 29, 30, 31, 32, 35]
 
 # rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION =~ /^2\.[34]/
