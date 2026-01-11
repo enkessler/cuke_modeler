@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'cucumber-gherkin', '< 38.0'
 
-  spec.add_development_dependency 'bundler', '< 3.0'
+  spec.add_development_dependency 'bundler', '< 5.0'
   spec.add_development_dependency 'childprocess', '< 6.0'
   # Cucumber 4.x is the earliest version to use the 'cucumber-gherkin' gem but some test configurations need to use
   # Cucumber 2.2.0 so that it uses the 'gherkin3' gem instead. Using any other Cucumber version <4.x aside from 2.2.0
