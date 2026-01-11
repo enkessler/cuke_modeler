@@ -192,10 +192,10 @@ RSpec.describe 'the gem' do
 
   describe 'dependencies' do
 
-    it 'works with Ruby 2 and 3' do
+    it 'works with Ruby 2 through 4' do
       ruby_version_limits = @gemspec.required_ruby_version.requirements.map(&:join)
 
-      expect(ruby_version_limits).to match_array(['>=2.3', '<4.0'])
+      expect(ruby_version_limits).to match_array(['>=2.3', '<5.0'])
     end
 
     it 'works with Gherkin 9-37' do

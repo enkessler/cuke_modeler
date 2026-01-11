@@ -34,7 +34,7 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2.3', '< 4.0'
+  spec.required_ruby_version = '>= 2.3', '< 5.0'
 
   spec.add_runtime_dependency 'cucumber-gherkin', '< 38.0'
 

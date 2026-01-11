@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Ruby 4.x is now supported
 - Support added for more versions of the `cucumber-gherkin` gem
     - 37.x
 
