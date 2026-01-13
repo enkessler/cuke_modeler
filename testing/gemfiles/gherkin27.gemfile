@@ -9,7 +9,12 @@ else
   gem 'cucumber', '>=4.0.0.rc.4'
 end
 
-# base64 gem stopped being included automatically after Ruby 3.4
-gem 'base64' if RUBY_VERSION =~ /^4\./
+if RUBY_VERSION =~ /^4\./
+  # base64 gem stopped being included automatically after Ruby 3.4
+  gem 'base64'
+
+  # win32ole gem stopped being included automatically after Ruby 4.0
+  gem 'win32ole' if RbConfig::CONFIG['host_os'].downcase =~ /mswin|msys|mingw32/
+end
 
 gem 'cucumber-gherkin', '~> 27.0'

@@ -2,7 +2,16 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
-# The minimum version of Cucumber that uses the `cucumber-gherkin` gem
-gem 'cucumber', '>=4.0.0.rc.4'
+if (RUBY_VERSION =~ /^2\./) || (RUBY_VERSION =~ /^3\.0/)
+  gem 'cucumber', '2.2.0' # No recent version of cucumber that supports Ruby < 3.1 and cucumber-gherkin 30
+else
+  # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+  gem 'cucumber', '>=4.0.0.rc.4'
+end
+
+if (RUBY_VERSION =~ /^4\./) && (RbConfig::CONFIG['host_os'].downcase =~ /mswin|msys|mingw32/)
+  # win32ole gem stopped being included automatically after Ruby 4.0
+  gem 'win32ole'
+end
 
 gem 'cucumber-gherkin', '~> 30.0'

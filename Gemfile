@@ -24,7 +24,11 @@ else
 end
 # rubocop:enable Bundler/DuplicatedGem
 
-# base64 gem stopped being included automatically after Ruby 3.4
-gem 'base64' if (RUBY_VERSION =~ /^4\./) && (gherkin_major_version_used == 27) # rubocop:disable Gemspec/DevelopmentDependencies
+if RUBY_VERSION =~ /^4\./
+  # base64 gem stopped being included automatically after Ruby 3.4
+  gem 'base64' if gherkin_major_version_used == 27 # rubocop:disable Gemspec/DevelopmentDependencies
+  # win32ole gem stopped being included automatically after Ruby 4.0
+  gem 'win32ole' if RbConfig::CONFIG['host_os'].downcase =~ /mswin|msys|mingw32/ # rubocop:disable Gemspec/DevelopmentDependencies
+end
 
 gem 'cucumber-gherkin', "~> #{gherkin_major_version_used}.0"
