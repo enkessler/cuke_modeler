@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 gemspec path: '../../'
 
-# Only versions of Cucumber that rely on the old `gherkin3` gem can be used
-# with versions of the gherkin gem for which there was never a cucumber release
-gem 'cucumber', '2.2.0'
+# The minimum version of Cucumber that uses the `cucumber-gherkin` gem
+gem 'cucumber', '>=4.0.0.rc.4'
 
 gem 'cucumber-gherkin', '~> 31.0'

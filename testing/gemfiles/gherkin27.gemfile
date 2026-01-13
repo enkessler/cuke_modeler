@@ -9,4 +9,7 @@ else
   gem 'cucumber', '>=4.0.0.rc.4'
 end
 
+# base64 gem stopped being included automatically after Ruby 3.4
+gem 'base64' if RUBY_VERSION =~ /^4\./
+
 gem 'cucumber-gherkin', '~> 27.0'

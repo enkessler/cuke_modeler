@@ -103,6 +103,48 @@ jobs:
           - ruby-version: 3.0
             gemfile: gherkin37
 
+          # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
+          - ruby-version: 4.0
+            gemfile: gherkin9
+          - ruby-version: 4.0
+            gemfile: gherkin10
+          - ruby-version: 4.0
+            gemfile: gherkin11
+          - ruby-version: 4.0
+            gemfile: gherkin12
+          - ruby-version: 4.0
+            gemfile: gherkin13
+          - ruby-version: 4.0
+            gemfile: gherkin14
+          - ruby-version: 4.0
+            gemfile: gherkin15
+          - ruby-version: 4.0
+            gemfile: gherkin16
+          - ruby-version: 4.0
+            gemfile: gherkin17
+          - ruby-version: 4.0
+            gemfile: gherkin18
+          - ruby-version: 4.0
+            gemfile: gherkin19
+          - ruby-version: 4.0
+            gemfile: gherkin20
+          - ruby-version: 4.0
+            gemfile: gherkin21
+          - ruby-version: 4.0
+            gemfile: gherkin22
+          - ruby-version: 4.0
+            gemfile: gherkin23
+          - ruby-version: 4.0
+            gemfile: gherkin24
+          - ruby-version: 4.0
+            gemfile: gherkin25
+          - ruby-version: 4.0
+            gemfile: gherkin26
+          - ruby-version: 4.0
+            gemfile: gherkin28
+          - ruby-version: 4.0
+            gemfile: gherkin29
+
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -397,6 +439,48 @@ jobs:
           - os: macos-latest
             ruby-version: jruby-9.3.4.0
 
+          # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
+          - ruby-version: 4.0
+            gemfile: gherkin9
+          - ruby-version: 4.0
+            gemfile: gherkin10
+          - ruby-version: 4.0
+            gemfile: gherkin11
+          - ruby-version: 4.0
+            gemfile: gherkin12
+          - ruby-version: 4.0
+            gemfile: gherkin13
+          - ruby-version: 4.0
+            gemfile: gherkin14
+          - ruby-version: 4.0
+            gemfile: gherkin15
+          - ruby-version: 4.0
+            gemfile: gherkin16
+          - ruby-version: 4.0
+            gemfile: gherkin17
+          - ruby-version: 4.0
+            gemfile: gherkin18
+          - ruby-version: 4.0
+            gemfile: gherkin19
+          - ruby-version: 4.0
+            gemfile: gherkin20
+          - ruby-version: 4.0
+            gemfile: gherkin21
+          - ruby-version: 4.0
+            gemfile: gherkin22
+          - ruby-version: 4.0
+            gemfile: gherkin23
+          - ruby-version: 4.0
+            gemfile: gherkin24
+          - ruby-version: 4.0
+            gemfile: gherkin25
+          - ruby-version: 4.0
+            gemfile: gherkin26
+          - ruby-version: 4.0
+            gemfile: gherkin28
+          - ruby-version: 4.0
+            gemfile: gherkin29
+
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
@@ -601,6 +685,48 @@ jobs:
             ruby-version: jruby-9.3.4.0
           - os: windows-latest
             ruby-version: jruby-9.4.12.0
+
+          # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
+          - ruby-version: 4.0
+            gemfile: gherkin9
+          - ruby-version: 4.0
+            gemfile: gherkin10
+          - ruby-version: 4.0
+            gemfile: gherkin11
+          - ruby-version: 4.0
+            gemfile: gherkin12
+          - ruby-version: 4.0
+            gemfile: gherkin13
+          - ruby-version: 4.0
+            gemfile: gherkin14
+          - ruby-version: 4.0
+            gemfile: gherkin15
+          - ruby-version: 4.0
+            gemfile: gherkin16
+          - ruby-version: 4.0
+            gemfile: gherkin17
+          - ruby-version: 4.0
+            gemfile: gherkin18
+          - ruby-version: 4.0
+            gemfile: gherkin19
+          - ruby-version: 4.0
+            gemfile: gherkin20
+          - ruby-version: 4.0
+            gemfile: gherkin21
+          - ruby-version: 4.0
+            gemfile: gherkin22
+          - ruby-version: 4.0
+            gemfile: gherkin23
+          - ruby-version: 4.0
+            gemfile: gherkin24
+          - ruby-version: 4.0
+            gemfile: gherkin25
+          - ruby-version: 4.0
+            gemfile: gherkin26
+          - ruby-version: 4.0
+            gemfile: gherkin28
+          - ruby-version: 4.0
+            gemfile: gherkin29
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps

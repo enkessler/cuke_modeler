@@ -5,7 +5,7 @@ gemspec
 
 
 gherkin_major_version_used = 37
-gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19, 21, 28, 29, 30, 31, 32, 35, 36]
+gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19, 21, 28, 29]
 
 # rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION =~ /^2\.[34]/
@@ -23,5 +23,8 @@ else
   gem 'cucumber', '>=4.0.0.rc.4' # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 end
 # rubocop:enable Bundler/DuplicatedGem
+
+# base64 gem stopped being included automatically after Ruby 3.4
+gem 'base64' if (RUBY_VERSION =~ /^4\./) && (gherkin_major_version_used == 27) # rubocop:disable Gemspec/DevelopmentDependencies
 
 gem 'cucumber-gherkin', "~> #{gherkin_major_version_used}.0"
