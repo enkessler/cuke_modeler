@@ -524,7 +524,7 @@ Nothing yet...
 [3.25.0]: https://github.com/enkessler/cuke_modeler/compare/v3.24.0...v3.25.0
 [3.24.0]: https://github.com/enkessler/cuke_modeler/compare/v3.23.0...v3.24.0
 [3.23.0]: https://github.com/enkessler/cuke_modeler/compare/v3.22.0...v3.23.0
-[3.22.0]: https://github.com/enkessler/cuke_modeler/compare/v3.21.1...v3.22.0
+[3.22.0]: https://github.com/enkessler/cuke_modeler/compare/v3.21.0...v3.22.0
 [3.21.0]: https://github.com/enkessler/cuke_modeler/compare/v3.20.1...v3.21.0
 [3.20.1]: https://github.com/enkessler/cuke_modeler/compare/v3.20.0...v3.20.1
 [3.20.0]: https://github.com/enkessler/cuke_modeler/compare/v3.19.0...v3.20.0
