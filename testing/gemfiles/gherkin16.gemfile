@@ -8,4 +8,5 @@ gem 'activesupport', '< 7.1' # API changes that (transitively) break this versio
 # with versions of the gherkin gem for which there was never a cucumber release
 gem 'cucumber', '2.2.0'
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 16.0'

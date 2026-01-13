@@ -6,4 +6,5 @@ gemspec path: '../../'
 # with versions of the gherkin gem for which there was never a cucumber release
 gem 'cucumber', '2.2.0'
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 28.0'

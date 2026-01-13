@@ -11,4 +11,5 @@ gem 'activesupport', '< 7.1' # API changes that (transitively) break this versio
 # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 gem 'cucumber', '>=4.0.0.rc.4'
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 10.0'

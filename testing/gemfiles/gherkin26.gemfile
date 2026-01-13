@@ -9,4 +9,5 @@ else
   gem 'cucumber', '>=4.0.0.rc.4'
 end
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 26.0'

@@ -27,4 +27,5 @@ else
 end
 
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 20.0'

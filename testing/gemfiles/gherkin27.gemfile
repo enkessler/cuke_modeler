@@ -17,4 +17,5 @@ if RUBY_VERSION =~ /^4\./
   gem 'win32ole' if RbConfig::CONFIG['host_os'].downcase =~ /mswin|msys|mingw32/
 end
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 27.0'

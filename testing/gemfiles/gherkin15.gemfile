@@ -21,4 +21,5 @@ else
   gem 'cucumber', '>=4.0.0.rc.4' # The minimum version of Cucumber that uses the `cucumber-gherkin` gem
 end
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 15.0'

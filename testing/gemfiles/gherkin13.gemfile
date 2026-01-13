@@ -23,4 +23,5 @@ gem 'activesupport', '< 7.1' # API changes that (transitively) break this versio
 # TODO: Go back to using the newer releases once they work on JRuby
 gem 'cucumber', '2.2.0'
 
+# The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 13.0'
