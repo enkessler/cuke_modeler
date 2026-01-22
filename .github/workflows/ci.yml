@@ -22,86 +22,52 @@ jobs:
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38 ]
         exclude:
           # Requires at least Ruby 2.5
-          - ruby-version: 2.3
-            gemfile: gherkin27
-          - ruby-version: 2.3
-            gemfile: gherkin28
+          - {ruby-version: 2.3, gemfile: gherkin27}
+          - {ruby-version: 2.3, gemfile: gherkin28}
+
           # Requires at least Ruby 3.0
-          - ruby-version: 2.3
-            gemfile: gherkin29
-          - ruby-version: 2.5
-            gemfile: gherkin29
-          - ruby-version: 2.7
-            gemfile: gherkin29
+          - {ruby-version: 2.3, gemfile: gherkin29}
+          - {ruby-version: 2.5, gemfile: gherkin29}
+          - {ruby-version: 2.7, gemfile: gherkin29}
 
-          - ruby-version: 2.3
-            gemfile: gherkin30
-          - ruby-version: 2.5
-            gemfile: gherkin30
-          - ruby-version: 2.7
-            gemfile: gherkin30
+          - {ruby-version: 2.3, gemfile: gherkin30}
+          - {ruby-version: 2.5, gemfile: gherkin30}
+          - {ruby-version: 2.7, gemfile: gherkin30}
 
-          - ruby-version: 2.3
-            gemfile: gherkin31
-          - ruby-version: 2.5
-            gemfile: gherkin31
-          - ruby-version: 2.7
-            gemfile: gherkin31
+          - {ruby-version: 2.3, gemfile: gherkin31}
+          - {ruby-version: 2.5, gemfile: gherkin31}
+          - {ruby-version: 2.7, gemfile: gherkin31}
 
           # Requires at least Ruby 3.2
-          - ruby-version: 2.3
-            gemfile: gherkin32
-          - ruby-version: 2.5
-            gemfile: gherkin32
-          - ruby-version: 2.7
-            gemfile: gherkin32
-          - ruby-version: 3.0
-            gemfile: gherkin32
+          - {ruby-version: 2.3, gemfile: gherkin32}
+          - {ruby-version: 2.5, gemfile: gherkin32}
+          - {ruby-version: 2.7, gemfile: gherkin32}
+          - {ruby-version: 3.0, gemfile: gherkin32}
 
-          - ruby-version: 2.3
-            gemfile: gherkin33
-          - ruby-version: 2.5
-            gemfile: gherkin33
-          - ruby-version: 2.7
-            gemfile: gherkin33
-          - ruby-version: 3.0
-            gemfile: gherkin33
+          - {ruby-version: 2.3, gemfile: gherkin33}
+          - {ruby-version: 2.5, gemfile: gherkin33}
+          - {ruby-version: 2.7, gemfile: gherkin33}
+          - {ruby-version: 3.0, gemfile: gherkin33}
 
-          - ruby-version: 2.3
-            gemfile: gherkin34
-          - ruby-version: 2.5
-            gemfile: gherkin34
-          - ruby-version: 2.7
-            gemfile: gherkin34
-          - ruby-version: 3.0
-            gemfile: gherkin34
+          - {ruby-version: 2.3, gemfile: gherkin34}
+          - {ruby-version: 2.5, gemfile: gherkin34}
+          - {ruby-version: 2.7, gemfile: gherkin34}
+          - {ruby-version: 3.0, gemfile: gherkin34}
 
-          - ruby-version: 2.3
-            gemfile: gherkin35
-          - ruby-version: 2.5
-            gemfile: gherkin35
-          - ruby-version: 2.7
-            gemfile: gherkin35
-          - ruby-version: 3.0
-            gemfile: gherkin35
+          - {ruby-version: 2.3, gemfile: gherkin35}
+          - {ruby-version: 2.5, gemfile: gherkin35}
+          - {ruby-version: 2.7, gemfile: gherkin35}
+          - {ruby-version: 3.0, gemfile: gherkin35}
 
-          - ruby-version: 2.3
-            gemfile: gherkin36
-          - ruby-version: 2.5
-            gemfile: gherkin36
-          - ruby-version: 2.7
-            gemfile: gherkin36
-          - ruby-version: 3.0
-            gemfile: gherkin36
+          - {ruby-version: 2.3, gemfile: gherkin36}
+          - {ruby-version: 2.5, gemfile: gherkin36}
+          - {ruby-version: 2.7, gemfile: gherkin36}
+          - {ruby-version: 3.0, gemfile: gherkin36}
 
-          - ruby-version: 2.3
-            gemfile: gherkin37
-          - ruby-version: 2.5
-            gemfile: gherkin37
-          - ruby-version: 2.7
-            gemfile: gherkin37
-          - ruby-version: 3.0
-            gemfile: gherkin37
+          - {ruby-version: 2.3, gemfile: gherkin37}
+          - {ruby-version: 2.5, gemfile: gherkin37}
+          - {ruby-version: 2.7, gemfile: gherkin37}
+          - {ruby-version: 3.0, gemfile: gherkin37}
 
           - {ruby-version: 2.3, gemfile: gherkin38}
           - {ruby-version: 2.5, gemfile: gherkin38}
@@ -109,46 +75,26 @@ jobs:
           - {ruby-version: 3.0, gemfile: gherkin38}
 
           # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
-          - ruby-version: 4.0
-            gemfile: gherkin9
-          - ruby-version: 4.0
-            gemfile: gherkin10
-          - ruby-version: 4.0
-            gemfile: gherkin11
-          - ruby-version: 4.0
-            gemfile: gherkin12
-          - ruby-version: 4.0
-            gemfile: gherkin13
-          - ruby-version: 4.0
-            gemfile: gherkin14
-          - ruby-version: 4.0
-            gemfile: gherkin15
-          - ruby-version: 4.0
-            gemfile: gherkin16
-          - ruby-version: 4.0
-            gemfile: gherkin17
-          - ruby-version: 4.0
-            gemfile: gherkin18
-          - ruby-version: 4.0
-            gemfile: gherkin19
-          - ruby-version: 4.0
-            gemfile: gherkin20
-          - ruby-version: 4.0
-            gemfile: gherkin21
-          - ruby-version: 4.0
-            gemfile: gherkin22
-          - ruby-version: 4.0
-            gemfile: gherkin23
-          - ruby-version: 4.0
-            gemfile: gherkin24
-          - ruby-version: 4.0
-            gemfile: gherkin25
-          - ruby-version: 4.0
-            gemfile: gherkin26
-          - ruby-version: 4.0
-            gemfile: gherkin28
-          - ruby-version: 4.0
-            gemfile: gherkin29
+          - {ruby-version: 4.0, gemfile: gherkin9}
+          - {ruby-version: 4.0, gemfile: gherkin10}
+          - {ruby-version: 4.0, gemfile: gherkin11}
+          - {ruby-version: 4.0, gemfile: gherkin12}
+          - {ruby-version: 4.0, gemfile: gherkin13}
+          - {ruby-version: 4.0, gemfile: gherkin14}
+          - {ruby-version: 4.0, gemfile: gherkin15}
+          - {ruby-version: 4.0, gemfile: gherkin16}
+          - {ruby-version: 4.0, gemfile: gherkin17}
+          - {ruby-version: 4.0, gemfile: gherkin18}
+          - {ruby-version: 4.0, gemfile: gherkin19}
+          - {ruby-version: 4.0, gemfile: gherkin20}
+          - {ruby-version: 4.0, gemfile: gherkin21}
+          - {ruby-version: 4.0, gemfile: gherkin22}
+          - {ruby-version: 4.0, gemfile: gherkin23}
+          - {ruby-version: 4.0, gemfile: gherkin24}
+          - {ruby-version: 4.0, gemfile: gherkin25}
+          - {ruby-version: 4.0, gemfile: gherkin26}
+          - {ruby-version: 4.0, gemfile: gherkin28}
+          - {ruby-version: 4.0, gemfile: gherkin29}
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
@@ -189,67 +135,43 @@ jobs:
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38 ]
         exclude:
           # Requires at least Ruby 2.5
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin27
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin28
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin27}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin28}
+
           # Requires at least Ruby 3.0
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin29
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin29
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin29}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin29}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin30
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin30
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin30}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin30}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin31
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin31
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin31}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin31}
+
           # Requires at least Ruby 3.2
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin32
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin32}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin33
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin33}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin34
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin34}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin35
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin35}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin36
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin36}
 
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin37
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin37}
 
           - {ruby-version: jruby-9.1.17.0, gemfile: gherkin38}
           - {ruby-version: jruby-9.3.4.0, gemfile: gherkin38}
@@ -295,138 +217,79 @@ jobs:
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38 ]
         exclude:
           # Requires at least Ruby 2.5
-          - ruby-version: 2.3
-            gemfile: gherkin27
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin27
-          - ruby-version: 2.3
-            gemfile: gherkin28
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin28
+          - {ruby-version: 2.3, gemfile: gherkin27}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin27}
+
+          - {ruby-version: 2.3, gemfile: gherkin28}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin28}
+
           # Requires at least Ruby 3.0
-          - ruby-version: 2.3
-            gemfile: gherkin29
-          - ruby-version: 2.5
-            gemfile: gherkin29
-          - ruby-version: 2.7
-            gemfile: gherkin29
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin29
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin29
+          - {ruby-version: 2.3, gemfile: gherkin29}
+          - {ruby-version: 2.5, gemfile: gherkin29}
+          - {ruby-version: 2.7, gemfile: gherkin29}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin29}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin29}
 
-          - ruby-version: 2.3
-            gemfile: gherkin30
-          - ruby-version: 2.5
-            gemfile: gherkin30
-          - ruby-version: 2.7
-            gemfile: gherkin30
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin30
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin30
+          - {ruby-version: 2.3, gemfile: gherkin30}
+          - {ruby-version: 2.5, gemfile: gherkin30}
+          - {ruby-version: 2.7, gemfile: gherkin30}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin30}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin30}
 
-          - ruby-version: 2.3
-            gemfile: gherkin31
-          - ruby-version: 2.5
-            gemfile: gherkin31
-          - ruby-version: 2.7
-            gemfile: gherkin31
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin31
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin31
+          - {ruby-version: 2.3, gemfile: gherkin31}
+          - {ruby-version: 2.5, gemfile: gherkin31}
+          - {ruby-version: 2.7, gemfile: gherkin31}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin31}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin31}
 
           # Requires at least Ruby 3.2
-          - ruby-version: 2.3
-            gemfile: gherkin32
-          - ruby-version: 2.5
-            gemfile: gherkin32
-          - ruby-version: 2.7
-            gemfile: gherkin32
-          - ruby-version: 3.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin32
+          - {ruby-version: 2.3, gemfile: gherkin32}
+          - {ruby-version: 2.5, gemfile: gherkin32}
+          - {ruby-version: 2.7, gemfile: gherkin32}
+          - {ruby-version: 3.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin32}
 
-          - ruby-version: 2.3
-            gemfile: gherkin33
-          - ruby-version: 2.5
-            gemfile: gherkin33
-          - ruby-version: 2.7
-            gemfile: gherkin33
-          - ruby-version: 3.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin33
+          - {ruby-version: 2.3, gemfile: gherkin33}
+          - {ruby-version: 2.5, gemfile: gherkin33}
+          - {ruby-version: 2.7, gemfile: gherkin33}
+          - {ruby-version: 3.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin33}
 
-          - ruby-version: 2.3
-            gemfile: gherkin34
-          - ruby-version: 2.5
-            gemfile: gherkin34
-          - ruby-version: 2.7
-            gemfile: gherkin34
-          - ruby-version: 3.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin34
+          - {ruby-version: 2.3, gemfile: gherkin34}
+          - {ruby-version: 2.5, gemfile: gherkin34}
+          - {ruby-version: 2.7, gemfile: gherkin34}
+          - {ruby-version: 3.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin34}
 
-          - ruby-version: 2.3
-            gemfile: gherkin35
-          - ruby-version: 2.5
-            gemfile: gherkin35
-          - ruby-version: 2.7
-            gemfile: gherkin35
-          - ruby-version: 3.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin35
+          - {ruby-version: 2.3, gemfile: gherkin35}
+          - {ruby-version: 2.5, gemfile: gherkin35}
+          - {ruby-version: 2.7, gemfile: gherkin35}
+          - {ruby-version: 3.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin35}
 
-          - ruby-version: 2.3
-            gemfile: gherkin36
-          - ruby-version: 2.5
-            gemfile: gherkin36
-          - ruby-version: 2.7
-            gemfile: gherkin36
-          - ruby-version: 3.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin36
+          - {ruby-version: 2.3, gemfile: gherkin36}
+          - {ruby-version: 2.5, gemfile: gherkin36}
+          - {ruby-version: 2.7, gemfile: gherkin36}
+          - {ruby-version: 3.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin36}
 
-          - ruby-version: 2.3
-            gemfile: gherkin37
-          - ruby-version: 2.5
-            gemfile: gherkin37
-          - ruby-version: 2.7
-            gemfile: gherkin37
-          - ruby-version: 3.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin37
+          - {ruby-version: 2.3, gemfile: gherkin37}
+          - {ruby-version: 2.5, gemfile: gherkin37}
+          - {ruby-version: 2.7, gemfile: gherkin37}
+          - {ruby-version: 3.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin37}
 
           - {ruby-version: 2.3, gemfile: gherkin38}
           - {ruby-version: 2.5, gemfile: gherkin38}
@@ -446,59 +309,36 @@ jobs:
 #            ruby-version: 2.7
 #          - os: macos-13
 #            ruby-version: 3.0
+
           # Older versions of Ruby (<2.6) need AMD, so they can only run on an older MacOS instead of the latest one
-          - os: macos-latest
-            ruby-version: 2.3
-          - os: macos-latest
-            ruby-version: 2.5
+          - {os: macos-latest, ruby-version: 2.3}
+          - {os: macos-latest, ruby-version: 2.5}
+
           # These JRuby versions are not available on MacOS 14 (which is currently the latest MacOS available), so they can only run on an older one
-          - os: macos-latest
-            ruby-version: jruby-9.1.17.0
-          - os: macos-latest
-            ruby-version: jruby-9.3.4.0
+          - {os: macos-latest, ruby-version: jruby-9.1.17.0}
+          - {os: macos-latest, ruby-version: jruby-9.3.4.0}
 
           # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
-          - ruby-version: 4.0
-            gemfile: gherkin9
-          - ruby-version: 4.0
-            gemfile: gherkin10
-          - ruby-version: 4.0
-            gemfile: gherkin11
-          - ruby-version: 4.0
-            gemfile: gherkin12
-          - ruby-version: 4.0
-            gemfile: gherkin13
-          - ruby-version: 4.0
-            gemfile: gherkin14
-          - ruby-version: 4.0
-            gemfile: gherkin15
-          - ruby-version: 4.0
-            gemfile: gherkin16
-          - ruby-version: 4.0
-            gemfile: gherkin17
-          - ruby-version: 4.0
-            gemfile: gherkin18
-          - ruby-version: 4.0
-            gemfile: gherkin19
-          - ruby-version: 4.0
-            gemfile: gherkin20
-          - ruby-version: 4.0
-            gemfile: gherkin21
-          - ruby-version: 4.0
-            gemfile: gherkin22
-          - ruby-version: 4.0
-            gemfile: gherkin23
-          - ruby-version: 4.0
-            gemfile: gherkin24
-          - ruby-version: 4.0
-            gemfile: gherkin25
-          - ruby-version: 4.0
-            gemfile: gherkin26
-          - ruby-version: 4.0
-            gemfile: gherkin28
-          - ruby-version: 4.0
-            gemfile: gherkin29
-
+          - {ruby-version: 4.0, gemfile: gherkin9}
+          - {ruby-version: 4.0, gemfile: gherkin10}
+          - {ruby-version: 4.0, gemfile: gherkin11}
+          - {ruby-version: 4.0, gemfile: gherkin12}
+          - {ruby-version: 4.0, gemfile: gherkin13}
+          - {ruby-version: 4.0, gemfile: gherkin14}
+          - {ruby-version: 4.0, gemfile: gherkin15}
+          - {ruby-version: 4.0, gemfile: gherkin16}
+          - {ruby-version: 4.0, gemfile: gherkin17}
+          - {ruby-version: 4.0, gemfile: gherkin18}
+          - {ruby-version: 4.0, gemfile: gherkin19}
+          - {ruby-version: 4.0, gemfile: gherkin20}
+          - {ruby-version: 4.0, gemfile: gherkin21}
+          - {ruby-version: 4.0, gemfile: gherkin22}
+          - {ruby-version: 4.0, gemfile: gherkin23}
+          - {ruby-version: 4.0, gemfile: gherkin24}
+          - {ruby-version: 4.0, gemfile: gherkin25}
+          - {ruby-version: 4.0, gemfile: gherkin26}
+          - {ruby-version: 4.0, gemfile: gherkin28}
+          - {ruby-version: 4.0, gemfile: gherkin29}
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
@@ -537,138 +377,78 @@ jobs:
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38 ]
         exclude:
           # Requires at least Ruby 2.5
-          - ruby-version: 2.3
-            gemfile: gherkin27
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin27
-          - ruby-version: 2.3
-            gemfile: gherkin28
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin28
+          - {ruby-version: 2.3, gemfile: gherkin27}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin27}
+          - {ruby-version: 2.3, gemfile: gherkin28}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin28}
+
           # Requires at least Ruby 3.0
-          - ruby-version: 2.3
-            gemfile: gherkin29
-          - ruby-version: 2.5
-            gemfile: gherkin29
-          - ruby-version: 2.7
-            gemfile: gherkin29
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin29
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin29
+          - {ruby-version: 2.3, gemfile: gherkin29}
+          - {ruby-version: 2.5, gemfile: gherkin29}
+          - {ruby-version: 2.7, gemfile: gherkin29}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin29}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin29}
 
-          - ruby-version: 2.3
-            gemfile: gherkin30
-          - ruby-version: 2.5
-            gemfile: gherkin30
-          - ruby-version: 2.7
-            gemfile: gherkin30
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin30
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin30
+          - {ruby-version: 2.3, gemfile: gherkin30}
+          - {ruby-version: 2.5, gemfile: gherkin30}
+          - {ruby-version: 2.7, gemfile: gherkin30}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin30}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin30}
 
-          - ruby-version: 2.3
-            gemfile: gherkin31
-          - ruby-version: 2.5
-            gemfile: gherkin31
-          - ruby-version: 2.7
-            gemfile: gherkin31
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin31
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin31
+          - {ruby-version: 2.3, gemfile: gherkin31}
+          - {ruby-version: 2.5, gemfile: gherkin31}
+          - {ruby-version: 2.7, gemfile: gherkin31}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin31}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin31}
 
           # Requires at least Ruby 3.2
-          - ruby-version: 2.3
-            gemfile: gherkin32
-          - ruby-version: 2.5
-            gemfile: gherkin32
-          - ruby-version: 2.7
-            gemfile: gherkin32
-          - ruby-version: 3.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin32
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin32
+          - {ruby-version: 2.3, gemfile: gherkin32}
+          - {ruby-version: 2.5, gemfile: gherkin32}
+          - {ruby-version: 2.7, gemfile: gherkin32}
+          - {ruby-version: 3.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin32}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin32}
 
-          - ruby-version: 2.3
-            gemfile: gherkin33
-          - ruby-version: 2.5
-            gemfile: gherkin33
-          - ruby-version: 2.7
-            gemfile: gherkin33
-          - ruby-version: 3.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin33
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin33
+          - {ruby-version: 2.3, gemfile: gherkin33}
+          - {ruby-version: 2.5, gemfile: gherkin33}
+          - {ruby-version: 2.7, gemfile: gherkin33}
+          - {ruby-version: 3.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin33}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin33}
 
-          - ruby-version: 2.3
-            gemfile: gherkin34
-          - ruby-version: 2.5
-            gemfile: gherkin34
-          - ruby-version: 2.7
-            gemfile: gherkin34
-          - ruby-version: 3.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin34
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin34
+          - {ruby-version: 2.3, gemfile: gherkin34}
+          - {ruby-version: 2.5, gemfile: gherkin34}
+          - {ruby-version: 2.7, gemfile: gherkin34}
+          - {ruby-version: 3.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin34}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin34}
 
-          - ruby-version: 2.3
-            gemfile: gherkin35
-          - ruby-version: 2.5
-            gemfile: gherkin35
-          - ruby-version: 2.7
-            gemfile: gherkin35
-          - ruby-version: 3.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin35
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin35
+          - {ruby-version: 2.3, gemfile: gherkin35}
+          - {ruby-version: 2.5, gemfile: gherkin35}
+          - {ruby-version: 2.7, gemfile: gherkin35}
+          - {ruby-version: 3.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin35}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin35}
 
-          - ruby-version: 2.3
-            gemfile: gherkin36
-          - ruby-version: 2.5
-            gemfile: gherkin36
-          - ruby-version: 2.7
-            gemfile: gherkin36
-          - ruby-version: 3.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin36
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin36
+          - {ruby-version: 2.3, gemfile: gherkin36}
+          - {ruby-version: 2.5, gemfile: gherkin36}
+          - {ruby-version: 2.7, gemfile: gherkin36}
+          - {ruby-version: 3.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin36}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin36}
 
-          - ruby-version: 2.3
-            gemfile: gherkin37
-          - ruby-version: 2.5
-            gemfile: gherkin37
-          - ruby-version: 2.7
-            gemfile: gherkin37
-          - ruby-version: 3.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.1.17.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.3.4.0
-            gemfile: gherkin37
-          - ruby-version: jruby-9.4.12.0
-            gemfile: gherkin37
+          - {ruby-version: 2.3, gemfile: gherkin37}
+          - {ruby-version: 2.5, gemfile: gherkin37}
+          - {ruby-version: 2.7, gemfile: gherkin37}
+          - {ruby-version: 3.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin37}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin37}
 
           - {ruby-version: 2.3, gemfile: gherkin38}
           - {ruby-version: 2.5, gemfile: gherkin38}
@@ -682,77 +462,43 @@ jobs:
           # combinations, given the other combinations that are being tested.
 
           # Problems building FFI native extensions during gem installation
-          - os: windows-latest
-            ruby-version: '2.3'
+          - {os: windows-latest, ruby-version: '2.3'}
 
           # Hitting some kind of JRuby/Windows/ruby-setup/who knows bug
-          - os: windows-latest
-            ruby-version: jruby-9.1.17.0
+          - {os: windows-latest, ruby-version: jruby-9.1.17.0}
 
           # Hits some kind of Java bug
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-            gemfile: gherkin23
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-            gemfile: gherkin22
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-            gemfile: gherkin20
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-            gemfile: gherkin18
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-            gemfile: gherkin15
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0, gemfile: gherkin15}
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0, gemfile: gherkin18}
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0, gemfile: gherkin20}
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0, gemfile: gherkin22}
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0, gemfile: gherkin23}
 
           # JRuby failing to return child process ids
-          - os: windows-latest
-            ruby-version: jruby-9.3.4.0
-          - os: windows-latest
-            ruby-version: jruby-9.4.12.0
+          - {os: windows-latest, ruby-version: jruby-9.3.4.0}
+          - {os: windows-latest, ruby-version: jruby-9.4.12.0}
 
           # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
-          - ruby-version: 4.0
-            gemfile: gherkin9
-          - ruby-version: 4.0
-            gemfile: gherkin10
-          - ruby-version: 4.0
-            gemfile: gherkin11
-          - ruby-version: 4.0
-            gemfile: gherkin12
-          - ruby-version: 4.0
-            gemfile: gherkin13
-          - ruby-version: 4.0
-            gemfile: gherkin14
-          - ruby-version: 4.0
-            gemfile: gherkin15
-          - ruby-version: 4.0
-            gemfile: gherkin16
-          - ruby-version: 4.0
-            gemfile: gherkin17
-          - ruby-version: 4.0
-            gemfile: gherkin18
-          - ruby-version: 4.0
-            gemfile: gherkin19
-          - ruby-version: 4.0
-            gemfile: gherkin20
-          - ruby-version: 4.0
-            gemfile: gherkin21
-          - ruby-version: 4.0
-            gemfile: gherkin22
-          - ruby-version: 4.0
-            gemfile: gherkin23
-          - ruby-version: 4.0
-            gemfile: gherkin24
-          - ruby-version: 4.0
-            gemfile: gherkin25
-          - ruby-version: 4.0
-            gemfile: gherkin26
-          - ruby-version: 4.0
-            gemfile: gherkin28
-          - ruby-version: 4.0
-            gemfile: gherkin29
+          - {ruby-version: 4.0, gemfile: gherkin9}
+          - {ruby-version: 4.0, gemfile: gherkin10}
+          - {ruby-version: 4.0, gemfile: gherkin11}
+          - {ruby-version: 4.0, gemfile: gherkin12}
+          - {ruby-version: 4.0, gemfile: gherkin13}
+          - {ruby-version: 4.0, gemfile: gherkin14}
+          - {ruby-version: 4.0, gemfile: gherkin15}
+          - {ruby-version: 4.0, gemfile: gherkin16}
+          - {ruby-version: 4.0, gemfile: gherkin17}
+          - {ruby-version: 4.0, gemfile: gherkin18}
+          - {ruby-version: 4.0, gemfile: gherkin19}
+          - {ruby-version: 4.0, gemfile: gherkin20}
+          - {ruby-version: 4.0, gemfile: gherkin21}
+          - {ruby-version: 4.0, gemfile: gherkin22}
+          - {ruby-version: 4.0, gemfile: gherkin23}
+          - {ruby-version: 4.0, gemfile: gherkin24}
+          - {ruby-version: 4.0, gemfile: gherkin25}
+          - {ruby-version: 4.0, gemfile: gherkin26}
+          - {ruby-version: 4.0, gemfile: gherkin28}
+          - {ruby-version: 4.0, gemfile: gherkin29}
 
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
