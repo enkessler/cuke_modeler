@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.3', '< 5.0'
 
-  spec.add_runtime_dependency 'cucumber-gherkin', '< 38.0'
+  spec.add_runtime_dependency 'cucumber-gherkin', '< 39.0'
 
   spec.add_development_dependency 'base64', '< 1.0' # Needed for Gherkin 27, Ruby 4.x only
   spec.add_development_dependency 'bundler', '< 5.0'
