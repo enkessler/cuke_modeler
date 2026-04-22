@@ -4,7 +4,7 @@ require_relative '../../../../../environments/rspec_env'
 RSpec.describe 'Feature, Integration' do
 
   # Rules became taggable in Gherkin 18
-  let(:gherkin_versions_with_untagged_rules) { (9..17) }
+  let(:gherkin_versions_with_untagged_rules) { 9..17 }
 
   let(:clazz) { CukeModeler::Feature }
   let(:feature) { clazz.new }

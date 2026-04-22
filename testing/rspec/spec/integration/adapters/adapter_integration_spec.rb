@@ -9,7 +9,7 @@ RSpec.describe 'Adapter, Integration' do
   describe 'parsing data' do
 
     # Rules became taggable in Gherkin 18
-    let(:gherkin_versions_with_untagged_rules) { (9..17) }
+    let(:gherkin_versions_with_untagged_rules) { 9..17 }
 
     # Essentially, maximum viable Gherkin of any significance that can be in a feature file
     let(:source_text) do

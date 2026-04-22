@@ -57,7 +57,7 @@ module CukeModeler
     #
     # @return [Array<Scenario>] Child Scenario models
     def scenarios
-      @tests.select { |test| test.is_a? Scenario }
+      @tests.grep(Scenario)
     end
 
     # Returns the outline models contained in the rule.
@@ -67,7 +67,7 @@ module CukeModeler
     #
     # @return [Array<Outline>] Child Outline models
     def outlines
-      @tests.select { |test| test.is_a? Outline }
+      @tests.grep(Outline)
     end
 
     # Returns the model objects that are children of this model. For a

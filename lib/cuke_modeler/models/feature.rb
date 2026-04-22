@@ -63,7 +63,7 @@ module CukeModeler
     #
     # @return [Array<Scenario>] Child Scenario models
     def scenarios
-      @tests.select { |test| test.is_a? Scenario }
+      @tests.grep(Scenario)
     end
 
     # Returns the outline models contained in the feature.
@@ -73,7 +73,7 @@ module CukeModeler
     #
     # @return [Array<Outline>] Child Outline models
     def outlines
-      @tests.select { |test| test.is_a? Outline }
+      @tests.grep(Outline)
     end
 
     # TODO: Remove this and other deprecated methods on next major version release
