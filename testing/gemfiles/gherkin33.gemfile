@@ -10,5 +10,8 @@ if (RUBY_VERSION =~ /^4\./) && (RbConfig::CONFIG['host_os'].downcase =~ /mswin|m
   gem 'win32ole'
 end
 
+# Version 19 introduces a bug which is only fixed in Cucumber 11, which can not use Gherkin < 37
+gem 'cucumber-cucumber-expressions', '<19'
+
 # The version of Gherkin being tested
 gem 'cucumber-gherkin', '~> 33.0'
