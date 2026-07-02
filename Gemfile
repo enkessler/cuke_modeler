@@ -3,9 +3,11 @@ source 'http://rubygems.org'
 # Specify your gem's dependencies in cuke_modeler.gemspec
 gemspec
 
+require_relative 'cuke_modeler_project_settings'
 
-gherkin_major_version_used = 40
-gherkin_major_versions_without_cucumber_support = [9, 11, 12, 16, 17, 19, 21, 28, 29, 40]
+gherkin_major_version_used = ENV['GHERKIN_MAJOR_VERSION_USED'].to_i
+gherkin_major_versions_without_cucumber_support = ENV['GHERKIN_MAJOR_VERSIONS_WITHOUT_CUCUMBER_SUPPORT'].split(',')
+                                                                                                        .map(&:to_i)
 
 # rubocop:disable Bundler/DuplicatedGem
 if RUBY_VERSION =~ /^2\.[34]/
