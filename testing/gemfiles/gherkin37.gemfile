@@ -11,4 +11,5 @@ if (RUBY_VERSION =~ /^4\./) && (RbConfig::CONFIG['host_os'].downcase =~ /mswin|m
 end
 
 # The version of Gherkin being tested
+ENV['GHERKIN_MAJOR_VERSION_USED'] = '37'
 gem 'cucumber-gherkin', '~> 37.0'

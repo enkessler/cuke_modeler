@@ -10,4 +10,5 @@ else
 end
 
 # The version of Gherkin being tested
+ENV['GHERKIN_MAJOR_VERSION_USED'] = '26'
 gem 'cucumber-gherkin', '~> 26.0'

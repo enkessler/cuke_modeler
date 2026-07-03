@@ -12,4 +12,5 @@ gem 'activesupport', '< 7.1' # API changes that (transitively) break this versio
 gem 'cucumber', '>=4.0.0.rc.4'
 
 # The version of Gherkin being tested
+ENV['GHERKIN_MAJOR_VERSION_USED'] = '10'
 gem 'cucumber-gherkin', '~> 10.0'

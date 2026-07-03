@@ -14,4 +14,5 @@ end
 gem 'cucumber-cucumber-expressions', '<19'
 
 # The version of Gherkin being tested
+ENV['GHERKIN_MAJOR_VERSION_USED'] = '32'
 gem 'cucumber-gherkin', '~> 32.0'
