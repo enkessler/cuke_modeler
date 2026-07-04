@@ -13,5 +13,4 @@ gem 'cucumber', '2.2.0'
 
 
 # The version of Gherkin being tested
-ENV['GHERKIN_MAJOR_VERSION_USED'] = '14'
 gem 'cucumber-gherkin', '~> 14.0'

@@ -7,5 +7,4 @@ gemspec path: '../../'
 gem 'cucumber', '2.2.0'
 
 # The version of Gherkin being tested
-ENV['GHERKIN_MAJOR_VERSION_USED'] = '28'
 gem 'cucumber-gherkin', '~> 28.0'

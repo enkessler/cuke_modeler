@@ -13,7 +13,7 @@ namespace 'cuke_modeler' do # rubocop:disable Metrics/BlockLength -- Namespaces 
 
   desc 'Run all of the Cucumber tests'
   task :run_cucumber_tests => [:clear_old_results] do # rubocop:disable Style/HashSyntax
-    current_version = ENV['GHERKIN_MAJOR_VERSION_USED'].to_i
+    current_version = CukeModeler::CukeModelerHelper.major_version_of('cucumber-gherkin')
     unsupported_versions = ENV['GHERKIN_MAJOR_VERSIONS_WITHOUT_CUCUMBER_SUPPORT'].split(',').map(&:to_i)
 
     # The `cucumber` gem does not support all major versions of the `cucumber-gherkin` gem. The Cucumber tests
