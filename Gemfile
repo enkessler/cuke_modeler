@@ -5,7 +5,7 @@ gemspec
 
 require_relative 'cuke_modeler_project_settings'
 
-gherkin_major_version_used = 41
+gherkin_major_version_used = 42
 gherkin_major_versions_without_cucumber_support = ENV['GHERKIN_MAJOR_VERSIONS_WITHOUT_CUCUMBER_SUPPORT'].split(',')
                                                                                                         .map(&:to_i)
 

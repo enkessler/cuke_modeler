@@ -20,7 +20,7 @@ jobs:
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
                    gherkin27, gherkin28, gherkin29, gherkin30, gherkin31, gherkin32,
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38,
-                   gherkin39, gherkin40, gherkin41]
+                   gherkin39, gherkin40, gherkin41, gherkin42]
         exclude:
           # Requires at least Ruby 2.5
           - {ruby-version: 2.3, gemfile: gherkin27}
@@ -89,6 +89,12 @@ jobs:
           - {ruby-version: 2.5, gemfile: gherkin41}
           - {ruby-version: 2.7, gemfile: gherkin41}
           - {ruby-version: 3.0, gemfile: gherkin41}
+
+          # Requires at least Ruby 3.3
+          - {ruby-version: 2.3, gemfile: gherkin42}
+          - {ruby-version: 2.5, gemfile: gherkin42}
+          - {ruby-version: 2.7, gemfile: gherkin42}
+          - {ruby-version: 3.0, gemfile: gherkin42}
 
           # Requires older version of Cucumber to run, none of which work with Ruby 4.x without extensive monkey patching
           - {ruby-version: 4.0, gemfile: gherkin9}
@@ -149,7 +155,7 @@ jobs:
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
                    gherkin27, gherkin28, gherkin29, gherkin30, gherkin31, gherkin32,
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38,
-                   gherkin39, gherkin40, gherkin41]
+                   gherkin39, gherkin40, gherkin41, gherkin42]
         exclude:
           # Requires at least Ruby 2.5
           - {ruby-version: jruby-9.1.17.0, gemfile: gherkin27}
@@ -206,6 +212,11 @@ jobs:
           - {ruby-version: jruby-9.3.4.0, gemfile: gherkin41}
           - {ruby-version: jruby-9.4.12.0, gemfile: gherkin41}
 
+          # Requires at least Ruby 3.3
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin42}
+
     runs-on: ${{ matrix.os }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: testing/gemfiles/${{ matrix.gemfile }}.gemfile
@@ -244,7 +255,7 @@ jobs:
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
                    gherkin27, gherkin28, gherkin29, gherkin30, gherkin31, gherkin32,
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38,
-                   gherkin39, gherkin40, gherkin41]
+                   gherkin39, gherkin40, gherkin41, gherkin42]
         exclude:
           # Requires at least Ruby 2.5
           - {ruby-version: 2.3, gemfile: gherkin27}
@@ -352,6 +363,15 @@ jobs:
           - {ruby-version: jruby-9.1.17.0, gemfile: gherkin41}
           - {ruby-version: jruby-9.3.4.0, gemfile: gherkin41}
           - {ruby-version: jruby-9.4.12.0, gemfile: gherkin41}
+
+          # Requires at least Ruby 3.3
+          - {ruby-version: 2.3, gemfile: gherkin42}
+          - {ruby-version: 2.5, gemfile: gherkin42}
+          - {ruby-version: 2.7, gemfile: gherkin42}
+          - {ruby-version: 3.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin42}
 
           # Note: GitHub Actions 'include' can't override any matrix values. It can only add them. So an exhaustive
           # list of exclusions has to be used instead if we want to work with just one job matrix.
@@ -428,7 +448,7 @@ jobs:
                    gherkin21, gherkin22, gherkin23, gherkin24, gherkin25, gherkin26,
                    gherkin27, gherkin28, gherkin29, gherkin30, gherkin31, gherkin32,
                    gherkin33, gherkin34, gherkin35, gherkin36, gherkin37, gherkin38,
-                   gherkin39, gherkin40, gherkin41]
+                   gherkin39, gherkin40, gherkin41, gherkin42]
         exclude:
           # Requires at least Ruby 2.5
           - {ruby-version: 2.3, gemfile: gherkin27}
@@ -535,6 +555,15 @@ jobs:
           - {ruby-version: jruby-9.1.17.0, gemfile: gherkin41}
           - {ruby-version: jruby-9.3.4.0, gemfile: gherkin41}
           - {ruby-version: jruby-9.4.12.0, gemfile: gherkin41}
+
+          # Requires at least Ruby 3.3
+          - {ruby-version: 2.3, gemfile: gherkin42}
+          - {ruby-version: 2.5, gemfile: gherkin42}
+          - {ruby-version: 2.7, gemfile: gherkin42}
+          - {ruby-version: 3.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.1.17.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.3.4.0, gemfile: gherkin42}
+          - {ruby-version: jruby-9.4.12.0, gemfile: gherkin42}
 
           # Just not worth it to get these working and no additional and meaningful proof is provided by these
           # combinations, given the other combinations that are being tested.

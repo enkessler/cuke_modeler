@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-Nothing yet...
-
+- Support added for more versions of the `cucumber-gherkin` gem
+    - 42.x
 
 ## [3.30.0] - 2026-07-04
 
